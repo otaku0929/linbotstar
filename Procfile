@@ -1,1 +1,1 @@
-web gunicorn otakustar:app
+web gunicorn app:app
