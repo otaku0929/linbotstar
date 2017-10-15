@@ -225,6 +225,39 @@ def ptt_beauty():
         content += data
     return content
 
+def ptt_Stupid():
+    rs = requests.session()
+    res = rs.get('https://www.ptt.cc/bbs/StupidClown/index.html', verify=False)
+    soup = BeautifulSoup(res.text, 'html.parser')
+    all_page_url = soup.select('.btn.wide')[1]['href']
+    start_page = get_page_number(all_page_url)
+    page_term = 2  # crawler count
+    push_rate = 30  # 推文
+    index_list = []
+    article_list = []
+    for page in range(start_page, start_page - page_term, -1):
+        page_url = 'https://www.ptt.cc/bbs/StupidClown/index{}.html'.format(page)
+        index_list.append(page_url)
+
+    # 抓取 文章標題 網址 推文數
+    while index_list:
+        index = index_list.pop(0)
+        res = rs.get(index, verify=False)
+        # 如網頁忙線中,則先將網頁加入 index_list 並休息1秒後再連接
+        if res.status_code != 200:
+            index_list.append(index)
+            # print u'error_URL:',index
+            # time.sleep(1)
+        else:
+            article_list = craw_page(res, push_rate)
+            # print u'OK_URL:', index
+            # time.sleep(0.05)
+    content = ''
+    for article in article_list:
+        data = '[{} push] {}\n{}\n\n'.format(article.get('rate', None), article.get('title', None),
+                                             article.get('url', None))
+        content += data
+    return content
 
 def ptt_hot():
     target_url = 'http://disp.cc/b/PttHot'
@@ -335,7 +368,7 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token, image_message)
         return 0
-    if event.message.text == "近期熱門廢文":
+    if event.message.text == "PTT廢文":
         content = ptt_hot()
         line_bot_api.reply_message(
             event.reply_token,
@@ -343,6 +376,12 @@ def handle_message(event):
         return 0
     if event.message.text == "即時廢文":
         content = ptt_gossiping()
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=content))
+        return 0
+    if event.message.text == "PTT笨版":
+        content = ptt_Stupid()
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=content))
@@ -450,12 +489,16 @@ def handle_message(event):
                 actions=[
                     MessageTemplateAction(
                         label='近期熱門廢文',
-                        text='近期熱門廢文'
+                        text='PTT廢文'
                     ),
                     MessageTemplateAction(
                         label='即時廢文',
                         text='即時廢文'
                     )
+                     MessageTemplateAction(
+                        label='熱門笨文',
+                        text='PTT笨版'
+                    ) 
                 ]
             )
         )
