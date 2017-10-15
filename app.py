@@ -494,8 +494,8 @@ def handle_message(event):
                     MessageTemplateAction(
                         label='即時廢文',
                         text='即時廢文'
-                    )
-                     MessageTemplateAction(
+                    ),
+                     MessageTemplteAction(
                         label='熱門笨文',
                         text='PTT笨版'
                     ) 
