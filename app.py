@@ -424,7 +424,7 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=content))
         return 0
-    if event.message.text == "yt":
+    if event.message.text == "聽歌":
         content = yt()
         line_bot_api.reply_message(
             event.reply_token,
@@ -502,7 +502,7 @@ def handle_message(event):
                     ),
                     MessageTemplateAction(
                         label='youtube最新音樂',
-                        text='yt'
+                        text='聽歌'
                     )
                 ]
             )
