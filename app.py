@@ -325,9 +325,9 @@ def panx():
 
 def yt():
     target_url = "https://www.youtube.com/playlist?list=PLFgquLnL59alOwE-wZfEygqgABT2yRD9V"
-    request = requests.get(url)
-    content = request.content
-    soup = BeautifulSoup(content, "html.parser")
+    request = requests.get(target_url)
+    urlcontent = request.content
+    soup = BeautifulSoup(urlcontent, "html.parser")
     content = ""
     for index, all_mv in enumerate(soup.select("td.pl-video-title"),0):
         if index == 10:
@@ -335,7 +335,7 @@ def yt():
         data = all_mv.select("a[dir='ltr']")
         url =  ("https://www.youtube.com{}".format(data[0].get("href")))
         content += url
-    return content
+        return content
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
