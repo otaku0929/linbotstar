@@ -311,7 +311,7 @@ def handle_message(event):
         content = ptt_beauty()
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=content))PTT表特
+            TextSendMessage(text=content))
         return 0
     if event.message.text == "來張 imgur 正妹圖片":
         client = ImgurClient(client_id, client_secret)
