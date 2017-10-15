@@ -232,7 +232,7 @@ def ptt_Stupid():
     all_page_url = soup.select('.btn.wide')[1]['href']
     start_page = get_page_number(all_page_url)
     page_term = 2  # crawler count
-    push_rate = 30  # 推文
+    push_rate = 10  # 推文
     index_list = []
     article_list = []
     for page in range(start_page, start_page - page_term, -1):
