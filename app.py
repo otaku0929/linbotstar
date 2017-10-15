@@ -324,18 +324,25 @@ def panx():
     return content
 
 def yt():
-    target_url = "https://www.youtube.com/playlist?list=PLFgquLnL59alOwE-wZfEygqgABT2yRD9V"
-    request = requests.get(target_url)
-    urlcontent = request.content
-    soup = BeautifulSoup(urlcontent, "html.parser")
+
+    url = "https://www.youtube.com/channel/UC-9-kyTW8ZkZNDHQJ6FgpwQ/featured"
+    request = requests.get(url)
+    ytcontent = request.content
+    soup = BeautifulSoup(ytcontent, "html.parser")
+   
     content = ""
-    for index, all_mv in enumerate(soup.select("td.pl-video-title"),0):
-        if index == 10:
-            return content
-        data = all_mv.select("a[dir='ltr']")
-        url =  ("https://www.youtube.com{}".format(data[0].get("href")))
-        content += url
-        return content
+       
+    for count in range(1,6):
+        list=""
+        all_mv = soup.select("h3.yt-lockup-title a[dir='ltr']")
+        for index, data in enumerate(all_mv):
+            if index == random.randint(1,110):
+                return(list)
+            url="https://www.youtube.com{}".format(data.get("href"))
+            title=format(data.get("title"))
+            list = '{}\n{}\n\n'.format(title, url)        
+        count += 1
+    content += list
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
