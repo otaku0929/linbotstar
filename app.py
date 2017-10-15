@@ -82,7 +82,7 @@ def apple_news():
     soup = BeautifulSoup(res.text, 'html.parser')
     content = ""
     for index, data in enumerate(soup.select('.rtddt a'), 0):
-        if index == 10:
+        if index == 15:
             return content
         if head in data['href']:
             link = data['href']
@@ -284,7 +284,7 @@ def movie():
     soup = BeautifulSoup(res.text, 'html.parser')
     content = ""
     for index, data in enumerate(soup.select('ul.filmNextListAll a')):
-        if index == 20:
+        if index == 10:
             return content
         title = data.text.replace('\t', '').replace('\r', '')
         link = "http://www.atmovies.com.tw" + data['href']
@@ -323,6 +323,19 @@ def panx():
         content += '{}\n{}\n\n'.format(title, link)
     return content
 
+def yt():
+    target_url = "https://www.youtube.com/playlist?list=PLFgquLnL59alOwE-wZfEygqgABT2yRD9V"
+    request = requests.get(url)
+    content = request.content
+    soup = BeautifulSoup(content, "html.parser")
+    content = ""
+    for index, all_mv in enumerate(soup.select("td.pl-video-title"),0):
+        if index == 10:
+            return content
+        data = all_mv.select("a[dir='ltr']")
+        url =  ("https://www.youtube.com{}".format(data[0].get("href")))
+        content += url
+    return content
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
@@ -404,6 +417,12 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=content))
         return 0
+    if event.message.text == "yt":
+        content = yt()
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=content))
+        return 0
     if event.message.text == "一閃一閃亮晶晶":
         buttons_template = TemplateSendMessage(
             alt_text='開始玩 template',
@@ -474,6 +493,10 @@ def handle_message(event):
                         label='eyny',
                         text='eyny'
                     )
+                    MessageTemplateAction(
+                        label='youtube最新音樂',
+                        text='yt'
+                    )
                 ]
             )
         )
@@ -528,3 +551,4 @@ def handle_message(event):
 
 if __name__ == '__main__':
     app.run()
+
