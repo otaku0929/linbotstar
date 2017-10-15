@@ -82,7 +82,7 @@ def apple_news():
     soup = BeautifulSoup(res.text, 'html.parser')
     content = ""
     for index, data in enumerate(soup.select('.rtddt a'), 0):
-        if index == 15:
+        if index == 10:
             return content
         if head in data['href']:
             link = data['href']
@@ -284,7 +284,7 @@ def movie():
     soup = BeautifulSoup(res.text, 'html.parser')
     content = ""
     for index, data in enumerate(soup.select('ul.filmNextListAll a')):
-        if index == 10:
+        if index == 20:
             return content
         title = data.text.replace('\t', '').replace('\r', '')
         link = "http://www.atmovies.com.tw" + data['href']
