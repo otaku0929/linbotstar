@@ -307,11 +307,11 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=content))
         return 0
-    if event.message.text == "PTT 表特版 近期大於 10 推的文章":
+    if event.message.text == "PTT表特":
         content = ptt_beauty()
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=content))
+            TextSendMessage(text=content))PTT表特
         return 0
     if event.message.text == "來張 imgur 正妹圖片":
         client = ImgurClient(client_id, client_secret)
@@ -347,7 +347,7 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=content))
         return 0
-    if event.message.text == "近期上映電影":
+    if event.message.text == "看電影":
         content = movie()
         line_bot_api.reply_message(
             event.reply_token,
@@ -365,7 +365,7 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=content))
         return 0
-    if event.message.text == "開始玩":
+    if event.message.text == "一閃一閃亮晶晶":
         buttons_template = TemplateSendMessage(
             alt_text='開始玩 template',
             template=ButtonsTemplate(
@@ -429,7 +429,7 @@ def handle_message(event):
                 actions=[
                     MessageTemplateAction(
                         label='近期上映電影',
-                        text='近期上映電影'
+                        text='看電影'
                     ),
                     MessageTemplateAction(
                         label='eyny',
@@ -471,7 +471,7 @@ def handle_message(event):
                 actions=[
                     MessageTemplateAction(
                         label='PTT 表特版 近期大於 10 推的文章',
-                        text='PTT 表特版 近期大於 10 推的文章'
+                        text='PTT表特'
                     ),
                     MessageTemplateAction(
                         label='隨便來張正妹圖片',
