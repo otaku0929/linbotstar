@@ -492,7 +492,7 @@ def handle_message(event):
                     MessageTemplateAction(
                         label='eyny',
                         text='eyny'
-                    )
+                    ),
                     MessageTemplateAction(
                         label='youtube最新音樂',
                         text='yt'
