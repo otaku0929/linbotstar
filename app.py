@@ -325,7 +325,7 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token, image_message)
         return 0
-    if event.message.text == "隨便來張正妹圖片":
+    if event.message.text == "抽":
         image = requests.get(API_Get_Image)
         url = image.json().get('Url')
         image_message = ImageSendMessage(
@@ -474,12 +474,8 @@ def handle_message(event):
                         text='PTT 表特版 近期大於 10 推的文章'
                     ),
                     MessageTemplateAction(
-                        label='來張 imgur 正妹圖片',
-                        text='來張 imgur 正妹圖片'
-                    ),
-                    MessageTemplateAction(
                         label='隨便來張正妹圖片',
-                        text='隨便來張正妹圖片'
+                        text='抽'
                     )
                 ]
             )
@@ -497,18 +493,6 @@ def handle_message(event):
                 MessageTemplateAction(
                     label='開始玩',
                     text='開始玩'
-                ),
-                URITemplateAction(
-                    label='影片介紹 阿肥bot',
-                    uri='https://youtu.be/1IxtWgWxtlE'
-                ),
-                URITemplateAction(
-                    label='如何建立自己的 Line Bot',
-                    uri='https://github.com/twtrubiks/line-bot-tutorial'
-                ),
-                URITemplateAction(
-                    label='聯絡作者',
-                    uri='https://www.facebook.com/TWTRubiks?ref=bookmarks'
                 )
             ]
         )
