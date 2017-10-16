@@ -325,20 +325,23 @@ def panx():
 
 def yt():
 
-    url = "https://www.youtube.com/channel/UC-9-kyTW8ZkZNDHQJ6FgpwQ/featured"
+    url = "https://www.youtube.com/feed/trending"
     request = requests.get(url)
     ytcontent = request.content
     soup = BeautifulSoup(ytcontent, "html.parser")
-   
+    
     content = ""
-    list = ""  
-    all_mv = soup.select("h3.yt-lockup-title a[dir='ltr']")
-    for index, data in enumerate(all_mv):
-        if index == random.randint(1,115):               
-            url="https://www.youtube.com{}".format(data.get("href"))
-            title=format(data.get("title"))
-            list = '{}\n{}\n\n'.format(title, url)
-    content += list
+    ytlist = ""
+    
+    all_mv = soup.select("a[class='yt-uix-tile-link yt-ui-ellipsis yt-ui-ellipsis-2 yt-uix-sessionlink spf-link ']")
+    random.shuffle(all_mv)
+    randomfivemv = all_mv[0:5]
+    
+    for data in randomfivemv:
+        url="https://www.youtube.com{}".format(data.get("href"))
+        title=format(data.get("title"))
+        ytlist = '{}\n{}\n\n'.format(title, url)  
+        content += ytlist
     
     return(content)
 
