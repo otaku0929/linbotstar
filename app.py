@@ -331,7 +331,7 @@ def yt():
     soup = BeautifulSoup(ytcontent, "html.parser")
    
     content = ""
-      
+    list = ""  
     all_mv = soup.select("h3.yt-lockup-title a[dir='ltr']")
     for index, data in enumerate(all_mv):
         if index == random.randint(1,115):               
