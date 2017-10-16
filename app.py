@@ -325,28 +325,27 @@ def panx():
 
 def yt():
 
-    url = "https://www.youtube.com/feed/trending"
+    url = "https://www.youtube.com/channel/UC-9-kyTW8ZkZNDHQJ6FgpwQ/featured"
     request = requests.get(url)
     ytcontent = request.content
     soup = BeautifulSoup(ytcontent, "html.parser")
-    
+   
     content = ""
-    ytlist = ""
-    
-    all_mv = soup.select("a[class='yt-uix-tile-link yt-ui-ellipsis yt-ui-ellipsis-2 yt-uix-sessionlink spf-link ']")
+    ytlist= ""   
+
+    all_mv = soup.select("h3.yt-lockup-title a[dir='ltr']")
     random.shuffle(all_mv)
-    randomfivemv = all_mv[0:5]
-    
+    randomfivemv = all_mv[0:3]
+
     for data in randomfivemv:
         url="https://www.youtube.com{}".format(data.get("href"))
         title=format(data.get("title"))
         ytlist = '{}\n{}\n\n'.format(title, url)  
         content += ytlist
+    return content
     
-    return(content)
-
 def yt_hot():
-
+    
     url = "https://www.youtube.com/feed/trending"
     request = requests.get(url)
     ytcontent = request.content
@@ -357,15 +356,14 @@ def yt_hot():
     
     all_mv = soup.select("a[class='yt-uix-tile-link yt-ui-ellipsis yt-ui-ellipsis-2 yt-uix-sessionlink spf-link ']")
     random.shuffle(all_mv)
-    randomfivemv = all_mv[0:5]
+    randomfivemv = all_mv[0:3]
     
     for data in randomfivemv:
         url="https://www.youtube.com{}".format(data.get("href"))
         title=format(data.get("title"))
         ytlist = '{}\n{}\n\n'.format(title, url)  
         content += ytlist
-    
-    return(content)
+    return content
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
