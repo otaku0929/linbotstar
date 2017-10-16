@@ -353,10 +353,10 @@ def yt_hot():
     list = ""
     x = 0
        
-    for count in range(1,6):      
+    for count in range(1,2):      
         all_mv = soup.select("a[class='yt-uix-tile-link yt-ui-ellipsis yt-ui-ellipsis-2 yt-uix-sessionlink spf-link ']")
         for index, data in enumerate(all_mv):
-            i = random.randint(1,45)
+            i = random.randint(1,10)
  
             if i == x:
                print(i)
