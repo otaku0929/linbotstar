@@ -443,12 +443,12 @@ def handle_message(event):
                         text='新聞'
                     ),
                     MessageTemplateAction(
-                        label='電影',
-                        text='電影'
+                        label='電影音樂',
+                        text='電影音樂'
                     ),
                     MessageTemplateAction(
-                        label='看廢文',
-                        text='看廢文'
+                        label='PTT文章',
+                        text='PTT文章'
                     ),
                     MessageTemplateAction(
                         label='正妹',
@@ -484,9 +484,9 @@ def handle_message(event):
         )
         line_bot_api.reply_message(event.reply_token, buttons_template)
         return 0
-    if event.message.text == "電影":
+    if event.message.text == "電影音樂":
         buttons_template = TemplateSendMessage(
-            alt_text='電影 template',
+            alt_text='電影音樂 template',
             template=ButtonsTemplate(
                 title='服務類型',
                 text='請選擇',
@@ -501,7 +501,7 @@ def handle_message(event):
                         text='eyny'
                     ),
                     MessageTemplateAction(
-                        label='youtube最新音樂',
+                        label='youtube隨機流行樂',
                         text='聽歌'
                     )
                 ]
@@ -509,11 +509,11 @@ def handle_message(event):
         )
         line_bot_api.reply_message(event.reply_token, buttons_template)
         return 0
-    if event.message.text == "看廢文":
+    if event.message.text == "PTT文章":
         buttons_template = TemplateSendMessage(
-            alt_text='看廢文 template',
+            alt_text='PTT文章 template',
             template=ButtonsTemplate(
-                title='你媽知道你在看廢文嗎',
+                title='耍廢還是耍笨',
                 text='請選擇',
                 thumbnail_image_url='https://i.imgur.com/ocmxAdS.jpg',
                 actions=[
