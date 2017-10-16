@@ -447,8 +447,8 @@ def handle_message(event):
                         text='電影音樂'
                     ),
                     MessageTemplateAction(
-                        label='PTT文章',
-                        text='PTT文章'
+                        label='PTT看版',
+                        text='PTT看版'
                     ),
                     MessageTemplateAction(
                         label='正妹',
@@ -509,9 +509,9 @@ def handle_message(event):
         )
         line_bot_api.reply_message(event.reply_token, buttons_template)
         return 0
-    if event.message.text == "PTT文章":
+    if event.message.text == "PTT看版":
         buttons_template = TemplateSendMessage(
-            alt_text='PTT文章 template',
+            alt_text='PTT看版 template',
             template=ButtonsTemplate(
                 title='耍廢還是耍笨',
                 text='請選擇',
@@ -525,7 +525,7 @@ def handle_message(event):
                         label='即時廢文',
                         text='即時廢文'
                     ),
-                     MessageTemplteAction(
+                     MessageTemplateAction(
                         label='熱門笨文',
                         text='PTT笨版'
                     ) 
