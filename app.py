@@ -331,18 +331,16 @@ def yt():
     soup = BeautifulSoup(ytcontent, "html.parser")
    
     content = ""
-       
-    for count in range(1,6):
-        list=""
-        all_mv = soup.select("h3.yt-lockup-title a[dir='ltr']")
-        for index, data in enumerate(all_mv):
-            if index == random.randint(1,110):
-                return(list)
+      
+    all_mv = soup.select("h3.yt-lockup-title a[dir='ltr']")
+    for index, data in enumerate(all_mv):
+        if index == random.randint(1,115):               
             url="https://www.youtube.com{}".format(data.get("href"))
             title=format(data.get("title"))
-            list = '{}\n{}\n\n'.format(title, url)        
-        count += 1
+            list = '{}\n{}\n\n'.format(title, url)
     content += list
+    
+    return(content)
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
