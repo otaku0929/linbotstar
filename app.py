@@ -346,7 +346,7 @@ def yt():
     
 def yt_hot():
     
-    url = "https://www.youtube.com/feed/trending"
+    url = "https://www.youtube.com/feed/trending#loc0=twn"
     request = requests.get(url)
     ytcontent = request.content
     soup = BeautifulSoup(ytcontent, "html.parser")
