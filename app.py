@@ -342,6 +342,39 @@ def yt():
     
     return(content)
 
+def yt_hot():
+
+    url = "https://www.youtube.com/feed/trending"
+    request = requests.get(url)
+    ytcontent = request.content
+    soup = BeautifulSoup(ytcontent, "html.parser")
+   
+    content = ""
+    list = ""
+    x = 0
+       
+    for count in range(1,6):      
+        all_mv = soup.select("a[class='yt-uix-tile-link yt-ui-ellipsis yt-ui-ellipsis-2 yt-uix-sessionlink spf-link ']")
+        for index, data in enumerate(all_mv):
+            i = random.randint(1,45)
+ 
+            if i == x:
+               print(i)
+               print(x)
+               break
+            else:
+                if index == i:
+                   break              
+                else:
+                    url="https://www.youtube.com{}".format(data.get("href"))
+                    title=format(data.get("title"))
+                    list = '{}\n{}\n\n'.format(title, url)
+                    x = index
+        content += list
+        count += 1
+    
+    return(content)
+
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     print("event.reply_token:", event.reply_token)
@@ -428,6 +461,12 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=content))
         return 0
+    if event.message.text == "youtube熱門":
+        content = yt_hot()
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=content))
+        return 0    
     if event.message.text == "一閃一閃亮晶晶":
         buttons_template = TemplateSendMessage(
             alt_text='開始玩 template',
@@ -499,8 +538,12 @@ def handle_message(event):
                         text='eyny'
                     ),
                     MessageTemplateAction(
-                        label='youtube隨機流行樂',
+                        label='youtube隨選流行音樂',
                         text='聽歌'
+                    ),
+                    MessageTemplateAction(
+                        label='youtube隨選熱門影片',
+                        text='youtube熱門'
                     )
                 ]
             )
