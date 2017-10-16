@@ -351,30 +351,19 @@ def yt_hot():
     request = requests.get(url)
     ytcontent = request.content
     soup = BeautifulSoup(ytcontent, "html.parser")
-   
+    
     content = ""
-    list = ""
-    x = 0
-       
-    for count in range(1,2):      
-        all_mv = soup.select("a[class='yt-uix-tile-link yt-ui-ellipsis yt-ui-ellipsis-2 yt-uix-sessionlink spf-link ']")
-        for index, data in enumerate(all_mv):
-            i = random.randint(1,10)
- 
-            if i == x:
-               print(i)
-               print(x)
-               break
-            else:
-                if index == i:
-                   break              
-                else:
-                    url="https://www.youtube.com{}".format(data.get("href"))
-                    title=format(data.get("title"))
-                    list = '{}\n{}\n\n'.format(title, url)
-                    x = index
-        content += list
-        count += 1
+    ytlist = ""
+    
+    all_mv = soup.select("a[class='yt-uix-tile-link yt-ui-ellipsis yt-ui-ellipsis-2 yt-uix-sessionlink spf-link ']")
+    random.shuffle(all_mv)
+    randomfivemv = all_mv[0:5]
+    
+    for data in randomfivemv:
+        url="https://www.youtube.com{}".format(data.get("href"))
+        title=format(data.get("title"))
+        ytlist = '{}\n{}\n\n'.format(title, url)  
+        content += ytlist
     
     return(content)
 
