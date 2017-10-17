@@ -275,12 +275,7 @@ def ptt_hot():
 
 
 def movie():
-    target_url = 'https://tw.movies.yahoo.com/movie_intheaters.html'
-    request = requests.get(target_url)
-    moviecontent = request.content
-    soup = BeautifulSoup(moviecontent, 'html.parser')
     page_list = []
-    #movie_list = []
     alist = []
     content = ""
     for page in range(1,6):
@@ -302,8 +297,9 @@ def movie():
         else:
             title = format(data.get("data-ga")[20:].strip("]"))
             url = format(data.get("href"))
-            img = data.select('img')[0]['src']
-            content += '{}\n{}\n{}\n\n'.format(title,url,img)
+            #img = data.select('img')[0]['src']
+            #content += '{}\n{}\n{}\n'.format(title,url,img)
+            content += '{}\n{}\n'.format(title,url)
 
     return content
     
@@ -315,7 +311,6 @@ def ymovie_content(res):
     alist = soup.select("div.release_foto a[class='gabtn']")
     
     return alist
-
 
 def technews():
     target_url = 'https://technews.tw/'
