@@ -190,7 +190,6 @@ def ptt_gossiping():
         content += data
     return content
 
-
 def ptt_beauty():
     rs = requests.session()
     res = rs.get('https://www.ptt.cc/bbs/Beauty/index.html', verify=False)
@@ -276,20 +275,46 @@ def ptt_hot():
 
 
 def movie():
-    target_url = 'http://www.atmovies.com.tw/movie/next/0/'
-    print('Start parsing movie ...')
-    rs = requests.session()
-    res = rs.get(target_url, verify=False)
-    res.encoding = 'utf-8'
-    soup = BeautifulSoup(res.text, 'html.parser')
+    target_url = 'https://tw.movies.yahoo.com/movie_intheaters.html'
+    request = requests.get(target_url)
+    moviecontent = request.content
+    soup = BeautifulSoup(moviecontent, 'html.parser')
+    page_list = []
+    #movie_list = []
+    alist = []
     content = ""
-    for index, data in enumerate(soup.select('ul.filmNextListAll a')):
-        if index == 10:
+    for page in range(1,6):
+        page_url = 'http://tw.movies.yahoo.com/movie_intheaters.html?page={}'.format(page)
+        page_list.append(page_url)
+
+    while page_list:
+        index = page_list.pop(0)
+        res = requests.get(index)
+        movie_list=(ymovie_content(res))
+        for movie in movie_list:
+            alist.append(movie)
+
+    random.shuffle(alist)
+
+    for index, data in enumerate(alist):
+        if index == 3:
             return content
-        title = data.text.replace('\t', '').replace('\r', '')
-        link = "http://www.atmovies.com.tw" + data['href']
-        content += '{}\n{}\n'.format(title, link)
+        else:
+            title = format(data.get("data-ga")[20:].strip("]"))
+            url = format(data.get("href"))
+            img = data.select('img')[0]['src']
+            content += '{}\n{}\n{}\n\n'.format(title,url,img)
+
     return content
+    
+def ymovie_content(res):
+    #rescontent = res.content
+    soup = BeautifulSoup(res.content,'html.parser')
+    
+    content = ""
+    alist = soup.select("div.release_foto a[class='gabtn']")
+    
+    return alist
 
 
 def technews():
