@@ -628,7 +628,7 @@ def handle_message(event):
                      MessageTemplateAction(
                         label='隨便來張鮮肉圖片',
                         text='抽鮮肉'
-                    )
+                    ),
                     MessageTemplateAction(
                         label='隨便來張正妹圖片',
                         text='抽'
