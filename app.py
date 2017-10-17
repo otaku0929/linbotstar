@@ -275,31 +275,25 @@ def ptt_hot():
 
 
 def movie():
-    page_list = []
     alist = []
-    content = ""
-    for page in range(1,6):
+    for page in range(1,3):#collect movies from 5 page
         page_url = 'http://tw.movies.yahoo.com/movie_intheaters.html?page={}'.format(page)
-        page_list.append(page_url)
-
-    while page_list:
-        index = page_list.pop(0)
-        res = requests.get(index)
-        movie_list=(ymovie_content(res))
+        res = requests.get(page_url)
+        movie_list = ymovie_content(res)
         for movie in movie_list:
-            alist.append(movie)
-
+            alist.append(movie)        
+    
+    #select 3 mobvies from 5 page
     random.shuffle(alist)
+    randommovie = alist[0:3]
 
-    for index, data in enumerate(alist):
-        if index == 3:
-            return content
-        else:
-            title = format(data.get("data-ga")[20:].strip("]"))
-            url = format(data.get("href"))
-            #img = data.select('img')[0]['src']
-            #content += '{}\n{}\n{}\n'.format(title,url,img)
-            content += '{}\n{}\n'.format(title,url)
+    #export movie information 
+    content = ""
+    for data in randommovie:
+        title = format(data.get("data-ga")[20:].strip("]"))
+        url = format(data.get("href"))
+        #img = data.select('img')[0]['src']
+        content += '院線電影{}\n{}\n\n'.format(title,url)
 
     return content
     
