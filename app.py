@@ -309,7 +309,7 @@ def movie_new():
     
     #select 3 mobvies from 5 page
     random.shuffle(alist)
-    randommovie = alist[0:6]
+    randommovie = alist[0:3]
 
     #export movie information 
     content = ""
