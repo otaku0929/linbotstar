@@ -296,6 +296,30 @@ def movie():
         content += '院線電影{}\n{}\n\n'.format(title,url)
 
     return content
+
+def movie_new():
+
+    alist = []
+    for page in range(1,2):#collect movies from 5 page
+        page_url = 'https://tw.movies.yahoo.com/movie_thisweek.html?page={}'.format(page)
+        res = requests.get(page_url)
+        movie_list = ymovie_content(res)
+        for movie in movie_list:
+            alist.append(movie)        
+    
+    #select 3 mobvies from 5 page
+    random.shuffle(alist)
+    randommovie = alist[0:6]
+
+    #export movie information 
+    content = ""
+    for data in randommovie:
+        title = format(data.get("data-ga")[23:].strip("]"))
+        url = format(data.get("href"))
+        #img = data.select('img')[0]['src']
+        content += '本週上映{}\n{}\n\n'.format(title,url)
+
+    return content
     
 def ymovie_content(res):
     #rescontent = res.content
@@ -354,7 +378,7 @@ def yt():
     for data in randomfivemv:
         url="https://www.youtube.com{}".format(data.get("href"))
         title=format(data.get("title"))
-        ytlist = '{}\n{}\n\n'.format(title, url)  
+        ytlist = 'YOUTUBE流行精選{}\n{}\n\n'.format(title, url)  
         content += ytlist
     return content
     
@@ -375,7 +399,7 @@ def yt_hot():
     for data in randomfivemv:
         url="https://www.youtube.com{}".format(data.get("href"))
         title=format(data.get("title"))
-        ytlist = '{}\n{}\n\n'.format(title, url)  
+        ytlist = 'YOUTUBE熱門影片{}\n{}\n\n'.format(title, url)  
         content += ytlist
     return content
 
@@ -389,7 +413,7 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=content))
         return 0
-    if event.message.text == "蘋果即時新聞":
+    if event.message.text == "蘋果新聞":
         content = apple_news()
         line_bot_api.reply_message(
             event.reply_token,
@@ -443,6 +467,12 @@ def handle_message(event):
         return 0
     if event.message.text == "看電影":
         content = movie()
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=content))
+        return 0
+    if event.message.text == "本週新片":
+        content = movie_new()
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=content))
@@ -510,7 +540,7 @@ def handle_message(event):
                 actions=[
                     MessageTemplateAction(
                         label='蘋果即時新聞',
-                        text='蘋果即時新聞'
+                        text='蘋果新聞'
                     ),
                     MessageTemplateAction(
                         label='科技新報',
@@ -534,8 +564,12 @@ def handle_message(event):
                 thumbnail_image_url='https://i.imgur.com/sbOTJt4.png',
                 actions=[
                     MessageTemplateAction(
-                        label='近期上映電影',
+                        label='上映中電影精選',
                         text='看電影'
+                    ),
+                    MessageTemplateAction(
+                        label='本週上映電影精選',
+                        text='本週上映'
                     ),
                     MessageTemplateAction(
                         label='eyny',
