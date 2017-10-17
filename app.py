@@ -425,8 +425,8 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=content))
         return 0
-    if event.message.text == "來張 imgur 正妹圖片":
-        client = ImgurClient(client_id, client_secret)
+    if event.message.text == "抽鮮肉":
+        client = ImgurClient(33ed33e765afedc, 04f0d5531b1d0978ff97fd990554c899e9e7e1f5)
         images = client.get_album_images(album_id)
         index = random.randint(0, len(images) - 1)
         url = images[index].link
@@ -625,6 +625,10 @@ def handle_message(event):
                         label='PTT 表特版 近期大於 10 推的文章',
                         text='PTT表特'
                     ),
+                     MessageTemplateAction(
+                        label='隨便來張鮮肉圖片',
+                        text='抽鮮肉'
+                    )
                     MessageTemplateAction(
                         label='隨便來張正妹圖片',
                         text='抽'
