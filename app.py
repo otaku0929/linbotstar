@@ -82,7 +82,7 @@ def apple_news():
     soup = BeautifulSoup(res.text, 'html.parser')
     content = ""
     for index, data in enumerate(soup.select('.rtddt a'), 0):
-        if index == 15:
+        if index == 7:
             return content
         if head in data['href']:
             link = data['href']
@@ -196,7 +196,7 @@ def ptt_beauty():
     soup = BeautifulSoup(res.text, 'html.parser')
     all_page_url = soup.select('.btn.wide')[1]['href']
     start_page = get_page_number(all_page_url)
-    page_term = 2  # crawler count
+    page_term = 3  # crawler count
     push_rate = 10  # 推文
     index_list = []
     article_list = []
@@ -230,7 +230,7 @@ def ptt_Stupid():
     soup = BeautifulSoup(res.text, 'html.parser')
     all_page_url = soup.select('.btn.wide')[1]['href']
     start_page = get_page_number(all_page_url)
-    page_term = 2  # crawler count
+    page_term = 3  # crawler count
     push_rate = 10  # 推文
     index_list = []
     article_list = []
