@@ -471,7 +471,7 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=content))
         return 0
-    if event.message.text == "本週上抰":
+    if event.message.text == "本週上映":
         content = movie_new()
         line_bot_api.reply_message(
             event.reply_token,
