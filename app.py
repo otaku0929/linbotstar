@@ -514,12 +514,6 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token, image_message)
         return 0
-    if event.message.text == "抽歡歌":
-        content = pick17sing()
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=content))
-        return 0
     if event.message.text == "一閃一閃亮晶晶":
         buttons_template = TemplateSendMessage(
             alt_text='開始玩 template',
