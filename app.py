@@ -478,7 +478,7 @@ def handle_message(event):
         imageg = requests.get(API_Get_Image)
         urlg = imageg.json().get('Url')
         
-        url = random.choice(urlb,urlg)
+        url = random.choice([urlb,urlg,urlg])
         
         image_message = ImageSendMessage(
             original_content_url=url,
