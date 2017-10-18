@@ -514,8 +514,12 @@ def handle_message(event):
                         text='新聞'
                     ),
                     MessageTemplateAction(
-                        label='電影音樂',
-                        text='電影音樂'
+                        label='電影',
+                        text='電影'
+                    ),
+                    MessageTemplateAction(
+                        label='Youtube',
+                        text='Youtube'
                     ),
                     MessageTemplateAction(
                         label='PTT看版',
@@ -555,9 +559,9 @@ def handle_message(event):
         )
         line_bot_api.reply_message(event.reply_token, buttons_template)
         return 0
-    if event.message.text == "電影音樂":
+    if event.message.text == "電影":
         buttons_template = TemplateSendMessage(
-            alt_text='電影音樂 template',
+            alt_text='電影 template',
             template=ButtonsTemplate(
                 title='服務類型',
                 text='請選擇',
@@ -574,7 +578,20 @@ def handle_message(event):
                     MessageTemplateAction(
                         label='eyny',
                         text='eyny'
-                    ),
+                    )
+                ]
+            )
+        )
+        line_bot_api.reply_message(event.reply_token, buttons_template)
+        return 0
+    if event.message.text == "Youtube":
+        buttons_template = TemplateSendMessage(
+            alt_text='Youtube template',
+            template=ButtonsTemplate(
+                title='服務類型',
+                text='請選擇',
+                thumbnail_image_url='https://i.imgur.com/sbOTJt4.png',
+                actions=[
                     MessageTemplateAction(
                         label='youtube隨選流行音樂',
                         text='聽歌'
@@ -586,6 +603,7 @@ def handle_message(event):
                 ]
             )
         )
+
         line_bot_api.reply_message(event.reply_token, buttons_template)
         return 0
     if event.message.text == "PTT看版":
