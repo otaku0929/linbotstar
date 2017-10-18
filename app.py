@@ -532,12 +532,9 @@ def handle_message(event):
         return 0
     if event.message.text == "抽歡歌":
         content = pick17sing()
-        image_message = ImageSendMessage(
-           original_content_url=content,
-           preview_image_url=content
-        )
         line_bot_api.reply_message(
-            event.reply_token,image_message)
+            event.reply_token,
+            TextSendMessage(text=content))
         return 0
 
     if event.message.text == "一閃一閃亮晶晶":
