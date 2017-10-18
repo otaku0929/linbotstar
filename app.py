@@ -471,8 +471,8 @@ def handle_message(event):
     if event.message.text == "抽抽":
         
         client = ImgurClient('33ed33e765afedc', '04f0d5531b1d0978ff97fd990554c899e9e7e1f5')
-        imagesb = client.get_album_images('9eQni')
-        index = random.randint(0, len(imagesb) - 1)
+        images = client.get_album_images('9eQni')
+        index = random.randint(0, len(images) - 1)
         urlb = images[index].link
         
         imageg = requests.get(API_Get_Image)
