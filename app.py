@@ -404,22 +404,6 @@ def yt_hot():
         content += ytlist
     return content
 
-def pick17sing():
-    for i in range(10):
-        songid  = "%08d" % random.randint(0,1e8)
-        prefixlink  = 'http://17sing.tw/share_song/index.html?sid='
-        link = prefixlink + songid
-        
-        oplink = urllib2.urlopen(link)
-        soup = BeautifulSoup(oplink, 'html.parser')
-        songinfo = soup.find("meta",{"property":"og:description"})
-        songcontext = songinfo.attrs["content"]
-        if len(songcontext) > 0 :
-            return link
-        else:
-            pass
-    return "Try again!"
-
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     print("event.reply_token:", event.reply_token)
