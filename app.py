@@ -549,7 +549,7 @@ def handle_message(event):
         )
         line_bot_api.reply_message(event.reply_token,image_message)
         return 0
-    if event.message.text == "蘋果新聞":
+    if event.message.text == "幹":
         content = fuck()
         line_bot_api.reply_message(
             event.reply_token,
