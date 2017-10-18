@@ -514,8 +514,8 @@ def handle_message(event):
                         text='新聞'
                     ),
                     MessageTemplateAction(
-                        label='電影音樂',
-                        text='電影音樂'
+                        label='電影',
+                        text='電影'
                     ),
                     MessageTemplateAction(
                         label='PTT看版',
@@ -555,7 +555,7 @@ def handle_message(event):
         )
         line_bot_api.reply_message(event.reply_token, buttons_template)
         return 0
-    if event.message.text == "電影音樂":
+    if event.message.text == "電影":
         buttons_template = TemplateSendMessage(
             alt_text='電影音樂 template',
             template=ButtonsTemplate(
