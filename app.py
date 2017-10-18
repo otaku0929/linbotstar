@@ -547,7 +547,7 @@ def handle_message(event):
         return 0
     if event.message.txt == "幹":
         alist = ['喵喵~','汪汪~','咩~','啊嘶~','噓~好孩子不說這個','講~f~u~c~k~才有英特內訊NO'] 
-        content = random.choice(a)
+        content = format(random.choice(a))
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))        
         return 0
     if event.message.text == "一閃一閃亮晶晶":
