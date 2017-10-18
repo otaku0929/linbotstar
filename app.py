@@ -549,9 +549,11 @@ def handle_message(event):
         )
         line_bot_api.reply_message(event.reply_token,image_message)
         return 0
-    if event.message.txt == "幹":
+    if event.message.text == "蘋果新聞":
         content = fuck()
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))        
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=content))
         return 0
     if event.message.text == "一閃一閃亮晶晶":
         buttons_template = TemplateSendMessage(
