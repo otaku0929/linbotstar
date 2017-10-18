@@ -2,6 +2,7 @@ import requests
 import re
 import random
 import configparser
+import urllib.request
 from bs4 import BeautifulSoup
 from flask import Flask, request, abort
 from imgurpython import ImgurClient
@@ -403,6 +404,22 @@ def yt_hot():
         content += ytlist
     return content
 
+def pick17sing():
+    for i in range(10):
+        songid  = "%08d" % random.randint(0,1e8)
+        prefixlink  = 'http://17sing.tw/share_song/index.html?sid='
+        link = prefixlink + songid
+        
+        oplink = urllib.request.urlopen(link)
+        soup = BeautifulSoup(oplink, 'html.parser')
+        songinfo = soup.find("meta",{"property":"og:description"})
+        songcontext = songinfo.attrs["content"]
+        if len(songcontext) > 0 :
+            return link
+        else:
+            pass
+    return "Try again!"
+
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     print("event.reply_token:", event.reply_token)
@@ -512,6 +529,12 @@ def handle_message(event):
         )
         line_bot_api.reply_message(
             event.reply_token, image_message)
+        return 0
+    if event.message.text == "抽歡歌":
+        content = pick17sing()
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=content))
         return 0
     if event.message.text == "一閃一閃亮晶晶":
         buttons_template = TemplateSendMessage(
