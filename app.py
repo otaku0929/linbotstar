@@ -536,7 +536,16 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=content))
         return 0
-
+    if event.message.text == "get17":
+        url = pick17sing()
+        img
+        image_message=ImageSendMessage(
+           original_content_url=url
+           preview_image_url=url
+        )
+        line_bot_api.reply_message(
+            event.reply_token,image_message)
+        return 0
     if event.message.text == "一閃一閃亮晶晶":
         buttons_template = TemplateSendMessage(
             alt_text='開始玩 template',
