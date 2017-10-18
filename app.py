@@ -510,10 +510,6 @@ def handle_message(event):
                 thumbnail_image_url='https://i.imgur.com/xQF5dZT.jpg',
                 actions=[
                     MessageTemplateAction(
-                        label='新聞',
-                        text='新聞'
-                    ),
-                    MessageTemplateAction(
                         label='電影',
                         text='電影'
                     ),
