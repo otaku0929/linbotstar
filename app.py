@@ -458,7 +458,7 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token, image_message)
         return 0
-    if event.message.text == "抽":
+    if event.message.text == "抽正妹":
         image = requests.get(API_Get_Image)
         url = image.json().get('Url')
         image_message = ImageSendMessage(
@@ -468,7 +468,7 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token, image_message)
         return 0
-    if event.message.text == "抽抽":
+    if event.message.text == "抽":
         
         client = ImgurClient('33ed33e765afedc', '04f0d5531b1d0978ff97fd990554c899e9e7e1f5')
         images = client.get_album_images('9eQni')
@@ -739,7 +739,7 @@ def handle_message(event):
                     ),
                     MessageTemplateAction(
                         label='隨便來張正妹圖片',
-                        text='抽'
+                        text='抽正妹'
                     )
                 ]
             )
