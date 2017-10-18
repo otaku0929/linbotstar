@@ -510,20 +510,20 @@ def handle_message(event):
                 thumbnail_image_url='https://i.imgur.com/xQF5dZT.jpg',
                 actions=[
                     MessageTemplateAction(
-                        label='電影',
-                        text='電影'
+                        label='新聞',
+                        text='新聞'
                     ),
                     MessageTemplateAction(
-                        label='Youtube',
-                        text='Youtube'
+                        label='影音',
+                        text='影音'
                     ),
                     MessageTemplateAction(
                         label='PTT看版',
                         text='PTT看版'
                     ),
                     MessageTemplateAction(
-                        label='正妹',
-                        text='正妹'
+                        label='養眼一下',
+                        text='養眼一下'
                     )
                 ]
             )
@@ -549,6 +549,27 @@ def handle_message(event):
                     MessageTemplateAction(
                         label='PanX泛科技',
                         text='PanX泛科技'
+                    )
+                ]
+            )
+        )
+        line_bot_api.reply_message(event.reply_token, buttons_template)
+        return 0
+     if event.message.text == "影音":
+        buttons_template = TemplateSendMessage(
+            alt_text='影音 template',
+            template=ButtonsTemplate(
+                title='服務類型',
+                text='請選擇',
+                thumbnail_image_url='https://i.imgur.com/sbOTJt4.png',
+                actions=[
+                    MessageTemplateAction(
+                        label='電影',
+                        text='電影'
+                    ),
+                    MessageTemplateAction(
+                        label='youtube',
+                        text='youtube'
                     )
                 ]
             )
@@ -627,9 +648,9 @@ def handle_message(event):
         )
         line_bot_api.reply_message(event.reply_token, buttons_template)
         return 0
-    if event.message.text == "正妹":
+    if event.message.text == "養眼一下":
         buttons_template = TemplateSendMessage(
-            alt_text='正妹 template',
+            alt_text='養眼一下 template',
             template=ButtonsTemplate(
                 title='選擇服務',
                 text='請選擇',
