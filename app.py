@@ -597,8 +597,8 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=content))
         return 0
-    if event.message.text == "text":
-        messages_talk = message.text 
+    if event.message.text == "靠":
+        messages_talk = vent.message.text
         content = talk_messages(messages_talk)
         line_bot_api.reply_message(
             event.reply_token,
