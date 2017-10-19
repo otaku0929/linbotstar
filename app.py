@@ -580,7 +580,7 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token,image_message)
         return 0
     if mlist[0] in (["幹","靠"]):
-        messages_talk = event.message.text 
+        messages_talk = mlist 
         content = talk_messages(messages_talk)
         line_bot_api.reply_message(
             event.reply_token,
