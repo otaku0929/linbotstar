@@ -576,7 +576,7 @@ def handle_message(event):
         )
         line_bot_api.reply_message(event.reply_token,image_message)
         return 0
-    if event.message.text[1] in (["幹","靠"]) or event.message.text[event.message.text.find("三小",1):event.message.text.find("三小",1)+2] in (["三小","靠北"]):
+    if event.message.text[0] in (["幹","靠"]):
         messages_talk = event.message.text 
         content = talk_messages(messages_talk)
         line_bot_api.reply_message(
