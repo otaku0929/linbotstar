@@ -419,10 +419,16 @@ def pick17sing():
         else:
             pass
     return "Try again!"
-def fuck():
-    a = ['喵喵~','汪汪~','咩~','啊嘶~','噓~好孩子不說這個','講~f~u~c~k~才有英特內訊NO']  
-    content=format(random.choice(a))
-    return content    
+
+def talk_messages(messages_talk):
+
+    if messages_talk == '幹':
+        content = random.choice(['喵喵~','汪汪~','咩~','啊嘶~','噓~好孩子不說這個','講~f~u~c~k~才有英特內訊NO','十十人一十'])
+        return content
+    if messages_talk == '三小':
+        content = random.choice['我聽過小王、小強、就是沒聽過三小', '小小小', '大大大','小三小四小五','意義三小是什麼 我只知道義氣','你是魯小小']
+        return content
+    #content=format(random.choice(content))
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
@@ -569,7 +575,15 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token,image_message)
         return 0
     if event.message.text == "幹":
-        content = fuck()
+        messages_talk = '幹' 
+        content = talk_messages(messages_talk)
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=content))
+        return 0
+    if event.message.text == "三小":
+        messages_talk = '三小' 
+        content = talk_messages(messages_talk)
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=content))
