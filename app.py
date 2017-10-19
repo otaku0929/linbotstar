@@ -576,29 +576,8 @@ def handle_message(event):
         )
         line_bot_api.reply_message(event.reply_token,image_message)
         return 0
-    if event.message.text == "幹":
-        messages_talk = '幹' 
-        content = talk_messages(messages_talk)
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=content))
-        return 0
-    if event.message.text == "三小":
-        messages_talk = '三小' 
-        content = talk_messages(messages_talk)
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=content))
-        return 0
-    if event.message.text == "靠北":
-        messages_talk = '靠北' 
-        content = talk_messages(messages_talk)
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=content))
-        return 0
-    if event.message.text == "靠":
-        messages_talk = event.message.text
+    if event.message.text in (["幹","三小","靠北","靠"]):
+        messages_talk = event.message.text 
         content = talk_messages(messages_talk)
         line_bot_api.reply_message(
             event.reply_token,
