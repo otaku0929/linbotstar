@@ -436,6 +436,9 @@ def talk_messages(messages_talk):
 def handle_message(event):
     print("event.reply_token:", event.reply_token)
     print("event.message.text:", event.message.text)
+    
+    mlist = event.message.text
+    
     if event.message.text == "eyny":
         content = eyny_movie()
         line_bot_api.reply_message(
@@ -576,7 +579,7 @@ def handle_message(event):
         )
         line_bot_api.reply_message(event.reply_token,image_message)
         return 0
-    if event.message.text[0] in (["幹","靠"]):
+    if mlist[0] in (["幹","靠"]):
         messages_talk = event.message.text 
         content = talk_messages(messages_talk)
         line_bot_api.reply_message(
