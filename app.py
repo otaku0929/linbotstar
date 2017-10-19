@@ -438,6 +438,14 @@ def handle_message(event):
     print("event.message.text:", event.message.text)
     
     mlist = event.message.text
+        
+    if mlist[0] in (["幹","靠"]):
+        messages_talk = mlist[0] 
+        content = talk_messages(messages_talk)
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=content))
+        return 0
     
     if event.message.text == "eyny":
         content = eyny_movie()
@@ -578,13 +586,6 @@ def handle_message(event):
             preview_image_url=img
         )
         line_bot_api.reply_message(event.reply_token,image_message)
-        return 0
-    if mlist[0] in (["幹","靠"]):
-        messages_talk = mlist 
-        content = talk_messages(messages_talk)
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=content))
         return 0
     if event.message.text == "一閃一閃亮晶晶":
         buttons_template = TemplateSendMessage(
