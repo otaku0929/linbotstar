@@ -438,12 +438,6 @@ def handle_message(event):
     print("event.message.text:", event.message.text)
     
     mlist = event.message.text
-  
-    if mlist[0] in (["幹","靠"]):
-        messages_talk = mlist[0] 
-        content = talk_messages(messages_talk)
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
-        return 0
 
     if event.message.text == "eyny":
         content = eyny_movie()
@@ -757,7 +751,12 @@ def handle_message(event):
         )
         line_bot_api.reply_message(event.reply_token, buttons_template)
         return 0
-    if mlist[0] != "靠":
+  
+    if mlist[0] in (["幹","靠"]):
+        messages_talk = mlist[0] 
+        content = talk_messages(messages_talk)
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+    else:
         for data in (["三小","靠北"]):
             m2list = mlist[mlist.find(data,1):mlist.find(data,1)+2]
             if m2list in (["三小","靠北"]):
