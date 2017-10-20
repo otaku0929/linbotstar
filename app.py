@@ -758,7 +758,7 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
     else:
         for data in (["三小","靠北"]):
-            m2list = mlist[mlist.find(data,1):mlist.find(data,1)+2]
+            m2list = mlist[mlist.find(data,0):mlist.find(data,0)+2]
             if m2list in (["三小","靠北"]):
                 messages_talk = m2list
                 content = talk_messages(messages_talk)
