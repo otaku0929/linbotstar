@@ -266,14 +266,17 @@ def ptt_hot():
     res = rs.get(target_url, verify=False)
     soup = BeautifulSoup(res.text, 'html.parser')
     content = ""
-    for data in soup.select('#list div.row2 div span.listTitle'):
+
+    hotlist = soup.select('#list div.row2 div span.listTitle')
+    del hotlist[len(hotlist)-1]
+    random.shuffle(hotlist)
+    randomhot = hotlist[0:5]
+   
+    for data in randomhot:
         title = data.text
         link = "http://disp.cc/b/" + data.find('a')['href']
-        if data.find('a')['href'] == "796-59l9":
-            break
         content += '{}\n{}\n\n'.format(title, link)
     return content
-
 
 def movie():
     alist = []
@@ -498,7 +501,7 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token, image_message)
         return 0
-    if event.message.text == "PTT廢文":
+    if event.message.text == "PTTHOT":
         content = ptt_hot()
         line_bot_api.reply_message(
             event.reply_token,
@@ -710,8 +713,8 @@ def handle_message(event):
                 thumbnail_image_url='https://i.imgur.com/ocmxAdS.jpg',
                 actions=[
                     MessageTemplateAction(
-                        label='近期熱門廢文',
-                        text='PTT廢文'
+                        label='PTT熱門文章',
+                        text='PTTHOT'
                     ),
                     MessageTemplateAction(
                         label='即時廢文',
