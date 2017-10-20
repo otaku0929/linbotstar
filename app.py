@@ -76,20 +76,18 @@ def eyny_movie():
 
 def apple_news():
     target_url = 'http://www.appledaily.com.tw/realtimenews/section/new/'
-    head = 'http://www.appledaily.com.tw'
-    print('Start parsing appleNews....')
     rs = requests.session()
     res = rs.get(target_url, verify=False)
     soup = BeautifulSoup(res.text, 'html.parser')
+
+    news_list = soup.select('.rtddt a')
+    random.shuffle(news_list)
+    randomnews = news_list[0:5]
+    
     content = ""
-    for index, data in enumerate(soup.select('.rtddt a'), 0):
-        if index == 7:
-            return content
-        if head in data['href']:
-            link = data['href']
-        else:
-            link = head + data['href']
-        content += '{}\n\n'.format(link)
+    for data in randomnews:
+        news = "http://www.appledaily.com.tw{}".format(data.get("href"))
+        content += '{}\n\n'.format(news)
     return content
 
 
