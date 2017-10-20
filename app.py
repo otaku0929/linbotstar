@@ -576,7 +576,7 @@ def handle_message(event):
             TextSendMessage(text=content))
         return 0
     if event.message.text == "抽籤":
-        content = aska()
+        content = ask()
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=content))
