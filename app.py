@@ -426,7 +426,7 @@ def talk_messages(messages_talk):
         content = random.choice(['喵喵~','汪汪~','咩~','啊嘶~','噓~好孩子不說這個','講~f~u~c~k~才有英特內訊NO','十十人一十'])
         return content
     if messages_talk == '三小':
-        content = random.choice(['我聽過小王、小強、就是沒聽過三小','小小小', '大大大','小三小四小五','意義三小是什麼 我只知道義氣','你是魯小小'])
+        content = random.choice(['我聽過小王、小強、就是沒聽過三小','小小小', '大大大','小三小四小五','意義是三小 我只知道義氣','你是魯小小'])
         return content
     if messages_talk == '靠北' or messages_talk == "靠":
         content = random.choice(['靠北邊走','靠南', '我靠爸族啦','我有的靠你有嗎','喂喂別靠來靠去','走路要靠右邊走'])
