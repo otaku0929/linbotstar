@@ -182,9 +182,11 @@ def ptt_gossiping():
             # print u'OK_URL:', index
             # time.sleep(0.05)
     content = ''
-    for index, article in enumerate(article_gossiping, 0):
-        if index == 15:
-            return content
+
+    random.shuffle(article_gossiping)
+    randomdata = article_gossiping[0:3]
+    
+    for article in randomdata:
         data = '{}\n{}\n\n'.format(article.get('title', None), article.get('url_link', None))
         content += data
     return content
