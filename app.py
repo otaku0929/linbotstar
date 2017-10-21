@@ -443,6 +443,34 @@ def ask():
     
     return content
 
+def star(res):
+    url = "http://www.daily-zodiac.com/mobile"
+    request = requests.get(url)
+    ytcontent = request.content
+    soup = BeautifulSoup(ytcontent, "html.parser")
+
+    startlist = soup.select("li a")
+    for data in startlist:
+        if data.select('img')[0]['alt'] ==res:
+            sdata = data
+            sdata = 'http://www.daily-zodiac.com{}'.format(sdata.get("href"))
+            content = starcontent(sdata)
+            
+    return content   
+
+def starcontent(sdata):
+    sdata_link = urllib.request.urlopen(sdata)
+    soup_today = BeautifulSoup(sdata_link,'html.parser')
+    souptoday_data = soup_today.select('ul.today')
+    souptext_data = soup_today.select('article')
+    #soup3_data = soup2.s
+    for today_data in souptoday_data:
+        today = today_data.get_text()
+    for text_data in souptext_data:
+        text = text_data.get_text().strip()
+    content = '{}{}'.format(today,text)
+    return content
+
 def talk_messages(messages_talk):
 
     if messages_talk == '幹':
@@ -779,6 +807,13 @@ def handle_message(event):
             )
         )
         line_bot_api.reply_message(event.reply_token, buttons_template)
+        return 0
+    
+    if event.message.text in [ "牡羊座","金牛座","雙子座","巨蟹座","獅子座","處女座","天秤座","天蠍座","射手座","魔羯座","水瓶座","雙魚座"]:
+        content = star()
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=content))
         return 0
   
     if mlist[0] in (["幹","靠"]):
