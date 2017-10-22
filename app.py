@@ -895,8 +895,8 @@ def handle_message(event):
         nt = mlist[mlist.find('n')+1:mlist.find('x')]
         xt = mlista[mlist.find('x')+1:]
         content = ratecount(res,nt,xt)
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content)
-    return 0
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        return 0
 
     if mlist[0] in (["幹","靠"]):
         messages_talk = mlist[0] 
