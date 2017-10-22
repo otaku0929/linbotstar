@@ -471,6 +471,71 @@ def starcontent(sdata):
     content = '{}{}'.format(today,text)
     return content
 
+def rate(res):
+
+    url = "http://rate.bot.com.tw/xrt?Lang=zh-TW"
+    dfs = pandas.read_html(url)
+    currency = dfs[0]
+    currency = currency.ix[:,0:3]
+    currency.columns = [u'貨幣',u'匯率(賣)',u'匯率(買)']
+    currency[u'貨幣'] = currency[u'貨幣'].str.split('\(',1).str[0]
+    currency[u'貨幣'] = currency[u'貨幣'].str.split().str[0]
+    #a = currency.values
+
+    title = ""
+    content = ""
+
+    request = requests.get(url)
+    soup = BeautifulSoup(request.content, "html.parser")
+
+    datelist = soup.select('p.text-info')
+
+    for data in datelist:
+        ratedate = data.get_text().strip()
+    
+ 
+    for a in currency.index:
+        data = currency.ix[a,0]
+        if data == res:
+            title = currency.ix[a,0]
+            rate =currency.ix[a,2]
+            ratedata = '{} 1:{}'.format(title,rate)
+          
+
+    content = '臺灣銀行牌告匯率\n{}\n\n{}'.format(ratedate,ratedata)
+
+    return content
+     
+
+def ratecount(res,nt,xt):
+    
+    url = "http://rate.bot.com.tw/xrt?Lang=zh-TW"
+    dfs = pandas.read_html(url)
+    currency = dfs[0]
+    currency = currency.ix[:,0:3]
+    currency.columns = [u'貨幣',u'匯率(賣)',u'匯率(買)']
+    currency[u'貨幣'] = currency[u'貨幣'].str.split('\(',1).str[0]
+    currency[u'貨幣'] = currency[u'貨幣'].str.split().str[0]
+
+    a = currency.values
+
+    for a in currency.index:
+        data = currency.ix[a,0]
+        if data == res:
+            title = currency.ix[a,0]
+            rate =currency.ix[a,2]
+            ratecountnt = round(int(nt)/float(rate),2)
+            ratecountxt = round(int(xt)*float(rate))
+            if int(nt)>1 and int(xt)==1:
+                content = '臺灣銀行牌告匯率 {} 1:{}\n{} 台幣可換得 {} {}'.format(title,rate,nt,ratecountnt,title)
+                return ratedata
+            if int(nt)==1 and int(xt)>1:
+                content = '臺灣銀行牌告匯率 {} 1:{}\n兌換 {} {} 需要 {} 台幣'.format(title,rate,xt,title,ratecountxt)
+            else:
+                content = "輸入金額有誤"
+
+    return ratedata
+
 def talk_messages(messages_talk):
 
     if messages_talk == '幹':
@@ -812,6 +877,14 @@ def handle_message(event):
     if event.message.text in [ "牡羊座","金牛座","雙子座","巨蟹座","獅子座","處女座","天秤座","天蠍座","射手座","魔羯座","水瓶座","雙魚座"]:
         res = event.message.text
         content = star(res)
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=content))
+        return 0
+    
+    if event.message.text in [ "美金","港幣","英鎊","澳幣","加拿大幣","新加坡幣","瑞士法郎","日圓","南非幣","瑞典幣","紐元","泰幣","菲國比索","印尼幣","歐元","韓元","南盾","馬來幣","人民幣"]:
+        res = event.message.text
+        content = rate(res)
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=content))
