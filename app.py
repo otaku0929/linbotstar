@@ -881,20 +881,18 @@ def handle_message(event):
             TextSendMessage(text=content))
         return 0
     
-    if len(mlist)>2:
+    if len(mlist)>=2:
         if mlist in [ "美金","港幣","英鎊","澳幣","加拿大幣","新加坡幣","瑞士法郎","日圓","南非幣","瑞典幣","紐元","泰幣","菲國比索","印尼幣","歐元","韓元","越南盾","馬來幣","人民幣"]:
             res = mlist
             content = rate(res)
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        if mlist.find('n')>=2:
+           res = mlist[0:mlist.find('n')]
+           nt = mlist[mlist.find('n')+1:mlist.find('x')]
+           xt = mlist[mlist.find('x')+1:]
+           content = ratecount(res,nt,xt)
+           line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
-    
-    if mlist.find('n')>=2:
-       res = mlist[0:mlist.find('n')]
-       nt = mlist[mlist.find('n')+1:mlist.find('x')]
-       xt = mlist[mlist.find('x')+1:]
-       content = ratecount(res,nt,xt)
-       line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
-       return 0
 
     if mlist[0] in (["幹","靠"]):
         messages_talk = mlist[0] 
