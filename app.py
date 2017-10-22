@@ -526,7 +526,7 @@ def ratecount(res,nt,xt):
             ratecountnt = round(int(nt)/float(rate),2)
             ratecountxt = round(int(xt)*float(rate))
             if int(nt)>1 and int(xt)==1:
-                content = '臺灣銀行牌告匯率 {} 1:{}\n{} 台幣可換得 {} {}'.format(title,rate,nt,ratecountnt,title)
+                content = '臺灣銀行牌告匯率 {} 1:{}\n台幣 {} 可換得 {} {}'.format(title,rate,nt,ratecountnt,title)
                 return content
             if int(nt)==1 and int(xt)>1:
                 content = '臺灣銀行牌告匯率 {} 1:{}\n兌換 {} {} 需要 {} 台幣'.format(title,rate,xt,title,ratecountxt)
