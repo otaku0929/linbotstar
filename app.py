@@ -531,7 +531,7 @@ def ratecount(res,nt,xt):
             if int(nt)==1 and int(xt)>1:
                 content = '臺灣銀行牌告匯率 {} 1:{}\n兌換 {} {} 需要 {} 台幣'.format(title,rate,xt,title,ratecountxt)
             else:
-                content = "輸入金額有誤"
+                content = "輸入金額有誤 NT換 幣名n10000x1  換回NT 幣名n1x10000"
 
     return content
 
