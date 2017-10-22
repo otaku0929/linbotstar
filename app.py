@@ -886,13 +886,15 @@ def handle_message(event):
             res = mlist
             content = rate(res)
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
-        if len(mlist)>2 and mlist.find('n')>=3:
-            res = mlist[0:mlist.find('n')]
-            nt = mlist[mlist.find('n')+1:mlist.find('x')]
-            xt = mlist[mlist.find('x')+1:]
-            content = ratecount(res,nt,xt)
-            line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
-    return 0
+        return 0
+    
+    if mlist.find('n')>=2:
+       res = mlist[0:mlist.find('n')]
+       nt = mlist[mlist.find('n')+1:mlist.find('x')]
+       xt = mlist[mlist.find('x')+1:]
+       content = ratecount(res,nt,xt)
+       line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+       return 0
 
     if mlist[0] in (["幹","靠"]):
         messages_talk = mlist[0] 
