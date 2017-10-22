@@ -492,8 +492,7 @@ def rate(res):
     datelist = soup.select('p.text-info')
 
     for data in datelist:
-        ratedate = data.get_text().strip()
-    
+        ratedate = data.get_text().strip() 
  
     for a in currency.index:
         data = currency.ix[a,0]
@@ -502,7 +501,6 @@ def rate(res):
             rate =currency.ix[a,2]
             ratedata = '{} 1:{}'.format(title,rate)
           
-
     content = '臺灣銀行牌告匯率\n{}\n\n{}'.format(ratedate,ratedata)
 
     return content
@@ -529,13 +527,13 @@ def ratecount(res,nt,xt):
             ratecountxt = round(int(xt)*float(rate))
             if int(nt)>1 and int(xt)==1:
                 content = '臺灣銀行牌告匯率 {} 1:{}\n{} 台幣可換得 {} {}'.format(title,rate,nt,ratecountnt,title)
-                return ratedata
+                return content
             if int(nt)==1 and int(xt)>1:
                 content = '臺灣銀行牌告匯率 {} 1:{}\n兌換 {} {} 需要 {} 台幣'.format(title,rate,xt,title,ratecountxt)
             else:
                 content = "輸入金額有誤"
 
-    return ratedata
+    return content
 
 def talk_messages(messages_talk):
 
