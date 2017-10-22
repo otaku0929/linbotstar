@@ -896,10 +896,8 @@ def handle_message(event):
         xt = mlista[mlist.find('x')+1:]
         content = ratecount(res,nt,xt)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content)
-        return 0
-        
-        
-  
+    return 0
+
     if mlist[0] in (["幹","靠"]):
         messages_talk = mlist[0] 
         content = talk_messages(messages_talk)
