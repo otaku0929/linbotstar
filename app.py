@@ -779,9 +779,9 @@ def handle_message(event):
         )
         line_bot_api.reply_message(event.reply_token, buttons_template)
         return 0
-    if event.message.text == "影音休閒":
+    if event.message.text == "休閒影音":
         buttons_template = TemplateSendMessage(
-            alt_text='影音休閒 template',
+            alt_text='休閒影音 template',
             template=ButtonsTemplate(
                 title='服務類型',
                 text='請選擇',
