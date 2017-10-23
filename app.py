@@ -704,25 +704,50 @@ def handle_message(event):
         buttons_template = TemplateSendMessage(
             alt_text='開始玩 template',
             template=ButtonsTemplate(
-                title='選擇服務',
-                text='請選擇',
-                thumbnail_image_url='https://i.imgur.com/xQF5dZT.jpg',
+                title='歡迎使用小星星',
+                text='請選擇使用功能',
+                thumbnail_image_url='https://imgur.com/j5pDXdG.jpg',
+                actions=[
+                    MessageTemplateAction(
+                        label='生活相關',
+                        text='生活'
+                    ),
+                    MessageTemplateAction(
+                        label='休閒影音',
+                        text='休閒影音'
+                    ),
+                    MessageTemplateAction(
+                        label='抽一下',
+                        text='抽一下'
+                    ),
+                    MessageTemplateAction(
+                        label='功能說明',
+                        text='功能說明'
+                    )
+                ]
+            )
+        )
+        line_bot_api.reply_message(event.reply_token, buttons_template)
+        return 0
+    if event.message.text == "生活":
+        buttons_template = TemplateSendMessage(
+            alt_text='開始玩 template',
+            template=ButtonsTemplate(
+                title='生活功能',
+                text='請選擇使用功能',
+                thumbnail_image_url='https://imgur.com/oHli0XL.jpg',
                 actions=[
                     MessageTemplateAction(
                         label='新聞',
                         text='新聞'
                     ),
                     MessageTemplateAction(
-                        label='影音',
-                        text='影音'
+                        label='匯率查詢',
+                        text='請輸入查詢幣別 例如:美金、日圓、人民幣 若要查詢換匯 1.新台幣1000換幣  美金n1000x1  2.查換1000日圓要多少台幣 日圓n1x1000 '
                     ),
                     MessageTemplateAction(
                         label='PTT看版',
                         text='PTT看版'
-                    ),
-                    MessageTemplateAction(
-                        label='養眼一下',
-                        text='養眼一下'
                     )
                 ]
             )
@@ -754,9 +779,9 @@ def handle_message(event):
         )
         line_bot_api.reply_message(event.reply_token, buttons_template)
         return 0
-    if event.message.text == "影音":
+    if event.message.text == "影音休閒":
         buttons_template = TemplateSendMessage(
-            alt_text='影音 template',
+            alt_text='影音休閒 template',
             template=ButtonsTemplate(
                 title='服務類型',
                 text='請選擇',
@@ -767,8 +792,8 @@ def handle_message(event):
                         text='電影'
                     ),
                     MessageTemplateAction(
-                        label='youtube',
-                        text='youtube'
+                        label='Youtube',
+                        text='Youtube'
                     )
                 ]
             )
@@ -806,7 +831,7 @@ def handle_message(event):
             template=ButtonsTemplate(
                 title='服務類型',
                 text='請選擇',
-                thumbnail_image_url='https://i.imgur.com/sbOTJt4.png',
+                thumbnail_image_url='https://imgur.com/OYR2ciy.jpg',
                 actions=[
                     MessageTemplateAction(
                         label='youtube隨選流行音樂',
@@ -815,6 +840,10 @@ def handle_message(event):
                     MessageTemplateAction(
                         label='youtube隨選熱門影片',
                         text='youtube熱門'
+                    ),
+                    MessageTemplateAction(
+                        label='歡歌隨選歌曲',
+                        text='抽歡歌'
                     )
                 ]
             )
@@ -826,9 +855,9 @@ def handle_message(event):
         buttons_template = TemplateSendMessage(
             alt_text='PTT看版 template',
             template=ButtonsTemplate(
-                title='耍廢還是耍笨',
+                title='看PPT長智識',
                 text='請選擇',
-                thumbnail_image_url='https://i.imgur.com/ocmxAdS.jpg',
+                thumbnail_image_url='https://imgur.com/prkXPHI.jpg',
                 actions=[
                     MessageTemplateAction(
                         label='PTT熱門文章',
@@ -847,6 +876,27 @@ def handle_message(event):
         )
         line_bot_api.reply_message(event.reply_token, buttons_template)
         return 0
+    if event.message.text == "抽一下":
+        buttons_template = TemplateSendMessage(
+            alt_text='抽一下 template',
+            template=ButtonsTemplate(
+                title='選擇服務',
+                text='請選擇',
+                thumbnail_image_url='https://i.imgur.com/qKkE2bj.jpg',
+                actions=[
+                     MessageTemplateAction(
+                        label='養眼一下',
+                        text='養眼一下'
+                    ),
+                     MessageTemplateAction(
+                        label='星座求籤',
+                        text='星座求籤'
+                    )
+                ]
+            )
+        )
+        line_bot_api.reply_message(event.reply_token, buttons_template)
+        return 0
     if event.message.text == "養眼一下":
         buttons_template = TemplateSendMessage(
             alt_text='養眼一下 template',
@@ -855,9 +905,9 @@ def handle_message(event):
                 text='請選擇',
                 thumbnail_image_url='https://i.imgur.com/qKkE2bj.jpg',
                 actions=[
-                    MessageTemplateAction(
-                        label='PTT 表特版 近期大於 10 推的文章',
-                        text='PTT表特'
+                     MessageTemplateAction(
+                        label='隨便來張鮮肉或正妹圖片',
+                        text='抽'
                     ),
                      MessageTemplateAction(
                         label='隨便來張鮮肉圖片',
@@ -872,6 +922,49 @@ def handle_message(event):
         )
         line_bot_api.reply_message(event.reply_token, buttons_template)
         return 0
+    if event.message.text == "星座求籤":
+        buttons_template = TemplateSendMessage(
+            alt_text='星座求籤 template',
+            template=ButtonsTemplate(
+                title='選擇服務',
+                text='請選擇',
+                thumbnail_image_url='https://imgur.com/aLJkS5G.jpg',
+                actions=[
+                     MessageTemplateAction(
+                        label='每日星座運勢',
+                        text='請輸入星座名稱 例如金牛座、天秤座'
+                    ),
+                     MessageTemplateAction(
+                        label='媽祖六十籤',
+                        text='抽籤'
+                    )
+                ]
+            )
+        )
+        line_bot_api.reply_message(event.reply_token, buttons_template)
+        return 0
+    if event.message.text == "功能說明":
+        buttons_template = TemplateSendMessage(
+            alt_text='開始玩 template',
+            template=ButtonsTemplate(
+                title='歡迎使用小星星',
+                text='請選擇使用功能',
+                thumbnail_image_url='https://imgur.com/j5pDXdG.jpg',
+                actions=[
+                    MessageTemplateAction(
+                        label='功能說明',
+                        text='詳見小星星粉絲頁'
+                    ),
+                    MessageTemplateAction(
+                        label='小星星粉絲頁',
+                        text='https://www.facebook.com/%E5%B0%8F%E6%98%9F%E6%98%9F-138369020128285/'
+                    )
+                ]
+            )
+        )
+        line_bot_api.reply_message(event.reply_token, buttons_template)
+        return 0
+    
     
     if event.message.text in [ "牡羊座","金牛座","雙子座","巨蟹座","獅子座","處女座","天秤座","天蠍座","射手座","魔羯座","水瓶座","雙魚座"]:
         res = event.message.text
