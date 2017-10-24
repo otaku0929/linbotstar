@@ -987,7 +987,7 @@ def handle_message(event):
         return 0
     
     if mlist[mlist.find('查天氣',0):3]=='查天氣':
-        location = mlist[mlist.find('查天氣',0)+3:6].relpace('台','臺')
+        location = mlist[mlist.find('查天氣',0)+3:6].replace('台','臺')
         content = weather(location)
         line_bot_api.reply_message(
             event.reply_token,
