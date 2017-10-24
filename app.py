@@ -987,7 +987,7 @@ def handle_message(event):
         return 0
     
     if mlist[mlist.find('查天氣',0):3]=='查天氣':
-        location = mlist[mlist.find('查天氣',0)+3:6]
+        location = mlist[mlist.find('查天氣',0)+3:6].relpace('台','臺')
         content = weather(location)
         line_bot_api.reply_message(
             event.reply_token,
@@ -1004,7 +1004,7 @@ def handle_message(event):
     
     if len(mlist)>=2:
         if mlist in [ "美金","港幣","英鎊","澳幣","加拿大幣","新加坡幣","瑞士法郎","日圓","南非幣","瑞典幣","紐元","泰幣","菲國比索","印尼幣","歐元","韓元","越南盾","馬來幣","人民幣"]:
-            res = mlist
+            res = mlist.replace('日幣','日圓')
             content = rate(res)
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         if mlist.find('n')>=2:
