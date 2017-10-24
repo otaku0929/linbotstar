@@ -552,7 +552,7 @@ def weather(location):
     MinT = (weather_elements[2]['time'])[0]['parameter'].get('parameterName')
     MaxT = (weather_elements[4]['time'])[0]['parameter'].get('parameterName')
 
-    content = '{}\n天氣:{}\n溫度:{}~{}\n降雨機率:{}%'.format(location,Wx,MinT,MaxT,PoP)
+    content = '{}\n天氣:{}\n溫度:{}C~{}C\n降雨機率:{}%'.format(location,Wx,MinT,MaxT,PoP)
     
     return content
 
