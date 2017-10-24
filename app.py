@@ -912,6 +912,10 @@ def handle_message(event):
                      MessageTemplateAction(
                         label='星座求籤',
                         text='星座求籤'
+                    ),
+                     MessageTemplateAction(
+                        label='現在吃什麼',
+                        text='現在吃什麼'
                     )
                 ]
             )
