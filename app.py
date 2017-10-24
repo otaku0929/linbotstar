@@ -535,6 +535,27 @@ def ratecount(res,nt,xt):
 
     return content
 
+def weather(location):
+    
+    doc_name = "F-C0032-001"
+    user_key = "CWB-A01FD046-AA6B-4C27-A307-616C33DB89B7"
+    api_link = "http://opendata.cwb.gov.tw/opendataapi?dataid=%s&authorizationkey=%s" % (doc_name,user_key)
+   
+    headers = {'Authorization': user_key}
+    res = requests.get("http://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?locationName=%s" % location,headers=headers)
+    weather_api= res.json()
+
+    weather_elements = weather_api['records']['location'][0]['weatherElement']
+
+    Wx = (weather_elements[0]['time'])[0]['parameter'].get('parameterName')
+    PoP = (weather_elements[1]['time'])[0]['parameter'].get('parameterName')
+    MinT = (weather_elements[2]['time'])[0]['parameter'].get('parameterName')
+    MaxT = (weather_elements[4]['time'])[0]['parameter'].get('parameterName')
+
+    content = '{} 現在天氣:{} 溫度:{}~{} 降雨機率:{}%'.format(location,Wx,MinT,MaxT,PoP)
+    
+    return content
+
 def talk_messages(messages_talk):
 
     if messages_talk == '幹':
@@ -965,6 +986,13 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, buttons_template)
         return 0
     
+    if mlist[mlist.find('查天氣',0):3]=='查天氣':
+        location = mlist[mlist.find('查天氣',0)+3:6]
+        content = weather(location)
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=content))
+        return 0    
     
     if event.message.text in [ "牡羊座","金牛座","雙子座","巨蟹座","獅子座","處女座","天秤座","天蠍座","射手座","魔羯座","水瓶座","雙魚座"]:
         res = event.message.text
