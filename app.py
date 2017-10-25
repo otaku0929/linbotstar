@@ -7,6 +7,7 @@ import pandas
 from bs4 import BeautifulSoup
 from flask import Flask, request, abort
 from imgurpython import ImgurClient
+from selenium import webdriver
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -556,6 +557,18 @@ def weather(location):
     
     return content
 
+def ty():
+
+    driver = webdriver.PhantomJS()
+    driver.get("http://www.cwb.gov.tw/V7/prevent/typhoon/ty.htm?")
+    src = driver.find_element_by_name("datacontent2").get_attribute("src")
+    url = urllib.request.urlopen(src)
+    soup = BeautifulSoup(url, 'html.parser')
+    data = soup.select('div.patch')
+    text = data[0].get_text().strip()
+
+    return text
+
 def talk_messages(messages_talk):
 
     if messages_talk == '幹':
@@ -989,6 +1002,14 @@ def handle_message(event):
         )
         line_bot_api.reply_message(event.reply_token, buttons_template)
         return 0
+    
+    if event.message.text=='查颱風':
+        res = event.message.text
+        content = ty()
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=content))
+        return 0   
     
     if mlist[mlist.find('查天氣',0):3]=='查天氣':
         location = mlist[mlist.find('查天氣',0)+3:6].replace('台','臺')
