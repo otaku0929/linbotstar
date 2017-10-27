@@ -566,8 +566,15 @@ def ty():
     soup = BeautifulSoup(url, 'html.parser')
     data = soup.select('div.patch')
     text = data[0].get_text().strip()
+    imgsoure = soup.select('div.download a')
 
-    return text
+    imgurl = imgsoure[0].get('href')
+    imglink = 'http://www.cwb.gov.tw/V7/prevent/typhoon/Data/PTA_NEW/{}'.format(imgurl)
+
+    content = '{}\n{}'.format(text,imglink)
+
+    return content
+    
 
 def talk_messages(messages_talk):
 
