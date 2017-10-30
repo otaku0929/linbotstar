@@ -594,7 +594,7 @@ def handle_message(event):
     print("event.message.text:", event.message.text)
     
     mlist = event.message.text
-    words = event.messages.text
+    words = event.message.text
 
     if event.message.text == "eyny":
         content = eyny_movie()
