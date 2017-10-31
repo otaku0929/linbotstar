@@ -587,6 +587,9 @@ def talk_messages(messages_talk):
     if messages_talk == '靠北' or messages_talk == "靠":
         content = random.choice(['靠北邊走','靠南', '我靠爸族啦','我有的靠你有嗎','喂喂別靠來靠去','走路要靠右邊走'])
         return content
+    if messages_talk in {'馬的','媽的'}:
+        content = random.choice(['馬兒跑~馬兒跳~馬兒咩咩叫~','一馬當先、馬到成功、馬耳東風、馬的成語還有很多哦~','媽媽的孩子都是寶','你8+9哦','羊的~雞的~狗的~'])
+        return content
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
@@ -1048,14 +1051,14 @@ def handle_message(event):
            line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
 
-    if words[0] in (["幹","靠"]):
-        messages_talk = words[0] 
+    if len(words) ==1:
+        messages_talk = words
         content = talk_messages(messages_talk)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
     else:
-        for data in (["三小","靠北"]):
-            m2list = words[words.find(data,0):words.find(data,0)+2]
-            if m2list in (["三小","靠北"]):
+        for data in (["三小","靠北","馬的","媽的"]):
+            if words[words.find(data,0):words.find(data,0)+2] in {'三小','靠北','媽的','馬的'}:
+                m2list = words[words.find(data,0):words.find(data,0)+2]
                 messages_talk = m2list
                 content = talk_messages(messages_talk)
                 line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
