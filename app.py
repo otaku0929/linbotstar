@@ -1056,7 +1056,8 @@ def handle_message(event):
         content = talk_messages(messages_talk)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
-    else:
+    
+    if len(words) >=2:
         for data in (["三小","靠北","馬的","媽的"]):
             if words[words.find(data,0):words.find(data,0)+2] in {'三小','靠北','媽的','馬的'}:
                 m2list = words[words.find(data,0):words.find(data,0)+2]
