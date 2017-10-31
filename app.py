@@ -598,6 +598,7 @@ def handle_message(event):
     
     mlist = event.message.text
     words = event.message.text
+    awords = event.message.text
 
     if event.message.text == "eyny":
         content = eyny_movie()
@@ -1057,7 +1058,7 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
     
-    if len(words) >=2:
+    if len(awords) >=2:
         for data in (["三小","靠北","馬的","媽的"]):
             if words[words.find(data,0):words.find(data,0)+2] in {'三小','靠北','媽的','馬的'}:
                 m2list = words[words.find(data,0):words.find(data,0)+2]
