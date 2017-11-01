@@ -572,20 +572,33 @@ def ty():
     content = '{}\n{}'.format(text,imglink)
 
     return content
-    
 
-def talk_messages(messages_talk):
+def words(messages_talk):
+    words = messages_talk
+    if len(words) ==1:
+        res = words
+        content = talk_messages(res)
+        return content   
+    elif len(words) >=2:
+        for data in (["三小","靠北","馬的","媽的"]):
+            if words[words.find(data,0):words.find(data,0)+2] in {'三小','靠北','媽的','馬的'}:
+                m2list = words[words.find(data,0):words.find(data,0)+2]
+                res = m2list
+                content = talk_messages(res)
+                return content
 
-    if messages_talk == '幹':
+def talk_messages(res):
+
+    if res == '幹':
         content = random.choice(['喵喵~','汪汪~','咩~','啊嘶~','噓~好孩子不說這個','講~f~u~c~k~才有英特內訊NO','十十人一十'])
         return content
-    if messages_talk == '三小':
+    if res == '三小':
         content = random.choice(['我聽過小王、小強、就是沒聽過三小','小小小', '大大大','小三小四小五','意義是三小 我只知道義氣','你是魯小小'])
         return content
-    if messages_talk in {'靠北',"靠"}:
+    if res in {'靠北',"靠"}:
         content = random.choice(['靠北邊走','靠南', '我靠爸族啦','我有的靠你有嗎','喂喂別靠來靠去','走路要靠右邊走'])
         return content
-    if messages_talk in {'馬的','媽的'}:
+    if res in {'馬的','媽的'}:
         content = random.choice(['馬兒跑~馬兒跳~馬兒咩咩叫~','一馬當先、馬到成功、馬耳東風、馬的成語還有很多哦~','媽媽的孩子都是寶','你8+9哦','羊的~雞的~狗的~'])
         return content
 
@@ -1050,21 +1063,13 @@ def handle_message(event):
            line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
 
-    if len(words) ==1:
+    if words in {'幹','靠','三小','靠北','媽的','馬的'}
         messages_talk = words
-        content = talk_messages(messages_talk)
+        content = words(messages_talk)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
     
-    if len(awords) >=2:
-        for data in (["三小","靠北","馬的","媽的"]):
-            if awords[awords.find(data,0):awords.find(data,0)+2] in {'三小','靠北','媽的','馬的'}:
-                m2list = awords[awords.find(data,0):awords.find(data,0)+2]
-                messages_talk = m2list
-                content = talk_messages(messages_talk)
-                line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
-        return 0
-    
+
 if __name__ == '__main__':
     app.run()
 
