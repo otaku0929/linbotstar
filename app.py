@@ -559,9 +559,7 @@ def weather(location):
 
 def ty():
 
-    driver = webdriver.PhantomJS()
-    driver.get("http://www.cwb.gov.tw/V7/prevent/typhoon/ty.htm?")
-    src = driver.find_element_by_name("datacontent2").get_attribute("src")
+    src = 'http://www.cwb.gov.tw/V7/prevent/typhoon/Data/PTA_NEW/index.htm?dumm=Wed#'
     url = urllib.request.urlopen(src)
     soup = BeautifulSoup(url, 'html.parser')
     data = soup.select('div.patch')
