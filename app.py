@@ -585,7 +585,7 @@ def fwords(messages_talk):
                 m2list = words[words.find(data,0):words.find(data,0)+2]
                 res = m2list
                 content = talk_messages(res)
-                return content
+                return res
 
 def talk_messages(res):
 
