@@ -573,20 +573,20 @@ def ty():
 
     return content
 
-def fwords(messages_talk):
-    words = messages_talk
+def fwords(res):
+    words = res
     if len(words) ==1:
         res = words
         content = talk_messages(res)
         return content   
-    #else:
-        #return words
-        #for data in (["三小","靠北","馬的","媽的"]):
-            #if words[words.find(data,0):words.find(data,0)+2] in {'三小','靠北','媽的','馬的'}:
-                #m2list = words[words.find(data,0):words.find(data,0)+2]
-                #res = m2list
-                #content = talk_messages(res)
-                #return res
+    else:
+        return words
+        for data in (["三小","靠北","馬的","媽的"]):
+            if words[words.find(data,0):words.find(data,0)+2] in {'三小','靠北','媽的','馬的'}:
+                m2list = words[words.find(data,0):words.find(data,0)+2]
+                res = m2list
+                content = talk_messages(res)
+                return res
 
 def talk_messages(res):
 
@@ -1065,13 +1065,13 @@ def handle_message(event):
 
     if len(words)==1:
         res = words
-        content = talk_messages(res)
+        content = fwords(res)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
     
     if len(words)>=1:
         res = words
-        content = talk_messages(res)
+        content = fwords(res)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
     
