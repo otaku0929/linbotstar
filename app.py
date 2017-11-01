@@ -1070,7 +1070,7 @@ def handle_message(event):
         return 0
     
     if len(words)>=1:
-        conten=words
+        res = words
         content = talk_messages(res)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
