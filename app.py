@@ -573,7 +573,7 @@ def ty():
 
     return content
 
-def words(messages_talk):
+def fwords(messages_talk):
     words = messages_talk
     if len(words) ==1:
         res = words
@@ -1065,7 +1065,7 @@ def handle_message(event):
 
     if words in {'幹','靠','三小','靠北','媽的','馬的'}:
         messages_talk = words
-        content = words(messages_talk)
+        content = fwords(messages_talk)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
     
