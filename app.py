@@ -579,8 +579,8 @@ def fwords(messages_talk):
         res = words
         content = talk_messages(res)
         return content   
-    else:
-        return words
+    #else:
+        #return words
         #for data in (["三小","靠北","馬的","媽的"]):
             #if words[words.find(data,0):words.find(data,0)+2] in {'三小','靠北','媽的','馬的'}:
                 #m2list = words[words.find(data,0):words.find(data,0)+2]
