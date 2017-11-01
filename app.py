@@ -578,7 +578,7 @@ def fwords(res):
     wlist = (["幹","操","靠","三小","靠北","馬的","媽的"])
     for data in wlist:
         if words[words.find(data,0):words.find(data,0)+len(data)] in wlist:
-            m2list = words[words.find(data,0):words.find(data,0)+2]
+            m2list = words[words.find(data,0):words.find(data,0)+len(data)]
             messages_talk = m2list
             content = talk_messages(messages_talk)
             return content
