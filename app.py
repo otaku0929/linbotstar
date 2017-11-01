@@ -592,8 +592,8 @@ def fwords(resf):
 
 def talk_messages(messages_talk):
 
-    if messages_talk == '幹':
-        content = random.choice(['喵喵~','汪汪~','咩~','啊嘶~','噓~好孩子不說這個','講~f~u~c~k~才有英特內訊NO','十十人一十'])
+    if messages_talk in {'幹','操'}:
+        content = random.choice(['喵喵~','汪汪~','咩~','啊嘶~','噓~好孩子不說這個','講~f~u~c~k~才有英特內訊NO','十十人一十','操你媽好嗎~幹我媽很好'])
         return content
     if messages_talk == '三小':
         content = random.choice(['我聽過小王、小強、就是沒聽過三小','小小小', '大大大','小三小四小五','意義是三小 我只知道義氣','你是魯小小'])
