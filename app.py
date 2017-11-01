@@ -575,12 +575,17 @@ def ty():
 
 def fwords(resf):
     words = resf
-    wlist = (["幹","操","靠","三小","靠北","馬的","媽的","放屁","美金","港幣","英鎊","澳幣","加拿大幣","新加坡幣","瑞士法郎","日圓","日幣","南非幣","瑞典幣","紐元","泰幣","菲國比索","印尼幣","歐元","韓元","越南盾","馬來幣","人民幣"])
-    if resf.find('n')>=2:
+    olist = (["幹","操","靠"])
+    wlist = (["三小","靠北","馬的","媽的", "放屁","美金","港幣","英鎊","澳幣","加拿大幣","新加坡幣","瑞士法郎","日圓","日幣","南非幣","瑞典幣","紐元","泰幣","菲國比索","印尼幣","歐元","韓元","越南盾","馬來幣","人民幣"])
+    if res.find('n')>=2:
         res = words[0:words.find('n')].replace('日幣','日圓')
         nt = words[words.find('n')+1:words.find('x')]
         xt = words[words.find('x')+1:]
         content = ratecount(res,nt,xt)
+        return content
+    elif res[0] in olist:
+        messages_talk = res[0]
+        content = talk_messages(messages_talk)
         return content
     else:
         for data in wlist:
