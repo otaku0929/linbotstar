@@ -573,29 +573,43 @@ def ty():
 
     return content
 
-def fwords(res):
-    words = res
-    wlist = (["幹","操","靠","三小","靠北","馬的","媽的"])
-    for data in wlist:
-        if words[words.find(data,0):words.find(data,0)+len(data)] in wlist:
-            m2list = words[words.find(data,0):words.find(data,0)+len(data)]
-            messages_talk = m2list
-            content = talk_messages(messages_talk)
-            return content
-
-def talk_messages(res):
-
-    if res in {'幹','操'}:
-        content = random.choice(['喵喵~','汪汪~','咩~','啊嘶~','噓~好孩子不說這個','講~f~u~c~k~才有英特內訊NO','十十人一十','操你媽好嗎'])
+def fwords(resf):
+    words = resf
+    wlist = (["幹","操","靠","三小","靠北","馬的","媽的","放屁","美金","港幣","英鎊","澳幣","加拿大幣","新加坡幣","瑞士法郎","日圓","日幣","南非幣","瑞典幣","紐元","泰幣","菲國比索","印尼幣","歐元","韓元","越南盾","馬來幣","人民幣"])
+    if resf.find('n')>=2:
+        res = words[0:words.find('n')].replace('日幣','日圓')
+        nt = words[words.find('n')+1:words.find('x')]
+        xt = words[words.find('x')+1:]
+        content = ratecount(res,nt,xt)
         return content
-    if res == '三小':
+    else:
+        for data in wlist:
+            if words[words.find(data,0):words.find(data,0)+len(data)] in wlist:
+                m2list = words[words.find(data,0):words.find(data,0)+len(data)]
+                messages_talk = m2list
+                content = talk_messages(messages_talk)
+                return content
+
+def talk_messages(messages_talk):
+
+    if messages_talk == '幹':
+        content = random.choice(['喵喵~','汪汪~','咩~','啊嘶~','噓~好孩子不說這個','講~f~u~c~k~才有英特內訊NO','十十人一十'])
+        return content
+    if messages_talk == '三小':
         content = random.choice(['我聽過小王、小強、就是沒聽過三小','小小小', '大大大','小三小四小五','意義是三小 我只知道義氣','你是魯小小'])
         return content
-    if res in {'靠北',"靠"}:
+    if messages_talk in {'靠北',"靠"}:
         content = random.choice(['靠北邊走','靠南', '我靠爸族啦','我有的靠你有嗎','喂喂別靠來靠去','走路要靠右邊走'])
         return content
-    if res in {'馬的','媽的'}:
+    if messages_talk in {'馬的','媽的'}:
         content = random.choice(['馬兒跑~馬兒跳~馬兒咩咩叫~','一馬當先、馬到成功、馬耳東風、馬的成語還有很多哦~','媽媽的孩子都是寶','你8+9哦','羊的~雞的~狗的~'])
+        return content
+    if messages_talk == {'放屁'}:
+        content = random.choice(['噗~~~~~~是誰','Lucky~Lucky~Lucky~你再躱在桌子底下會臭死','好臭~~~','快大口吸掉'])
+        return content    
+    if messages_talk in [ "美金","港幣","英鎊","澳幣","加拿大幣","新加坡幣","瑞士法郎","日圓","日幣","南非幣","瑞典幣","紐元","泰幣","菲國比索","印尼幣","歐元","韓元","越南盾","馬來幣","人民幣"]:
+        res = messages_talk.replace('日幣','日圓')
+        content = rate(res)
         return content
 
 @handler.add(MessageEvent, message=TextMessage)
@@ -1046,26 +1060,10 @@ def handle_message(event):
         return 0
     
     if len(words)>=1:
-        res = words
-        content = fwords(res)
+        resf = words
+        content = fwords(resf)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
-        return 0
-    
-    if len(mlist)>=2:
-        if mlist in [ "美金","港幣","英鎊","澳幣","加拿大幣","新加坡幣","瑞士法郎","日圓","日幣","南非幣","瑞典幣","紐元","泰幣","菲國比索","印尼幣","歐元","韓元","越南盾","馬來幣","人民幣"]:
-            res = mlist.replace('日幣','日圓')
-            content = rate(res)
-            line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
-        if mlist.find('n')>=2:
-           res = mlist[0:mlist.find('n')].replace('日幣','日圓')
-           nt = mlist[mlist.find('n')+1:mlist.find('x')]
-           xt = mlist[mlist.find('x')+1:]
-           content = ratecount(res,nt,xt)
-           line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
-        return 0
-    
-
-    
+        return 0    
 
 if __name__ == '__main__':
     app.run()
