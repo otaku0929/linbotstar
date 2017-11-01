@@ -575,8 +575,9 @@ def ty():
 
 def fwords(res):
     words = res
-    for data in (["幹","操","靠","三小","靠北","馬的","媽的"]):
-        if words[words.find(data,0):words.find(data,0)+len(data)] in {'幹','操','靠','三小','靠北','媽的','馬的'}:
+    wlist = (["幹","操","靠","三小","靠北","馬的","媽的"])
+    for data in wlist:
+        if words[words.find(data,0):words.find(data,0)+len(data)] in wlist:
             m2list = words[words.find(data,0):words.find(data,0)+2]
             messages_talk = m2list
             content = talk_messages(messages_talk)
