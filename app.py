@@ -587,7 +587,7 @@ def fwords(resf):
         messages_talk = words[0]
         content = talk_messages(messages_talk)
         return content
-    elif len(res) >=2:
+    elif len(words) >=2:
         for data in wlist:
             if words[words.find(data,0):words.find(data,0)+len(data)] in wlist:
                 m2list = words[words.find(data,0):words.find(data,0)+len(data)]
