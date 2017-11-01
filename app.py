@@ -580,18 +580,17 @@ def fwords(res):
         content = talk_messages(res)
         return content   
     else:
-        return words
         for data in (["三小","靠北","馬的","媽的"]):
             if words[words.find(data,0):words.find(data,0)+2] in {'三小','靠北','媽的','馬的'}:
                 m2list = words[words.find(data,0):words.find(data,0)+2]
                 res = m2list
                 content = talk_messages(res)
-                return res
+                return content
 
 def talk_messages(res):
 
-    if res == '幹':
-        content = random.choice(['喵喵~','汪汪~','咩~','啊嘶~','噓~好孩子不說這個','講~f~u~c~k~才有英特內訊NO','十十人一十'])
+    if res in {'幹','操'}:
+        content = random.choice(['喵喵~','汪汪~','咩~','啊嘶~','噓~好孩子不說這個','講~f~u~c~k~才有英特內訊NO','十十人一十','操你媽好嗎'])
         return content
     if res == '三小':
         content = random.choice(['我聽過小王、小強、就是沒聽過三小','小小小', '大大大','小三小四小五','意義是三小 我只知道義氣','你是魯小小'])
