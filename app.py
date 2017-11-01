@@ -1063,7 +1063,7 @@ def handle_message(event):
            line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
 
-     if len(words)>=1:
+     if len(words)==1:
         res = words
         content = fwords(res)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
