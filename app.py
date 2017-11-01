@@ -1063,7 +1063,7 @@ def handle_message(event):
            line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
 
-    if words in {'幹','靠','三小','靠北','媽的','馬的'}:
+    if len(words)>=1:
         messages_talk = words
         content = fwords(messages_talk)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
