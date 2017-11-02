@@ -411,6 +411,27 @@ def yt_hot():
         content += ytlist
     return content
 
+def youtube_cnew():
+
+    url = "https://www.youtube.com/playlist?list=PLsyOSbh5bs16vubvKePAQ1x3PhKavfBIl"
+    request = requests.get(url)
+    ytcontent = request.content
+    soup = BeautifulSoup(ytcontent, "html.parser")
+   
+    content = ""
+    ytlist= ""
+
+    all_mv = soup.select("a[class='pl-video-title-link yt-uix-tile-link yt-uix-sessionlink spf-link ']")
+    random.shuffle(all_mv)
+    randomfivemv = all_mv[0:3]
+
+    for data in randomfivemv:
+        url="https://www.youtube.com{}".format(data.get("href"))
+        title=data.text.strip()
+        ytlist = 'YOUTUBE最新華語精選\n{}\n{}\n\n'.format(title, url)  
+        content += ytlist
+    return content
+
 def pick17sing():
     for i in range(10):
         songid  = "%08d" % random.randint(0,1e8)
@@ -736,6 +757,12 @@ def handle_message(event):
         return 0
     if event.message.text == "youtube熱門":
         content = yt_hot()
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=content))
+        return 0
+    if event.message.text == "youtube華語":
+        content = youtube_cnew()
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=content))
