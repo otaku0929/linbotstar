@@ -432,6 +432,27 @@ def youtube_cnew():
         content += ytlist
     return content
 
+def youtube_tnew():
+
+    url = "https://www.youtube.com/playlist?list=PLsyOSbh5bs14fcCVYVMcnbiuhhaeF5LYl"
+    request = requests.get(url)
+    ytcontent = request.content
+    soup = BeautifulSoup(ytcontent, "html.parser")
+   
+    content = ""
+    ytlist= ""
+
+    all_mv = soup.select("a[class='pl-video-title-link yt-uix-tile-link yt-uix-sessionlink spf-link ']")
+    random.shuffle(all_mv)
+    randomfivemv = all_mv[0:3]
+
+    for data in randomfivemv:
+        url="https://www.youtube.com{}".format(data.get("href"))
+        title=data.text.strip()
+        ytlist = 'YOUTUBE最新華語精選\n{}\n{}\n\n'.format(title, url)  
+        content += ytlist
+    return content
+
 def pick17sing():
     for i in range(10):
         songid  = "%08d" % random.randint(0,1e8)
@@ -761,8 +782,14 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=content))
         return 0
-    if event.message.text == "youtube華語":
+    if event.message.text == "聽歌華語":
         content = youtube_cnew()
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=content))
+        return 0
+    if event.message.text == "聽歌台語":
+        content = youtube_tnew()
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=content))
