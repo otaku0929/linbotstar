@@ -449,7 +449,7 @@ def youtube_tnew():
     for data in randomfivemv:
         url="https://www.youtube.com{}".format(data.get("href"))
         title=data.text.strip()
-        ytlist = 'YOUTUBE最新華語精選\n{}\n{}\n\n'.format(title, url)  
+        ytlist = 'YOUTUBE最新台語精選\n{}\n{}\n\n'.format(title, url)  
         content += ytlist
     return content
 
