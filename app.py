@@ -844,7 +844,7 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=content))
         return 0
-    if event.message.text == "抽歡歌":
+    if event.message.text == "拉霸":
         content = gsheet()
         line_bot_api.reply_message(
             event.reply_token,
