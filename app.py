@@ -82,14 +82,16 @@ def apple_news():
     res = rs.get(target_url, verify=False)
     soup = BeautifulSoup(res.text, 'html.parser')
 
-    news_list = soup.select('.rtddt a')
+    news_list = soup.select('div.item a')
     random.shuffle(news_list)
     randomnews = news_list[0:5]
     
     content = ""
     for data in randomnews:
-        news = "http://www.appledaily.com.tw{}".format(data.get("href"))
-        content += '{}\n\n'.format(news)
+        url = data.get('href')
+        text = data.select('img')[0]['alt']
+        news = '{}\n{}'.format(text,url)
+        content += '{}\n'.format(news)
     return content
 
 
