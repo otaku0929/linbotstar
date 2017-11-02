@@ -638,7 +638,7 @@ def gsheet():
         worksheet.update_acell('A1',n)
     else:
         n += 1
-        content = 'Lucky 7777 \n目前累積拉霸次數:{}\n本次幸運號為:{} \n再試試手氣吧'.format(x,n)
+        content = 'Lucky 7777 \n目前累積拉霸次數:{}\n本次幸運號為:{} \n再試試手氣吧'.format(n,x)
         worksheet.update_acell('A1',n)
 
     return content
