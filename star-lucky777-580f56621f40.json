@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "star-lucky777",
+  "private_key_id": "580f56621f40f895c73c22b37d08e00f24972f99",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQD03jHMdBhzjpNz\nqqebuNHphzyycuxfDNuQiTX/4gxNeTo8jXK+ZLkOO1RKosR+8aGniAie5bndlPQy\n7Wze3JN2zm/rOgIYL56PrnK3dWgmhuh76pzJBTHfLwDpY8O7LJCRU6v/quETl2n+\nmK/U0xW+GSEdZxi9l/NskUqol+p5AXQZKjKbFozZehCt//Wc2va9fBi6WlU34CPt\n2aq8OxixvsQvBSGTh9H2ZrUdZFHYMW2JG4bRtgPH+q73jpDR5lVWzNFZa0IJFBOf\nWhndzzEepf5h6zq6vfG4mJqG9yd/1XkSTuPpZkzMOKUhUO3TtBamxMMLh1t9abfU\nZQzl3OFTAgMBAAECggEABzScoYgPCiN5ak9sxDPRlX4hxpyEIR3nPh8ThDaaJxN4\np7x/0mNzYJxVVCbrAlNI7v2dR1O6Pu95qh/7cqlp+3aCq5jW4/BOyaqX/JcLXArf\nP3o9Z9rrx0YCUFvbsB/VFzmvl4PnQKTVfSTwE6Ksgp4Jr+xPOZEFnD3ARSrHPw1B\nqW1TtUVudDiQZKPjSJOD4Z37uVcWgW5vMl5TwEwlWTNyMvXNlC5LPDCI2KBRg87c\n1r4AjR35IgwWDSkhBGp4mP6KiXwFVsodHTJZQDf4Hq7DXooA0lgEJfXZSa7/Qz0M\nkB099h8sHBgcDphFGoRak6zY+Y6Ne7hjV4EEeqYvFQKBgQD896SfQdB0YIqWnndd\nmZE6UrKuWZOnm/gsd20/AxFinC3HyQPbE7nA75++ObGzrqFwvQaM8TnxEUC00YB/\nj/Ned7hCfQZae6hOrPgss6RdgNT79kg8cYhlSV6uOl+vnqH/i/vHRGo2cxqFVRyl\n0bSCTJElI0gaa0Bgj35pGJjFLQKBgQD3zbHDDsjz8nYy0MYhrMO8IlNb/6GYofQ6\nhnuJtQ+9eNItZOBZauoWRamwck+jH59uz9Hmi+wkw7TadL/KTJH96VmD5+9yse6r\nWiDSV1aFebmjqpM3DheujaAasILmW/MNlK/kHOcVLzURsxJnoSqCoIAf8bwYnRjO\nSjq8iWlQfwKBgQDnPmYRYzNwPxRRTXjmakxU2WYXdTFB5ZT+6QlHscFBuG0tFXdd\n2/FRCnung8wK6hcQHOuRCa6izNeus1jYwzmA4MXimbGmIyYfDYUsL+ePxgZscZ1l\nC4/YrzJK6Hex7bw/A7LcXJEPRzc2LTCr8EAnYGDKZy8xX1uRKXswDVkR3QKBgEF/\nIp71x3ODAG7J87Ru34VYZUQJuwKGu/DEHt709mYUCyloYkwAEEM2wnUaoaXx88fs\nMgSHszC8cY7UEOU9e9Dq3ngY05czJGwx9D7kSsAYvlJeAW8p0GSYllq3kMGmSAWs\n6RiX8xQMWDCHbjPpyzyfg33t/NNconPT9tZiU22tAoGBAO1zJWUwlIyK2Q6nOMIH\n328i09g1XqiNkmfMkzh3xdIOztetc77WFcOBrd9OlI8E0VAeOnlwwK2drgRecC68\niKOZYgivF2Li7RtZ9An2YpmZ85+KP2wSKqoEO/0SJ6wXGW9NQf73HyqyHT8rsLZ8\naGAb5rzbktcPn9wALYAe2fOb\n-----END PRIVATE KEY-----\n",
+  "client_email": "lucky777@star-lucky777.iam.gserviceaccount.com",
+  "client_id": "112059902402005779379",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/lucky777%40star-lucky777.iam.gserviceaccount.com"
+}
