@@ -4,6 +4,8 @@ import random
 import configparser
 import urllib.request
 import pandas
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials as SAC
 from bs4 import BeautifulSoup
 from flask import Flask, request, abort
 from imgurpython import ImgurClient
@@ -617,6 +619,30 @@ def ty():
 
     return content
 
+def gsheet():
+    
+    GDriveJSON = 'star-lucky777-580f56621f40.json'
+    GSpreadSheet = 'lucky777'
+
+    scope = ['https://spreadsheets.google.com/feeds']
+    key = SAC.from_json_keyfile_name(GDriveJSON, scope)
+    gc = gspread.authorize(key)
+    worksheet = gc.open(GSpreadSheet).sheet1
+
+    n = int(worksheet.acell('A1').value)
+    x = "%04d"% random.randint(0,9999)
+
+    if x == 7777:
+        content ="you win"
+        n = 0
+        worksheet.update_acell('A1',n)
+    else:
+        n += 1
+        content = 'your number is {} not 7777 now:{}'.format(x,n)
+        worksheet.update_acell('A1',n)
+
+    return content
+
 def fwords(resf):
     words = resf
     olist = (["幹","操","靠"])
@@ -814,6 +840,12 @@ def handle_message(event):
         return 0
     if event.message.text == "抽歡歌":
         content = pick17sing()
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=content))
+        return 0
+    if event.message.text == "抽歡歌":
+        content = gsheet()
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=content))
