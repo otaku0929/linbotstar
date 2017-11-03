@@ -630,15 +630,15 @@ def gsheet():
     worksheet = gc.open(GSpreadSheet).sheet1
 
     n = int(worksheet.acell('A1').value)
-    x = "%04d"% random.randint(0,9999)
+    x = "%03d"% random.randint(0,9999)
 
-    if x == 7777:
-        content ="you are the winner!!!!"
+    if x == 777:
+        content ="恭喜抽中彩號777,快去買張大樂透吧 !!!!"
         n = 0
         worksheet.update_acell('A1',n)
     else:
         n += 1
-        content = 'Lucky 7777 \n目前累積拉霸次數:{}\n本次幸運號為:{} \n再試試手氣吧'.format(n,x)
+        content = 'Lucky 777 \n目前累積拉霸次數:{}\n本次幸運號為:{} \n再試試手氣吧'.format(n,x)
         worksheet.update_acell('A1',n)
 
     return content
