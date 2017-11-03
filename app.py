@@ -883,9 +883,10 @@ def handle_message(event):
             return 0
     if event.message.text == "get17":
         url = pick17sing()
+        url2 = '{}.mp3'.format(url)
         img = 'http://17sing.tw/img/song/icon_nosong.jpg'
         image_message=VideoSendMessage(
-            original_content_url=url,
+            original_content_url=url2,
             review_image_url=img
         )
         line_bot_api.reply_message(event.reply_token,image_message)
