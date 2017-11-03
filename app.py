@@ -503,7 +503,7 @@ def sing17():
         songurl = soup.find("meta",{"property":"og:url"})
         surl = songurl.attrs["content"]
         songtitl = soup.find("meta",{"property":"og:description"})
-        titl = songtitl.attrs["content"][0:30]
+        titl = songtitl.attrs["content"][0:50]
 
         content = '{}\n{}...'.format(surl,titl)
         
@@ -511,7 +511,7 @@ def sing17():
             return content
         else:
             pass
-    return "Try again!"
+    return "找不到歌 請再試一次!!"
         
 
 def ask():
