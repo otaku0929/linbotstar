@@ -849,7 +849,7 @@ def handle_message(event):
         if content == 'winner':
             url = 'https://imgur.com/eYrlcRb.jpg'
             image_messages=ImageSendMessage(
-               original_content_url=url
+               original_content_url=url,
                preview_image_url=url
             )
             line_bot_api.reply_message(event.reply_token, image_message)
