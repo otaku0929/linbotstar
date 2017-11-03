@@ -492,7 +492,7 @@ def pick17sing():
 
 def sing17():
 
-    for i in range(1):
+    for i in range(10):
         songid  = "%08d" % random.randint(0,1e8)
         url = 'http://17sing.tw/share_song/index.html?sid={}'.format(songid)
         request = requests.get(url)
