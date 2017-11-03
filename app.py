@@ -882,12 +882,11 @@ def handle_message(event):
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
             return 0
     if event.message.text == "get17":
-        url = pick17sing()
-        url2 = '{}.mp3'.format(url)
-        img = 'http://17sing.tw/img/song/icon_nosong.jpg'
+        url = 'http://song.17sing.tw/group33/M00/07/47/Cm4Eallo24-Aa7ZfAD6NunE0GKg272.mp3'
+        img = 'http://img.17sing.tw/group50/M00/7C/A4/Cm4EdVlbthWAIyHkAADy8DstQTw622.png'
         image_message=VideoSendMessage(
-            original_content_url=url2,
-            review_image_url=img
+            original_content_url=url,
+            preview_image_url=img
         )
         line_bot_api.reply_message(event.reply_token,image_message)
         return 0
