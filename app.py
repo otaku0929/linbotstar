@@ -630,7 +630,7 @@ def gsheet():
     worksheet = gc.open(GSpreadSheet).sheet1
 
     n = int(worksheet.acell('A1').value)
-    x = "%03d"% random.randint(0,9999)
+    x = "%03d"% random.randint(0,999)
 
     if x == 777:
         content ="winner"
