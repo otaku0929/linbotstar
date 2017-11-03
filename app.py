@@ -490,6 +490,26 @@ def pick17sing():
             pass
     return "Try again!"
 
+def sing17():
+
+    for i in range(1):
+        songid  = "%08d" % random.randint(0,1e8)
+        url = 'http://17sing.tw/share_song/index.html?sid={}'.format(songid)
+        request = requests.get(url)
+        ycontent = request.content
+        soup = BeautifulSoup(ycontent, 'html.parser')
+        songinfo = soup.find("meta",{"property":"og:description"})
+        songcontext  = songinfo.attrs["content"]
+        songurl = soup.find("meta",{"property":"og:url"})
+        songurlcontext = songurl.attrs["content"]
+        
+        if len(songcontext) > 0 :
+            return songurlcontext
+        else:
+            pass
+    return "Try again!"
+        
+
 def ask():
     url = "http://wisdomer2002.pixnet.net/blog/post/224560-%E5%AA%BD%E7%A5%96%E7%B1%A4%E8%A9%A960%E9%A6%96"
     request = requests.get(url)
@@ -882,11 +902,10 @@ def handle_message(event):
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
             return 0
     if event.message.text == "get17":
-        url = pick17sing()
-        url2 = '{}.link'.format(url)
+        url = sing17()
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=url2))
+            TextSendMessage(text=url))
         return 0
     if event.message.text == "一閃一閃亮晶晶":
         buttons_template = TemplateSendMessage(
