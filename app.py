@@ -912,8 +912,7 @@ def handle_message(event):
             preview_image_url=url
         )
         line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(image_message))
+            event.reply_token, image_message)
         return 0
     if event.message.text == "一閃一閃亮晶晶":
         buttons_template = TemplateSendMessage(
