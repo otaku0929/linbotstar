@@ -884,11 +884,11 @@ def handle_message(event):
     if event.message.text == "get17":
         url = 'http://song.17sing.tw/group33/M00/07/47/Cm4Eallo24-Aa7ZfAD6NunE0GKg272.mp3'
         img = 'http://img.17sing.tw/group50/M00/7C/A4/Cm4EdVlbthWAIyHkAADy8DstQTw622.png'
-        image_message=VideoSendMessage(
-            original_content_url=url,
-            preview_image_url=img
+        video_message=VideoSendMessage(
+            original_content_url='http://song.17sing.tw/group33/M00/07/47/Cm4Eallo24-Aa7ZfAD6NunE0GKg272.mp3',
+            preview_image_url='http://img.17sing.tw/group50/M00/7C/A4/Cm4EdVlbthWAIyHkAADy8DstQTw622.png'
         )
-        line_bot_api.reply_message(event.reply_token,image_message)
+        line_bot_api.reply_message(event.reply_token,video_message)
         return 0
     if event.message.text == "一閃一閃亮晶晶":
         buttons_template = TemplateSendMessage(
