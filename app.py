@@ -633,7 +633,7 @@ def gsheet():
     x = "%03d"% random.randint(0,9999)
 
     if x == 777:
-        content ="恭喜抽中彩號777,快去買張大樂透吧 !!!!"
+        content ="winner"
         n = 0
         worksheet.update_acell('A1',n)
     else:
@@ -846,10 +846,17 @@ def handle_message(event):
         return 0
     if event.message.text == "拉霸":
         content = gsheet()
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=content))
-        return 0
+        if content == 'winner':
+            url = 'https://imgur.com/eYrlcRb.jpg'
+            image_messages=ImageSendMessage(
+               original_content_url=url
+               preview_image_url=url
+            )
+            line_bot_api.reply_message(event.reply_token, image_message)
+            return 0
+        else:        
+            line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+            return 0
     if event.message.text == "get17":
         url = pick17sing()
         img = 'http://17sing.tw/img/song/icon_nosong.jpg'
