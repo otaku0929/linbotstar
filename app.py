@@ -675,7 +675,7 @@ def fwords(resf):
         return content
     elif words[0:2] in ylist:
         res = words[3:]
-        content = yourube_search(res)
+        content = youtube_search(res)
         return content
     elif words[0] in olist:
         messages_talk = words[0]
