@@ -505,7 +505,7 @@ def sing17():
         songtitl = soup.find("meta",{"property":"og:description"})
         titl = songtitl.attrs["content"][0:30]
 
-        content = '{}\n{}...\n{}'.format(surl,titl)
+        content = '{}\n{}...'.format(surl,titl)
         
         if len(img) > 0 :
             return content
