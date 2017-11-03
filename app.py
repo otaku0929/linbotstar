@@ -632,7 +632,7 @@ def gsheet():
     n = int(worksheet.acell('A1').value)
     x = "%03d"% random.randint(0,999)
 
-    if x == 777:
+    if x == '777':
         content ="winner"
         n = 0
         worksheet.update_acell('A1',n)
