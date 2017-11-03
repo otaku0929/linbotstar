@@ -498,13 +498,17 @@ def sing17():
         request = requests.get(url)
         ycontent = request.content
         soup = BeautifulSoup(ycontent, 'html.parser')
-        songinfo = soup.find("meta",{"property":"og:description"})
-        songcontext  = songinfo.attrs["content"]
+        songimage = soup.find("meta",{"property":"og:image"})
+        img  = songimage.attrs["content"]
         songurl = soup.find("meta",{"property":"og:url"})
-        songurlcontext = songurl.attrs["content"]
+        surl = songurl.attrs["content"]
+        songtitl = soup.find("meta",{"property":"og:description"})
+        titl = songtitl.attrs["content"][0:30]
+
+        content = '{}\n{}...\n{}'.format(img,titl,surl)
         
-        if len(songcontext) > 0 :
-            return songurlcontext
+        if len(img) > 0 :
+            return img
         else:
             pass
     return "Try again!"
@@ -901,11 +905,15 @@ def handle_message(event):
         else:        
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
             return 0
-    if event.message.text == "get17":
+    if event.message.text == "g17":
         url = sing17()
+        image_message = ImageSendMessage(
+            original_content_url=url,
+            preview_image_url=url
+        )
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=url))
+            TextSendMessage(image_message))
         return 0
     if event.message.text == "一閃一閃亮晶晶":
         buttons_template = TemplateSendMessage(
