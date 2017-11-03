@@ -882,13 +882,11 @@ def handle_message(event):
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
             return 0
     if event.message.text == "get17":
-        url = 'http://song.17sing.tw/group33/M00/07/47/Cm4Eallo24-Aa7ZfAD6NunE0GKg272.mp3'
-        img = 'http://img.17sing.tw/group50/M00/7C/A4/Cm4EdVlbthWAIyHkAADy8DstQTw622.png'
-        video_message=VideoSendMessage(
-            original_content_url='http://song.17sing.tw/group33/M00/07/47/Cm4Eallo24-Aa7ZfAD6NunE0GKg272.mp3',
-            preview_image_url='http://img.17sing.tw/group50/M00/7C/A4/Cm4EdVlbthWAIyHkAADy8DstQTw622.png'
-        )
-        line_bot_api.reply_message(event.reply_token,video_message)
+        url = pick17sing()
+        url2 = '{}.link'.format(url)
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=url2))
         return 0
     if event.message.text == "一閃一閃亮晶晶":
         buttons_template = TemplateSendMessage(
