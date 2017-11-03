@@ -883,8 +883,7 @@ def handle_message(event):
             original_content_url=url,
             preview_image_url=url
         )
-        line_bot_api.reply_message(
-            event.reply_token, image_message)
+        line_bot_api.reply_message(event.reply_token, image_message)
         return 0
     if event.message.text == "抽歡歌":
         content = pick17sing()
@@ -896,7 +895,7 @@ def handle_message(event):
         content = gsheet()
         if content == 'winner':
             url = 'https://imgur.com/eYrlcRb.jpg'
-            image_messages=ImageSendMessage(
+            image_message=ImageSendMessage(
                original_content_url=url,
                preview_image_url=url
             )
@@ -911,8 +910,7 @@ def handle_message(event):
             original_content_url=url,
             preview_image_url=url
         )
-        line_bot_api.reply_message(
-            event.reply_token, image_message)
+        line_bot_api.reply_message(event.reply_token, image_message)
         return 0
     if event.message.text == "一閃一閃亮晶晶":
         buttons_template = TemplateSendMessage(
