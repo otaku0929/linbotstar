@@ -882,7 +882,7 @@ def handle_message(event):
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
             return 0
     if event.message.text == "get17":
-        url = '{}.mp3'format(pick17sing())
+        url = pick17sing()
         img = 'http://17sing.tw/img/song/icon_nosong.jpg'
         image_message=AudioSendMessage(
             original_content_url=url,
