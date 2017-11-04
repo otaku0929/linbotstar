@@ -625,6 +625,38 @@ def ratecount(res,nt,xt):
 
     return content
 
+def check_coffie():
+
+    url = 'https://cafe.goodlife.tw/'
+    request = requests.get(url)
+    ycontent = request.content
+    soup = BeautifulSoup(ycontent, 'html.parser')
+
+    datalist = soup.select('div.item')
+
+    content = ""
+    store_list = datalist[0:10]
+    
+    for storedata in store_list:
+        store = storedata.find('h3').text
+        title_list = storedata.select('li a')
+        title_data = check_coffie_content(store,title_list) 
+        store_content = '<{}>\n{}\n'.format(store,title_data)
+        content += store_content
+        
+    return content              
+
+def check_coffie_content(store,title_list):
+
+    title_content=""
+
+    for data in title_list:
+        if data.text.find(store) < 0:
+            title = '{}\n'.format(data.text)
+            title_content += title
+       
+    return title_content 
+
 def weather(location):
     
     doc_name = "F-C0032-001"
@@ -928,6 +960,13 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=content))
         return 0
+    if event.message.text == "查咖啡":
+        content = check_coffie()
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=content))
+        return 0
+    check_coffie
     if event.message.text == "一閃一閃亮晶晶":
         buttons_template = TemplateSendMessage(
             alt_text='開始玩 template',
