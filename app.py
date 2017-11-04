@@ -775,7 +775,7 @@ def fwords(resf):
         res = words[3:]
         content = youtube_search(res)
         return content
-    elif words[0:3] == glist:
+    elif words[0:3] in glist:
         res = word[4:]
         content = goodlife(res)
         return content
