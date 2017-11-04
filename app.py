@@ -778,7 +778,7 @@ def fwords(resf):
     elif words[0:3] == glist:
         res = word[4:]
         content = goodlife(res)
-        retun content
+        return content
     elif words[0] in olist:
         messages_talk = words[0]
         content = talk_messages(messages_talk)
