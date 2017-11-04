@@ -677,7 +677,7 @@ def goodlife(res):
         text = '{}\n'.format(title)
         content += text
     if len(content) ==0:
-        return "查無優惠:
+        return "查無優惠"
     else:
         return content
 
