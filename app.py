@@ -954,7 +954,7 @@ def handle_message(event):
         else:        
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
             return 0
-    if event.message.text == "查積點":
+    if event.message.text == "查集點":
         content = getpoint()
         line_bot_api.reply_message(
             event.reply_token,
