@@ -686,6 +686,24 @@ def gsheet():
 
     return content
 
+def getpoint():
+
+    url = 'https://onelife.tw/%E9%9B%86%E9%BB%9E%E6%B4%BB%E5%8B%95'
+    request = requests.get(url)
+    ycontent = request.content
+    soup = BeautifulSoup(ycontent, 'html.parser')
+
+    datalist = soup.select('a[style="text-decoration:none;"]')
+
+    content = ""
+
+    for data in datalist:
+        url = data.get('href')
+        title = data.text
+        text = '{}\nhttps://onelife.tw/{}\n'.format(title,url)
+        content += text
+    return content
+
 def fwords(resf):
     words = resf
     olist = (["幹","操","靠"])
@@ -904,14 +922,11 @@ def handle_message(event):
         else:        
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
             return 0
-    if event.message.text == "g17":
-        url = sing17()
-        image_message = ImageSendMessage(
-            original_content_url=url,
-            preview_image_url=url
-        )
-        line_bot_api.reply_message(event.reply_token, image_message)
-        #line_bot_api.reply_message(event.reply_token,TextSendMessage(text=url))
+    if event.message.text == "查積點":
+        content = getpoint()
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=content))
         return 0
     if event.message.text == "一閃一閃亮晶晶":
         buttons_template = TemplateSendMessage(
