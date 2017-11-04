@@ -676,11 +676,12 @@ def goodlife(res):
 
         text = '{}\n'.format(title)
         content += text
-        
-    return content
+    if len(content) ==0:
+        return "查無優惠:
+    else:
+        return content
 
-
-def weather(location):
+    def weather(location):
     
     doc_name = "F-C0032-001"
     user_key = "CWB-A01FD046-AA6B-4C27-A307-616C33DB89B7"
