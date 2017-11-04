@@ -663,22 +663,35 @@ def goodlife(res):
     request = requests.get(url)
     ycontent = request.content
     soup = BeautifulSoup(ycontent, 'html.parser')
-
-    datasoup = soup.select('li.topic a')
-    content = ""
-    datalist = datasoup[0:6]
     
-    for data in datalist:
-        if data.text.find('已過期')<0:
-            title = data.text.strip()
-        else:
-            break
 
-        text = '{}\n'.format(title)
-        content += text
+    soup1 = soup.select('ul')
+
+    content = ""
+    span_data = ""
+    
+    for data in soup1[0:13]:
+        if len(data.select('span[class="dis0 qualifier"]')) == 1:
+            span = data.select('li.topic a')
+            span_data = format(goodlife_data(span)).strip()
+            content += '{}\n'.format(span_data)
+            
     if len(content) ==0:
         return "查無優惠"
-    else:
+
+    return content.strip()
+
+def goodlife_data(span):
+
+    content = ""
+
+    for data in span:
+        if data.text.find('已過期')<0:
+            a = data.text.strip()
+            #title = '{}'.format(a)
+            content += a
+        else:
+            pass
         return content
 
 def weather(location):
