@@ -773,12 +773,57 @@ def getpoint():
         content += text
     return content
 
+def movie_search(res):
+
+    url = 'https://tw.movies.yahoo.com/moviesearch_result.html?keyword={}'.format(res)
+    request = requests.get(url)
+    ycontent = request.content
+    soup = BeautifulSoup(ycontent, 'html.parser')
+    
+
+    msoup_data = soup.select('a[class="btn_s_introduction"]')
+
+    for data in msoup_data:
+        movie_url = data.get('href')
+
+    mrequest = requests.get(movie_url)
+    mcontent = mrequest.content
+    movie_soup = BeautifulSoup(mcontent,'html.parser')
+
+    #電影名
+    title_soup= movie_soup.select('div.movie_intro_info_r h1')
+    for ndata in title_soup:
+        title = ndata.text
+ 
+    #期待度
+    level_soup= movie_soup.select('div.circle_percent') 
+    for ldata in level_soup:
+        lv = ldata.get('data-percent')
+    #滿意度
+    score_soup= movie_soup.select('div[class="score_num count"]') 
+    for sdata in score_soup:
+        score = sdata.get('data-num')
+
+    #簡介
+    data_soup= movie_soup.select('div.gray_infobox_inner')
+    for ddata in data_soup:
+        data = ddata.text.strip()[0:100]
+
+    #時刻表URL
+    time_soup= [movie_soup.select('ul[class="movie_tab_list"] a[class="gabtn"]')[3]]
+    for tdata in time_soup:
+        time = tdata.get('href')
+
+    content = '<{}>\n\n期待度:{}\n滿意度:{}\n*****\n{}...\n*****\n時刻表:{}'.format(title,lv,score,data,time)
+    return content
+
 def fwords(resf):
     words = resf
     olist = (["幹","操","靠"])
     wlist = (["三小","靠北","馬的","媽的", "放屁","美金","港幣","英鎊","澳幣","加拿大幣","新加坡幣","瑞士法郎","日圓","日幣","南非幣","瑞典幣","紐元","泰幣","菲國比索","印尼幣","歐元","韓元","越南盾","馬來幣","人民幣"])
     ylist = (["聽歌","找歌","查歌"])
     glist = (['查優惠'])
+    mlist = (['看電影'])
     if words.find('n')>=2:
         res = words[0:words.find('n')].replace('日幣','日圓')
         nt = words[words.find('n')+1:words.find('x')]
@@ -792,6 +837,10 @@ def fwords(resf):
     elif words[0:3] in glist:
         res = words[3:]
         content = goodlife(res)
+        return content
+    elif words[0:3] in mlist:
+        res = words[3:]
+        content = movie_search(res)
         return content
     elif words[0] in olist:
         messages_talk = words[0]
