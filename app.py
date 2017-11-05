@@ -781,7 +781,12 @@ def movie_search(res):
     soup = BeautifulSoup(ycontent, 'html.parser')
     
 
-    msoup_data = soup.select('a[class="btn_s_introduction"]')
+    if len(soup.select('div.errorbox_title')) ==1:
+        return "查無結果"
+    else:
+        msoup_data = soup.select('a[class="btn_s_introduction"]')
+        for data in msoup_data:
+            movie_url = data.get('href')
 
     for data in msoup_data:
         movie_url = data.get('href')
