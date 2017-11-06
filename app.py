@@ -793,10 +793,10 @@ def r18():
           else:
               pass
       if n ==3:
-          content = '18啦~~\n\n本次擲出結果為:{},{},{}.{}\n\n點數為:{} 逼機 >"<" '.format(a,b,c,d,n)
+          content = '18啦~~\n\n本次擲出結果為:{},{},{}.{}\n\n{}點 逼機 >"<" '.format(a,b,c,d,n)
           return content
       else:
-          content = '18啦~~\n\n本次擲出結果為:{},{},{}.{}\n\n點數為:{}'.format(a,b,c,d,n)
+          content = '18啦~~\n\n本次擲出結果為:{},{},{}.{}\n\n{}點'.format(a,b,c,d,n)
           return content
     if len(y)==2 and c3 !='':
         content = '18啦~~\n\n本次擲出結果為:{},{},{}.{}\n\n沒點, 再擲一次吧!!!'.format(a,b,c,d,n)
