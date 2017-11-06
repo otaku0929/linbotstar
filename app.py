@@ -799,18 +799,11 @@ def r18():
           content = '18啦~~\n\n本次擲出結果為:{},{},{}.{}\n\n點數為:{}'.format(a,b,c,d,n)
           return content
     if len(y)==2 and c3 !='':
-        n = int(y[0])+int(y[1])
-        content = '18啦~~\n\n本次擲出結果為:{},{},{}.{}\n\n點數為:{}'.format(a,b,c,d,n)
+        content = '18啦~~\n\n本次擲出結果為:{},{},{}.{}\n\n沒點, 再擲一次吧!!!'.format(a,b,c,d,n)
         return content
     if len(y)==2:         
-        if int(y[0])<int(y[1]):
-            n = int(y[1])+int(y[1])
-            content = '18啦~~\n\n本次擲出結果為:{},{},{}.{}\n\n點數為:{}'.format(a,b,c,d,n)
-            return content
-        else:
-            n = int(y[0])+int(y[0])
-            content = '18啦~~\n\n本次擲出結果為:{},{},{}.{}\n\n點數為:{}'.format(a,b,c,d,n)
-            return content        
+       content = '18啦~~\n\n本次擲出結果為:{},{},{}.{}\n\n水哦  十八!!!!'.format(a,b,c,d,n)
+       return content       
 
 def getpoint():
 
