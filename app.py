@@ -760,44 +760,57 @@ def r18():
     a = random.randint(1,6)
     b = random.randint(1,6)
     c = random.randint(1,6)
+    d = random.randint(1,6)
 
-    x = a+b+c
-    rlist = [a,b,c]
-    z=""
-
-    for i in rlist:
-        if rlist.count(int(i))==2:
-           z = i
-
-    for i2 in rlist:
-        if i2 != z:
-            zn = i2
-        else:
-            pass
-
+    rlist = [a,b,c,d]
     seen = set()      
     y = [n for n in rlist if n not in seen and not seen.add(n)]
-    #print (y)
-    #print (len(y))
 
-    if x ==18:
-        content = '18啦~~\n\n本次擲出結果為:{},{},{}\n\n18通殺!!!!'.format(a,b,c)
+    c2=""
+    c3=""
+    n=0
+
+    for i in rlist:
+        if rlist.count(int(i)) == 2:
+           c2 = i
+        if rlist.count(int(i)) == 3:
+           c3 = i
+
+    if len(y) == 4:
+        content = '18啦~~\n\n本次擲出結果為:{},{},{}.{}\n\n沒點, 再擲一次吧!!!'.format(a,b,c,d)
         return content
-    elif x ==0:
-        content = '18啦~~\n\n本次擲出結果為:{},{},{}\n\n逼機 >"<"'.format(a,b,c)
+    if len(y) ==1:
+      if y[0]==6:
+         content = '18啦~~\n\n本次擲出結果為:{},{},{}.{}\n\n豹子通殺!!!!'.format(a,b,c,d)
+         return content
+      else:
+         content = '18啦~~\n\n本次擲出結果為:{},{},{}.{}\n\n點數為:水哦 {}一色'.format(a,b,c,d,y[0])
+         return content
+    if len(y)==3:
+      for i2 in rlist:
+          if i2 != c2:
+              n = n+i2
+          else:
+              pass
+      if n ==3:
+          content = '18啦~~\n\n本次擲出結果為:{},{},{}.{}\n\n點數為:{} 逼機 >"<" '.format(a,b,c,d,n)
+          return content
+      else:
+          content = '18啦~~\n\n本次擲出結果為:{},{},{}.{}\n\n點數為:{}'.format(a,b,c,d,n)
+          return content
+    if len(y)==2 and c3 !='':
+        n = int(y[0])+int(y[1])
+        content = '18啦~~\n\n本次擲出結果為:{},{},{}.{}\n\n點數為:{}'.format(a,b,c,d,n)
         return content
-    elif len(y)==2:
-        content = '18啦~~\n\n本次擲出結果為:{},{},{}\n\n點數為:{}'.format(a,b,c,zn)
-        return content
-    elif len(y)==1:
-        n = y[0]
-        content = '18啦~~\n\n本次擲出結果為:{},{},{}\n\n{}一色~'.format(a,b,c,n)
-        return content
-    else:
-        dlist = list(set(rlist))
-        #print (dlist)
-        content = '18啦~~\n\n本次擲出結果為:{},{},{}\n\n沒點, 再擲一次吧!!!'.format(a,b,c)
-        return content          
+    if len(y)==2:         
+        if int(y[0])<int(y[1]):
+            n = int(y[1])+int(y[1])
+            content = '18啦~~\n\n本次擲出結果為:{},{},{}.{}\n\n點數為:{}'.format(a,b,c,d,n)
+            return content
+        else:
+            n = int(y[0])+int(y[0])
+            content = '18啦~~\n\n本次擲出結果為:{},{},{}.{}\n\n點數為:{}'.format(a,b,c,d,n)
+            return content        
 
 def getpoint():
 
