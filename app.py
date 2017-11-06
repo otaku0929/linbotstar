@@ -755,6 +755,50 @@ def gsheet():
 
     return content
 
+def r18():
+
+    a = random.randint(1,6)
+    b = random.randint(1,6)
+    c = random.randint(1,6)
+
+    x = a+b+c
+    rlist = [a,b,c]
+    z=""
+
+    for i in rlist:
+        if rlist.count(int(i))==2:
+           z = i
+
+    for i2 in rlist:
+        if i2 != z:
+            zn = i2
+        else:
+            pass
+
+    seen = set()      
+    y = [n for n in rlist if n not in seen and not seen.add(n)]
+    #print (y)
+    #print (len(y))
+
+    if x ==18:
+        content = '18啦~~\n\n本次擲出結果為:{},{},{}\n\n18通殺!!!!'.format(a,b,c)
+        return content
+    elif x ==0:
+        content = '18啦~~\n\n本次擲出結果為:{},{},{}\n\n逼機 >"<"'.format(a,b,c)
+        return content
+    elif len(y)==2:
+        content = '18啦~~\n\n本次擲出結果為:{},{},{}\n\n點數為:{}'.format(a,b,c,zn)
+        return content
+    elif len(y)==1:
+        n = y[0]
+        content = '18啦~~\n\n本次擲出結果為:{},{},{}\n\n點數為:{}'.format(a,b,c,n)
+        return content
+    else:
+        dlist = list(set(rlist))
+        #print (dlist)
+        content = '18啦~~\n\n本次擲出結果為:{},{},{}\n\n沒點, 再擲一次吧!!!'.format(a,b,c)
+        return content          
+
 def getpoint():
 
     url = 'https://onelife.tw/%E9%9B%86%E9%BB%9E%E6%B4%BB%E5%8B%95'
@@ -1055,6 +1099,12 @@ def handle_message(event):
         else:        
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
             return 0
+    if event.message.text == "18r" or event.message.text == "18啦":
+        content = r18()
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=content))
+        return 0
     if event.message.text == "查集點":
         content = getpoint()
         line_bot_api.reply_message(
