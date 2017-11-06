@@ -791,7 +791,7 @@ def r18():
         return content
     elif len(y)==1:
         n = y[0]
-        content = '18啦~~\n\n本次擲出結果為:{},{},{}\n\n清一色~'.format(a,b,c)
+        content = '18啦~~\n\n本次擲出結果為:{},{},{}\n\n{}一色~'.format(a,b,c,n)
         return content
     else:
         dlist = list(set(rlist))
