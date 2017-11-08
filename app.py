@@ -831,15 +831,18 @@ def movie_search(res):
     soup = BeautifulSoup(ycontent, 'html.parser')
 
     m_check = soup.select('div.release_movie_name a')
-
+            
 
     if len(soup.select('div.errorbox_title')) ==1:
         return "查無結果"
     else:
-        if m_check[len(m_check)-2].text == res:
-           movie_url =  m_check[len(m_check)-2].get('href')
-        else:
-           movie_url =  m_check[0].get('href')
+        for i in range(0,len(m_check)):
+            if m_check[i].text == res:
+                movie_url =  m_check[i].get('href')
+                break
+            else:
+                movie_url =  m_check[0].get('href')
+
 
     mrequest = requests.get(movie_url)
     mcontent = mrequest.content
