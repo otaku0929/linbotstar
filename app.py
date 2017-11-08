@@ -829,17 +829,17 @@ def movie_search(res):
     request = requests.get(url)
     ycontent = request.content
     soup = BeautifulSoup(ycontent, 'html.parser')
-    
+
+    m_check = soup.select('div.release_movie_name a')
+
 
     if len(soup.select('div.errorbox_title')) ==1:
         return "查無結果"
     else:
-        msoup_data = soup.select('a[class="btn_s_introduction"]')
-        for data in msoup_data:
-            movie_url = data.get('href')
-
-    for data in msoup_data:
-        movie_url = data.get('href')
+        if m_check[len(m_check)-2].text == res:
+           movie_url =  m_check[len(m_check)-2].get('href')
+        else:
+           movie_url =  m_check[0].get('href')
 
     mrequest = requests.get(movie_url)
     mcontent = mrequest.content
@@ -862,12 +862,19 @@ def movie_search(res):
     #簡介
     data_soup= movie_soup.select('div.gray_infobox_inner')
     for ddata in data_soup:
-        data = ddata.text.strip()[0:100]
+        data = ddata.text.strip()[0:120]
 
     #時刻表URL
-    time_soup= [movie_soup.select('ul[class="movie_tab_list"] a[class="gabtn"]')[3]]
-    for tdata in time_soup:
-        time = tdata.get('href')
+    if len(movie_soup.select('ul[class="movie_tab_list"] a[class="gabtn"]')) < 4:
+        time = "非上映中"
+    else:
+        if movie_soup.select('ul[class="movie_tab_list"] a[class="gabtn"]')[3].text != '時刻表':
+            time = "非上映中"
+        else:
+            time_soup = movie_soup.select('ul[class="movie_tab_list"] a[class="gabtn"]')[3]
+            for tdata in [time_soup]:
+                time = tdata.get('href')
+
 
     content = '<{}>\n\n期待度:{}\n滿意度:{}\n*****\n{}...\n*****\n時刻表:{}'.format(title,lv,score,data,time)
     return content
