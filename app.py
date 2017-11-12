@@ -956,7 +956,7 @@ def talk_messages(messages_talk):
         content = random.choice(['馬兒跑~馬兒跳~馬兒咩咩叫~','一馬當先、馬到成功、馬耳東風、馬的成語還有很多哦~','媽媽的孩子都是寶','你8+9哦','羊的~雞的~狗的~'])
         return content
     if messages_talk in {'放屁'}:
-        content = random.choice(['噗~~~~~~是誰','Lucky~Lucky~Lucky~你再躱在桌子底下會臭死','好臭~~~','快大口吸掉'])
+        content = random.choice(['噗~~~~~~是誰','Lucky~Lucky~Lucky~你再躱在桌子底下會臭死','好臭~~~','快大口吸掉','多吸多健康','聽說屁聞多了人會變聰明'])
         return content    
     if messages_talk in [ "美金","港幣","英鎊","澳幣","加拿大幣","新加坡幣","瑞士法郎","日圓","日幣","南非幣","瑞典幣","紐元","泰幣","菲國比索","印尼幣","歐元","韓元","越南盾","馬來幣","人民幣"]:
         res = messages_talk.replace('日幣','日圓')
@@ -1167,7 +1167,7 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=content))
         return 0
-    if event.message.text = "查PM2.5":
+    if event.message.text in ["查PM2.5","查空氣品質"]:
         content = pm25()
         line_bot_api.reply_message(
             event.reply_token,
