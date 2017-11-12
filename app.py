@@ -882,6 +882,28 @@ def movie_search(res):
     content = '<{}>\n\n期待度:{}\n滿意度:{}\n*****\n{}...\n*****\n時刻表:{}'.format(title,lv,score,data,time)
     return content
 
+def pm25():
+
+    url = 'http://opendata.epa.gov.tw/ws/Data/AQI/?$format=json'
+    res=requests.get(url)
+    soup = res.json()
+    
+    data = ""
+    content=""
+
+    for i in range(0,len(soup)-1):
+        if soup[i].get('Status') in ['對敏感族群不健康','對所有族群不健康','非常不健康','危害']:
+            County = soup[i].get('County')
+            SiteName = soup[i].get('SiteName')
+            AQI = soup[i].get('AQI')
+            PM25 = soup[i].get('PM2.5')
+            Status = soup[i].get('Status')
+            data='城市:{}\n觀測站:{}\nAQI:{}\nPM2.5:{}\n空氣品質:{}\n\n'.format(County,SiteName,AQI,PM25,Status)
+            content +=data
+        else:
+            pass
+    return content
+
 def fwords(resf):
     words = resf
     olist = (["幹","操","靠"])
@@ -1141,6 +1163,12 @@ def handle_message(event):
         return 0
     if event.message.text == "查咖啡":
         content = check_coffie()
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=content))
+        return 0
+    if event.message.text = "查PM2.5":
+        content = pm25()
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=content))
