@@ -1583,7 +1583,7 @@ def handle_location_message(event):
         event.reply_token,
         LocationSendMessage(
             title=event.message.title, 
-            address=event.message.address
+            address=event.message.address,
             latitude=event.message.latitude, longitude=event.message.longitude
         )
     )
