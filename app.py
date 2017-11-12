@@ -1167,7 +1167,7 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=content))
         return 0
-    if event.message.text in ["查PM2.5","查空氣品質"]:
+    if event.message.text in ["查PM2.5","查空氣品質","查pm2.5"]:
         content = pm25()
         line_bot_api.reply_message(
             event.reply_token,
