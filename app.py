@@ -715,6 +715,19 @@ def weather(location):
     
     return content
 
+def sweather():
+
+    res = requests.get("http://opendata.cwb.gov.tw/api/v1/rest/datastore/W-C0033-002?Authorization=CWB-A01FD046-AA6B-4C27-A307-616C33DB89B7")
+    weather_api= res.json()
+
+    content=""
+    weather_info = weather_api['records']['record'][0]['datasetInfo']['datasetDescription']
+    weather_data = weather_api['records']['record'][0]['contents']['content']['contentText'].strip()
+
+    content='<{}>\n{}'.format(weather_info,weather_data)
+       
+    return content
+
 def ty():
 
     src = 'http://www.cwb.gov.tw/V7/prevent/typhoon/Data/PTA_NEW/index.htm?dumm=Wed#'
@@ -1172,6 +1185,12 @@ def handle_message(event):
         return 0
     if event.message.text in ["查PM2.5","查空氣品質","查pm2.5"]:
         content = pm25()
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=content))
+        return 0
+    if event.message.text == "天氣特報":
+        content = sweather()
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=content))
