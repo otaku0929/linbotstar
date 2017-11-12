@@ -23,6 +23,18 @@ app = Flask(__name__)
 config = configparser.ConfigParser()
 config.read("config.ini")
 
+try:
+    # For Python 3.0 and later
+    from urllib.error import HTTPError
+    from urllib.parse import quote
+    from urllib.parse import urlencode
+except ImportError:
+    # Fall back to Python 2's urllib2 and urllib
+    from urllib2 import HTTPError
+    from urllib import quote
+    from urllib import urlencode
+#from urlparse import urljoin
+
 line_bot_api = LineBotApi(config['line_bot']['Channel_Access_Token'])
 handler = WebhookHandler(config['line_bot']['Channel_Secret'])
 client_id = config['imgur_api']['Client_ID']
@@ -30,6 +42,13 @@ client_secret = config['imgur_api']['Client_Secret']
 album_id = config['imgur_api']['Album_ID']
 API_Get_Image = config['other_api']['API_Get_Image']
 
+YELPCLIENT_ID = '9VbMjEdGSCCfUHBkiqLRHA'
+YELPCLIENT_SECRET = 'LQhrsQVCaSHkUe23SWoxwxWUWIsRbykI0kaXCx4pjD22wVOXHMyKCYmywpdFkq9B'
+API_HOST = 'https://api.yelp.com'
+SEARCH_PATH = '/v3/businesses/search'
+BUSINESS_PATH = '/v3/businesses/'  # Business ID will come after slash.
+TOKEN_PATH = '/oauth2/token'
+GRANT_TYPE = 'client_credentials'
 
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -953,6 +972,68 @@ def fwords(resf):
                 messages_talk = m2list
                 content = talk_messages(messages_talk)
                 return content
+            
+def obtain_bearer_token(host, path):
+    url = '{0}{1}'.format(host, quote(path.encode('utf8')))
+    assert YELPCLIENT_ID, "Please supply your client_id."
+    assert YELPCLIENT_SECRET, "Please supply your client_secret."
+    data = urlencode({
+        'client_id': YELPCLIENT_ID,
+        'client_secret': YELPCLIENT_SECRET,
+        'grant_type': GRANT_TYPE,
+    })
+    headers = {
+        'content-type': 'application/x-www-form-urlencoded',
+    }
+    response = requests.request('POST', url, data=data, headers=headers)
+    bearer_token = response.json()['access_token']
+    return bearer_token
+
+def request(host, path, bearer_token, url_params=None):
+    url_params = url_params or {}
+    url = '{0}{1}'.format(host, quote(path.encode('utf8')))
+    headers = {
+        'Authorization': 'Bearer %s' % bearer_token,
+    }
+
+    response = requests.request('GET', url, headers=headers, params=url_params)
+    return response.json()
+
+
+def request(host, path, bearer_token, url_params=None):
+    url_params = url_params or {}
+    url = '{0}{1}'.format(host, quote(path.encode('utf8')))
+    headers = {
+        'Authorization': 'Bearer %s' % bearer_token,
+    }
+
+    response = requests.request('GET', url, headers=headers, params=url_params)
+    return response.json()
+
+
+def search(bearer_token, location):
+    url_params = {
+        'term': 'restaurant',
+        'location': location.replace(' ', '+'),
+        'limit': 5,
+        'radius': 1000
+    }
+    return request(API_HOST, SEARCH_PATH, bearer_token, url_params=url_params)
+
+def get_restaurant(location):
+    bearer_token = obtain_bearer_token(API_HOST, TOKEN_PATH)
+    response = search(bearer_token, location)
+    businesses = response.get('businesses')
+    
+    restaurants = []
+    for business in businesses:
+        restaurant = {}
+        restaurant['name'] = business['name']
+        restaurant['address'] = business['location']['display_address'][0]
+        restaurant['photo'] = business['image_url']
+        restaurant['yelp_url'] = business['url']
+        restaurants.append(restaurant)
+    return restaurants
             
 def talk_messages(messages_talk):
 
