@@ -33,8 +33,8 @@ API_Get_Image = config['other_api']['API_Get_Image']
 # OAuth credential placeholders that must be filled in by users.
 # You can find them on
 # https://www.yelp.com/developers/v3/manage_app
-CLIENT_ID = '9VbMjEdGSCCfUHBkiqLRHA'
-CLIENT_SECRET = 'xxxxxxxxx'
+YELPCLIENT_ID = '9VbMjEdGSCCfUHBkiqLRHA'
+YELPCLIENT_SECRET = 'xxxxxxxxx'
 
 # API constants, you shouldn't have to change these.
 API_HOST = 'https://api.yelp.com'
@@ -972,8 +972,8 @@ def obtain_bearer_token(host, path):
     assert CLIENT_ID, "Please supply your client_id."
     assert CLIENT_SECRET, "Please supply your client_secret."
     data = urlencode({
-        'client_id': CLIENT_ID,
-        'client_secret': CLIENT_SECRET,
+        'client_id': YELPCLIENT_ID,
+        'client_secret': YELPCLIENT_SECRET,
         'grant_type': GRANT_TYPE,
     })
     headers = {
