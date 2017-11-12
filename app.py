@@ -44,11 +44,7 @@ API_Get_Image = config['other_api']['API_Get_Image']
 
 YELPCLIENT_ID = '9VbMjEdGSCCfUHBkiqLRHA'
 YELPCLIENT_SECRET = 'LQhrsQVCaSHkUe23SWoxwxWUWIsRbykI0kaXCx4pjD22wVOXHMyKCYmywpdFkq9B'
-API_HOST = 'https://api.yelp.com'
-SEARCH_PATH = '/v3/businesses/search'
-BUSINESS_PATH = '/v3/businesses/'  # Business ID will come after slash.
-TOKEN_PATH = '/oauth2/token'
-GRANT_TYPE = 'client_credentials'
+
 
 @app.route("/callback", methods=['POST'])
 def callback():
