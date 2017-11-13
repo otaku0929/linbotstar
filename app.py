@@ -1539,11 +1539,10 @@ def handle_message(event):
 def handle_location_message(event):
     token = event.reply_token
     location = event.message.address
-    content = yelp(location)
-    random.shuffle(res)
-    randomres=res[0:5]
     _columns=[]
     res = yelp(location)
+    random.shuffle(res)
+    randomres=res[0:5]
     for i in range(5):
         data = yelp_data(randomres,i)
         title = data["title"]
