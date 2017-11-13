@@ -930,7 +930,7 @@ def yelp(location):
     headers = {'Authorization': 'bearer %s' % access_token}
     params = {'location': location.replace(' ', '+'),
               'term': 'Restaurant',
-              'limit': 3,
+              'limit': 5,
               'radius': 1000
               }
 
