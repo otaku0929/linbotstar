@@ -1576,7 +1576,7 @@ def handle_location_message(event):
     }
     ]
     }
-    return 0      
+    return payload      
         
     
     
