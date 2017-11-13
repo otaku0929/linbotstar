@@ -1544,30 +1544,66 @@ def handle_location_message(event):
     res = yelp(location)
     for i in range(4):
         data = yelp_data(res,i)
-        _title = data["title"]
-        _description = data["description"]
-        _urltoimage=data["urltoimage"]
-        _url=data["url"]
-        carousel_template_message = TemplateSendMessage(
-            alt_text='Carousel template',
-            template=CarouselTemplate(
-                columns=[
-                    CarouselColumn(
-                        thumbnail_image_url=_urltoimage,
-                        title=_title,
-                        text=_description,
-                        actions=[
-                            URITemplateAction(
-                                label='View detail',
-                                uri=_url
-                            )
-                        ]
-                    )
-                ]
-            )
+        title = data["title"]
+        description = data["description"]
+        urltoimage=data["urltoimage"]
+        url=data["url"]
+        _columns[len(_columns):] = [
+        {
+            "thumbnailImageUrl":urltoimage,
+            "title":title,
+            "text":description,
+            "label":"View detail",
+            "uri":url
+        } 
+        ]
+    carousel_template_message = TemplateSendMessage(
+        alt_text='Carousel template',
+        template=CarouselTemplate(
+            columns=[
+                CarouselColumn(
+                    thumbnail_image_url=_columns[0]['urltoimage'],
+                    title=_columns[0]['title'],
+                    text=_columns[0]['description'],
+                    actions=[
+                        URITemplateAction(
+                            label='View detail',
+                            uri=_columns[0]['url']
+                        )
+                    ]
+                )
+            ]
         )
-        line_bot_api.reply_message(event.reply_token,carousel_template_message)
-    return 0    
+    )
+    line_bot_api.reply_message(event.reply_token,carousel_template_message)
+    return 0 
+    
+                    
+#   for i in range(4):
+#        data = yelp_data(res,i)
+#        _title = data["title"]
+#        _description = data["description"]
+#        _urltoimage=data["urltoimage"]
+#        _url=data["url"]
+#        carousel_template_message = TemplateSendMessage(
+#            alt_text='Carousel template',
+#            template=CarouselTemplate(
+#                columns=[
+#                    CarouselColumn(
+#                        thumbnail_image_url=_urltoimage,
+#                        title=_title,
+#                        text=_description,
+#                        actions=[
+#                            URITemplateAction(
+#                                label='View detail',
+#                                uri=_url
+#                            )
+#                        ]
+#                    )
+#                ]
+#            )
+#        )
+   
 
     
 if __name__ == '__main__':
