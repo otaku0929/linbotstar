@@ -23,33 +23,12 @@ app = Flask(__name__)
 config = configparser.ConfigParser()
 config.read("config.ini")
 
-try:
-    # For Python 3.0 and later
-    from urllib.error import HTTPError
-    from urllib.parse import quote
-    from urllib.parse import urlencode
-except ImportError:
-    # Fall back to Python 2's urllib2 and urllib
-    from urllib2 import HTTPError
-    from urllib import quote
-    from urllib import urlencode
-#from urlparse import urljoin
-
 line_bot_api = LineBotApi(config['line_bot']['Channel_Access_Token'])
 handler = WebhookHandler(config['line_bot']['Channel_Secret'])
 client_id = config['imgur_api']['Client_ID']
 client_secret = config['imgur_api']['Client_Secret']
 album_id = config['imgur_api']['Album_ID']
 API_Get_Image = config['other_api']['API_Get_Image']
-
-YELPCLIENT_ID = '9VbMjEdGSCCfUHBkiqLRHA'
-YELPCLIENT_SECRET = 'LQhrsQVCaSHkUe23SWoxwxWUWIsRbykI0kaXCx4pjD22wVOXHMyKCYmywpdFkq9B'
-API_HOST = 'https://api.yelp.com'
-SEARCH_PATH = '/v3/businesses/search'
-BUSINESS_PATH = '/v3/businesses/'  # Business ID will come after slash.
-TOKEN_PATH = '/oauth2/token'
-GRANT_TYPE = 'client_credentials'
-
 
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -937,6 +916,37 @@ def pm25():
             pass
     return content
 
+def yelp(location):
+    url = 'https://api.yelp.com/oauth2/token'
+    data = {
+        'client_id':'9VbMjEdGSCCfUHBkiqLRHA',
+        'client_secret':'LQhrsQVCaSHkUe23SWoxwxWUWIsRbykI0kaXCx4pjD22wVOXHMyKCYmywpdFkq9B',
+        'grant_type': 'client_credentials',
+    }
+    
+    token = requests.post('https://api.yelp.com/oauth2/token', data=data)
+    access_token = token.json()['access_token']
+    url = 'https://api.yelp.com/v3/businesses/search'
+    headers = {'Authorization': 'bearer %s' % access_token}
+    params = {'location': location.replace(' ', '+'),
+              'term': 'Restaurant',
+              'limit': 3,
+              'radius': 1000
+              }
+
+    resp = requests.get(url=url, params=params, headers=headers)
+    businesses = resp.json()['businesses']
+
+    restaurants = []
+    for business in businesses:
+        restaurant = {}
+        restaurant['name'] = business['name']
+        restaurant['address'] = business['location']['display_address'][0]
+        restaurant['photo'] = business['image_url']
+        restaurant['yelp_url'] = business['url']
+        restaurants.append(restaurant)
+    return restaurants
+
 def fwords(resf):
     words = resf
     olist = (["幹","操","靠"])
@@ -1519,6 +1529,7 @@ def handle_message(event):
 @handler.add(MessageEvent, message=LocationMessage)
 def handle_location_message(event):
     location = event.message.address
+    content = yelp(location)
     line_bot_api.reply_message(
         event.reply_token,
         LocationSendMessage(
