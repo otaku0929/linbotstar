@@ -1562,13 +1562,13 @@ def handle_location_message(event):
         template=CarouselTemplate(
             columns=[
                 CarouselColumn(
-                    thumbnail_image_url=_columns[0]['urltoimage'],
-                    title=_columns[0]['title'],
-                    text=_columns[0]['description'],
+                    thumbnail_image_url=_columns[0]["urltoimage"],
+                    title=_columns[0]["title"],
+                    text=_columns[0]["description"],
                     actions=[
                         URITemplateAction(
                             label='View detail',
-                            uri=_columns[0]['url']
+                            uri=_columns[0]["url"]
                         )
                     ]
                 )
