@@ -1558,7 +1558,7 @@ def handle_location_message(event):
                 actions=[
                     URITemplateAction(
                         label='View detail',
-                        uri=url
+                        uri=_url
                     )
                 ]
             )
