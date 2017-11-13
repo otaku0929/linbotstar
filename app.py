@@ -1604,19 +1604,7 @@ def handle_location_message(event):
                             uri=_columns[3]["uri"]
                         )
                     ]
-                ),
-                CarouselColumn(
-                    thumbnail_image_url=_columns[4]["thumbnailImageUrl"],
-                    title=_columns[4]["title"],
-                    text=_columns[4]["text"],
-                    actions=[
-                        URITemplateAction(
-                            label='View detail',
-                            uri=_columns[4]["uri"]
-                        )
-                    ]
                 )
-            ]
         )
     )
     line_bot_api.reply_message(event.reply_token,carousel_template_message)
