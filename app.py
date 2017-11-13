@@ -947,6 +947,15 @@ def yelp(location):
         restaurants.append(restaurant)
     return restaurants
 
+def yelp_data(res,i):
+
+    name = res[i]['name']
+    address = res[i]['address']
+    photo = res[i]['photo']
+    yelp_url=res[i]['yelp_url']
+
+    return {"title":name,"description":address,"urltoimage":photo,"url":yelp_url}
+
 def fwords(resf):
     words = resf
     olist = (["幹","操","靠"])
@@ -1530,14 +1539,54 @@ def handle_message(event):
 def handle_location_message(event):
     location = event.message.address
     content = yelp(location)
-    line_bot_api.reply_message(
-        event.reply_token,
-        LocationSendMessage(
-            title=event.message.title, 
-            address=event.message.address,
-            latitude=event.message.latitude, longitude=event.message.longitude
-        )
-    )
+    columns=[]
+    res = yelp(location)
+    for i in range(4):
+        data = yelp_data(res,i)
+        title = data["title"]
+        description = data["description"]
+        urltoimage=data["urltoimage"]
+        url=data["url"]
+        columns[len(columns):]=[
+        {
+            "thumbnailImageUrl": urltoimage,
+            "title": title,
+            "text": description,
+            "actions": [  
+                {
+                    "type": "uri",
+                    "label": "View detail",
+                    "uri": url
+                }
+            ]
+        } 
+        ]
+    
+    payload = {
+    "replyToken": token,
+    "messages":[
+    {
+        "type": "template",
+        "altText": "this is a carousel template",
+        "template": {
+            "type": "carousel",
+            "columns": _columns
+        }
+    }
+    ]
+    }
+    return 0      
+        
+    
+    
+    #    line_bot_api.reply_message(
+#        event.reply_token,
+#        LocationSendMessage(
+#            title=event.message.title, 
+#            address=event.message.address,
+#            latitude=event.message.latitude, longitude=event.message.longitude
+#        )
+#    )
     
 if __name__ == '__main__':
     app.run()
