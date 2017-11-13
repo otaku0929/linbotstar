@@ -1542,47 +1542,33 @@ def handle_location_message(event):
     content = yelp(location)
     columns=[]
     res = yelp(location)
-    data = yelp_data(res,0)
-    _title = data["title"]
-    _description = data["description"]
-    _urltoimage=data["urltoimage"]
-    _url=data["url"]
-    carousel_template_message = TemplateSendMessage(
-    alt_text='Carousel template',
-    template=CarouselTemplate(
-        columns=[
-            CarouselColumn(
-                thumbnail_image_url=_urltoimage,
-                title=_title,
-                text=_description,
-                actions=[
-                    URITemplateAction(
-                        label='View detail',
-                        uri=_url
+    for i in range(4):
+        data = yelp_data(res,i)
+        _title = data["title"]
+        _description = data["description"]
+        _urltoimage=data["urltoimage"]
+        _url=data["url"]
+        carousel_template_message = TemplateSendMessage(
+            alt_text='Carousel template',
+            template=CarouselTemplate(
+                columns=[
+                    CarouselColumn(
+                        thumbnail_image_url=_urltoimage,
+                        title=_title,
+                        text=_description,
+                        actions=[
+                            URITemplateAction(
+                                label='View detail',
+                                uri=_url
+                            )
+                        ]
                     )
                 ]
             )
-        ]
-    )
-    )
-    line_bot_api.reply_message(event.reply_token,carousel_template_message)
+        )
+        line_bot_api.reply_message(event.reply_token,carousel_template_message)
     return 0    
-#    for i in range(4):
-#        data = yelp_data(res,i)
-#        title = data["title"]
-#        description = data["description"]
-#        urltoimage=data["urltoimage"]
-#        url=data["url"]
-#        alt_text="Carouse_template",
 
-#    line_bot_api.reply_message(
-#        event.reply_token,
-#        LocationSendMessage(
-#            title=event.message.title, 
-#            address=event.message.address,
-#            latitude=event.message.latitude, longitude=event.message.longitude
-#        )
-#    )
     
 if __name__ == '__main__':
     app.run()
