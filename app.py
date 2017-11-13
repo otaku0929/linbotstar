@@ -1570,7 +1570,7 @@ def handle_location_message(event):
         "altText": "this is a carousel template",
         "template": {
             "type": "carousel",
-            "columns": _columns
+            "columns": columns
         }
     }
     ]
