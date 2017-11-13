@@ -1564,7 +1564,6 @@ def handle_location_message(event):
         ]
     
     payload = {
-    "replyToken": token,
     "messages":[
     {
         "type": "template",
@@ -1576,7 +1575,8 @@ def handle_location_message(event):
     }
     ]
     }
-    return payload      
+    line_bot_api.reply_message(event.reply_token, payload)
+    return 0      
         
     
     
