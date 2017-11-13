@@ -1560,8 +1560,9 @@ def handle_location_message(event):
             )
         ]
     )
-   line_bot_api.reply_message(event.reply_token,carousel_template_message)
-   return 0    
+    )
+    line_bot_api.reply_message(event.reply_token,carousel_template_message)
+    return 0    
 #    for i in range(4):
 #        data = yelp_data(res,i)
 #        title = data["title"]
@@ -1584,11 +1585,7 @@ def handle_location_message(event):
 #                ]
 #            }
 #     "messages":
-#                    
-  
-#        
-#    
-#    
+ 
 #    line_bot_api.reply_message(
 #        event.reply_token,
 #        LocationSendMessage(
