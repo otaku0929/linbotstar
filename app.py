@@ -1540,7 +1540,7 @@ def handle_location_message(event):
     token = event.reply_token
     location = event.message.address
     content = yelp(location)
-    columns=[]
+    _columns=[]
     res = yelp(location)
     for i in range(4):
         data = yelp_data(res,i)
