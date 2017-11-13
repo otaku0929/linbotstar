@@ -1571,41 +1571,24 @@ def handle_location_message(event):
                             uri=_columns[0]["uri"]
                         )
                     ]
-                )
+                ),
+                CarouselColumn(
+                    thumbnail_image_url=_columns[1]["thumbnailImageUrl"],
+                    title=_columns[1]["title"],
+                    text=_columns[1]["text"],
+                    actions=[
+                        URITemplateAction(
+                            label='View detail',
+                            uri=_columns[1]["uri"]
+                        )
+                    ]
+                )               
             ]
         )
     )
     line_bot_api.reply_message(event.reply_token,carousel_template_message)
     return 0 
-    
-                    
-#   for i in range(4):
-#        data = yelp_data(res,i)
-#        _title = data["title"]
-#        _description = data["description"]
-#        _urltoimage=data["urltoimage"]
-#        _url=data["url"]
-#        carousel_template_message = TemplateSendMessage(
-#            alt_text='Carousel template',
-#            template=CarouselTemplate(
-#                columns=[
-#                    CarouselColumn(
-#                        thumbnail_image_url=_urltoimage,
-#                        title=_title,
-#                        text=_description,
-#                        actions=[
-#                            URITemplateAction(
-#                                label='View detail',
-#                                uri=_url
-#                            )
-#                        ]
-#                    )
-#                ]
-#            )
-#        )
-   
-
-    
+       
 if __name__ == '__main__':
     app.run()
 
