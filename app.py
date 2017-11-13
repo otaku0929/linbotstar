@@ -1543,18 +1543,22 @@ def handle_location_message(event):
     columns=[]
     res = yelp(location)
     data = yelp_data(res,0)
+    _title = data["title"]
+    _description = data["description"]
+    _urltoimage=data["urltoimage"]
+    _url=data["url"]
     carousel_template_message = TemplateSendMessage(
     alt_text='Carousel template',
     template=CarouselTemplate(
         columns=[
             CarouselColumn(
-                thumbnail_image_url=data["urltoimage"],
-                title='this is menu1',
-                text=data["description"],
+                thumbnail_image_url=_urltoimage,
+                title=_title,
+                text=_description,
                 actions=[
                     URITemplateAction(
-                        label='uri1',
-                        data=data["url"]
+                        label='View detail',
+                        uri=url
                     )
                 ]
             )
@@ -1570,22 +1574,7 @@ def handle_location_message(event):
 #        urltoimage=data["urltoimage"]
 #        url=data["url"]
 #        alt_text="Carouse_template",
-#        template=Carousel template(
-#            columns[len(columns:]=[
-#                {
-#                "thumbnailImageUrl": urltoimage,
-#                "title":title,
-#                "text":description,
-#                "actions":[
-#                    {
-#                        "type":"uri",
-#                        "label":"View detail",
-#                        "uri":url
-#                    }
-#                ]
-#            }
-#     "messages":
- 
+
 #    line_bot_api.reply_message(
 #        event.reply_token,
 #        LocationSendMessage(
