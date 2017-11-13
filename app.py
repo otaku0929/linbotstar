@@ -947,12 +947,12 @@ def yelp(location):
         restaurants.append(restaurant)
     return restaurants
 
-def yelp_data(res,i):
+def yelp_data(randomres,i):
 
-    name = res[i]['name']
-    address = res[i]['address']
-    photo = res[i]['photo']
-    yelp_url=res[i]['yelp_url']
+    name = randomres[i]['name']
+    address = randomres[i]['address']
+    photo = randomres[i]['photo']
+    yelp_url=randomres[i]['yelp_url']
 
     return {"title":name,"description":address,"urltoimage":photo,"url":yelp_url}
 
@@ -1540,10 +1540,12 @@ def handle_location_message(event):
     token = event.reply_token
     location = event.message.address
     content = yelp(location)
+    random.shuffle(res)
+    randomres=res[0:5]
     _columns=[]
     res = yelp(location)
     for i in range(5):
-        data = yelp_data(res,i)
+        data = yelp_data(randomres,i)
         title = data["title"]
         description = data["description"]
         urltoimage=data["urltoimage"]
