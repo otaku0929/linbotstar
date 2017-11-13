@@ -931,7 +931,7 @@ def yelp(location):
     params = {'location': location.replace(' ', '+'),
               'term': 'Restaurant',
               'limit': 15,
-              'radius': 1500
+              'radius': 1000
               }
 
     resp = requests.get(url=url, params=params, headers=headers)
