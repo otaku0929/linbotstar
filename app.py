@@ -1582,7 +1582,40 @@ def handle_location_message(event):
                             uri=_columns[1]["uri"]
                         )
                     ]
-                )               
+                ),
+                CarouselColumn(
+                    thumbnail_image_url=_columns[2]["thumbnailImageUrl"],
+                    title=_columns[2]["title"],
+                    text=_columns[2]["text"],
+                    actions=[
+                        URITemplateAction(
+                            label='View detail',
+                            uri=_columns[2]["uri"]
+                        )
+                    ]
+                ),
+                CarouselColumn(
+                    thumbnail_image_url=_columns[3]["thumbnailImageUrl"],
+                    title=_columns[3]["title"],
+                    text=_columns[3]["text"],
+                    actions=[
+                        URITemplateAction(
+                            label='View detail',
+                            uri=_columns[3]["uri"]
+                        )
+                    ]
+                ),
+                CarouselColumn(
+                    thumbnail_image_url=_columns[4]["thumbnailImageUrl"],
+                    title=_columns[4]["title"],
+                    text=_columns[4]["text"],
+                    actions=[
+                        URITemplateAction(
+                            label='View detail',
+                            uri=_columns[4]["uri"]
+                        )
+                    ]
+                )
             ]
         )
     )
