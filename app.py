@@ -1542,45 +1542,54 @@ def handle_location_message(event):
     content = yelp(location)
     columns=[]
     res = yelp(location)
-    for i in range(4):
-        data = yelp_data(res,i)
-        title = data["title"]
-        description = data["description"]
-        urltoimage=data["urltoimage"]
-        url=data["url"]
-        columns[len(columns):]=[
-        {
-            "thumbnailImageUrl": urltoimage,
-            "title": title,
-            "text": description,
-            "actions": [  
-                {
-                    "type": "uri",
-                    "label": "View detail",
-                    "uri": url
-                }
-            ]
-        } 
+    data = yelp_data(res,0)
+    carousel_template_message = TemplateSendMessage(
+    alt_text='Carousel template',
+    template=CarouselTemplate(
+        columns=[
+            CarouselColumn(
+                thumbnail_image_url=data["urltoimage"],
+                title='this is menu1',
+                text=data["description"],
+                actions=[
+                    URITemplateAction(
+                        label='uri1',
+                        data='data["url"]
+                    )
+                ]
+            )
         ]
-    
-    payload = {
-    "messages":[
-    {
-        "type": "template",
-        "altText": "this is a carousel template",
-        "template": {
-            "type": "carousel",
-            "columns": columns
-        }
-    }
-    ]
-    }
-    line_bot_api.reply_message(event.reply_token, payload)
-    return 0      
-        
-    
-    
-    #    line_bot_api.reply_message(
+    )
+    line_bot_api.reply_message(event.reply_token, carousel_template_message)
+    return 0    
+#    for i in range(4):
+#        data = yelp_data(res,i)
+#        title = data["title"]
+#        description = data["description"]
+#        urltoimage=data["urltoimage"]
+#        url=data["url"]
+#        alt_text="Carouse_template",
+#        template=Carousel template(
+#            columns[len(columns:]=[
+#                {
+#                "thumbnailImageUrl": urltoimage,
+#                "title":title,
+#                "text":description,
+#                "actions":[
+#                    {
+#                        "type":"uri",
+#                        "label":"View detail",
+#                        "uri":url
+#                    }
+#                ]
+#            }
+#     "messages":
+#                    
+  
+#        
+#    
+#    
+#    line_bot_api.reply_message(
 #        event.reply_token,
 #        LocationSendMessage(
 #            title=event.message.title, 
