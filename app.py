@@ -994,7 +994,7 @@ def fwords(resf):
                 return content
 
 def getid():
-    profile = line_bot_api.get_profile(user_id)
+    profile = line_bot_api.get_profile('')
     uname = profile.display_name
     uid = profile.user_id
     content = '{}\n{}'.format(uname,uid)
