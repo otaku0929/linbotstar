@@ -1550,7 +1550,7 @@ def handle_message(event):
 @handler.add(MessageEvent, message=LocationMessage)
 def handle_location_message(event):
     
-    profile = line_bot_api.get_profile(event.source.user_id)
+    #profile = line_bot_api.get_profile(event.source.user_id)
     
     token = event.reply_token
     location = event.message.address
