@@ -993,12 +993,10 @@ def fwords(resf):
                 content = talk_messages(messages_talk)
                 return content
 
-def getid():
-    profile = line_bot_api.get_profile(event.source.user_id)
+def getid(profile):
     uname = profile.display_name
     uid = profile.user_id
     content = '{}\n{}'.format(uname,uid)
-    
     return content
                         
 def talk_messages(messages_talk):
@@ -1033,6 +1031,7 @@ def handle_message(event):
     
     mlist = event.message.text
     words = event.message.text
+    profile = line_bot_api.get_profile(event.source.user_id)
 
     if event.message.text == "eyny":
         content = eyny_movie()
@@ -1243,7 +1242,7 @@ def handle_message(event):
             TextSendMessage(text=content))
         return 0
     if event.message.text == "checkid":
-        content = getid()
+        content = getid(profile)
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=content))
