@@ -1236,7 +1236,7 @@ def handle_message(event):
             TextSendMessage(text=content))
         return 0
     if event.message.text == "checkid":
-        content = line_bot_api.get_profile(user_id)
+        content = line_bot_api.get_profile(userId)
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=content))
