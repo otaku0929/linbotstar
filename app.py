@@ -1031,7 +1031,7 @@ def handle_message(event):
     
     mlist = event.message.text
     words = event.message.text
-    profile = line_bot_api.get_profile(event.source.user_id)
+#    profile = line_bot_api.get_profile(event.source.user_id)
 
     if event.message.text == "eyny":
         content = eyny_movie()
