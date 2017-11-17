@@ -992,17 +992,7 @@ def fwords(resf):
                 messages_talk = m2list
                 content = talk_messages(messages_talk)
                 return content
-
-def getid(profile):
-    uname = profile.display_name
-    uid = profile.user_id
-    content = '{}\n{}'.format(uname,uid)
-    return content
-
-def getgid(gprofile):
-    gid = profile.group_id
-    return content
-                        
+                       
 def talk_messages(messages_talk):
 
     if messages_talk in {'幹','操'}:
@@ -1261,7 +1251,7 @@ def handle_message(event):
                         text='Display name: ' + profile.display_name
                     ),
                     TextSendMessage(
-                        text='Status message: ' + profile.status_message
+                        text='User_Id: ' + profile.user_id
                     )
                 ]
             )
