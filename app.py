@@ -1260,12 +1260,12 @@ def handle_message(event):
                 event.reply_token,
                 TextMessage(text="Bot can't use profile API without user ID"))
     if event.message.text == 'Getgid':
-        if isinstance(event.source, SourceGroup):
-            profie = line_bot_api.get_profile(event.source.group_id)
+        if isinstance(event.source, SourceRoom):
+            profie = line_bot_api.get_profile(event.source.room_id)
             line_bot_api.reply_message(
                 event.reply_token, [
                     TextSendMessage(
-                        text='Group_ID: ' + profile.group_id
+                        text='Room_ID: ' + profile.room_id
                     )
                 ]
             )
