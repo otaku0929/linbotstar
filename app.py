@@ -1252,13 +1252,23 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=content))
         return 0
-    if event.message.text == "checkid":
-        content = getgid(gprofile)
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=content))
-        return 0
-    check_coffie
+    if event.message.text == 'Getid':
+        if isinstance(event.source, SourceUser):
+            profile = line_bot_api.get_profile(event.source.user_id)
+            line_bot_api.reply_message(
+                event.reply_token, [
+                    TextSendMessage(
+                        text='Display name: ' + profile.display_name
+                    ),
+                    TextSendMessage(
+                        text='Status message: ' + profile.status_message
+                    )
+                ]
+            )
+        else:
+            line_bot_api.reply_message(
+                event.reply_token,
+                TextMessage(text="Bot can't use profile API without user ID"))
     if event.message.text == "一閃一閃亮晶晶":
         buttons_template = TemplateSendMessage(
             alt_text='開始玩 template',
