@@ -992,7 +992,46 @@ def fwords(resf):
                 messages_talk = m2list
                 content = talk_messages(messages_talk)
                 return content
-                       
+
+def stock(res):
+
+    url = 'https://tw.stock.yahoo.com/'
+    request = requests.get(url)
+    ycontent = request.content
+    soup = BeautifulSoup(ycontent, 'html.parser',from_encoding='cp950')
+
+    if res=='亞股':
+        skey = 'tbd tbd1'
+    elif res == '歐股':
+        skey = 'tbd tbd2'
+    elif res == '美股':
+        skey = 'tbd tbd3'
+    else:
+        skey = 'tbd tbd0'
+
+    soupkey = 'div[id="ystkchatw"] div[class="{}"] tr'.format(skey)
+
+    stocksoup = soup.select(soupkey)
+    content = ""
+    data = ""
+
+    if res in ['亞股','歐股','美股']:
+        si = int(len(stocksoup)-1)
+    else:
+        si = int(len(stocksoup))
+
+    for i in range(si):
+       stocki = stocksoup[i]
+       a = stockdata(stocki)
+       ta = '{}\n'.format(a)
+       data += ta
+    content = '{}當日行情\n{}'.format(res,data)
+    return (content)
+         
+def stockdata(stocki):
+    content = stocki.text
+    return content
+            
 def talk_messages(messages_talk):
 
     if messages_talk in {'幹','操'}:
@@ -1556,7 +1595,15 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=content))
-        return 0    
+        return 0
+    
+    if mlist[mlist.find('查股市',0):3]=='查股市':
+        res = mlist[mlist.find('查股市',0)+3:5]
+        content = stock(res)
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=content))
+        return 0         
     
     if event.message.text in [ "牡羊座","金牛座","雙子座","巨蟹座","獅子座","處女座","天秤座","天蠍座","射手座","魔羯座","水瓶座","雙魚座"]:
         res = event.message.text
