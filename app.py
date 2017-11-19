@@ -1097,7 +1097,7 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token, image_message)
         return 0
-    if event.message.text == "說笑話":
+    if event.message.text in ["說笑話","講笑話","小星星說笑話","小星星講笑話"]:
         client = ImgurClient('33ed33e765afedc', '04f0d5531b1d0978ff97fd990554c899e9e7e1f5')
         images = client.get_album_images('XpG2g')
         index = random.randint(0, len(images) - 1)
