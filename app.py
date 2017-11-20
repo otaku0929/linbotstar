@@ -1039,7 +1039,7 @@ def stocks(res):
         content = ""
         stockh = twstock.Stock(res)
         bfp = twstock.BestFourPoint(stockh)
-        note = bfp.best_four_point_to_buy()
+        note = bfp.best_four_point()
         hprice = stockh.price
         bprice = (hprice[len(hprice)-1])
     
@@ -1051,10 +1051,17 @@ def stocks(res):
         sopen = stock['realtime']['open']
         shigh = stock['realtime']['high']
         slow = stock['realtime']['low']
-        best_bid_volume = stock['realtime']['best_bid_volume'][0:3]
-        best_ask_volume = stock['realtime']['best_ask_volume'][0:3]
+        best_bid_volume = stock['realtime']['best_bid_volume']
+        best_ask_volume = stock['realtime']['best_ask_volume']
         udp = '%.2f%%' % ((float(realtime)-float(bprice))/float(bprice)*100)
-        content = '股號:{} {}\n資料時間:{}\n即時行情:{} 漲跌:{}\n前日收盤:{}\n今日開盤:{}\n最高:{}\n最低:{}\n委買:{}\n委賣:{}\nNote:{}'.format(code,name,time,realtime,udp,bprice,sopen,shigh,slow,best_bid_volume,best_ask_volume,note)
+        ma_p5 = stockh.moving_average(stockh.price, 5)[len(stockh.price)-5]
+        br_p5 = '%.2f%%' % ((float(realtime)-float(ma_p5))/float(ma_p5)*100)
+        ma_p10 = stockh.moving_average(stockh.price, 10)[len(stockh.price)-10]
+        br_p10 = '%.2f%%' % ((float(realtime)-float(ma_p10))/float(ma_p10)*100)
+        if time[len(time)-8:] == "14:30:00":
+            content = '股號:{} {}\n資料時間:{}\n本日收盤價:{}\n漲跌:{}\n前日收盤:{}\n今日開盤:{}\n最高:{}\n最低:{}\n委買:{}\n委賣:{}\n五日線:{} 十日線:{}\nBIAS5:{} BISA10:{}\nNote:{}'.format(code,name,time,realtime,udp,bprice,sopen,shigh,slow,best_bid_volume,best_ask_volume,ma_p5,ma_p10,br_p5,br_p10,note)
+        else:
+            content = '股號:{} {}\n資料時間:{}\n即時行情:{}\n漲跌:{}\n前日收盤:{}\n今日開盤:{}\n最高:{}\n最低:{}\n委買:{}\n委賣:{}\n五日線:{} 十日線:{}\nBIAS5:{} BISA10:{}\nNote:{}'.format(code,name,time,realtime,udp,bprice,sopen,shigh,slow,best_bid_volume,best_ask_volume,ma_p5,ma_p10,br_p5,br_p10,note)
     else:
         content = "沒有此股號"
     
