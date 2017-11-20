@@ -1035,7 +1035,7 @@ def stockdata(stocki):
 
 def stocks(res):
 
-    if res in twstock.twse:
+    if res in twstock.codes:
         content = ""
         stockh = twstock.Stock(res)
         bfp = twstock.BestFourPoint(stockh)
