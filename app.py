@@ -1031,6 +1031,33 @@ def stock(res):
 def stockdata(stocki):
     content = stocki.text
     return content
+
+def stock(res):
+
+    if res in twstock.twse:
+        content = ""
+        stockh = twstock.Stock(res)
+        bfp = twstock.BestFourPoint(stockh)
+        note = bfp.best_four_point_to_buy()
+        hprice = stockh.price
+        bprice = (hprice[len(hprice)-1])
+    
+        stock = twstock.realtime.get(res)
+        code = stock['info']['code']
+        name = stock['info']['name']
+        time = stock['info']['time']
+        realtime = stock['realtime']['latest_trade_price']
+        sopen = stock['realtime']['open']
+        shigh = stock['realtime']['high']
+        slow = stock['realtime']['low']
+        best_bid_volume = stock['realtime']['best_bid_volume'][0:3]
+        best_ask_volume = stock['realtime']['best_ask_volume'][0:3]
+        udp = '%.2f%%' % ((float(realtime)-float(bprice))/float(bprice)*100)
+        content = '股號:{} {}\n資料時間:{}\n即時行情:{} 漲跌:{}\n前日收盤:{}\n今日開盤:{}\n最高:{}\n最低:{}\n委買:{}\n委賣:{}\nNote:{}'.format(code,name,time,realtime,udp,bprice,sopen,shigh,slow,best_bid_volume,best_ask_volume,note)
+    else:
+        content = "沒有此股號"
+    
+    return content
             
 def talk_messages(messages_talk):
 
@@ -1615,7 +1642,14 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=content))
-        return 0         
+        return 0
+    if mlist[mlist.find('查股票',0):3]=='查股票':
+        res = mlist[mlist.find('查股票',0)+3:]
+        content = stocks(res)
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=content))
+        return 0      
     
     if event.message.text in [ "牡羊座","金牛座","雙子座","巨蟹座","獅子座","處女座","天秤座","天蠍座","射手座","魔羯座","水瓶座","雙魚座"]:
         res = event.message.text
