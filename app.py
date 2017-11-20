@@ -1023,7 +1023,7 @@ def stock(res):
 
     for i in range(si):
        stocki = stocksoup[i]
-       a = stockdata(stocki)
+       a = stockdata(res,stocki)
        ta = '{}\n'.format(a)
        data += ta
     content = '{}當日行情\n{}'.format(res,data)
