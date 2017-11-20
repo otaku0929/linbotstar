@@ -1055,7 +1055,8 @@ def stocks(res):
         stock = twstock.realtime.get(res)
         code = stock['info']['code']
         name = stock['info']['name']
-        time = stock['info']['time']
+        timef = stock['info']['time']
+        time = timef.replace(timef[timef.find(":")-2:timef.find(":")],str(int(timef[timef.find(":")-2:timef.find(":")])+8))
         realtime = stock['realtime']['latest_trade_price']
         sopen = stock['realtime']['open']
         shigh = stock['realtime']['high']
