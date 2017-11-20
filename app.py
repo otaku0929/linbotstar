@@ -1039,7 +1039,7 @@ def stockdata(res,stocki):
     if res in ['亞股','歐股','美股']:
         content = '{} {}'.format(title,ud)
     else:
-        content = '{} {}\n金額{}'.format(title,ud,op)
+        content = '{} {}\n成交金額{}\n'.format(title,ud,op)
     return content
 
 def stocks(res):
