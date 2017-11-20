@@ -1033,7 +1033,7 @@ def stockdata(stocki):
     content = stocki.text
     return content
 
-def stock(res):
+def stocks(res):
 
     if res in twstock.twse:
         content = ""
