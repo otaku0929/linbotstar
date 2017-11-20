@@ -1029,8 +1029,17 @@ def stock(res):
     content = '{}當日行情\n{}'.format(res,data)
     return (content)
          
-def stockdata(stocki):
-    content = stocki.text
+def stockdata(res,stocki):
+    data = stocki.text
+    c = data.find('.',data.find('.')+1)
+    title = data[0:data.find('.')+3]
+    ud = data[data.find('.')+3:data.find('.',data.find('.')+1)+3]
+    op = data[data.find('.',data.find('.')+1)+3:]
+    content = ""
+    if res in ['亞股','歐股','美股']:
+        content = '{} {}'.format(title,ud)
+    else:
+        content = '{} {}  金額{}'.format(title,ud,op)
     return content
 
 def stocks(res):
