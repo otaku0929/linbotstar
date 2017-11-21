@@ -1085,15 +1085,25 @@ def stockcode(cres):
     fp = urllib.request.urlopen(url,post_args)
     soup = BeautifulSoup(fp)
     
-
+    urls = 'http://www.tpex.org.tw/web/regular_emerging/corporateInfo/regular/regular_stock_detail.php?l=zh-tw&stk_code={}'.format(cres)
+    request = requests.get(urls)
+    sp = request.content
+    soups = BeautifulSoup(sp)
+    sdata = soups.select('td[class="page-table-body-right"] a[class="page-text-over"]')
+    
     check = soup.select('div.body article')
     check_data = check[0].text
     data = soup.select('div.body article td a')
     
-
     if len(check_data) == 4:
-        content = "查無此股號"
-        return content
+        if len(sdata) == 0:
+            content = "查無此股號"
+            return content
+        else:    
+            scontent = sdata[0].get('href')
+            res = scontent[77:]
+            content = stocks(res)
+            return content
     else:
         rdata = data[0].text
         res = rdata[0:rdata.find(cres)]
