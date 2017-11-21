@@ -1097,7 +1097,7 @@ def stockcode(cres):
     else:
         rdata = data[0].text
         res = rdata[0:rdata.find(cres)]
-        content = stocks2(res)
+        content = stocks(res)
         return content
             
 def talk_messages(messages_talk):
