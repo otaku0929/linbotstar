@@ -1076,6 +1076,27 @@ def stocks(res):
         content = "沒有此股號"
     
     return content
+
+def stockcode(res):
+      
+    url = 'http://www.twse.com.tw/zh/stockSearch/stockSearch'
+    post_params = {'stkNo': res}
+    post_args = urllib.parse.urlencode(post_params).encode("utf-8")
+    fp = urllib.request.urlopen(url,post_args)
+    soup = BeautifulSoup(fp)
+    
+
+    check = soup.select('div.body article')
+    check_data = check[0].text
+    data = soup.select('div.body article td a')
+    
+
+    if len(check_data) == 4:
+        content = "查無此股號"
+        return content
+    else:
+        content = data[0].text
+        return content
             
 def talk_messages(messages_talk):
 
@@ -1668,7 +1689,13 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=content))
         return 0      
-    
+    if mlist[mlist.find('查股號',0):3]=='查股號':
+        res = mlist[mlist.find('查股號',0)+3:]
+        content = stockcode(res)
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=content))
+        return 0      
     if event.message.text in [ "牡羊座","金牛座","雙子座","巨蟹座","獅子座","處女座","天秤座","天蠍座","射手座","魔羯座","水瓶座","雙魚座"]:
         res = event.message.text
         content = star(res)
