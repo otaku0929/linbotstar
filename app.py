@@ -1686,7 +1686,7 @@ def handle_message(event):
         return 0
     if mlist[mlist.find('查股票',0):3]=='查股票':
         res = mlist[mlist.find('查股票',0)+3:]
-        if res >= 'u\0030' and res <='\u0039':
+        if res >= '\u0030' and res <='\u0039':
             content = stocks(res)
         else:
             cres = res
