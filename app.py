@@ -1077,10 +1077,10 @@ def stocks(res):
     
     return content
 
-def stockcode(res):
+def stockcode(cres):
       
     url = 'http://www.twse.com.tw/zh/stockSearch/stockSearch'
-    post_params = {'stkNo': res}
+    post_params = {'stkNo': cres}
     post_args = urllib.parse.urlencode(post_params).encode("utf-8")
     fp = urllib.request.urlopen(url,post_args)
     soup = BeautifulSoup(fp)
@@ -1095,7 +1095,9 @@ def stockcode(res):
         content = "查無此股號"
         return content
     else:
-        content = data[0].text
+        rdata = data[0].text
+        res = rdata[0:rdata.find(cres)]
+        content = stocks2(res)
         return content
             
 def talk_messages(messages_talk):
@@ -1684,18 +1686,15 @@ def handle_message(event):
         return 0
     if mlist[mlist.find('查股票',0):3]=='查股票':
         res = mlist[mlist.find('查股票',0)+3:]
-        content = stocks(res)
+        if res >= 'u\0030' and res <='\u0039':
+            content = stocks(res)
+        else:
+            cres = res
+            content = stockcode(cres)
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=content))
-        return 0      
-    if mlist[mlist.find('查股號',0):3]=='查股號':
-        res = mlist[mlist.find('查股號',0)+3:]
-        content = stockcode(res)
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=content))
-        return 0      
+        return 0          
     if event.message.text in [ "牡羊座","金牛座","雙子座","巨蟹座","獅子座","處女座","天秤座","天蠍座","射手座","魔羯座","水瓶座","雙魚座"]:
         res = event.message.text
         content = star(res)
