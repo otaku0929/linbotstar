@@ -1397,6 +1397,12 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=content))
         return 0
+    if event.message.text == '群發新聞':
+        content = apple_news()
+        line_bot_api.push_message(
+            'C242d43576cc89e1499857f1006192860',
+            TextSendMessage(text=content))
+        return 0
     if event.message.text == "一閃一閃亮晶晶":
         buttons_template = TemplateSendMessage(
             alt_text='開始玩 template',
