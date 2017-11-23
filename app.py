@@ -1400,7 +1400,7 @@ def handle_message(event):
     if event.message.text == '群發新聞':
         content = apple_news()
         line_bot_api.push_message(
-            'C242d43576cc89e1499857f1006192860',
+            'U9f2c61013256dfe556d70192388e4c7c',
             TextSendMessage(text=content))
         return 0
     if event.message.text == "一閃一閃亮晶晶":
