@@ -1389,19 +1389,11 @@ def handle_message(event):
                 event.reply_token,
                 TextMessage(text="Bot can't use profile API without user ID"))
     if event.message.text == 'Getgid':
-        if isinstance(event.source, SourceRoom):
-            profie = line_bot_api.get_profile(event.source.room_id)
-            line_bot_api.reply_message(
-                event.reply_token, [
-                    TextSendMessage(
-                        text='Room_ID: ' + profile.room_id
-                    )
-                ]
-            )
-        else:
-            line_bot_api.reply_message(
-                event.reply_token,
-                TextMessage(text="Bot can't use profile API without Group ID"))
+        content = event
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=content))
+        return 0
     if event.message.text == "一閃一閃亮晶晶":
         buttons_template = TemplateSendMessage(
             alt_text='開始玩 template',
