@@ -1142,7 +1142,7 @@ def handle_message(event):
     print("event.reply_token:", event.reply_token)
     print("event.message.text:", event.message.text)
 
-    grouplist = event.source
+    grouplist = str(event.source)
     mlist = event.message.text
     words = event.message.text
 #    profile = line_bot_api.get_profile(event.source.user_id)
