@@ -1142,6 +1142,7 @@ def handle_message(event):
     print("event.reply_token:", event.reply_token)
     print("event.message.text:", event.message.text)
 
+    grouplist = event.scoure
     mlist = event.message.text
     words = event.message.text
 #    profile = line_bot_api.get_profile(event.source.user_id)
@@ -1391,7 +1392,7 @@ def handle_message(event):
                 event.reply_token,
                 TextMessage(text="Bot can't use profile API without user ID"))
     if event.message.text == 'Getgid':
-        content = event
+        content = grouplist['groupId']
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=content))
