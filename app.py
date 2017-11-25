@@ -970,7 +970,7 @@ def photorace():
         res = plist[i]
         cdata = photoracedata(res)
         content = '{}\n'.format(cdata)
-        print(content)
+    return(content)
     
 def photoracedata(res):
 
