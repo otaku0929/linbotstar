@@ -969,8 +969,9 @@ def photorace():
     for i in range(len(plist)-1):
         res = plist[i]
         cdata = photoracedata(res)
-        content = '{}\n'.format(cdata)
-        return(content)
+        _content = '{}\n'.format(cdata)
+        content += _content
+    return(content)
     
 def photoracedata(res):
 
