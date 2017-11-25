@@ -957,6 +957,30 @@ def yelp_data(randomres,i):
 
     return {"title":name,"description":address,"urltoimage":photo,"url":yelp_url}
 
+def photorace():
+
+    url = 'http://www.uart.org.tw/uart/show/tourney/tourney106.html'
+    request = requests.get(url)
+    soup = BeautifulSoup(request.content,"html.parser")
+
+    plist = soup.select('tr tr')[3:]
+   
+    content = ""  
+    for i in range(len(plist)-1):
+        res = plist[i]
+        cdata = photoracedata(res)
+        content = '{}\n'.format(cdata)
+        print(content)
+    
+def photoracedata(res):
+
+    for data in [res]:
+       title = ''.join(data.select('a')[0].text.split())
+       link = data.select('a')[0]['href'].strip()
+       date = data.select('td[align="center"]')[2].text.strip().replace(' ','')
+       content = '{}\n屆止日:{}\nhttp://www.uart.org.tw/uart/show/tourney/{}'.format(title,date,link)
+    return (content)
+
 def fwords(resf):
     words = resf
     olist = (["幹","操","靠"])
@@ -1364,6 +1388,12 @@ def handle_message(event):
         return 0
     if event.message.text == "天氣特報":
         content = sweather()
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=content))
+        return 0
+    if event.message.text == "查攝影比賽":
+        content = photorace()
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=content))
