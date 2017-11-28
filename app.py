@@ -1225,7 +1225,7 @@ def fwords(resf):
                         chour = '00'
                     content = chdate(cyear,cmonth,cdate,chour)
                     return content
-         elif len(words[0:4]) == 4:
+        else:
             ctime = datetime.now()+timedelta(hours=8)
             cyear = ctime.strftime("%Y")
             cmonth = ctime.strftime("%m")
