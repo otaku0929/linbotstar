@@ -1207,16 +1207,8 @@ def fwords(resf):
         content = movie_search(res)
         return content
     elif words[0:4] in dlist:
-        if len(words[0:4]) == 4: 
-            ctime = datetime.now()+timedelta(hours=8)
-            cyear = ctime.strftime("%Y")
-            cmonth = ctime.strftime("%m")
-            cdate = ctime.strftime("%d")
-            chour = ctime.strftime("%H")
-            content = chdate(cyear,cmonth,cdate,chour)
-            return content
-        elif len(words[0:4])>4:
-            if str(words[4:].isnumeric())=="False":
+        if len(words[0:4])>4:
+            if str(words[4:].isnumeric())=="False":c
                 content = "date type error: 20170101 or 2017010113"
                 return content
             else:
@@ -1230,10 +1222,17 @@ def fwords(resf):
                     if len(words[4:])==10:
                         chour = (words[12:14])
                     else:
-                        print(len(words[4:])
                         chour = '00'
                     content = chdate(cyear,cmonth,cdate,chour)
                     return content
+         elif len(words[0:4]) == 4:
+            ctime = datetime.now()+timedelta(hours=8)
+            cyear = ctime.strftime("%Y")
+            cmonth = ctime.strftime("%m")
+            cdate = ctime.strftime("%d")
+            chour = ctime.strftime("%H")
+            content = chdate(cyear,cmonth,cdate,chour)
+            return content
     elif words[0] in olist:
         messages_talk = words[0]
         content = talk_messages(messages_talk)
