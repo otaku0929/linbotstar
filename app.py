@@ -1230,6 +1230,7 @@ def fwords(resf):
                     if len(words[4:])==10:
                         chour = (words[12:14])
                     else:
+                        print(len(words[4:])
                         chour = '00'
                     content = chdate(cyear,cmonth,cdate,chour)
                     return content
