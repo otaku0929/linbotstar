@@ -1208,7 +1208,7 @@ def fwords(resf):
         return content
     elif words[0:4] in dlist:
         if len(words[0:4])>4:
-            if str(words[4:].isnumeric())=="False":c
+            if str(words[4:].isnumeric())=="False":
                 content = "date type error: 20170101 or 2017010113"
                 return content
             else:
