@@ -1207,7 +1207,7 @@ def fwords(resf):
         content = movie_search(res)
         return content
     elif words[0:4] in dlist:
-        if len(words[0:4])>4:
+        if len(words[0:])>4:
             if str(words[4:].isnumeric())=="False":
                 content = "date type error: 20170101 or 2017010113"
                 return content
