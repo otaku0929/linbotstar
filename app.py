@@ -895,6 +895,86 @@ def movie_search(res):
     content = '<{}>\n\n期待度:{}\n滿意度:{}\n*****\n{}...\n*****\n時刻表:{}'.format(title,lv,score,data,time)
     return content
 
+def chdate(cyear,cmonth,cdate,chour):
+
+    url = 'http://www.nongli.info/huangli/days/index.php?year={}&month={}&date={}'.format(cyear,cmonth,cdate)
+    request = requests.get(url)
+    soup = BeautifulSoup(request.content,"html.parser")
+
+    dlist = soup.select('div[id="qna"] li')
+    d0=dlist[0].text
+
+    if len(d0)==3:
+        content = "輸入格式錯誤"
+        return(content)
+    else:
+        d0=dlist[0].text
+        d1=dlist[1].text
+        d2=dlist[2].text
+        d5=dlist[5].text
+        d6=dlist[6].text
+        d10=dlist[10].text
+        d11=dlist[11].text
+
+        if int(chour) >= 0 and int(chour)<2:
+            dh1 = dlist[12].text
+            dh2 = dlist[13].text
+            dh3 = dlist[14].text
+        elif int(chour) >= 2 and int(chour)<3:
+            dh1 = dlist[15].text
+            dh2 = dlist[16].text
+            dh3 = dlist[17].text
+        elif int(chour) >= 3 and int(chour)<5:
+            dh1 = dlist[18].text
+            dh2 = dlist[19].text
+            dh3 = dlist[20].text
+        elif int(chour) >= 5 and int(chour)<7:
+            dh1 = dlist[21].text
+            dh2 = dlist[22].text
+            dh3 = dlist[23].text
+        elif int(chour) >= 7 and int(chour)<9:
+            dh1 = dlist[24].text
+            dh2 = dlist[25].text
+            dh3 = dlist[26].text
+        elif int(chour) >= 9 and int(chour)<11:
+            dh1 = dlist[26].text
+            dh2 = dlist[27].text
+            dh3 = dlist[28].text
+        elif int(chour) >= 11 and int(chour)<13:
+            dh1 = dlist[29].text
+            dh2 = dlist[30].text
+            dh3 = dlist[31].text
+        elif int(chour) >= 13 and int(chour)<15:
+            dh1 = dlist[32].text
+            dh2 = dlist[33].text
+            dh3 = dlist[34].text
+        elif int(chour) >= 15 and int(chour)<17:
+            dh1 = dlist[35].text
+            dh2 = dlist[36].text
+            dh3 = dlist[37].text
+        elif int(chour) >= 17 and int(chour)<19:
+            dh1 = dlist[38].text
+            dh2 = dlist[39].text
+            dh3 = dlist[40].text
+        elif int(chour) >= 19 and int(chour)<21:
+            dh1 = dlist[41].text
+            dh2 = dlist[42].text
+            dh3 = dlist[43].text
+        elif int(chour) >= 21 and int(chour)<23:
+            dh1 = dlist[44].text
+            dh2 = dlist[45].text
+            dh3 = dlist[46].text
+        elif int(chour) >= 23 and int(chour)<24:
+            dh1 = dlist[47].text
+            dh2 = dlist[48].text
+            dh3 = dlist[49].text
+        else:
+            dh1 = dlist[12].text
+            dh2 = dlist[13].text
+            dh3 = dlist[14].text
+        content = '{}\n{}\n{}\n{}\n{}\n{}\n{}\n\n{}\n{}\n{}'.format(d0,d1,d2,d5,d6,d10,d11,dh1,dh2,dh3)
+        return(content)
+
 def pm25():
 
     url = 'http://opendata.epa.gov.tw/ws/Data/AQI/?$format=json'
@@ -981,43 +1061,6 @@ def photoracedata(res):
        date = data.select('td[align="center"]')[2].text.strip().replace(' ','')
        content = '{}\n屆止日:{}\nhttp://www.uart.org.tw/uart/show/tourney/{}'.format(title,date,link)
     return (content)
-
-def fwords(resf):
-    words = resf
-    olist = (["幹","操","靠"])
-    wlist = (["三小","靠北","馬的","媽的", "放屁","美金","港幣","英鎊","澳幣","加拿大幣","新加坡幣","瑞士法郎","日圓","日幣","南非幣","瑞典幣","紐元","泰幣","菲國比索","印尼幣","歐元","韓元","越南盾","馬來幣","人民幣"])
-    ylist = (["聽歌","找歌","查歌"])
-    glist = (['查優惠'])
-    mlist = (['看電影'])
-    if words.find('n')>=2:
-        res = words[0:words.find('n')].replace('日幣','日圓')
-        nt = words[words.find('n')+1:words.find('x')]
-        xt = words[words.find('x')+1:]
-        content = ratecount(res,nt,xt)
-        return content
-    elif words[0:2] in ylist:
-        res = words[3:]
-        content = youtube_search(res)
-        return content
-    elif words[0:3] in glist:
-        res = words[3:]
-        content = goodlife(res)
-        return content
-    elif words[0:3] in mlist:
-        res = words[3:]
-        content = movie_search(res)
-        return content
-    elif words[0] in olist:
-        messages_talk = words[0]
-        content = talk_messages(messages_talk)
-        return content
-    elif len(words) >=2:
-        for data in wlist:
-            if words[words.find(data,0):words.find(data,0)+len(data)] in wlist:
-                m2list = words[words.find(data,0):words.find(data,0)+len(data)]
-                messages_talk = m2list
-                content = talk_messages(messages_talk)
-                return content
 
 def stock(res):
 
@@ -1134,6 +1177,71 @@ def stockcode(cres):
         res = rdata[0:rdata.find(cres)]
         content = stocks(res)
         return content
+    
+def fwords(resf):
+    words = resf
+    olist = (["幹","操","靠"])
+    wlist = (["三小","靠北","馬的","媽的", "放屁","美金","港幣","英鎊","澳幣","加拿大幣","新加坡幣","瑞士法郎","日圓","日幣","南非幣","瑞典幣","紐元","泰幣","菲國比索","印尼幣","歐元","韓元","越南盾","馬來幣","人民幣"])
+    ylist = (["聽歌","找歌","查歌"])
+    glist = (['查優惠'])
+    mlist = (['看電影'])
+    dlist = (['time'])
+    if words.find('n')>=2:
+        res = words[0:words.find('n')].replace('日幣','日圓')
+        nt = words[words.find('n')+1:words.find('x')]
+        xt = words[words.find('x')+1:]
+        content = ratecount(res,nt,xt)
+        return content
+    elif words[0:2] in ylist:
+        res = words[3:]
+        content = youtube_search(res)
+        return content
+    elif words[0:3] in glist:
+        res = words[3:]
+        content = goodlife(res)
+        return content
+    elif words[0:3] in mlist:
+        res = words[3:]
+        content = movie_search(res)
+        return content
+    elif words[0:4] in dlist:
+        if len(words[0:4]) == 4: 
+            ctime = datetime.now()+timedelta(hours=8)
+            cyear = ctime.strftime("%Y")
+            cmonth = ctime.strftime("%m")
+            cdate = ctime.strftime("%d")
+            chour = ctime.strftime("%H")
+            content = chdate(cyear,cmonth,cdate,chour)
+            return content
+        elif len(words[0:4])>4:
+            if str(words[4:].isnumeric())=="False":
+                content = "date type error: 20170101 or 2017010113"
+                return content
+            else:
+                if len(words[4:])<7 or len(words[4:])>10:
+                    content = "輸入格式錯誤"
+                    return content
+                else:
+                    cyear = (words[4:8])
+                    cmonth = (words[8:10])
+                    cdate = (words[10:12])
+                    if len(words[4:])==10:
+                        chour = (words[12:14])
+                    else:
+                        chour = '00'
+                    content = chdate(cyear,cmonth,cdate,chour)
+                    return content
+    elif words[0] in olist:
+        messages_talk = words[0]
+        content = talk_messages(messages_talk)
+        return content
+    elif len(words) >=2:
+        for data in wlist:
+            if words[words.find(data,0):words.find(data,0)+len(data)] in wlist:
+                m2list = words[words.find(data,0):words.find(data,0)+len(data)]
+                messages_talk = m2list
+                content = talk_messages(messages_talk)
+                return content
             
 def talk_messages(messages_talk):
 
