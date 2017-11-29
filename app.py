@@ -1221,7 +1221,7 @@ def fwords(resf):
         res = words[3:]
         content = movie_search(res)
         return content
-    elif word[0:3] in slist:
+    elif words[0:3] in slist:
         if str(words[3:].isnumeric())=="False":
             content = "UID error"
             return content
