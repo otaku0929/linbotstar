@@ -514,7 +514,21 @@ def sing17():
         else:
             pass
     return "找不到歌 請再試一次!!"
-        
+
+def s17uid(res):
+
+    url = 'http://ec2.kusoinlol.com/hsing/player/ajax_check.php?select_op={}&type=0'.format(res)
+    request = requests.get(url)
+    rcontent = request.content.decode('utf8')   
+    slist = json.loads(rcontent)
+    i = random.randint(0,len(slist))
+    
+    title = slist[i]['title']
+    artist = slist[i]['artist']
+    date = slist[i]['date']
+    mp3 = slist[i]['mp3']
+    content = '{}\n{}\n{}\n{}'.format(title,artist,date,mp3)
+    return content
 
 def ask():
     url = "http://wisdomer2002.pixnet.net/blog/post/224560-%E5%AA%BD%E7%A5%96%E7%B1%A4%E8%A9%A960%E9%A6%96"
@@ -1188,6 +1202,7 @@ def fwords(resf):
     glist = (['查優惠'])
     mlist = (['看電影'])
     dlist = (['time'])
+    slist = (['抽歡歌'])
     if words.find('n')>=2:
         res = words[0:words.find('n')].replace('日幣','日圓')
         nt = words[words.find('n')+1:words.find('x')]
@@ -1206,6 +1221,18 @@ def fwords(resf):
         res = words[3:]
         content = movie_search(res)
         return content
+    elif word[0:3] in slist:
+        if str(words[3:].isnumeric())=="False":
+            content = "UID error"
+            return content
+        else:
+            if len(words[3:])>8 or len(words[3:])<6:
+                content = "UID error"
+                return content
+            else:
+                res = words[3:]
+                content = s17uid(res)
+                return content           
     elif words[0:4] in dlist:
         if len(words[0:])>4:
             if str(words[4:].isnumeric())=="False":
