@@ -1226,17 +1226,17 @@ def fwords(resf):
         if str(words[3:].isnumeric())=="False":
             content = "UID error"
             return content
-        else:
+        elif:
             if len(words[3:])>8 or len(words[3:])<6:
                 content = "UID error"
                 return content
-            elif:
+            else:
                 res = words[3:]
                 content = s17uid(res)
                 return content
-            else:
-                content = "UID error or 找不到歌"
-                return content
+        else:
+            content = "UID error or 找不到歌"
+            return content
     elif words[0:4] in dlist:
         if len(words[0:])>4:
             if str(words[4:].isnumeric())=="False":
