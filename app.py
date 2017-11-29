@@ -7,6 +7,7 @@ import urllib.request
 import pandas
 import gspread
 import twstock
+import json
 from oauth2client.service_account import ServiceAccountCredentials as SAC
 from bs4 import BeautifulSoup
 from flask import Flask, request, abort
