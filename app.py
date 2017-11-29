@@ -527,8 +527,8 @@ def s17uid(res):
     title = slist[i]['title']
     artist = slist[i]['artist']
     date = slist[i]['date']
-    mp3 = slist[i]['mp3']
-    content = '{}\n{}\n{}\n{}'.format(title,artist,date,mp3)
+    sid = slist[i]['sid']
+    content = '{}\n{}\n{}\nhttp://17sing.tw/share_song/index.html?sid={}'.format(title,artist,date,sid)
     return content
 
 def ask():
