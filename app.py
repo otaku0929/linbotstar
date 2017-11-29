@@ -1002,7 +1002,7 @@ def pm25():
     content=""
 
     for i in range(0,len(soup)-1):
-        if soup[i].get('Status') in ['對敏感族群不健康','對所有族群不健康','非常不健康','危害']:
+        if soup[i].get('Status') in ['對所有族群不健康','非常不健康','危害']:
             County = soup[i].get('County')
             SiteName = soup[i].get('SiteName')
             AQI = soup[i].get('AQI')
