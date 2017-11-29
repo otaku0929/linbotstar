@@ -993,7 +993,7 @@ def pm25():
             AQI = soup[i].get('AQI')
             PM25 = soup[i].get('PM2.5')
             Status = soup[i].get('Status')
-            data='城市:{}\n觀測站:{}\nAQI:{}  PM2.5:{}\n空氣品質:{}\n\n'.format(County,SiteName,AQI,PM25,Status)
+            data='城市:{}  觀測站:{}\nAQI:{}  PM2.5:{}\n空氣品質:{}\n\n'.format(County,SiteName,AQI,PM25,Status)
             content +=data
         else:
             pass
