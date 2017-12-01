@@ -999,20 +999,63 @@ def pm25():
     soup = res.json()
     
     data = ""
+    data2 = ""
+    data3 = ""
+    data4 = ""
     content=""
 
+
     for i in range(0,len(soup)-1):
-        if soup[i].get('Status') in ['對所有族群不健康','非常不健康','危害']:
-            County = soup[i].get('County')
-            SiteName = soup[i].get('SiteName')
-            AQI = soup[i].get('AQI')
-            PM25 = soup[i].get('PM2.5')
-            Status = soup[i].get('Status')
-            data='{}-{}\nAQI:{} PM2.5:{} {}\n\n'.format(County,SiteName,AQI,PM25,Status)
-            content +=data
+        if soup[i].get('Status') in ['對敏感族群不健康']:
+            dsoup = soup[i]
+            County = pm25content(dsoup,data)
+            if County != '':
+                ldata = '{} '.format(County)
+                data += ldata
+            else:
+                pass
+        elif soup[i].get('Status') in ['對所有族群不健康']:
+            dsoup = soup[i]
+            County = pm25content(dsoup,data)
+            if County != '':
+                ldata2 = '{} '.format(County)
+                data2 += ldata
+            else:
+                pass
+        elif soup[i].get('Status') in ['非常不健康']:
+            dsoup = soup[i]
+            County = pm25content(dsoup,data)
+            if County != '':
+                ldata3 = '{} '.format(County)
+                data3 += ldata
+            else:
+                pass
+        elif soup[i].get('Status') in ['危害']:
+            dsoup = soup[i]
+            County = pm25content(dsoup,data)
+            if County != '':
+                ldat4 = '{} '.format(County)
+                data4 += ldata
+            else:
+                pass
         else:
             pass
-    return content
+
+        
+    content = '空氣品質危害地區\n****************\nLV1敏感警戒:{}\nLV2全民警戒:{}\nLV3非常不健康:{}\nLV4危害:{}'.format(data,data2,data3,data4)
+    return (content)
+
+def pm25content(dsoup,data):
+
+    if dsoup['County'] in data:
+        return ''
+    else:
+        return dsoup['County']
+    #_data['城市']=dsoup[0]['County']
+    #_data['觀測站']=dsoup.get('SiteName')
+    #_data['AQI']=dsoup.get('AQI')
+    #_data['PM2.5']=dsoup.get('PM2.5')
+    #_data['空氣品質']=dsoup.get('Status')
 
 def yelp(location):
     url = 'https://api.yelp.com/oauth2/token'
