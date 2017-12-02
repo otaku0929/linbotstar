@@ -1237,16 +1237,93 @@ def stockcode(cres):
         res = rdata[0:rdata.find(cres)]
         content = stocks(res)
         return content
+
+def tk(a):
+    # 获取google翻译内容的tk值
+    # a：要翻译的内容，以字符串指定
+    # 注意：要翻译的内容只能是英文，即只能是包含ASCII码的英文字符串
+    #;TKK=eval('((function(){var a\x3d1003361859;var b\x3d975588639;return 420060+\x27.\x27+(a+b)})())')
+    TKK = (lambda a=561666268, b=1526272306:str(406398) + '.' + str(a + b))()
     
+    def b(a, b):
+        for d in range(0, len(b)-2, 3):
+            c = b[d + 2]
+            c = ord(c[0]) - 87 if 'a' <= c else int(c)
+            c = a >> c if '+' == b[d + 1] else a << c
+            a = a + c & 4294967295 if '+' == b[d] else a ^ c
+        return a
+    
+    e = TKK.split('.')
+    h = int(e[0]) or 0
+    g = []
+    d = 0
+    f = 0
+    while f < len(a):
+        c = ord(a[f])
+        if 128 > c:        
+            g.insert(d,c)
+            d += 1
+        else:
+            if 2048 > c:
+                g[d] = c >> 6 | 192
+                d += 1
+            else:
+                if (55296 == (c & 64512)) and (f + 1 < len(a)) and (56320 == (ord(a[f+1]) & 64512)):
+                    f += 1
+                    c = 65536 + ((c & 1023) << 10) + (ord(a[f]) & 1023)
+                    g[d] = c >> 18 | 240
+                    d += 1
+                    g[d] = c >> 12 & 63 | 128
+                    d += 1
+                else:
+                    g[d] = c >> 12 | 224
+                    d += 1
+                    g[d] = c >> 6 & 63 | 128
+                    d += 1
+                g[d] = c & 63 | 128
+                d += 1
+        f += 1
+    a = h
+    for d in range(len(g)):
+        a += g[d]
+        a = b(a, '+-a^+6')
+    a = b(a, '+-3^+b+-f')
+    a ^= int(e[1]) or 0
+    if 0 > a:a = (a & 2147483647) + 2147483648
+    a %= 1E6
+    return str(int(a)) + '.' + str(int(a) ^ h)
+
+
+def translate(res): 
+
+    if len(res) > 4891:
+        return "翻譯內容長度超過限制"
+    else:
+        words = res.replace(' ','%20')
+        a=res
+        atk = tk(a)
+        url ='https://translate.google.cn/translate_a/single?client=t&'\
+             'text =sl=en&tl=zh-TW&hl=zh-TW&dt=at&dt=bd&dt=ex&dt=ld&dt=md&dt=qca&dt=rw&dt=rm&dt=ss&'\
+             'dt=t&ie=UTF-8&oe=UTF-8&source=bh&ssel=0&tsel=0&kc=1&tk={}&q={}'.format(atk,words)
+    
+        hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'}  
+        response = requests.get(url)
+        json_data = response.text
+        data = json.loads(json_data)
+
+        content = data[0][0][0]
+        return content    
+       
 def fwords(resf):
     words = resf
     olist = (["幹","操","靠"])
-    wlist = (["三小","靠北","馬的","媽的", "放屁","美金","港幣","英鎊","澳幣","加拿大幣","新加坡幣","瑞士法郎","日圓","日幣","南非幣","瑞典幣","紐元","泰幣","菲國比索","印尼幣","歐元","韓元","越南盾","馬來幣","人民幣"])
+    wlist = (["三小","靠北","馬的","媽的", "放屁","屁啦","美金","港幣","英鎊","澳幣","加拿大幣","新加坡幣","瑞士法郎","日圓","日幣","南非幣","瑞典幣","紐元","泰幣","菲國比索","印尼幣","歐元","韓元","越南盾","馬來幣","人民幣"])
     ylist = (["聽歌","找歌","查歌"])
     glist = (['查優惠'])
     mlist = (['看電影'])
     dlist = (['time'])
     slist = (['抽歡歌'])
+    tlist = (['翻譯']
     if words.find('n')>=2:
         res = words[0:words.find('n')].replace('日幣','日圓')
         nt = words[words.find('n')+1:words.find('x')]
@@ -1256,6 +1333,10 @@ def fwords(resf):
     elif words[0:2] in ylist:
         res = words[3:]
         content = youtube_search(res)
+        return content
+    elif words[0:2] in tlist:
+        res = words[2:]
+        content = translate(res)
         return content
     elif words[0:3] in glist:
         res = words[3:]
