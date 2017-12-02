@@ -1323,7 +1323,7 @@ def fwords(resf):
     mlist = (['看電影'])
     dlist = (['time'])
     slist = (['抽歡歌'])
-    tlist = (['翻譯']
+    tlist = (['翻譯'])
     if words.find('n')>=2:
         res = words[0:words.find('n')].replace('日幣','日圓')
         nt = words[words.find('n')+1:words.find('x')]
