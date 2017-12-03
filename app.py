@@ -1333,7 +1333,7 @@ def fwords(resf):
             content = ratecount(res,nt,xt)
             return content
         else:
-            res = words[0:2]
+            res = words[0:2].replace('日幣','日圓')
             content = rate(res)
             return content
     elif words[0:2] in ylist:
