@@ -1317,25 +1317,21 @@ def translate(res):
 def fwords(resf):
     words = resf
     olist = (["幹","操","靠"])
-    wlist = (["三小","靠北","馬的","媽的","放屁","屁啦"])
-    plist = (["美金","港幣","英鎊","澳幣","加拿大幣","新加坡幣","瑞士法郎","日圓","日幣","南非幣","瑞典幣","紐元","泰幣","菲國比索","印尼幣","歐元","韓元","越南盾","馬來幣","人民幣"])
+    wlist = (["三小","靠北","馬的","媽的","放屁","屁啦",\
+              "美金","港幣","英鎊","澳幣","加拿大幣","新加坡幣","瑞士法郎","日圓","日幣","南非幣","瑞典幣",\
+             "紐元","泰幣","菲國比索","印尼幣","歐元","韓元","越南盾","馬來幣","人民幣"])
     ylist = (["聽歌","找歌","查歌"])
     tlist = (['翻譯'])
     glist = (['查優惠'])
     mlist = (['看電影'])
     dlist = (['time'])
     slist = (['抽歡歌'])
-    if words[0:2] in plist:
-        if words.find('n')>=2:
-            res = words[0:words.find('n')].replace('日幣','日圓')
-            nt = words[words.find('n')+1:words.find('x')]
-            xt = words[words.find('x')+1:]
-            content = ratecount(res,nt,xt)
-            return content
-        else:
-            res = words[0:2].replace('日幣','日圓')
-            content = rate(res)
-            return content
+    if words.find('n')>=2:
+        res = words[0:words.find('n')].replace('日幣','日圓')
+        nt = words[words.find('n')+1:words.find('x')]
+        xt = words[words.find('x')+1:]
+        content = ratecount(res,nt,xt)
+        return content
     elif words[0:2] in ylist:
         res = words[2:]
         content = youtube_search(res)
