@@ -1324,7 +1324,7 @@ def fwords(resf):
     tlist = (['翻譯'])
     glist = (['查優惠'])
     mlist = (['看電影'])
-    dlist = (['time'])
+    dlist = (['time','Time'])
     slist = (['抽歡歌'])
     if words.find('n')>=2:
         res = words[0:words.find('n')].replace('日幣','日圓')
