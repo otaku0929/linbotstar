@@ -1332,6 +1332,9 @@ def fwords(resf):
             xt = words[words.find('x')+1:]
             content = ratecount(res,nt,xt)
             return content
+        else:
+            content = rate(res)
+            return content
     elif words[0:2] in ylist:
         res = words[2:]
         content = youtube_search(res)
