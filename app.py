@@ -742,7 +742,7 @@ def weather(location):
 
     content = '{}\n\n{}'.format(content1,content2)
     
-    return conten
+    return content
 
 def sweather():
 
