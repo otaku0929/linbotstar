@@ -739,9 +739,9 @@ def weather(location):
     MaxTe = (weather_elements[4]['time'])[1]['parameter'].get('parameterName')
 
     if Wxs == Wxe:
-        Wx = '天氣:()'.format(Wxs)
+        Wx = '{}'.format(Wxs)
     else:
-        Wx = '天氣:{} 轉 {}'.format(Wxs,Wxe)
+        Wx = '{} 轉 {}'.format(Wxs,Wxe)
 
     if PoPs > PoPe:
         PoP = '降雨機率:{}%~{}%'.format(PoPe,PoPs)
