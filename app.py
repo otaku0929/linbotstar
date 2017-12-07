@@ -722,15 +722,27 @@ def weather(location):
     weather_api= res.json()
 
     weather_elements = weather_api['records']['location'][0]['weatherElement']
-
+    
+    sT = (weather_elements[0]['time'])[0].get('startTime')[5:16]
+    eT = (weather_elements[0]['time'])[0].get('endTime')[5:16]
     Wx = (weather_elements[0]['time'])[0]['parameter'].get('parameterName')
     PoP = (weather_elements[1]['time'])[0]['parameter'].get('parameterName')
     MinT = (weather_elements[2]['time'])[0]['parameter'].get('parameterName')
     MaxT = (weather_elements[4]['time'])[0]['parameter'].get('parameterName')
 
-    content = '{}\n天氣:{}\n溫度:{}C~{}C\n降雨機率:{}%'.format(location,Wx,MinT,MaxT,PoP)
+    sTe = (weather_elements[0]['time'])[1].get('startTime')[5:16]
+    eTe = (weather_elements[0]['time'])[1].get('endTime')[5:16]
+    Wxe = (weather_elements[0]['time'])[1]['parameter'].get('parameterName')
+    PoPe = (weather_elements[1]['time'])[1]['parameter'].get('parameterName')
+    MinTe = (weather_elements[2]['time'])[1]['parameter'].get('parameterName')
+    MaxTe = (weather_elements[4]['time'])[1]['parameter'].get('parameterName')
+
+    content1 = '{}\n時間:{}~{}\n天氣:{}\n溫度:{}C~{}C\n降雨機率:{}%'.format(location,sT,eT,Wx,MinT,MaxT,PoP)
+    content2 = '時間:{}~{}\n天氣:{}\n溫度:{}C~{}C\n降雨機率:{}%'.format(sTe,eTe,Wxe,MinTe,MaxTe,PoPe)
+
+    content = '{}\n\n{}'.format(content1,content2)
     
-    return content
+    return conten
 
 def sweather():
 
