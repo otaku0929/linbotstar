@@ -723,12 +723,13 @@ def weather(location):
 
     weather_elements = weather_api['records']['location'][0]['weatherElement']
     
-    sT = (weather_elements[0]['time'])[0].get('startTime')[5:16]
-    eT = (weather_elements[0]['time'])[0].get('endTime')[5:16]
-    Wx = (weather_elements[0]['time'])[0]['parameter'].get('parameterName')
-    PoP = (weather_elements[1]['time'])[0]['parameter'].get('parameterName')
-    MinT = (weather_elements[2]['time'])[0]['parameter'].get('parameterName')
-    MaxT = (weather_elements[4]['time'])[0]['parameter'].get('parameterName')
+
+    sTs = (weather_elements[0]['time'])[0].get('startTime')[5:16]
+    eTs = (weather_elements[0]['time'])[0].get('endTime')[5:16]
+    Wxs = (weather_elements[0]['time'])[0]['parameter'].get('parameterName')
+    PoPs = (weather_elements[1]['time'])[0]['parameter'].get('parameterName')
+    MinTs = (weather_elements[2]['time'])[0]['parameter'].get('parameterName')
+    MaxTs = (weather_elements[4]['time'])[0]['parameter'].get('parameterName')
 
     sTe = (weather_elements[0]['time'])[1].get('startTime')[5:16]
     eTe = (weather_elements[0]['time'])[1].get('endTime')[5:16]
@@ -737,12 +738,41 @@ def weather(location):
     MinTe = (weather_elements[2]['time'])[1]['parameter'].get('parameterName')
     MaxTe = (weather_elements[4]['time'])[1]['parameter'].get('parameterName')
 
-    content1 = '{}\n時間:{}~{}\n天氣:{}\n溫度:{}C~{}C\n降雨機率:{}%'.format(location,sT,eT,Wx,MinT,MaxT,PoP)
-    content2 = '時間:{}~{}\n天氣:{}\n溫度:{}C~{}C\n降雨機率:{}%'.format(sTe,eTe,Wxe,MinTe,MaxTe,PoPe)
+    if Wxs == Wxe:
+        Wx = '天氣:()'.format(Wxs)
+    else:
+        Wx = '天氣:{} 轉 {}'.format(Wxs,Wxe)
 
-    content = '{}\n\n{}'.format(content1,content2)
-    
-    return content
+    if PoPs > PoPe:
+        PoP = '降雨機率:{}%~{}%'.format(PoPe,PoPs)
+    elif PoPs < PoPe:
+        PoP = '降雨機率:{}%~{}%'.format(PoPs,PoPe)
+    else:
+        Pop = '降雨機率:{}%'.format(PoPs)
+
+    if MinTs < MinTe:
+        MinT = MinTs
+    elif MinTs > MinTe:
+        MinT = MinTe
+    else:
+        MinT = MinTs
+
+    if MaxTs < MaxTe:
+        MaxT = MaxTe
+    elif MaxTs > MaxTe:
+        MaxT = MaxTs
+    else:
+        MaxT = MaxTs
+        
+
+    #content1 = '{}\n時間:{}~{}\n天氣:{}\n溫度:{}C~{}C\n降雨機率:{}%'.format(location,sTs,eTs,Wxs,MinTs,MaxTs,PoPs)
+    #content2 = '時間:{}~{}\n天氣:{}\n溫度:{}C~{}C\n降雨機率:{}%'.format(sTe,eTe,Wxe,MinTe,MaxTe,PoPe)
+
+    _content3 = '{}\n{}\n溫度:{}C~{}C\n{}'.format(location,Wx,MinT,MaxT,PoP)
+
+    #content = '{}\n\n{}'.format(content1,content2)
+   
+    return _content3
 
 def sweather():
 
