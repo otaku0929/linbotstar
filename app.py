@@ -748,7 +748,7 @@ def weather(location):
     elif PoPs < PoPe:
         PoP = '降雨機率:{}%~{}%'.format(PoPs,PoPe)
     else:
-        Pop = '降雨機率:{}%'.format(PoPs)
+        PoP = '降雨機率:{}%'.format(PoPs)
 
     if MinTs < MinTe:
         MinT = MinTs
