@@ -2083,7 +2083,7 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=content))
         return 0   
-    if event.message.text=='查樂透':
+    if event.message.text in [查樂透','抽樂透']:
         res = event.message.text
         content = lotto()
         line_bot_api.reply_message(
