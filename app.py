@@ -1358,6 +1358,7 @@ def translate(res):
        
 def fwords(resf):
     words = resf
+    print(words)
     olist = (["幹","操","靠"])
     wlist = (["三小","靠北","馬的","媽的","放屁","屁啦",\
               "美金","港幣","英鎊","澳幣","加拿大幣","新加坡幣","瑞士法郎","日圓","日幣","南非幣","瑞典幣",\
@@ -1401,6 +1402,7 @@ def fwords(resf):
             else:
                 res = words[3:]
                 content = s17uid(res)
+                print (content)
                 return content
     elif words[0:4] in dlist:
         if len(words[0:])>4:
