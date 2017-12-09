@@ -2082,7 +2082,14 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=content))
-        return 0   
+        return 0
+    if event.message.text == '小星星粉絲頁':
+        res = event.message.text
+        content = 'https://www.facebook.com/%E5%B0%8F%E6%98%9F%E6%98%9F-138369020128285/'
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=content))
+        return 0  
     if event.message.text=='查颱風':
         res = event.message.text
         content = ty()
