@@ -1402,7 +1402,7 @@ def fwords(resf):
             else:
                 res = words[3:]
                 content = s17uid(res)
-                print (content)
+                #print (content)
                 return content
     elif words[0:4] in dlist:
         if len(words[0:])>4:
