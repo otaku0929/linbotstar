@@ -1513,7 +1513,7 @@ def talk_messages(messages_talk):
     if messages_talk in {'放屁','屁啦','狗屁'}:
         content = random.choice(['噗~~~~~~是誰','Lucky~Lucky~Lucky~你再躱在桌子底下會臭死','好臭~~~','快大口吸掉','多吸多健康','聽說屁聞多了人會變聰明'])
         return content
-    if messages_talk in ('三字經','幹你娘'}:
+    if messages_talk in {'三字經','幹你娘'}:
         content = "人之初性本善性相近習相遠. 茍不教性乃遷教之道貴以專. 昔孟母擇鄰處子不學斷機杼. 竇燕山有義方教五子名俱揚. 養不教父之過教不嚴師之惰. 子不學非所宜 ..."
         return content
     if messages_talk in [ "美金","港幣","英鎊","澳幣","加拿大幣","新加坡幣","瑞士法郎","日圓","日幣","南非幣","瑞典幣","紐元","泰幣","菲國比索","印尼幣","歐元","韓元","越南盾","馬來幣","人民幣"]:
