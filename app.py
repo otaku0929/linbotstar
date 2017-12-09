@@ -1166,8 +1166,7 @@ def photoracedata(res):
 
 def lotto():
 
-     source = ['http://www.pilio.idv.tw/lto/list.asp','http://www.pilio.idv.tw/ltobig/ServerA/list.asp']
-
+    source = ['http://www.pilio.idv.tw/lto/list.asp','http://www.pilio.idv.tw/ltobig/ServerA/list.asp']
     content = ""
     for i in source:
         url = i
