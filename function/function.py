@@ -12,6 +12,7 @@ from datetime import datetime, timedelta
 def shelp():
 
     helplist=['..!help',
+              '..小星星粉絲頁',
               '..抽',
               '..抽正妹',
               '..抽鮮肉',
@@ -49,8 +50,12 @@ def shelp():
               '..PTT表特',
               '..即時廢文',
               '..翻譯+英文',
-              '..傳送LINE座標'              
-              ]
+              '..傳送LINE座標',
+              '..詳細說明詳見小星星粉絲頁',
+              'https://www.facebook.com/%E5%B0%8F%E6%98%9F%E6%98%9F-138369020128285/'
+              
+              
+]
     content = ""
     for i in helplist:
         a = '{}\n'.format(i)
