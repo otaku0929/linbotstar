@@ -1167,7 +1167,8 @@ def photoracedata(res):
 def lotto():
 
     source = ['http://www.pilio.idv.tw/lto/list.asp','http://www.pilio.idv.tw/ltobig/ServerA/list.asp']
-    content = ""
+
+    content_get = ""
     for i in source:
         url = i
     
@@ -1187,15 +1188,32 @@ def lotto():
             bonus = bonus_c[1:]
         else:
             bonus = bonus_c
-
+        
         _date = a.iloc[0,0]
         date = '{}/{}'.format(_date[0:3],_date[4:])
         number1 = a.iloc[0,1]
         number2 = a.iloc[0,2]
     
-        _content = '{} {}獎號\n{} [{}]\n累計獎金:{}\n\n'.format(date,name,number1,number2,bonus)
+        _content = '{} {}獎號\n{} [{}]\n累計獎金:{:,}\n\n'.format(date,name,number1,number2,int(bonus))
 
-        content += _content
+        content_get += _content
+
+    _super_number_1 = random.sample(range(1,37),6)
+    _super_number_1.sort()
+    super_number_2 = random.randint(1,9)
+    super_number_1 = format(_super_number_1).strip('[]')
+    content_s = '下一期威力彩選號:\n{} [{}]'.format(super_number_1,super_number_2)
+
+    _lotto_number = random.sample(range(1,50),7)
+    _lotto_number_1=_lotto_number[0:6]
+    _lotto_number_1.sort()
+    lotto_number_2 = _lotto_number[6]
+    lotto_number_1 = format(_lotto_number_1).strip('[]')
+    content_l = '下一期大樂透選號:\n{} [{}]'.format(lotto_number_1,lotto_number_2)
+
+    content_number = '小星星選號\n{}\n\n{}'.format(content_s,content_l)
+
+    content = '{}\n{}'.format(content_get,content_number)
        
     return content
 
