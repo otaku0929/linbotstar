@@ -1164,6 +1164,42 @@ def photoracedata(res):
        content = '{}\n屆止日:{}\nhttp://www.uart.org.tw/uart/show/tourney/{}'.format(title,date,link)
     return (content)
 
+def lotto():
+
+     source = ['http://www.pilio.idv.tw/lto/list.asp','http://www.pilio.idv.tw/ltobig/ServerA/list.asp']
+
+    content = ""
+    for i in source:
+        url = i
+    
+        table = pandas.read_html(url)[3]
+        a = table.iloc[1:6,0:3]
+
+        request=requests.get(url)
+        req = request.content
+        soup = BeautifulSoup(req)
+
+        _bonus = soup.select('span')[0].text
+
+        name = _bonus[2:5]
+        bonus_c = _bonus[18:]
+
+        if int(bonus_c[0]) == 0:
+            bonus = bonus_c[1:]
+        else:
+            bonus = bonus_c
+
+        _date = a.iloc[0,0]
+        date = '{}/{}'.format(_date[0:3],_date[4:])
+        number1 = a.iloc[0,1]
+        number2 = a.iloc[0,2]
+    
+        _content = '{} {}獎號\n{} [{}]\n累計獎金:{}\n\n'.format(date,name,number1,number2,bonus)
+
+        content += _content
+       
+    return content
+
 def stock(res):
 
     url = 'https://tw.stock.yahoo.com/'
@@ -2030,15 +2066,20 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=content))
         return 0   
-    
+    if event.message.text=='查樂透':
+        res = event.message.text
+        content = lotto()
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=content))
+        return 0      
     if mlist[mlist.find('查天氣',0):3]=='查天氣':
         location = mlist[mlist.find('查天氣',0)+3:6].replace('台','臺')
         content = weather(location)
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=content))
-        return 0
-    
+        return 0    
     if mlist[mlist.find('查股市',0):3]=='查股市':
         res = mlist[mlist.find('查股市',0)+3:5]
         content = stock(res)
