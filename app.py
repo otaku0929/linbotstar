@@ -1607,9 +1607,9 @@ def handle_message(event):
             preview_image_url=url
         )
         line_bot_api.reply_message(
-            event.reply_token, image_message)
-        line_bot_api.reply_message(
-            event.reply_token, TextSendMessage(text=content))
+            event.reply_token, [image_message, TextSendMessage(text=content)])
+        #line_bot_api.reply_message(
+        #    event.reply_token, TextSendMessage(text=content))
         return 0
     if event.message.text == "抽正妹":
         image = requests.get(API_Get_Image)
