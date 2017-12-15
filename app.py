@@ -1602,15 +1602,12 @@ def handle_message(event):
         index = random.randint(0, len(images) - 1)
         url = images[index].link
         content = "想秀自已嗎 歡迎把照片分享給小星星哦"
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=content))
         image_message = ImageSendMessage(
             original_content_url=url,
             preview_image_url=url
         )
-        line_bot_api.reply_message(
-            event.reply_token, image_message)
+        line_bot_api.multicast(
+           TextSendMessage(text=content), image_message)
         return 0
     if event.message.text == "抽正妹":
         image = requests.get(API_Get_Image)
@@ -1623,8 +1620,8 @@ def handle_message(event):
             original_content_url=url,
             preview_image_url=url
         )
-        line_bot_api.reply_message(
-            event.reply_token, image_message)
+        line_bot_api.multicast(
+           TextSendMessage(text=content), image_message)
         return 0
     if event.message.text in ["抽","來點正能量"]:
         
