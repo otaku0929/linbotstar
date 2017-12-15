@@ -1519,10 +1519,10 @@ def talk_messages(messages_talk):
         content = "人之初性本善性相近習相遠. 茍不教性乃遷教之道貴以專. 昔孟母擇鄰處子不學斷機杼. 竇燕山有義方教五子名俱揚. 養不教父之過教不嚴師之惰. 子不學非所宜 ..."
         return content
     if messages_talk in {'壞掉了'}:
-        content = random.choice('保修價8萬1~','維修專線0800080000','你弄壞的厚~','舊的不去新的不來','不是我弄壞的~')
+        content = random.choice(['保修價8萬1~','維修專線0800080000','你弄壞的厚~','舊的不去新的不來','不是我弄壞的~'])
         return content
     if messages_talk in {'小星星'}:
-        content = random.choice('一閃一閃亮晶晶 滿天都是小星星','是誰在叫我啊','你看不到我>_<','來了來了~','麥吵,底睏啦~')
+        content = random.choice('[一閃一閃亮晶晶 滿天都是小星星','是誰在叫我啊','你看不到我>_<','來了來了~','麥吵,底睏啦~'])
         return content
     if messages_talk in [ "美金","港幣","英鎊","澳幣","加拿大幣","新加坡幣","瑞士法郎","日圓","日幣","南非幣","瑞典幣","紐元","泰幣","菲國比索","印尼幣","歐元","韓元","越南盾","馬來幣","人民幣"]:
         res = messages_talk.replace('日幣','日圓')
