@@ -1507,7 +1507,7 @@ def talk_messages(messages_talk):
         content = random.choice(['我聽過小王、小強、就是沒聽過三小','小小小', '大大大','小三小四小五','意義是三小 我只知道義氣','你是魯小小'])
         return content
     if messages_talk in {'靠北',"靠"}:
-        content = random.choice(['靠北邊走','靠南', '我靠爸族啦','我有的靠你有嗎','喂喂別靠來靠去','走路要靠右邊走'])
+        content = random.choice(['靠北邊走','靠南', '我靠爸族啦','我有的靠你有嗎','喂喂別靠來靠去','走路要靠右邊走','麥靠啦, 飲啦~'])
         return content
     if messages_talk in {'馬的','媽的'}:
         content = random.choice(['馬兒跑~馬兒跳~馬兒咩咩叫~','一馬當先、馬到成功、馬耳東風、馬的成語還有很多哦~','媽媽的孩子都是寶','你8+9哦','羊的~雞的~狗的~'])
@@ -1525,7 +1525,8 @@ def talk_messages(messages_talk):
         content = random.choice(['保修價8萬1~','維修專線0800080000','你弄壞的厚~','舊的不去新的不來','不是我弄壞的~'])
         return content
     if messages_talk in {'小星星'}:
-        content = random.choice(['一閃一閃亮晶晶 滿天都是小星星','是誰在叫我啊','你看不到我>_<','來了來了~','麥吵,底睏啦~'])
+        content = random.choice(['一閃一閃亮晶晶 滿天都是小星星','是誰在叫我啊','你看不到我>_<','來了來了~','麥吵,底睏啦~','小星星你的好幫手','要抽一張嗎"/
+                                '噓~~','抽','你好~找我嗎?'])
         return content
     if messages_talk in [ "美金","港幣","英鎊","澳幣","加拿大幣","新加坡幣","瑞士法郎","日圓","日幣","南非幣","瑞典幣","紐元","泰幣","菲國比索","印尼幣","歐元","韓元","越南盾","馬來幣","人民幣"]:
         res = messages_talk.replace('日幣','日圓')
