@@ -1408,7 +1408,41 @@ def translate(res):
         data = json.loads(json_data)
 
         content = data[0][0][0]
-        return content    
+        return content
+    
+def mojim(res):
+
+    _url = "https://mojim.com"
+    url = "{}/{}.html?t4".format(_url,res)
+    request = requests.get(url)
+    ytcontent = request.content
+    soup = BeautifulSoup(ytcontent, "html.parser")
+
+    _check = soup.select("title")
+    check = _check[0].text.find("請重新輸入")
+    
+
+    if (int(check) < 0):
+        s_list = soup.select("span[class='mxsh_ss3']")
+        for data in s_list[1]:
+            curl = "{}{}".format(_url,data.get("href"))
+            
+        trequest = requests.get(curl)
+        tytcontent = trequest.content
+        tsoup = BeautifulSoup(tytcontent, "html.parser")
+        
+        t_list = tsoup.select("title")
+        tcontent = t_list[0].text
+        p = tcontent.find("歌詞")
+        p2 = tcontent.find("※")
+
+        title = tcontent[0:int(p)]
+        singer = tcontent[int(p)+3:int(p2)]
+        content = "資料來源-魔鏡歌詞網\n------\n{}-{}\n{}\n------".format(singer,title,curl)
+    else:
+        content = "沒有符合的歌詞請重新輸入，可利紅豆 王菲或紅豆+王菲的方式來查找"
+
+    return content
        
 def fwords(resf):
     words = resf
@@ -1424,6 +1458,7 @@ def fwords(resf):
     mlist = (['看電影'])
     dlist = (['time','Time'])
     slist = (['抽歡歌'])
+    sdlist = (['查歌詞'])
     if words.find('n')>=2:
         res = words[0:words.find('n')].replace('日幣','日圓')
         nt = words[words.find('n')+1:words.find('x')]
@@ -1445,6 +1480,10 @@ def fwords(resf):
     elif words[0:3] in mlist:
         res = words[3:]
         content = movie_search(res)
+        return content
+    elif words[0:3] in sdlist:
+        res = words[3:]
+        content = mojim(res)
         return content
     elif words[0:3] in slist:
         if str(words[3:].isnumeric())=="False":
