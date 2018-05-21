@@ -2216,7 +2216,7 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=content))
         return 0
-    if mlist[mlist.find('http',0):3]=='http':
+    if mlist[mlist.find('http',0):4]=='http':
         res = event.message.text
         content = tomp3(res)
         line_bot_api.reply_message(
