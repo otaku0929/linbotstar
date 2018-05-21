@@ -1042,13 +1042,21 @@ def tomp3(res):
     key = res.find("oksing.tw")
 
     if (key>0):
-        a_point = source_url.find("?sid")
-        sid_key = source_url[a_point+5:]
+        sid = source_url.find("?sid")
+        uid = source_url.find("&self")
+        if (uid>0):
+            sid_key = source_url[sid+5:]
+        else:
+            sid_key = source_url[sid+5:uid]
+        
         json_url = 'http://act.oksing.tw/index.php?action=GetSongInfo&sid={}&callback'.format(sid_key)
     else:
-        a_point = source_url.find("?sid")
-        b_point = source_url.find("&self")
-        sid_key = source_url[a_point+5:b_point]
+        sid = source_url.find("?sid")
+        uid = source_url.find("&self")
+        if (uid>0):
+            sid_key = source_url[sid+5:]
+        else:
+            sid_key = source_url[sid+5:uid]
         json_url = 'http://act.17sing.tw/index.php?action=GetSongInfo&sid={}&callback'.format(sid_key)
 
     request = requests.get(json_url)
@@ -1059,7 +1067,7 @@ def tomp3(res):
     mp3_json = json.loads(mp3_source)
     mp3_url = mp3_json['response_data']['song']['path']
 
-    return (mp3_url)
+    return mp3_url
     
     
 def pm25():
