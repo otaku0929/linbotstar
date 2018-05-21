@@ -1035,6 +1035,33 @@ def chdate(cyear,cmonth,cdate,chour):
         content = '{}\n{}\n{}\n{}\n{}\n{}\n{}\n\n{}\n{}\n{}'.format(d0,d1,d2,d5,d6,d10,d11,dh1,dh2,dh3)
         return(content)
 
+def tomp3(res):
+
+    source_url = res
+    
+    key = res.find("oksing.tw")
+
+    if (key>0):
+        a_point = source_url.find("?sid")
+        sid_key = source_url[a_point+5:]
+        json_url = 'http://act.oksing.tw/index.php?action=GetSongInfo&sid={}&callback'.format(sid_key)
+    else:
+        a_point = source_url.find("?sid")
+        b_point = source_url.find("&self")
+        sid_key = source_url[a_point+5:b_point]
+        json_url = 'http://act.17sing.tw/index.php?action=GetSongInfo&sid={}&callback'.format(sid_key)
+
+    request = requests.get(json_url)
+    ytcontent = request.content
+    soup = BeautifulSoup(ytcontent, "html.parser")
+
+    mp3_source = soup.string.replace("_jsonpcallback","").replace("(",")").replace(")","")
+    mp3_json = json.loads(mp3_source)
+    mp3_url = mp3_json['response_data']['song']['path']
+
+    return (mp3_url)
+    
+    
 def pm25():
 
     url = 'http://opendata.epa.gov.tw/ws/Data/AQI/?$format=json'
@@ -2188,7 +2215,14 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=content))
-        return 0      
+        return 0
+     if mlist[mlist.find('mp3',0):3]=='mp3':
+        res = mlist[mlist.find('mp3',0)+3:]
+        content = tomp3(res)
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=content))
+        return 0     
     if mlist[mlist.find('查天氣',0):3]=='查天氣':
         location = mlist[mlist.find('查天氣',0)+3:6].replace('台','臺')
         content = weather(location)
