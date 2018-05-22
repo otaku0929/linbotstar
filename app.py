@@ -2231,7 +2231,7 @@ def handle_message(event):
             TextSendMessage(text=content))
         return 0
     if (mlist.find('17sing')>0 or mlist.find('oksing')>0):
-        rest = event.message.text
+        res = event.message.text
         content = tomp3(res)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
