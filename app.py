@@ -1064,7 +1064,11 @@ def tomp3(res):
 
     mp3_source = soup.string.replace("_jsonpcallback","").replace("(",")").replace(")","")
     mp3_json = json.loads(mp3_source)
-    mp3_url = mp3_json['response_data']['song']['path']
+    mp3_get = mp3_json['response_data']['song']['path']
+    if (mp3_source.find("mv_cover")>0):
+        mp3_url = mp3_get.replace("mp3","mp4")
+    else:
+        mp3_url = mp3_get
 
     return mp3_url
     
