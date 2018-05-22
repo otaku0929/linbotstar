@@ -1037,7 +1037,7 @@ def chdate(cyear,cmonth,cdate,chour):
 
 def tomp3(res):
 
-    source_url = res[res.find("http"):]  
+    source_url = res[res.find("http"):]    
     key = source_url.find("oksing.tw")
 
     if (key>0):
@@ -1048,7 +1048,7 @@ def tomp3(res):
         else:
             sid_key = source_url[sid+5:]
         
-        json_url = 'http://act.oksing.tw/index.php?action=GetSongInfo&sid={}&callback'.format(sid_key)
+        json_url = 'http://act.oksing.tw/index.php?action=GetSongInfo&sid={}&callback=_jsoncallback'.format(sid_key)
     else:
         sid = source_url.find("?sid")
         uid = source_url.find("&self")
@@ -1056,15 +1056,15 @@ def tomp3(res):
             sid_key = source_url[sid+5:uid]
         else:
             sid_key = source_url[sid+5:]
-        json_url = 'http://act.17sing.tw/index.php?action=GetSongInfo&sid={}&callback'.format(sid_key)
+        json_url = 'http://act.17sing.tw/index.php?action=GetSongInfo&sid={}&callback=_jsoncallback'.format(sid_key)
 
     request = requests.get(json_url)
-    ytcontent = request.content
-    soup = BeautifulSoup(ytcontent, "html.parser")
 
-    mp3_source = soup.string.replace("_jsonpcallback","").replace("(",")").replace(")","")
+    soup = request.text
+    mp3_source = soup.replace("_jsoncallback","").replace("(",")").replace(")","")
     mp3_json = json.loads(mp3_source)
     mp3_get = mp3_json['response_data']['song']['path']
+    #checkMV= mp3_source.find("mv_cover")
     if (mp3_source.find("mv_cover")>0):
         mp3_url = mp3_get.replace("mp3","mp4")
     else:
