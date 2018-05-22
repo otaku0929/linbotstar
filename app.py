@@ -1045,18 +1045,18 @@ def tomp3(res):
         sid = source_url.find("?sid")
         uid = source_url.find("&self")
         if (uid>0):
-            sid_key = source_url[sid+5:]
-        else:
             sid_key = source_url[sid+5:uid]
+        else:
+            sid_key = source_url[sid+5:]
         
         json_url = 'http://act.oksing.tw/index.php?action=GetSongInfo&sid={}&callback'.format(sid_key)
     else:
         sid = source_url.find("?sid")
         uid = source_url.find("&self")
         if (uid>0):
-            sid_key = source_url[sid+5:]
-        else:
             sid_key = source_url[sid+5:uid]
+        else:
+            sid_key = source_url[sid+5:]
         json_url = 'http://act.17sing.tw/index.php?action=GetSongInfo&sid={}&callback'.format(sid_key)
 
     request = requests.get(json_url)
@@ -2233,10 +2233,9 @@ def handle_message(event):
         return 0
     if mlist[mlist.find('http',0):4]=='http':
         res = event.message.text
-        content = tomp3(res)
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=content))
+        if (res.find("17sing")>0 or res.find("oksing")>0):
+            content = tomp3(res)
+            line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0     
     if mlist[mlist.find('查天氣',0):3]=='查天氣':
         location = mlist[mlist.find('查天氣',0)+3:6].replace('台','臺')
