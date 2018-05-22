@@ -2230,12 +2230,17 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=content))
         return 0
-    if mlist[mlist.find('http',0):4]=='http':
-        res = event.message.text
-        if (res.find("17sing")>0 or res.find("oksing")>0):
-            content = tomp3(res)
-            line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
-        return 0     
+    #if mlist[mlist.find('http',0):4]=='http':
+        #res = event.message.text
+        #if (res.find("17sing")>0 or res.find("oksing")>0):
+        #    content = tomp3(res)
+        #    line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        #return 0
+    if (mlist.find('17sing')>0 or mlist.find('oksing')>0):
+        rest = event.message.text
+        content = tomp3(res)
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        return 0
     if mlist[mlist.find('查天氣',0):3]=='查天氣':
         location = mlist[mlist.find('查天氣',0)+3:6].replace('台','臺')
         content = weather(location)
