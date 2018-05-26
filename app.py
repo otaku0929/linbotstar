@@ -1071,7 +1071,45 @@ def tomp3(res):
         mp3_url = mp3_get
 
     return mp3_url
+
+def songsearch17(res):
+
+    source_url = "http://ec2.kusoinlol.com/hsing/SongList.php"
+    request = requests.post(source_url,res.encode("utf-8"))
+    r = request.text
+    table_content = r[r.find("table")-1:]
+
+    tds=[]
+    content = ""
+    soup = BeautifulSoup(table_content,'html.parser')
+    divs = soup.findAll("table")
+    for div in divs:
+        rows = div.findAll('tr')
+        for row in rows:
+            tds.append(row.findAll('td'))
+            #if(row.text.find("試聽")>-1):
+            #    content +=row.text
+
+    list_content = ""
+    content = ""
     
+    for i in range(len(tds)):
+        if i+1 < len(tds) and i<5 :
+            who = tds[i+1][1].text
+            song = tds[i+1][2].text
+            link = tds[i+1][0].a['href']
+            data = '{},{}\n{}\n'.format(who,song,link)
+            list_content += data
+        else:
+            pass
+
+    if (len(list_content)==0):
+        content = '{}\n\n詳閱伴唱聯盟搜索引擎\n{}'.format("查不到伴奏","http://goo.gl/XXglcl")
+    else:
+        content = '{}\n詳閱伴唱聯盟搜索引擎\n{}'.format(list_content,"http://goo.gl/XXglcl")    
+         
+    return content
+   
     
 def pm25():
 
@@ -2230,6 +2268,13 @@ def handle_message(event):
     if event.message.text in ['查樂透','抽樂透']:
         res = event.message.text
         content = lotto()
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=content))
+        return 0
+    if event.message.text in ['查伴奏']:
+        res = event.message.text
+        content = songsearch17(res)
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=content))
