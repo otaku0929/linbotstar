@@ -2417,7 +2417,10 @@ def handle_message(event):
             TextSendMessage(text=content))
         return 0
     if mlist[mlist.find('歡歌',0):2]=='歡歌':
-        content = songsearch17(mlist)
+        if mlist.find(':')<0:
+            content = s17uidrandom(mlist)
+        else:
+            content = s17uidsong(mlist)
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=content))
