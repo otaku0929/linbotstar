@@ -1186,12 +1186,10 @@ def s17uidsong(res):
         song_list = song_json['response_data']
         get_song_count = len(song_list)
         song_count += get_song_count
-        if get_song_count == 50:
-            sid = song_list[49]['id'];
-        
+
         for obj in song_list:
             if (obj['privacy']=="0" and obj['name'].find(song) !=-1 ):
-                song_id = obj['id']
+                song_id = obj['id']                 
                 surl = song_url.format(song_id,uid)
                 song_titl = obj['name']
                 song_data = '歌名:{}\n{}\n'.format(song_titl,surl)
@@ -1199,10 +1197,13 @@ def s17uidsong(res):
                 check_get_song +=1
                 if (check_get_song > 7):
                     list_content ="關鍵字查找超過8首, 請縮小範圍\n\n{}".format(list_content) 
-                    return list_content       
-        if get_song_count <50:
-            return song_data
+                    return list_content
                 
+        if get_song_count < 50:
+            return list_content
+        else:
+            sid = song_list[49]['id']; 
+
     if (len(list_content)>0):
         return list_content
     
