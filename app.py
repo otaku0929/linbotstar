@@ -1200,14 +1200,13 @@ def s17uidsong(res):
                     return list_content
                 
         if get_song_count < 50:
-            return list_content
+            if (len(list_content)>0):
+                return list_content
+            else:
+                return "找不到歌曲"               
         else:
             sid = song_list[49]['id']; 
 
-    if (len(list_content)>0):
-        return list_content
-    
-    return "查不到歌曲"
      
 
 def getsongjson(sid,res):
