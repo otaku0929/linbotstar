@@ -1132,7 +1132,7 @@ def s17uidrandom(res):
 
     uid = res[2:]
     if (is_number(uid) == False):
-        return "UID後面不得有中文字, 正確輸入:歡歌UID"
+        return "UID後面不得有中文字, 正確輸入:歡歌UID 或 歡歌UID:歌名"
     sid = 0;
     get_song_count = 0;
     song_count = 0;
