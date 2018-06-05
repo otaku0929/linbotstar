@@ -1139,7 +1139,7 @@ def s17uidrandom(res):
     list_content=""
     new_dict = []
 
-    while (sid==0 or song_count==50):        
+    while (sid==0 or get_song_count==50):        
         song_json = getsongjson(sid,uid)
         song_list = song_json['response_data']
         get_song_count = len(song_list)
@@ -1159,6 +1159,8 @@ def s17uidrandom(res):
                 surl = song_url.format(song_id,uid)
                 song_titl = obj['name']
                 song_data = '歌名:{}\n{}\n'.format(song_titl,surl)
+        if get_song_count <50:
+            return song_data
 
     return song_data
         
@@ -1179,7 +1181,7 @@ def s17uidsong(res):
     list_content=""
     check_get_song = 0;
     
-    while (sid==0 or song_count==50):        
+    while (sid==0 or get_song_count==50):        
         song_json = getsongjson(sid,uid)
         song_list = song_json['response_data']
         get_song_count = len(song_list)
@@ -1198,7 +1200,9 @@ def s17uidsong(res):
                 if (check_get_song > 7):
                     list_content ="關鍵字查找超過8首, 請縮小範圍\n\n{}".format(list_content) 
                     return list_content       
-
+        if get_song_count <50:
+            return song_data
+                
     if (len(list_content)>0):
         return list_content
     
