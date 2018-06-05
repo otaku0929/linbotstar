@@ -1109,7 +1109,114 @@ def songsearch17(res):
         content = '{}\n詳閱伴唱聯盟搜索引擎\n{}'.format(list_content,"http://goo.gl/XXglcl")    
          
     return content
-   
+
+def is_number(s):
+    try:
+        float(s)
+        return True
+    except ValueError:
+        pass
+ 
+    try:
+        import unicodedata
+        unicodedata.numeric(s)
+        return True
+    except (TypeError, ValueError):
+        pass
+ 
+    return False
+
+def s17uidrandom(res):
+
+    song_url = 'http://17sing.tw/share_song/index.html?sid={}&selfUid={}'
+
+    uid = res[2:]
+    if (is_number(uid) == False):
+        return "UID後面不得有中文字, 正確輸入:歡歌UID"
+    sid = 0;
+    get_song_count = 0;
+    song_count = 0;
+    list_content=""
+    new_dict = []
+
+    while (sid==0 or song_count==50):        
+        song_json = getsongjson(sid,uid)
+        song_list = song_json['response_data']
+        get_song_count = len(song_list)
+        song_count += get_song_count
+        if get_song_count == 50:
+            sid = song_list[49]['id'];
+        elif get_song_count ==0:
+            return "UUID沒有歌曲or輸入格式錯誤"
+            
+        new_dict = new_dict+song_list
+        random.shuffle(new_dict)
+        
+
+        for obj in new_dict:
+            if (obj['privacy']=="0"):
+                song_id = obj['id']
+                surl = song_url.format(song_id,uid)
+                song_titl = obj['name']
+                song_data = '歌名:{}\n{}\n'.format(song_titl,surl)
+
+    return song_data
+        
+
+def s17uidsong(res):
+
+    song_url = 'http://17sing.tw/share_song/index.html?sid={}&selfUid={}'
+
+    uid = res[2:res.find(':')]
+    if (is_number(uid) == False):
+        return "UID後面不得有中文字, 正確輸入:歡歌UID"
+
+    song = res[res.find(':')+1:].strip()
+
+    sid = 0;
+    get_song_count = 0;
+    song_count = 0;
+    list_content=""
+    check_get_song = 0;
+    
+    while (sid==0 or song_count==50):        
+        song_json = getsongjson(sid,uid)
+        song_list = song_json['response_data']
+        get_song_count = len(song_list)
+        song_count += get_song_count
+        if get_song_count == 50:
+            sid = song_list[49]['id'];
+        
+        for obj in song_list:
+            if (obj['privacy']=="0" and obj['name'].find(song) !=-1 ):
+                song_id = obj['id']
+                surl = song_url.format(song_id,uid)
+                song_titl = obj['name']
+                song_data = '歌名:{}\n{}\n'.format(song_titl,surl)
+                list_content += song_data
+                check_get_song +=1
+                if (check_get_song > 7):
+                    list_content ="關鍵字查找超過8首, 請縮小範圍\n\n{}".format(list_content) 
+                    return list_content       
+
+    if (len(list_content)>0):
+        return list_content
+    
+    return "查不到歌曲"
+     
+
+def getsongjson(sid,res):
+
+    #type=0 全部 1 合唱 2 底版 3 MV
+    #qyt最多50筆
+    token = 'CXDYeA-EQZvjkHav_Z3hAgQlO9hKVVhFJpWqT2-yOUiXznYtAObKlmHfcRru8huomWqdupzIGi_My77-oU-Wj2kvQtaZmEbhab-Vihd9vjChJzuAwpb3Y4Tf9CR1W2Qho_YkL2FbtPuRDvOfVBwsQp6RdF9Vo6HZBNXKOGuAmp5f-1x-tHge-swl9SVh8Fhh'
+    api_url = 'http://act.17sing.tw/index.php?songId={}&qty=50&token={}&uid={}&stick=0&action=GetMySong&type=0'.format(sid,token,res)
+
+    request = requests.get(api_url)
+    rcontent = request.content.decode('utf8')
+    song_json = json.loads(rcontent)
+
+    return song_json   
     
 def pm25():
 
@@ -2305,6 +2412,12 @@ def handle_message(event):
     if mlist[mlist.find('查伴奏',0):3]=='查伴奏':
         res = mlist[mlist.find('查伴奏',0)+3:]
         content = songsearch17(res)
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=content))
+        return 0
+    if mlist[mlist.find('歡歌',0):2]=='歡歌':
+        content = songsearch17(mlist)
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=content))
