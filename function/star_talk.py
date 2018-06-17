@@ -31,8 +31,10 @@ def star_talk(messages_talk):
         content = random.choice(['保修價8萬1~','維修專線0800080000','你弄壞的厚~','舊的不去新的不來','不是我弄壞的~','賣了就當廢鐵賣了'])
         return content
     if messages_talk.find('小星星')>-1:
-        if messages_talk.find('住那')>-1:
+        if messages_talk.find('住那')>-1 or messages_talk.find('住哪')>-1:
             content = random.choice(where())
+        elif messages_talk.find('多大')>-1 or messages_talk.find('幾歲')>-1:
+            content = random.choice(howold())
         else:
             content = random.choice(words())
         return content
@@ -72,9 +74,6 @@ def where():
     content =['住在妳心裡','不告訴你','猜猜看啊']
     return content
 
-
+def howold():
+    return ['爸說不可以講','這是個秘密','不如你先說說你幾歲']
     
-
-
-
-
