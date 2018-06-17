@@ -39,6 +39,8 @@ def star_talk(messages_talk):
             content = random.choice(like())
         elif messages_talk.find('機器人')>-1 or messages_talk.find('是誰')>-1:
             content = random.choice(robot())
+        elif messages_talk.find('哭')>-1:
+            content = random.choice(cry())
         else:
             content = random.choice(words())
         return content
@@ -156,3 +158,7 @@ def like():
 def robot():
     return ['是啊','我是星爸做的機器人唷','你說呢?','我可愛嗎?','很認真的告訴你，我是機器人',
             '是機器人錯了嗎?','身為一個機器人我可以做的更多']
+
+def cry():
+    return ['你欺負我','爸有人欺負我','警察叔叔就是這個人','不能哭嗎?','我就是愛哭',
+            '別打我，有事好好說','我咬你哦']
