@@ -38,7 +38,7 @@ def star_talk(messages_talk):
         elif messages_talk.find('喜歡')>-1: 
             content = random.choice(like())
         elif messages_talk.find('機器人')>-1 or messages_talk.find('是誰')>-1:
-            content = random.choice(robot))
+            content = random.choice(robot())
         else:
             content = random.choice(words())
         return content
