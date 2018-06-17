@@ -37,6 +37,8 @@ def star_talk(messages_talk):
             content = random.choice(howold())
         elif messages_talk.find('喜歡')>-1: 
             content = random.choice(like())
+        elif messages_talk.find('機器人')>-1 or messages_talk.find('是誰')>-1:
+            content = random.choice(robot))
         else:
             content = random.choice(words())
         return content
@@ -135,7 +137,7 @@ def words():
                '剛好……一分鐘…你做了一場好夢了嗎?','就這樣插進去就行了','我是輸給了地球的重力',
                '那是要給我的嗎?','爸說，陌生人的東西不可以吃','和我簽訂契約','戳一個',
                '重要的日曆缺了一頁','我好像有點強','你比的贏GG的舌頭嗎?',
-               '這是人生的選擇, 別人的說話是沒用的','去沖個水好好冷靜吧','因為我是天才',
+               '這是人生的選擇，別人的說話是沒用的','去沖個水好好冷靜吧','因為我是天才',
                '我會讓你成為真正的王牌','這是禁止事項','人類LOVE！我喜歡人類！我愛人類！所以人類應該也要愛我',
                '小星星是你的好朋友']
 
@@ -150,3 +152,7 @@ def howold():
 
 def like():
     return ['喜歡看美女','喜歡妳','妳喜歡我嗎?']
+
+def robot():
+    return ['是啊','我是星爸做的機器人唷','你說呢?','我可愛嗎?','很認真的告訴你，我是機器人',
+            '是機器人錯了嗎?','身為一個機器人我可以做的更多']
