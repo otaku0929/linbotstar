@@ -1714,7 +1714,7 @@ def fwords(resf):
             return content
     elif words[0] in olist:
         messages_talk = words[0]
-        content = talk_messages(messages_talk)
+        content = star_talk(messages_talk)
         return content
     elif len(words) >=2:
         for data in wlist:
