@@ -1724,7 +1724,7 @@ def fwords(resf):
             if words[words.find(data,0):words.find(data,0)+len(data)] in wlist:
                 m2list = words[words.find(data,0):words.find(data,0)+len(data)]
                 res = m2list.replace('日幣','日圓')
-                return = rate(res)
+                return rate(res)
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
