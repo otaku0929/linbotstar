@@ -1718,8 +1718,8 @@ def fwords(resf):
         return content
     elif len(words) >=2:
         for data in wlist:
-            if res.find(data)>-1:
-                return (star_talk(res))
+            if words.find(data)>-1:
+                return (star_talk(words))
         for data in rlist:
             if words[words.find(data,0):words.find(data,0)+len(data)] in wlist:
                 m2list = words[words.find(data,0):words.find(data,0)+len(data)]
