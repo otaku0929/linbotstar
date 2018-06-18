@@ -1087,10 +1087,13 @@ def changbamp3(res):
     for obj in script:
         if obj.text.find("mp3")>-1:
             mp3script = obj.text
+##            print(mp3script) 
 ##            print(mp3script.find("http://qiniuuwmp3.changba.com"))
 ##            print(mp3script.find(".mp3"))
-            mp3s = mp3script[mp3script.find("http://qiniuuwmp3.changba.com"):mp3script.find(".mp3")+4]
-            return mp3s
+            if mp3script.find("http://qiniuuwmp3.changba.com") >-1:
+                return mp3script[mp3script.find("http://qiniuuwmp3.changba.com"):mp3script.find(".mp3")+4]
+            elif mp3script.find("http://lzscuw.changba.com") >-1:
+                return mp3script[mp3script.find("http://lzscuw.changba.com"):mp3script.find(".mp3")+4]
 
 def songsearch17(res):
 
