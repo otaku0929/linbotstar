@@ -1073,6 +1073,25 @@ def tomp3(res):
 
     return mp3_url
 
+#唱吧轉mp3
+def changbamp3(res):
+    
+    source_url = res[res.find("http"):]
+
+    request = requests.get(source_url)
+    soup = BeautifulSoup(request.content, "html.parser")
+    script = soup.find_all('script')
+    #pattern = re.compile(r'mp3');', re.MULTILINE | re.DOTALL)
+    mp3urlsearch = script[3].text
+    
+    for obj in script:
+        if obj.text.find("mp3")>-1:
+            mp3script = obj.text
+##            print(mp3script.find("http://qiniuuwmp3.changba.com"))
+##            print(mp3script.find(".mp3"))
+            mp3s = mp3script[mp3script.find("http://qiniuuwmp3.changba.com"):mp3script.find(".mp3")+4]
+            return mp3s
+
 def songsearch17(res):
 
     source_url = "http://ec2.kusoinlol.com/hsing/SongList.php"
@@ -2320,9 +2339,14 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=content))
         return 0
-    if (mlist.find('17sing')>0 or mlist.find('oksing')>0):
+    if (mlist.find('17sing')>-1 or mlist.find('oksing')>-1):
         res = event.message.text
         content = tomp3(res)
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        return 0
+    if (mlist.find('changba')>-1:
+        res = event.message.text
+        content = changbamp3(res)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
     if mlist[mlist.find('查天氣',0):3]=='查天氣':
