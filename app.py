@@ -2344,7 +2344,7 @@ def handle_message(event):
         content = tomp3(res)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
-    if (mlist.find('changba')>-1:
+    if mlist.find('changba')>-1:
         res = event.message.text
         content = changbamp3(res)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
