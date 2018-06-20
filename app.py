@@ -1236,7 +1236,7 @@ def getsongjson(sid,res):
 
     #type=0 全部 1 合唱 2 底版 3 MV
     #qyt最多50筆
-    token = 'CXDYeA-EQZvjkHav_Z3hAgQlO9hKVVhFJpWqT2-yOUiXznYtAObKlmHfcRru8huomWqdupzIGi_My77-oU-Wj2kvQtaZmEbhab-Vihd9vjChJzuAwpb3Y4Tf9CR1W2Qho_YkL2FbtPuRDvOfVBwsQp6RdF9Vo6HZBNXKOGuAmp5f-1x-tHge-swl9SVh8Fhh'
+    token = config['hsing_token']['Hsing_Token']
     api_url = 'http://act.17sing.tw/index.php?songId={}&qty=50&token={}&uid={}&stick=0&action=GetMySong&type=0'.format(sid,token,res)
 
     request = requests.get(api_url)
