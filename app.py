@@ -16,6 +16,8 @@ from selenium import webdriver
 from datetime import datetime, timedelta
 from function.function import shelp
 from function.star_talk import star_talk
+from function.s17api import s17uidrandom
+from function.s17api import getsongjson
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -517,21 +519,6 @@ def sing17():
         else:
             pass
     return "找不到歌 請再試一次!!"
-
-def s17uid(res):
-
-    url = 'http://ec2.kusoinlol.com/hsing/player/ajax_check.php?select_op={}&type=0'.format(res)
-    request = requests.get(url)
-    rcontent = request.content.decode('utf8')   
-    slist = json.loads(rcontent)
-    i = random.randint(0,len(slist))
-    
-    title = slist[i]['title']
-    artist = slist[i]['artist']
-    date = slist[i]['date']
-    sid = slist[i]['sid']
-    content = '{}\n{}\n{}\nhttp://17sing.tw/share_song/index.html?sid={}'.format(title,artist,date,sid)
-    return content
 
 def ask():
     url = "http://wisdomer2002.pixnet.net/blog/post/224560-%E5%AA%BD%E7%A5%96%E7%B1%A4%E8%A9%A960%E9%A6%96"
@@ -1148,102 +1135,6 @@ def is_number(s):
         pass
  
     return False
-
-def s17uidrandom(res):
-
-    song_url = 'http://17sing.tw/share_song/index.html?sid={}&selfUid={}'
-
-    uid = res[2:]
-    if (is_number(uid) == False):
-        return "UID後面不得有中文字, 正確輸入:歡歌UID 或 歡歌UID:歌名"
-    sid = 0;
-    get_song_count = 0;
-    song_count = 0;
-    list_content=""
-    new_dict = []
-
-    while (sid==0 or get_song_count==50):        
-        song_json = getsongjson(sid,uid)
-        song_list = song_json['response_data']
-        get_song_count = len(song_list)
-        song_count += get_song_count
-        if get_song_count == 50:
-            sid = song_list[49]['id'];
-        elif get_song_count ==0:
-            return "UUID沒有歌曲or輸入格式錯誤"
-            
-        new_dict = new_dict+song_list
-        random.shuffle(new_dict)
-        
-
-        for obj in new_dict:
-            if (obj['privacy']=="0"):
-                song_id = obj['id']
-                surl = song_url.format(song_id,uid)
-                song_titl = obj['name']
-                song_data = '歌名:{}\n{}\n'.format(song_titl,surl)
-        if get_song_count <50:
-            return song_data
-
-    return song_data
-        
-
-def s17uidsong(res):
-
-    song_url = 'http://17sing.tw/share_song/index.html?sid={}&selfUid={}'
-
-    uid = res[2:res.find(':')]
-    if (is_number(uid) == False):
-        return "UID後面不得有中文字, 正確輸入:歡歌UID"
-
-    song = res[res.find(':')+1:].strip()
-
-    sid = 0;
-    get_song_count = 0;
-    song_count = 0;
-    list_content=""
-    check_get_song = 0;
-    
-    while (sid==0 or get_song_count==50):        
-        song_json = getsongjson(sid,uid)
-        song_list = song_json['response_data']
-        get_song_count = len(song_list)
-        song_count += get_song_count
-
-        for obj in song_list:
-            if (obj['privacy']=="0" and obj['name'].find(song) !=-1 ):
-                song_id = obj['id']                 
-                surl = song_url.format(song_id,uid)
-                song_titl = obj['name']
-                song_data = '歌名:{}\n{}\n'.format(song_titl,surl)
-                list_content += song_data
-                check_get_song +=1
-                if (check_get_song > 7):
-                    list_content ="關鍵字查找超過8首, 請縮小範圍\n\n{}".format(list_content) 
-                    return list_content
-                
-        if get_song_count < 50:
-            if (len(list_content)>0):
-                return list_content
-            else:
-                return "找不到歌曲"               
-        else:
-            sid = song_list[49]['id']; 
-
-     
-
-def getsongjson(sid,res):
-
-    #type=0 全部 1 合唱 2 底版 3 MV
-    #qyt最多50筆
-    token = config['hsing_token']['Hsing_Token']
-    api_url = 'http://act.17sing.tw/index.php?songId={}&qty=50&token={}&uid={}&stick=0&action=GetMySong&type=0'.format(sid,token,res)
-
-    request = requests.get(api_url)
-    rcontent = request.content.decode('utf8')
-    song_json = json.loads(rcontent)
-
-    return song_json   
     
 def pm25():
 
