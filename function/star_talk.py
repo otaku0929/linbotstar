@@ -51,6 +51,7 @@ def star_talk(messages_talk):
         elif re.search("[唱|唱一｜換｜換一|來一][歌|首]",messages_talk):
             content = random.choice(sing())
             if re.search("抽歡歌",content):
+                res = sing17()
                 if re.search("找不到歌",res):
                     return "我不知道要唱什麼耶"
                 else:
