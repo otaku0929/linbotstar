@@ -2403,7 +2403,7 @@ def handle_message(event):
     #匯率
     rate_list = "美金|港幣|英鎊|澳幣|加拿大幣|新加坡幣|瑞士法郎|日圓|日幣|南非幣|瑞典幣|紐元|泰幣|菲國比索|印尼幣|歐元|韓元|越南盾|馬來幣|人民幣"
     if re.search(rate_list,event.message.text):
-        res = re.search(rate_list,res).group(0).replace('日幣','日圓')
+        res = re.search(rate_list,event.message.text).group(0).replace('日幣','日圓')
         content = rate(res)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
