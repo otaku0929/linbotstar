@@ -1,5 +1,7 @@
 import random
 import re
+from .hsing import sing17
+from .s17api import s17uidrandom_star
 
 def star_talk(messages_talk):
 
@@ -33,24 +35,37 @@ def star_talk(messages_talk):
         return content
     if re.search("小星星",messages_talk):
         if re.search("住那|住哪|家在哪|家在那",messages_talk):
-            content = random.choice(where())
+            return random.choice(where())
         elif re.search("多大|幾歲",messages_talk):
-            content = random.choice(howold())
+            return random.choice(howold())
         elif re.search("喜歡什麼",messages_talk):
-            content = random.choice(like())
+            return random.choice(like())
         elif re.search("機器人|是誰|是什麼",messages_talk):
-            content = random.choice(robot())
+            return random.choice(robot())
         elif re.search("哭",messages_talk):
-            content = random.choice(cry())
+            return random.choice(cry())
         elif re.search("吃什麼|想吃|愛吃|要吃|餓",messages_talk):
-            content = random.choice(eat())
+            return random.choice(eat())
         elif re.search("虧妹|虧你|虧妳|虧我",messages_talk):
-            content = random.choice(bamai())
-        elif re.search("唱歌|唱一首|來唱",messages_talk):
-            content = random.choice(sing())     
+            return random.choice(bamai())
+        elif re.search("[唱|唱一｜換｜換一|來一][歌|首]",messages_talk):
+            content = random.choice(sing())
+            if re.search("抽歡歌",content):
+                if re.search("找不到歌",res):
+                    return "我不知道要唱什麼耶"
+                else:
+                    return res
+            elif re.search("UID",content):
+                if s17uidrandom_star(re.search("UID(.+)",content).group(1)) == "查不到歌曲":
+                    return "突然不知道要唱什麼"
+                else:
+                    return s17uidrandom_star(re.search("UID(.+)",content).group(1))
+            else:
+                return content
+        elif re.search("[難|不好]聽",messages_talk):
+            return random.choice(badsing())
         else:
-            content = random.choice(words())
-        return content
+            return random.choice(words())
 
 
 def words():
@@ -177,10 +192,16 @@ def eat():
 def bamai():
     return ['我有嗎?','你想太多了','虧一下不可以嗎?','不要發我好人卡','都是羊羊教我的']
 
+def badsing():
+    return ['哼~我不唱了','那你唱','換你唱','我又不是大歌星','就不會唱歌啊']
+
 def sing():
     return ['一閃一閃亮晶晶，滿天都是小星星......',
             'I have a pen I have an apple hmmm~ Apple pen I have a star I have a litte hmmm~  littestar',
             '你 就是我的小星星 掛在那天上放光明  我已經決定要愛你 就不會輕易放棄...',
             '跟著我 左手 右手 一個慢動作 右手 左手 慢動作重播...',
             '我不太會唱歌啦','走啊~那個包廂','三天三夜的三更半夜 唱歌不要停歇',
-            '要唱什麼歌呢?','我們一起學貓叫 一起喵喵喵喵喵  在你面前撒個嬌 哎呦喵喵喵喵喵...']
+            '要唱什麼歌呢?','我們一起學貓叫 一起喵喵喵喵喵  在你面前撒個嬌 哎呦喵喵喵喵喵...',
+            '城門城門雞蛋糕~身把三把刀~要五毛~捅一刀~走進城門滑一蕉',
+            '二隻蚊仔～二隻蚊仔～拍呼死～拍呼死～只隻飛來這邊～只隻飛企虛邊～拍麥丟～拍麥丟',
+            '抽歡歌','UID526155','UID1048784','UID637621','UID954530','UID181460','UID814357','UID1585626']
