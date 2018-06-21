@@ -17,7 +17,7 @@ from datetime import datetime, timedelta
 from function.function import shelp
 from function.star_talk import star_talk
 from function.s17api import s17uidrandom
-from function.s17api import getsongjson
+from function.s17api import s17uidsong
 
 from linebot import (
     LineBotApi, WebhookHandler
