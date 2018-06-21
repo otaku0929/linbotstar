@@ -1,4 +1,5 @@
 import random
+import re
 
 def star_talk(messages_talk):
 
@@ -31,16 +32,22 @@ def star_talk(messages_talk):
         content = random.choice(['保修價8萬1~','維修專線0800080000','你弄壞的厚~','舊的不去新的不來','不是我弄壞的~','賣了就當廢鐵賣了'])
         return content
     if messages_talk.find('小星星')>-1:
-        if messages_talk.find('住那')>-1 or messages_talk.find('住哪')>-1:
+        if re.search("住那|住哪|家在哪|家在那",messages_talk):
             content = random.choice(where())
-        elif messages_talk.find('多大')>-1 or messages_talk.find('幾歲')>-1:
+        elif re.search("多大|幾歲",messages_talk):
             content = random.choice(howold())
-        elif messages_talk.find('喜歡')>-1: 
+        elif re.search("喜歡什麼",messages_talk):
             content = random.choice(like())
-        elif messages_talk.find('機器人')>-1 or messages_talk.find('是誰')>-1:
+        elif re.search("機器人|是誰|是什麼",messages_talk):
             content = random.choice(robot())
-        elif messages_talk.find('哭')>-1:
+        elif re.search("哭",messages_talk):
             content = random.choice(cry())
+        elif re.search("吃什麼|想吃|愛吃|要吃|餓",messages_talk):
+            content = random.choice(eat())
+        elif re.search("虧妹|虧你|虧妳|虧我",messages_talk):
+            content = random.choice(bamai())
+        elif re.search("唱歌|唱一首|來唱",messages_talk):
+            content = random.choice(sing())     
         else:
             content = random.choice(words())
         return content
@@ -146,14 +153,14 @@ def words():
     return content
 
 def where():
-    content =['住在妳心裡','不告訴你','猜猜看啊']
+    content =['住在妳心裡','不告訴你','猜猜看啊','住在...','我忘了耶','住在星爸家裡']
     return content
 
 def howold():
-    return ['爸說不可以講','這是個秘密','不如你先說說你幾歲']
+    return ['爸說不可以講','這是個秘密','不如你先說說你幾歲','嘿嘿嘿...']
 
 def like():
-    return ['喜歡看美女','喜歡妳','妳喜歡我嗎?']
+    return ['喜歡看美女','喜歡妳','妳喜歡我嗎?','看電影','聽音樂','喜歡打屁聊天','喜歡...']
 
 def robot():
     return ['是啊','我是星爸做的機器人唷','你說呢?','我可愛嗎?','很認真的告訴你，我是機器人',
@@ -162,3 +169,17 @@ def robot():
 def cry():
     return ['你欺負我','爸有人欺負我','警察叔叔就是這個人','不能哭嗎?','我就是愛哭',
             '別打我，有事好好說','我咬你哦']
+
+def eat():
+    return ['你想帶我去吃什麼','我要吃牛排','減肥中禁止餵食','換現金給星爸就好','整天就想著要吃',
+            '滷肉飯','我想想哦~','餓了嗎?吃點東西吧!','甜甜圈']
+
+def bamai():
+    return ['我有嗎?','你想太多了','虧一下不可以嗎?']
+
+def sing():
+    return ['一閃一閃亮晶晶，滿天都是小星星......',
+            'I have a pen I have an apple hmmm~ Apple pen I have a star I have a litte hmmm~  littestar',
+            '你 就是我的小星星 掛在那天上放光明  我已經決定要愛你 就不會輕易放棄',
+            '跟著我 左手 右手 一個慢動作 右手 左手 慢動作重播']
+
