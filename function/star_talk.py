@@ -31,7 +31,7 @@ def star_talk(messages_talk):
     if messages_talk.find('壞掉了')>-1:
         content = random.choice(['保修價8萬1~','維修專線0800080000','你弄壞的厚~','舊的不去新的不來','不是我弄壞的~','賣了就當廢鐵賣了'])
         return content
-    if messages_talk.find('小星星')>-1:
+    if re.search("小星星",messages_talk):
         if re.search("住那|住哪|家在哪|家在那",messages_talk):
             content = random.choice(where())
         elif re.search("多大|幾歲",messages_talk):
@@ -175,11 +175,12 @@ def eat():
             '滷肉飯','我想想哦~','餓了嗎?吃點東西吧!','甜甜圈']
 
 def bamai():
-    return ['我有嗎?','你想太多了','虧一下不可以嗎?']
+    return ['我有嗎?','你想太多了','虧一下不可以嗎?','不要發我好人卡','都是羊羊教我的']
 
 def sing():
     return ['一閃一閃亮晶晶，滿天都是小星星......',
             'I have a pen I have an apple hmmm~ Apple pen I have a star I have a litte hmmm~  littestar',
-            '你 就是我的小星星 掛在那天上放光明  我已經決定要愛你 就不會輕易放棄',
-            '跟著我 左手 右手 一個慢動作 右手 左手 慢動作重播']
-
+            '你 就是我的小星星 掛在那天上放光明  我已經決定要愛你 就不會輕易放棄...',
+            '跟著我 左手 右手 一個慢動作 右手 左手 慢動作重播...',
+            '我不太會唱歌啦','走啊~那個包廂','三天三夜的三更半夜 唱歌不要停歇',
+            '要唱什麼歌呢?','我們一起學貓叫 一起喵喵喵喵喵  在你面前撒個嬌 哎呦喵喵喵喵喵...']
