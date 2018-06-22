@@ -1202,10 +1202,12 @@ def pm25content(dsoup,data):
     #_data['空氣品質']=dsoup.get('Status')
 
 def yelp(location):
+    yelp_id = config['yelp api']['YELPCLIENT_ID']
+    api_key = config['yelp api']['YELPCLIENT_SECRET']
     url = 'https://api.yelp.com/oauth2/token'
     data = {
-        'client_id':'9VbMjEdGSCCfUHBkiqLRHA',
-        'client_secret':'LQhrsQVCaSHkUe23SWoxwxWUWIsRbykI0kaXCx4pjD22wVOXHMyKCYmywpdFkq9B',
+        'client_id':yelp_id,
+        'client_secret':api_key,
         'grant_type': 'client_credentials',
     }
     
