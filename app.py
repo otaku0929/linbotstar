@@ -1215,7 +1215,6 @@ def yelp(location):
               }
 
     resp = requests.get(url=url, params=params, headers=headers)
-
     businesses = resp.json()['businesses']
 
     restaurants = []
