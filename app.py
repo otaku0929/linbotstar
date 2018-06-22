@@ -2309,6 +2309,7 @@ def handle_location_message(event):
     
     token = event.reply_token
     location = event.message.address
+    print(location)
     _columns=[]
     res = yelp(location)
     random.shuffle(res)
