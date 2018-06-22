@@ -1204,24 +1204,18 @@ def pm25content(dsoup,data):
 def yelp(location):
     yelp_id = config['yelp api']['YELPCLIENT_ID']
     api_key = config['yelp api']['YELPCLIENT_SECRET']
-    url = 'https://api.yelp.com/oauth2/token'
-    data = {
-        'client_id':yelp_id,
-        'client_secret':api_key,
-        'grant_type': 'client_credentials',
-    }
-    
-    token = requests.post('https://api.yelp.com/oauth2/token', data=data)
-    access_token = token.json()['access_token']
     url = 'https://api.yelp.com/v3/businesses/search'
-    headers = {'Authorization': 'bearer %s' % access_token}
+    headers = {
+        'Authorization': 'Bearer %s' % API_KEY,
+    }
     params = {'location': location.replace(' ', '+'),
               'term': 'Restaurant',
-              'limit': 30,
-              'radius': 1200
+              'limit': 15,
+              'radius': 1000
               }
 
     resp = requests.get(url=url, params=params, headers=headers)
+
     businesses = resp.json()['businesses']
 
     restaurants = []
