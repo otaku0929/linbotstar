@@ -65,7 +65,9 @@ def star_talk(messages_talk):
         elif re.search("壞掉了|壞了",messages_talk):
             return random.choice(broken())
         elif re.search("傻子|呆子|笨蛋|傻瓜'fool|stupid",messages_talk):
-            return random.choice(fool())  
+            return random.choice(fool())
+        elif re.search("吃[大便|屎|屁]",messages_talk):
+            return random.choice(eatshit())
         elif re.search("吃什麼|想吃|愛吃|要吃|餓",messages_talk):
             return random.choice(eat())
         elif re.search("虧妹|虧你|虧妳|虧我",messages_talk):
@@ -198,13 +200,14 @@ def howold():
     return ['爸說不可以講','這是個秘密','不如你先說說你幾歲','嘿嘿嘿...']
 
 def morning():
-    return ['早安','熬早','牛沒奶','Good Morning','早安~祝你有美好的一天','記得吃早餐哦','來杯咖啡嗎?']
+    return ['早安','熬早','牛沒奶','Good Morning','早安~祝你有美好的一天','記得吃早餐哦','來杯咖啡嗎?','起來動一動吧~',
+            '別滾床了']
 
 def moon():
-    return ['午安','吃飽了嗎?','午餐要吃什麼呢?','今天天氣如何呢?','加油~','來杯咖啡嗎?']
+    return ['午安','吃飽了嗎?','午餐要吃什麼呢?','今天天氣如何呢?','加油~','來杯咖啡嗎?','下午再加油一下']
 
 def goodningh():
-    return ['晚安','嗯~我也要睡了','乖乖睡哦','噓~快睡吧','zzzzzz','噓~~~~','記得睡前先尿尿哦','別尿床了哦~']
+    return ['晚安','嗯~我也要睡了','乖乖睡哦','噓~快睡吧','zzzzzz','噓~~~~','記得睡前先尿尿哦','別尿床了哦~','記得刷牙哦~']
 
 def hi():
     return ['hi','hello','你好啊','今天天氣如何?','要抽一張嗎?','安安啊~','有什麼事嗎?','找我嗎?']
@@ -242,6 +245,9 @@ def talk():
 def fool():
     return ['你才傻的','我不笨我只是不聰明','我可是擁有最先進的人工智障','哭給你看哦~','哼~~~']
 
+def eatshit():
+    return ['你自已吃','你要吃大便?','你怎麼有那麼特別的嗜好啊','原來你喜歡吃...難怪嘴巴那麼臭','記得刷牙']
+
 def eat():
     return ['你想帶我去吃什麼','我要吃牛排','減肥中禁止餵食','換現金給星爸就好','整天就想著要吃',
             '滷肉飯','我想想哦~','餓了嗎?吃點東西吧!','甜甜圈','現在吃什麼','冰淇淋']
@@ -266,6 +272,3 @@ def sing():
             '我的愛如口心 愛如口水將我向妳推~',
             '有怪獸　有怪獸　有怪獸　纏著我 有怪獸　大怪獸　醜怪獸　粘著我',
             '抽歡歌','UID526155','UID1048784','UID637621','UID954530','UID181460','UID814357','UID1585626']
-
-
-
