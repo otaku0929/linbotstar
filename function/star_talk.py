@@ -40,10 +40,12 @@ def star_talk(messages_talk):
             return random.choice(howold())
         elif re.search("喜歡什麼",messages_talk):
             return random.choice(like())
-        elif re.search("機器人|是誰|是什麼",messages_talk):
+        elif re.search("機器人|是[誰|什麼|男|女]",messages_talk):
             return random.choice(robot())
-        elif re.search("哭",messages_talk):
+        elif re.search("哭|欠揍",messages_talk):
             return random.choice(cry())
+        elif re.search("生氣",messages_talk):
+            return random.choice(angry())
         elif re.search("壞掉了|壞了",messages_talk):
             return random.choice(broken())
         elif re.search("傻子|呆子|笨蛋|傻瓜'fool|stupid",messages_talk):
@@ -189,6 +191,9 @@ def robot():
 def cry():
     return ['你欺負我','爸有人欺負我','警察叔叔就是這個人','不能哭嗎?','我就是愛哭',
             '別打我，有事好好說','我咬你哦']
+
+def angry():
+    return ['我才沒有生氣','怎樣不行嗎?','啦啦啦啦啦','你才愛生氣','就是生氣','哼~~~~~']
 
 def broken():
     return ['你才壞掉了','快呼叫星爸','沒壞啦','小星星不壞女人不愛','維修專線~忘了',
