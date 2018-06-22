@@ -38,6 +38,22 @@ def star_talk(messages_talk):
             return random.choice(where())
         elif re.search("多大|幾歲",messages_talk):
             return random.choice(howold())
+        elif re.search("早[安|啊|上好]",messages_talk):
+            return random.choice(morning())
+        elif re.search("午安",messages_talk):
+            return random.choice(moon())
+        elif re.search("晚[安|上好]|睡[覺|了|囉]",messages_talk):
+            return random.choice(goodninght())
+        elif re.search("你好|安安|hello|hi]",messages_talk):
+            return random.choice(hi())
+        elif re.search("找[你|妳|星星]",messages_talk):
+            return random.choice(you())
+        elif re.search("找星爸",messages_talk):
+            return random.choice(father())
+        elif re.search("找[碴|麻煩]",messages_talk):
+            return random.choice(trouble())
+        elif re.search("聊天]",messages_talk):
+            return random.choice(talk())
         elif re.search("喜歡什麼",messages_talk):
             return random.choice(like())
         elif re.search("機器人|是[誰|什麼|男|女]",messages_talk):
@@ -181,6 +197,18 @@ def where():
 def howold():
     return ['爸說不可以講','這是個秘密','不如你先說說你幾歲','嘿嘿嘿...']
 
+def morning():
+    return ['早安','熬早','牛沒奶','Good Morning','早安~祝你有美好的一天','記得吃早餐哦','來杯咖啡嗎?']
+
+def moon():
+    return ['午安','吃飽了嗎?','午餐要吃什麼呢?','今天天氣如何呢?','加油~','來杯咖啡嗎?']
+
+def goodningh():
+    return ['晚安','嗯~我也要睡了','乖乖睡哦','噓~快睡吧','zzzzzz','噓~~~~','記得睡前先尿尿哦','別尿床了哦~']
+
+def hi():
+    return ['hi','hello','你好啊','今天天氣如何?','要抽一張嗎?','安安啊~','有什麼事嗎?','找我嗎?']
+
 def like():
     return ['喜歡看美女','喜歡妳','妳喜歡我嗎?','看電影','聽音樂','喜歡打屁聊天','喜歡...']
 
@@ -198,6 +226,18 @@ def angry():
 def broken():
     return ['你才壞掉了','快呼叫星爸','沒壞啦','小星星不壞女人不愛','維修專線~忘了',
             '保修價8萬1~','維修專線0800080000','你弄壞的厚~','舊的不去新的不來','壞了就當廢鐵賣了']
+
+def you():
+    return ['找我有什麼事嗎?','想聊天嗎?','要做什麼呢?','沒事別叫我']
+
+def father():
+    return ['爸~有人叫你','他沒空哦','有什麼事嗎?','噓~~星爸正在忙','小聲點~他在錄歌']
+
+def trouble():
+    return ['你想怎樣','我叫警察哦','關門放狗','小心我叫羊羊咬你','不要過來我要叫了哦','啊~~~~~~~~']
+
+def talk():
+    return ['要聊什麼呢?','嗯~我聽著','你說說~','好啊~','有什麼心事嗎?']
 
 def fool():
     return ['你才傻的','我不笨我只是不聰明','我可是擁有最先進的人工智障','哭給你看哦~','哼~~~']
@@ -226,3 +266,6 @@ def sing():
             '我的愛如口心 愛如口水將我向妳推~',
             '有怪獸　有怪獸　有怪獸　纏著我 有怪獸　大怪獸　醜怪獸　粘著我',
             '抽歡歌','UID526155','UID1048784','UID637621','UID954530','UID181460','UID814357','UID1585626']
+
+
+
