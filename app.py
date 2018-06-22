@@ -1203,7 +1203,7 @@ def pm25content(dsoup,data):
 
 def yelp(location):
     yelp_id = config['yelp api']['YELPCLIENT_ID']
-    API_KEY = config['yelp api']['YELPCLIENT_SECRET']
+    API_KEY = '_T1xjfZnjA3r5D_xh6VPzwcpwKwLQD-SewJKcwD5yr62u4Jv_hLLX8H88ZZn-5WScfTLRMY9td45_r1Dxet_wTRMpMPLX236xf8-jc0T_kUm3BZQQlAT7jf4mWssW3Yx'    
     #print(API_KEY)
     url = 'https://api.yelp.com/v3/businesses/search'
     headers = {
