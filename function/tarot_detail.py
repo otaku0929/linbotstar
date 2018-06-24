@@ -1640,7 +1640,7 @@ def tarot_detail(res):
         return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/J5xndtO.jpg"])
         
     if res == 143:
-        title ="聖杯九(逆位)
+        title ="聖杯九(逆位)"
         content = "逆位的聖杯九，人物從椅子上跌落下來，背後的獎杯消失或杯子打翻了，代表不受到眾人的支持，失去現在的成果，\
 對於表現並無法肯定，甚至是遭受到奚落，而夢想的實踐遭受拒絕，夢想破滅，可能當初想的太過美好了，自己並無法達成自己的條件。"
         url = "http://cisian.pixnet.net/blog/post/179943700"
@@ -1659,7 +1659,7 @@ def tarot_detail(res):
         return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/1XKaPVX.jpg"])
         
     if res == 145:
-        title ="寶劍九(逆位)
+        title ="寶劍九(逆位)"
         content = "逆位的寶劍九，一方來說可能逐漸的舒緩了痛楚，慢慢擺脫憂鬱的狀態，事情逐漸出現轉機，但是仍要好好的穩定心神，\
 從難過中恢復過來；然另外一方面也可能代表一直沉浸於這些難過的經驗，逆位或許也代表越沉越深，終就無法自拔於其中。"
         url = "http://cisian.pixnet.net/blog/post/179944207"
@@ -1678,7 +1678,7 @@ def tarot_detail(res):
         return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/vRKdXWk.jpg"])
         
     if res == 147:
-        title ="錢幣九(逆位)
+        title ="錢幣九(逆位)"
         content = "逆位的錢幣九，可能購物的本能上身了，特殊的日子特別容易變成這樣，比如結婚紀念日、生日、\
 百貨公司的周年慶，任意的肆意揮霍，造成浪費；而另外一方面逆位之時，鳥兒從手中飛去，\
 或許象徵的是耐不住富裕但寂寞的生活而追尋自由去了。"
@@ -1700,7 +1700,7 @@ def tarot_detail(res):
         return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/YIZvD5V.jpg"])
         
     if res == 149:
-        title ="權杖十(逆位)
+        title ="權杖十(逆位)"
         content = "逆位的權杖十，倒下了，權杖散落一地，已經過勞不堪，無法再承受更多，失去原本勉強的平衡倒地不起，\
 也有可能是團體解體了，解散了。"
         url = "http://cisian.pixnet.net/blog/post/179948167"
@@ -1718,7 +1718,7 @@ def tarot_detail(res):
         return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/DmtIrcI.jpg"])
         
     if res == 151:
-        title ="聖杯十(逆位)
+        title ="聖杯十(逆位)"
         content = "逆位的聖杯十，有關係上的誤會，團體出現裂痕，若未及時修補可能造成團體的分裂破裂，不合，\
 衝突產生等，而掉下的聖杯與消失的彩虹，也出現了低潮期，關係不那樣的美滿，對於未來失去憧憬。"
         url = "http://cisian.pixnet.net/blog/post/179948641"
@@ -1739,7 +1739,7 @@ def tarot_detail(res):
         return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/51Aecv2.jpg"])
         
     if res == 153:
-        title ="寶劍十(逆位)
+        title ="寶劍十(逆位)"
         content = "逆位的寶劍十，遠方的晨光泛白，或許可以迎來新的生命而重新開始，\
 命運告訴你一條死路又為妳開一條新的道路，砍掉重練，從之前的絕望慢慢走出來重新來過(只是之前的痛處仍在)。"
         url = "http://cisian.pixnet.net/blog/post/179949112"
@@ -1761,7 +1761,7 @@ def tarot_detail(res):
         return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/E32VhEU.jpg"])
         
     if res == 155:
-        title ="錢幣十(逆位)
+        title ="錢幣十(逆位)"
         content = "逆位的錢幣十，可能失去金錢，家族企業逐漸不賺錢了，可能是無法跟上時代的潮流，\
 家道中落，經驗無法傳承，而感情中出現錢幣十逆位可能是家中的長輩有意見，或是與家中的長輩相處關係不和睦，\
 家庭無法提供資助；另一方面也有可能是世代的溝壑，對於傳統觀念的挑戰，跳脫傳統的觀念行事，守舊與革新之間的衝突狀態。"
