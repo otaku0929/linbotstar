@@ -18,6 +18,7 @@ from function.function import shelp
 from function.star_talk import star_talk
 from function.s17api import s17uidrandom
 from function.s17api import s17uidsong
+from function.tarot_detail import tarot_random
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -1719,7 +1720,7 @@ def handle_message(event):
         images = client.get_album_images('9eQni')
         index = random.randint(0, len(images) - 1)
         url = images[index].link
-        content = "想秀自已嗎 歡迎把照片分享給小星星哦"
+        content = "想秀自已嗎 歡迎把照片分享到小星星粉絲團哦"
         image_message = ImageSendMessage(
             original_content_url=url,
             preview_image_url=url
@@ -1730,7 +1731,7 @@ def handle_message(event):
     if event.message.text == "抽正妹":
         image = requests.get(API_Get_Image)
         url = image.json().get('Url')
-        content = "想秀自已嗎 歡迎把照片分享給小星星哦"
+        content = "想秀自已嗎 歡迎把照片分享小星星粉絲團哦"
         image_message = ImageSendMessage(
             original_content_url=url,
             preview_image_url=url
@@ -2288,6 +2289,18 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=content))
+        return 0
+    #抽塔羅牌
+    if re.search("抽[塔羅牌|塔羅|tarot]",event.message.text):
+        tarot_content = tarot_random()
+        url = tarot_content[1]
+        content = tarot_content[0]
+        image_message = ImageSendMessage(
+            original_content_url=url,
+            preview_image_url=url
+        )
+        line_bot_api.reply_message(
+            event.reply_token, [image_message, TextSendMessage(text=content)])
         return 0
     #匯率
     rate_list = "美金|港幣|英鎊|澳幣|加拿大幣|新加坡幣|瑞士法郎|日圓|日幣|南非幣|瑞典幣|紐元|泰幣|菲國比索|印尼幣|歐元|韓元|越南盾|馬來幣|人民幣"
