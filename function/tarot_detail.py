@@ -20,7 +20,7 @@ def tarot_detail(res):
 在感情方面，可能雙方處於浪漫純真，純純的愛情，未有接觸到兩人實際上的層面。\
 工作方面，可能要注意未有見到的危險，多聽聽身邊他人的意見，盡自己的能力而為的話大致上未有太大的問題。"
             url = "http://cisian.pixnet.net/blog/post/43076253"
-            return (["{}\n\n{}\n{}".format(title,content,url),"https://imgur.com/PHsrYCM"])
+            return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/PHsrYCM.jpg"])
         
         if re.search("1|d|逆位",res):
             title = "愚者(逆位)"
@@ -32,7 +32,7 @@ def tarot_detail(res):
 感情上的愚者逆位，表示遭遇挫折，情感無法向前，或者是遭遇情感上的危機，雙方無法闖關。\n\n\
 投資上要注意，可能會因為錯誤的信息而陷入財務上的困難。"
             url = "http://cisian.pixnet.net/blog/post/43076253"
-            return (["{}\n\n{}\n{}".format(title,content,url),"https://imgur.com/1ct0QRi"])
+            return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/1ct0QRi.jpg"])
 
 #magician
     if re.search("2|3|magician|魔法師",res):
@@ -47,7 +47,7 @@ def tarot_detail(res):
 在工作方面，這張牌的出現代表有能力，能構統合各種的事物，並且自己的工作職權範圍內無所不知無所不曉，\
 能力表現出色，有實際上的產出。"
             url = "http://cisian.pixnet.net/blog/post/43167558"
-            return (["{}\n\n{}\n{}".format(title,content,url),"https://imgur.com/9FbrjDq"])
+            return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/9FbrjDq.jpg"])
         
         if re.search("3|d|逆位",res):
             title = "魔法師(逆位)"
@@ -57,7 +57,7 @@ def tarot_detail(res):
 前方的百合與玫瑰消失了，代表事物本身不再有豐富的變化，熱情熱度消退。原本在溝通天地間的流動手勢，\
 也因逆位時失去正確導引的力量方向，而產生能量的凌亂，投射在關係中，展現為溝通不佳、言詞不達。"
             url = "http://cisian.pixnet.net/blog/post/43167558"
-            return (["{}\n\n{}\n{}".format(title,content,url),"https://imgur.com/NYkcUYJ"])
+            return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/NYkcUYJ.jpg"])
 
 
 #High_Priestess
@@ -76,7 +76,7 @@ def tarot_detail(res):
 而該牌因比較屬於內心高層次的展現，故對於行動面較為不利，想的很多卻做得很少，有想法確無實際上的作為，\
 故物質上的收穫不大，為心靈層次的牌。"
             url = "http://cisian.pixnet.net/blog/post/43211391"
-            return (["{}\n\n{}\n{}".format(title,content,url),"https://imgur.com/RvTWU0o"])
+            return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/RvTWU0o.jpg"])
         
         if re.search("5|d|逆位",res):
             title = "女祭司(逆位)"
@@ -86,7 +86,7 @@ def tarot_detail(res):
 新月在上，也強調月亮的陰晴圓缺特質，具有周期與波動性，可以說是反反覆覆，情緒潮起潮落，\
 情緒不穩定，可能變得無法掌握對方的心情。"
             url = "http://cisian.pixnet.net/blog/post/43211391"
-            return (["{}\n\n{}\n{}".format(title,content,url),"https://imgur.com/odvdrT6"])
+            return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/odvdrT6.jpg"])
 
 if __name__ == '__main__':
     print(tarot_random())
