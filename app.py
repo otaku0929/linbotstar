@@ -2302,8 +2302,7 @@ def handle_message(event):
                     preview_image_url=url
                 )
                 line_bot_api.reply_message(
-                    event.reply_token, [image_message, TextSendMessage(text=content)])
-                return 0
+                    event.reply_token, [image_message, TextSendMessage(text=content)])              
         else:
             tarot_content = tarot_random()
             url = tarot_content[1]
@@ -2314,7 +2313,7 @@ def handle_message(event):
             )
             line_bot_api.reply_message(
                 event.reply_token, [image_message, TextSendMessage(text=content)])
-            return 0
+    return 0
     #匯率
     rate_list = "美金|港幣|英鎊|澳幣|加拿大幣|新加坡幣|瑞士法郎|日圓|日幣|南非幣|瑞典幣|紐元|泰幣|菲國比索|印尼幣|歐元|韓元|越南盾|馬來幣|人民幣"
     if re.search(rate_list,event.message.text):
