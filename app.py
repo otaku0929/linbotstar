@@ -2295,10 +2295,14 @@ def handle_message(event):
     #查塔羅牌說明
     if re.search("查(塔羅牌|塔羅|tarot)說明(\d+)",event.message.text):
         tarot_content = tarot_detail(int(re.search("查(塔羅牌|塔羅|tarot)說明(\d+)",event.message.text).group(2)))
+        url = tarot_content[4]
         content = '{}\n\n{}\{}'.format(tarot_content[1],tarot_content[2],tarot_content[3])
+        image_message = ImageSendMessage(
+            original_content_url=url,
+            preview_image_url=url
+        )
         line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=content))
+            event.reply_token, [image_message, TextSendMessage(text=content)])
         return 0
     #抽塔羅牌
     if re.search("抽[塔羅牌|塔羅|tarot]",event.message.text):
