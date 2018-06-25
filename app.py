@@ -2313,9 +2313,9 @@ def handle_message(event):
                             title="過去-自已-靈魂",
                             text="tarot_content[0][0]",
                             actions=[
-                                URITemplateAction(
+                                MessageTemplateAction(
                                     label='牌義說明',
-                                    uri=tarot_random()
+                                    text=tarot_random()
                                 )
                             ]
                         ),
@@ -2324,9 +2324,9 @@ def handle_message(event):
                             title="現在-關係-心理",
                             text="tarot_content[1][0]",
                             actions=[
-                                URITemplateAction(
+                                MessageTemplateAction(
                                     label='牌義說明',
-                                    uri=tarot_random()
+                                    text=tarot_random()
                                 )
                             ]
                         ),
@@ -2335,9 +2335,9 @@ def handle_message(event):
                             title="未來-對方-身體",
                             text="tarot_content[2][0]",
                             actions=[
-                                URITemplateAction(
+                                MessageTemplateAction(
                                     label='牌義說明',
-                                    uri=tarot_random()
+                                    text=tarot_random()
                                 )
                             ]
                         )
