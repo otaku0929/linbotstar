@@ -54,21 +54,38 @@ def star_talk(messages_talk):
             return random.choice(trouble())
         elif re.search("聊天]",messages_talk):
             return random.choice(talk())
-        elif re.search("喜歡什麼",messages_talk):
+        elif re.search("聽話|乖|乖乖".messages_talk):
+            return random.choice(goodboy())
+        elif re.search("[喜歡|愛]什麼",messages_talk):
             return random.choice(like())
+        elif re.search("[喜歡|愛](吃|喝|玩|看|聽|誰|我)",messages_talk):
+            if re.search("[喜歡|愛](吃|喝|玩|看|聽|誰|我)",messages_talk).group(1) == "吃":
+                return random.choice(like_eat())
+            if re.search("[喜歡|愛](吃|喝|玩|看|聽|誰|我)",messages_talk).group(1) == "喝":
+                return random.choice(like_drink())           
+            if re.search("[喜歡|愛](吃|喝|玩|看|聽|誰|我)",messages_talk).group(1) == "玩":
+                return random.choice(like_play())
+            if re.search("[喜歡|愛](吃|喝|玩|看|聽|誰|我)",messages_talk).group(1) == "看":
+                return random.choice(like_see())
+            if re.search("[喜歡|愛](吃|喝|玩|看|聽|誰|我)",messages_talk).group(1) == "聽":
+                return random.choice(like_listen())
+            if re.search("[喜歡|愛](吃|喝|玩|看|聽|誰|我)",messages_talk).group(1) == "誰":
+                return random.choice(like_who())
+            if re.search("[喜歡|愛](吃|喝|玩|看|聽|誰|我)",messages_talk).group(1) == "我":
+                return random.choice(like_me())
         elif re.search("機器人|是[誰|什麼|男|女]",messages_talk):
             return random.choice(robot())
-        elif re.search("哭|欠揍",messages_talk):
+        elif re.search("哭|欠揍|打屁股|打你哦|打屁屁",messages_talk):
             return random.choice(cry())
         elif re.search("生氣",messages_talk):
             return random.choice(angry())
         elif re.search("出團",messages_talk):
             return random.choice(group())
-        elif re.search("運動",messages_talk):
+        elif re.search("運動|動一動",messages_talk):
             return random.choice(sport())
         elif re.search("壞掉了|壞了",messages_talk):
             return random.choice(broken())
-        elif re.search("傻子|呆子|笨蛋|傻瓜'fool|stupid",messages_talk):
+        elif re.search("傻子|呆子|笨蛋|傻瓜'fool|stupid|北七|白痴",messages_talk):
             return random.choice(fool())
         elif re.search("吃[大便|屎|屁]",messages_talk):
             return random.choice(eatshit())
@@ -197,11 +214,12 @@ def words():
     return content
 
 def where():
-    content =['住在妳心裡','不告訴你','猜猜看啊','住在...','我忘了耶','住在星爸家裡']
+    content =['住在妳心裡','不告訴你','猜猜看啊','住在...','我忘了耶','住在星爸家裡','我來自M78星雲','星爸住那我就住那啊',
+              '我以天為幕，以地為席，住所只是一個代名詞而以~']
     return content
 
 def howold():
-    return ['爸說不可以講','這是個秘密','不如你先說說你幾歲','嘿嘿嘿...']
+    return ['爸說不可以講','這是個秘密','不如你先說說你幾歲','嘿嘿嘿...','佛曰不可說','1~2~3~4~.....','我1歲']
 
 def morning():
     return ['早安','熬早','牛沒奶','Good Morning','早安~祝你有美好的一天','記得吃早餐哦','早安~來杯咖啡嗎?','起來動一動吧~',
@@ -216,8 +234,36 @@ def goodningh():
 def hi():
     return ['hi','hello','你好啊','今天天氣如何?','要抽一張嗎?','安安啊~','有什麼事嗎?','找我嗎?']
 
+def goodboy():
+    return ['鼻~~~~要~~~~~','我不要~','好~我乖乖','一直都乖乖的啊','很聽話的唷~']
+
 def like():
-    return ['喜歡看美女','喜歡妳','妳喜歡我嗎?','看電影','聽音樂','喜歡打屁聊天','喜歡...']
+    return ['喜歡看美女','喜歡妳','妳喜歡我嗎?','看電影','聽音樂','喜歡打屁聊天','喜歡...','喜歡的很多很多~最不能沒有妳']
+
+def like_eat():
+    return ['只要是好吃的東西我都愛','滷肉飯','肉肉~我要吃肉肉~','蝦蝦~','你要帶我去吃什麼好料的嗎?','牛排~~大大塊的牛排',
+            '冰淇淋','粉圓冰','鹹酥雞','21世紀烤雞','吃生魚片~~~~','不吃虧~其他能吃的都吃']
+
+def like_drink():
+    return ['珍珠奶茶~','紅茶','藍山咖啡','喝水就好了啦']
+
+def like_play():
+    return ['玩線上遊戲','密室逃脫好玩~你要開團嗎?','桌遊','玩~~~~~','玩球','玩手手']
+
+def like_see():
+    return ['看鬼片','看動漫','當然是~~看美女囉','看小說~','看卡動','看多啦A夢','看小丸子','看~~~~']
+
+def like_listen():
+    return ['聽音樂','聽你唱歌','什麼歌都聽啊~','你要唱歌給我聽嗎?','聽星爸唱歌','台語瓜~華語瓜~西洋瓜~日本瓜~~~蝦米瓜都愛啦',
+            '愛聽妳說話']
+
+def like_me():
+    return ['喜歡~','好き~~好き~~大好き~~','不喜歡','爸說要多一點選擇','你知道嗎?昨天我去~~~~~','什麼?','還要問嗎?',
+            '妳知道的','嗯~就是妳心裡想的那樣']
+
+def like_who():
+    return ['喜歡~~~~~妳','噓~~~~這是秘密','有些事不用說出來','什麼?','還要問嗎?','妳知道的','嗯~就是妳心裡想的那樣',
+            '就隔閉班的~~','看著我的眼睛~~裡面有妳要的答案']
 
 def robot():
     return ['是啊','我是星爸做的機器人唷','你說呢?','我可愛嗎?','很認真的告訴你，我是機器人',
@@ -245,13 +291,14 @@ def trouble():
     return ['你想怎樣','我叫警察哦','關門放狗','小心我叫羊羊咬你','不要過來我要叫了哦','啊~~~~~~~~']
 
 def talk():
-    return ['要聊什麼呢?','嗯~我聽著','你說說~','好啊~','有什麼心事嗎?']
+    return ['要聊什麼呢?','嗯~我聽著','你說說~','好啊~','有什麼心事嗎?','我不知道要聊什麼耶']
 
 def fool():
-    return ['你才傻的','我不笨我只是不聰明','我可是擁有最先進的人工智障','哭給你看哦~','哼~~~']
+    return ['你才傻的','我不笨我只是不聰明','我可是擁有最先進的人工智障','哭給你看哦~','哼~~~','給你87分不能再多了',
+            '傻瓜是誰?','白痴說話','叫星爸咬你哦','黛比有人欺負你弟弟']
 
 def group():
-    return ['出什麼團?','龍谷YYYY','要去那裡玩呢?','吃BOSS嗎?']
+    return ['出什麼團?','龍谷YYYY','要去那裡玩呢?','吃BOSS嗎?','密室團嗎?0.0']
 
 def sport():
     return ['one毛~two毛~tree毛','找星爸去~他太胖了','走吧爬枕頭山~','要去那邊運動啊~','嘿~我動動嘴巴就好~',
@@ -263,10 +310,12 @@ def eatshit():
 
 def eat():
     return ['你想帶我去吃什麼','我要吃牛排','減肥中禁止餵食','換現金給星爸就好','整天就想著要吃',
-            '滷肉飯','我想想哦~','餓了嗎?吃點東西吧!','甜甜圈','現在吃什麼','冰淇淋']
+            '滷肉飯','我想想哦~','餓了嗎?吃點東西吧!','甜甜圈','現在吃什麼','冰淇淋','只要是好吃的東西我都愛',
+            '肉肉~我要吃肉肉~','蝦蝦~','你要帶我去吃什麼好料的嗎?','牛排~~大大塊的牛排']
 
 def bamai():
-    return ['我有嗎?','你想太多了','虧一下不可以嗎?','不要發我好人卡','都是羊羊教我的','我很想你','等等喝咖啡啊']
+    return ['我有嗎?','你想太多了','虧一下不可以嗎?','不要發我好人卡','都是羊羊教我的','我很想你','等等喝咖啡啊',
+            '看著我的眼~ 妳看到了什麼?','為什麼我在妳的眼裡~看到了愛心呢?','不要走~要走的話先把我的心還給我']
 
 def badsing():
     return ['哼~我不唱了','那你唱','換你唱','我又不是大歌星','就不會唱歌啊']
@@ -284,4 +333,9 @@ def sing():
             '花的心藏在蕊中　空把花期都錯過 你的心忘了季節　從不輕易讓人懂',
             '我的愛如口心 愛如口水將我向妳推~',
             '有怪獸　有怪獸　有怪獸　纏著我 有怪獸　大怪獸　醜怪獸　粘著我',
+            '愛唱一首歌　一首有頭無尾的歌 有時快樂　有時悲傷　有時只剩孤單',
+            '我來到　你的城市　走過你來時的路 想像著　沒我的日子　你是怎樣的孤獨',
+            '不管我要吃肉肉就要吃肉肉 吃飽才有力氣和你逛遍這地球',
+            '豬 你的肚子是那麼鼓 一看就知道 受不了生活的苦... ',
+            '每到夏天我要去海邊　海邊有個漂亮高雄妹 只打電話不常見面我好想念　不知她會在哪個海邊'
             '抽歡歌','UID526155','UID1048784','UID637621','UID954530','UID181460','UID814357','UID1585626']
