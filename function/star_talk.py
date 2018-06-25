@@ -62,6 +62,10 @@ def star_talk(messages_talk):
             return random.choice(cry())
         elif re.search("生氣",messages_talk):
             return random.choice(angry())
+        elif re.search("出團",messages_talk):
+            return random.choice(group())
+        elif re.search("運動",messages_talk):
+            return random.choice(sport())
         elif re.search("壞掉了|壞了",messages_talk):
             return random.choice(broken())
         elif re.search("傻子|呆子|笨蛋|傻瓜'fool|stupid",messages_talk):
@@ -245,6 +249,14 @@ def talk():
 
 def fool():
     return ['你才傻的','我不笨我只是不聰明','我可是擁有最先進的人工智障','哭給你看哦~','哼~~~']
+
+def group():
+    return ['出什麼團?','龍谷YYYY','要去那裡玩呢?','吃BOSS嗎?']
+
+def sport():
+    return ['one毛~two毛~tree毛','找星爸去~他太胖了','走吧爬枕頭山~','要去那邊運動啊~','嘿~我動動嘴巴就好~'
+            '要做什麼運動啊','動一動~可以再多吃二碗~','GoGoGo~','看到那顆樹了嗎?左去右回~來回10圈~~~',
+            '啥~你說什麼']
 
 def eatshit():
     return ['你自已吃','你要吃大便?','你怎麼有那麼特別的嗜好啊','原來你喜歡吃...難怪嘴巴那麼臭','記得刷牙']
