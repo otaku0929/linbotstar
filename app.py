@@ -2339,7 +2339,7 @@ def handle_message(event):
         else:
             tarot_content = tarot_random()
             url = tarot_content[4]
-            content = '{}\n\n{}\{}'.format(tarot_content[1],tarot_content[2],tarot_content[3]
+            content = '{}\n\n{}\{}'.format(tarot_content[1],tarot_content[2],tarot_content[3])
             image_message = ImageSendMessage(
                 original_content_url=url,
                 preview_image_url=url
