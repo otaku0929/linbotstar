@@ -11,6 +11,13 @@ def tarot_random_3():
 
     return tarot_list
 
+def tarot_random_get(res):
+    tarot_list = []
+    for obj in random.sample(range(156),res):
+        tarot_list.append(tarot_detail(obj))
+
+    return tarot_list
+
 def tarot_detail(res):
 
 ##fool re.search("[chariot|戰車]正位",res):
