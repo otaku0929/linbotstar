@@ -19,7 +19,7 @@ from function.star_talk import star_talk
 from function.s17api import s17uidrandom
 from function.s17api import s17uidsong
 from function.tarot_detail import tarot_random
-from function.tarot_detail import tarot_random_3
+from function.tarot_detail import tarot_random_get
 from function.tarot_detail import tarot_detail
 
 from linebot import (
@@ -2307,7 +2307,7 @@ def handle_message(event):
     #抽塔羅牌
     if re.search("抽[塔羅牌|塔羅|tarot]",event.message.text):
         if re.search("3|三[張]|三角",event.message.text):
-            tarot_content = tarot_random_3()
+            tarot_content = tarot_random_get(3)
             carousel_template_message = TemplateSendMessage(
                 alt_text='Carousel template',
                 template=CarouselTemplate(
@@ -2342,6 +2342,71 @@ def handle_message(event):
                                 MessageTemplateAction(
                                     label='牌義說明',
                                     text='{}{}'.format("查塔羅牌說明",tarot_content[2][0])
+                                )
+                            ]
+                        )
+                    ]
+                )
+            )
+            line_bot_api.reply_message(event.reply_token,carousel_template_message)
+        elif re.search("5|五[張]",event.message.text):
+            tarot_content = tarot_random_get(5)
+            carousel_template_message = TemplateSendMessage(
+                alt_text='Carousel template',
+                template=CarouselTemplate(
+                    columns=[
+                        CarouselColumn(
+                            thumbnail_image_url=tarot_content[0][4],
+                            title="過去",
+                            text=tarot_content[0][1],
+                            actions=[
+                                MessageTemplateAction(
+                                    label='牌義說明',
+                                    text= '{}{}'.format("查塔羅牌說明",tarot_content[0][0])
+                                )
+                            ]
+                        ),
+                        CarouselColumn(
+                            thumbnail_image_url=tarot_content[1][4],
+                            title="現在",
+                            text=tarot_content[1][1],
+                            actions=[
+                                MessageTemplateAction(
+                                    label='牌義說明',
+                                    text='{}{}'.format("查塔羅牌說明",tarot_content[1][0])
+                                )
+                            ]
+                        ),
+                        CarouselColumn(
+                            thumbnail_image_url=tarot_content[2][4],
+                            title="未來",
+                            text=tarot_content[2][1],
+                            actions=[
+                                MessageTemplateAction(
+                                    label='牌義說明',
+                                    text='{}{}'.format("查塔羅牌說明",tarot_content[2][0])
+                                )
+                            ]
+                        ),
+                        CarouselColumn(
+                            thumbnail_image_url=tarot_content[3][4],
+                            title="忠告",
+                            text=tarot_content[3][1],
+                            actions=[
+                                MessageTemplateAction(
+                                    label='牌義說明',
+                                    text='{}{}'.format("查塔羅牌說明",tarot_content[3][0])
+                                )
+                            ]
+                        ),
+                        CarouselColumn(
+                            thumbnail_image_url=tarot_content[4][4],
+                            title="可能結果",
+                            text=tarot_content[4][1],
+                            actions=[
+                                MessageTemplateAction(
+                                    label='牌義說明',
+                                    text='{}{}'.format("查塔羅牌說明",tarot_content[4][0])
                                 )
                             ]
                         )
