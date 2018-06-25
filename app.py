@@ -19,6 +19,7 @@ from function.star_talk import star_talk
 from function.s17api import s17uidrandom
 from function.s17api import s17uidsong
 from function.tarot_detail import tarot_random
+from function.tarot_detail import tarot_random_3
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -2292,16 +2293,28 @@ def handle_message(event):
         return 0
     #抽塔羅牌
     if re.search("抽[塔羅牌|塔羅|tarot]",event.message.text):
-        tarot_content = tarot_random()
-        url = tarot_content[1]
-        content = tarot_content[0]
-        image_message = ImageSendMessage(
-            original_content_url=url,
-            preview_image_url=url
-        )
-        line_bot_api.reply_message(
-            event.reply_token, [image_message, TextSendMessage(text=content)])
-        return 0
+        if re.search("3|三[張]|三角",event.message.text):
+            for obj in tarot_random_3():
+                url = tarot_content[1]
+                content = tarot_content[0]
+                image_message = ImageSendMessage(
+                    original_content_url=url,
+                    preview_image_url=url
+                )
+                line_bot_api.reply_message(
+                    event.reply_token, [image_message, TextSendMessage(text=content)])
+                return 0
+        else:
+            tarot_content = tarot_random()
+            url = tarot_content[1]
+            content = tarot_content[0]
+            image_message = ImageSendMessage(
+                original_content_url=url,
+                preview_image_url=url
+            )
+            line_bot_api.reply_message(
+                event.reply_token, [image_message, TextSendMessage(text=content)])
+            return 0
     #匯率
     rate_list = "美金|港幣|英鎊|澳幣|加拿大幣|新加坡幣|瑞士法郎|日圓|日幣|南非幣|瑞典幣|紐元|泰幣|菲國比索|印尼幣|歐元|韓元|越南盾|馬來幣|人民幣"
     if re.search(rate_list,event.message.text):
