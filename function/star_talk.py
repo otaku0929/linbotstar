@@ -48,7 +48,7 @@ def star_talk(messages_talk):
             return random.choice(hi())
         elif re.search("找[你|妳|星星]",messages_talk):
             return random.choice(you())
-        elif re.search("找星爸|星爸咧|星爸在哪裡|叫一下星爸",messages_talk):
+        elif re.search("找星(爸|拔)|星(爸|拔)咧|星(爸|拔)在哪裡|叫一下星(爸|拔)|叫星(爸|拔)",messages_talk):
             return random.choice(father())
         elif re.search("找[碴|麻煩]",messages_talk):
             return random.choice(trouble())
@@ -234,7 +234,8 @@ def you():
     return ['找我有什麼事嗎?','想聊天嗎?','要做什麼呢?','沒事別叫我']
 
 def father():
-    return ['爸~有人叫你','他沒空哦','有什麼事嗎?','噓~~星爸正在忙','小聲點~他在錄歌']
+    return ['爸~有人叫你','他沒空哦','有什麼事嗎?','噓~~星爸正在忙','小聲點~他在錄歌','爸爸爸爸爸~~','藍藍路~~',
+            '自已叫~','他在睡覺啦~']
 
 def trouble():
     return ['你想怎樣','我叫警察哦','關門放狗','小心我叫羊羊咬你','不要過來我要叫了哦','啊~~~~~~~~']
