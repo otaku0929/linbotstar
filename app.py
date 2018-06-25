@@ -2295,8 +2295,8 @@ def handle_message(event):
     if re.search("抽[塔羅牌|塔羅|tarot]",event.message.text):
         if re.search("3|三[張]|三角",event.message.text):
             for obj in tarot_random_3():
-                url = tarot_content[1]
-                content = tarot_content[0]
+                url = obj[1]
+                content = obj[0]
                 image_message = ImageSendMessage(
                     original_content_url=url,
                     preview_image_url=url
