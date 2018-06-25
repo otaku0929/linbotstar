@@ -2294,7 +2294,7 @@ def handle_message(event):
         return 0
     #查塔羅牌說明
     if re.search("查(塔羅牌|塔羅|tarot)說明(\d+)",event.message.text):
-        tarot_content = tarot_detail(re.search("查(塔羅牌|塔羅|tarot)說明(\d+)",event.message.text).group(2))
+        tarot_content = tarot_detail(int(re.search("查(塔羅牌|塔羅|tarot)說明(\d+)",event.message.text).group(2)))
         content = '{}\n\n{}\{}'.format(tarot_content[1],tarot_content[2],tarot_content[3])
         line_bot_api.reply_message(
             event.reply_token,
