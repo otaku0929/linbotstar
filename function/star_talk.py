@@ -48,7 +48,7 @@ def star_talk(messages_talk):
             return random.choice(hi())
         elif re.search("找[你|妳|星星]",messages_talk):
             return random.choice(you())
-        elif re.search("找星爸",messages_talk):
+        elif re.search("找星爸|星爸咧|星爸在哪裡|叫一下星爸",messages_talk):
             return random.choice(father())
         elif re.search("找[碴|麻煩]",messages_talk):
             return random.choice(trouble())
@@ -68,7 +68,7 @@ def star_talk(messages_talk):
             return random.choice(fool())
         elif re.search("吃[大便|屎|屁]",messages_talk):
             return random.choice(eatshit())
-        elif re.search("吃什麼|想吃|愛吃|要吃|餓",messages_talk):
+        elif re.search("吃什麼|想吃|愛吃|要吃|餓|吃飯",messages_talk):
             return random.choice(eat())
         elif re.search("虧妹|虧你|虧妳|虧我",messages_talk):
             return random.choice(bamai())
@@ -200,11 +200,11 @@ def howold():
     return ['爸說不可以講','這是個秘密','不如你先說說你幾歲','嘿嘿嘿...']
 
 def morning():
-    return ['早安','熬早','牛沒奶','Good Morning','早安~祝你有美好的一天','記得吃早餐哦','來杯咖啡嗎?','起來動一動吧~',
+    return ['早安','熬早','牛沒奶','Good Morning','早安~祝你有美好的一天','記得吃早餐哦','早安~來杯咖啡嗎?','起來動一動吧~',
             '別滾床了']
 
 def moon():
-    return ['午安','吃飽了嗎?','午餐要吃什麼呢?','今天天氣如何呢?','加油~','來杯咖啡嗎?','下午再加油一下']
+    return ['午安','吃飽了嗎?','午餐要吃什麼呢?','今天天氣如何呢?','加油~','午~要喝咖啡嗎?','下午再加油一下']
 
 def goodningh():
     return ['晚安','嗯~我也要睡了','乖乖睡哦','噓~快睡吧','zzzzzz','噓~~~~','記得睡前先尿尿哦','別尿床了哦~','記得刷牙哦~']
