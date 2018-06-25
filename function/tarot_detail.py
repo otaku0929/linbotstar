@@ -1,9 +1,6 @@
 import re
 import random
 
-
-
-
 def tarot_random():
     return tarot_detail(random.randint(0,155))
 
@@ -16,8 +13,9 @@ def tarot_random_3():
 
 def tarot_detail(res):
 
-##fool
+##fool re.search("[chariot|戰車]正位",res):
     if res == 0:
+        card_id = 0
         title = "愚者(正位)"
         content = "愚者並不表示愚笨，他是大智若愚的狀態，身後隨身的背囊亦是旅行所需的道具，\
     代表有充分準備的意思，準備在旅途上大展身手，從人類的生命來說，\
@@ -29,9 +27,11 @@ def tarot_detail(res):
     在感情方面，可能雙方處於浪漫純真，純純的愛情，未有接觸到兩人實際上的層面。\n\n\
     工作方面，可能要注意未有見到的危險，多聽聽身邊他人的意見，盡自己的能力而為的話大致上未有太大的問題。"
         url = "http://cisian.pixnet.net/blog/post/43076253"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/PHsrYCM.jpg"])
+        img = "https://i.imgur.com/PHsrYCM.jpg"
+        return ([card_id,title,content,url,img])
             
     if res == 1:
+        card_id = 1
         title = "愚者(逆位)"
         content = "逆位的愚者，可能就是真的笨了，因為重力的關係，行囊可能失去，代表準備不充足，\
     手上純真的百合丟失，代表失去純真，或者是想的太多，而逆位懸崖在上方，具有強調的意味，\
@@ -41,10 +41,12 @@ def tarot_detail(res):
     感情上的愚者逆位，表示遭遇挫折，情感無法向前，或者是遭遇情感上的危機，雙方無法闖關。\n\n\
     投資上要注意，可能會因為錯誤的信息而陷入財務上的困難。"
         url = "http://cisian.pixnet.net/blog/post/43076253"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/1ct0QRi.jpg"])
+        img = "https://i.imgur.com/1ct0QRi.jpg"
+        return ([card_id,title,content,url,img])
 
 #magician
     if res == 2:
+        card_id = 2
         title = "魔法師(正位)"
         content = "魔法師正位時，為信息正確的傳播，花開得茂盛，能量的順暢遞送，表示溝通良好。\
     前方的紅玫瑰與白百合，為黃金黎明的代表標誌，也揭示魔法師為其組織當中的一員，身上所穿的衣袍紅白相間也可之其一二。\
@@ -55,9 +57,11 @@ def tarot_detail(res):
     在工作方面，這張牌的出現代表有能力，能構統合各種的事物，並且自己的工作職權範圍內無所不知無所不曉，\
     能力表現出色，有實際上的產出。"
         url = "http://cisian.pixnet.net/blog/post/43167558"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/9FbrjDq.jpg"])
+        img = "https://i.imgur.com/9FbrjDq.jpg"
+        return ([card_id,title,content,url,img])
             
     if res == 3:
+        card_id = 3
         title = "魔法師(逆位)"
         content = "逆位的魔法師，可能虛有其表，表現出來是一種欺騙，表面上有能力變化，實質上所完成的東西指是一種假象，\
     可能是一種假報告、假作品、抄襲之類的狀況產生。 也有可能真的沒有能力表現出來的人，頭上智慧的無限符號因逆位消失，\
@@ -65,11 +69,13 @@ def tarot_detail(res):
     前方的百合與玫瑰消失了，代表事物本身不再有豐富的變化，熱情熱度消退。原本在溝通天地間的流動手勢，\
     也因逆位時失去正確導引的力量方向，而產生能量的凌亂，投射在關係中，展現為溝通不佳、言詞不達。"
         url = "http://cisian.pixnet.net/blog/post/43167558"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/NYkcUYJ.jpg"])
+        img = "https://i.imgur.com/NYkcUYJ.jpg"
+        return ([card_id,title,content,url,img])
 
 
 #High_Priestess
     if res == 4:
+        card_id = 4
         title = "女祭司(正位)"
         content = "女祭司屬於壓抑自我的人格特徵，對於物質享受不感興趣，然不是絕對的無情，\
     後方的帷幕代表內心的豐富性與生命力(紅石榴-生命之果)，他的內心實為充滿了生命的熱度，\
@@ -83,9 +89,11 @@ def tarot_detail(res):
     而該牌因比較屬於內心高層次的展現，故對於行動面較為不利，想的很多卻做得很少，有想法確無實際上的作為，\
     故物質上的收穫不大，為心靈層次的牌。"
         url = "http://cisian.pixnet.net/blog/post/43211391"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/RvTWU0o.jpg"])
+        img = "https://i.imgur.com/RvTWU0o.jpg"
+        return ([card_id,title,content,url,img])
             
     if res == 5:
+        card_id = 5
         title = "女祭司(逆位)"
         content = "逆位的女祭司，可能雙柱被摧毀了，造成黑白是非不分，而海在上方，可能也代表水面不再平靜，\
     產生情緒上的潰堤，潛意識的躁動，或是毛躁的情緒，情感不再被壓抑，嶄露了出來，\
@@ -93,10 +101,12 @@ def tarot_detail(res):
     新月在上，也強調月亮的陰晴圓缺特質，具有周期與波動性，可以說是反反覆覆，情緒潮起潮落，\
     情緒不穩定，可能變得無法掌握對方的心情。"
         url = "http://cisian.pixnet.net/blog/post/43211391"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/odvdrT6.jpg"])
+        img = "https://i.imgur.com/odvdrT6.jpg"
+        return ([card_id,title,content,url,img])
 
 #empress
     if res == 6:
+        card_id = 6
         title = "女皇(正位)"
         content = "女皇牌代表母親的形象，正位是一位能夠給予物質撫育，溫暖甜蜜的母親，且謹守母親的權限，\
     投射在當事人的心中，表示對方可以在事件中自我照顧，如果有懷孕的跡象的話，女皇給的訊息也是偏向肯定的。\n\n\
@@ -105,7 +115,8 @@ def tarot_detail(res):
     工作方面，太過注重舒適度，工作上的進度需要注意，然而皇后也身為一皇，故屬於有明確個人的特質，\
     在面試時，可以給予考官印象上的分數。"
         url = "http://cisian.pixnet.net/blog/post/46242045"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/Tdd3rV4.jpg"])
+        img = "https://i.imgur.com/Tdd3rV4.jpg"
+        return ([card_id,title,content,url,img])
             
     if res == 7:
         title = "女皇(逆位)"
@@ -113,10 +124,12 @@ def tarot_detail(res):
     ，這一切可能讓女皇感到情緒上的焦躁，心生欲求不滿的情緒。\n\n\
     另一方面，也有可能逆位的女皇可能享受過度，產生拜金、懶散、縱慾過度、浪費的現象出現，要注意身體上例如肥胖的狀況。"
         url = "http://cisian.pixnet.net/blog/post/46242045"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/bRjRIKs.jpg"])
+        img = "https://i.imgur.com/bRjRIKs.jpg"
+        return ([card_id,title,content,url,img])
 
 #emperor
     if res == 8:
+        card_id = 8
         title = "皇帝(正位)"
         content = "皇帝是事業牌，對於工作賺錢方面有極大的助益，從身上的著裝來看，身上披著盔甲，\
     隨時準備好要上戰場作戰，現代社會的戰場就以是職場最為常見，故這張牌對於事業上的衝刺有所助益。\n\n\
@@ -127,18 +140,22 @@ def tarot_detail(res):
     在人際關係上，皇帝牌領導管理的能力很強，然而因為其為做事牌，一切以實際的物質行動面向為衡量基準，\
     是故在關係當中可能缺乏浪漫情調，但感情的走向還是有所掌握力的。"
         url = "http://cisian.pixnet.net/blog/post/46246704"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/5Fmq4Sr.jpg"])
+        img = "https://i.imgur.com/5Fmq4Sr.jpg"
+        return ([card_id,title,content,url,img])
             
     if res == 9:
+        card_id = 8
         title = "皇帝(逆位)"
         content = "逆位的皇帝，喪失了皇帝的管理特質，不會帶人，失去掌控的能力與缺乏先機，大男人的特質失去了，\
     表示無法承擔責任，沒有擔當，懦弱，剛愎自用，\n\n\
     另一方面，也沒有勇氣去面對當前的一切，處處提防他人，顯得防衛心極強，疑神疑鬼。"
         url = "http://cisian.pixnet.net/blog/post/46246704"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/OQUpaB0.jpg"])
-
+        img = "https://i.imgur.com/OQUpaB0.jpg"
+        return ([card_id,title,content,url,img])
+    
 #hierophant
     if res == 10:
+        card_id = 10
         title = "教皇(正位)"
         content = "教皇牌當中，教皇一手指天，代表他是上天旨意的傳達者，扮演的是傳遞天意的代表者，給予指引、\
     教導是教皇的任務；對於群體而言，教皇揭示了一種規則，這種規條一方面來講是束縛，然另外一個角度來講是一種保護，\
@@ -150,9 +167,11 @@ def tarot_detail(res):
     然在情感穩固的男女關係中，教皇所在之地為教堂，故是有結婚的信息存在。\n\n\
     工作的場合上，可能會有熱心指導的人物出現，帶領大家，分配任務與工作規劃。"
         url = "http://cisian.pixnet.net/blog/post/46389783"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/yWuKWVg.jpg"])
+        img = "https://i.imgur.com/yWuKWVg.jpg"
+        return ([card_id,title,content,url,img])
             
     if res == 11:
+        card_id = 11
         title = "教皇(逆位)"
         content = "逆位的教皇，表示傳遞錯誤的資訊，溝通上產生障礙，要注意對方可能是假的教皇，\
     假的很會，別有目的而來，例如老鼠會等的組織，強調自己的偉大，如同一位救贖者，跟著我帶妳上天堂。\
@@ -162,10 +181,12 @@ def tarot_detail(res):
     我太過與主斷在對方的事情上了，太過具有指導性，忽略了許多事情是個案的功課與個案有辦法自己去做決定的部分，\
     當下我與她討論我們之間是否太過沒有彈性，恢復雙方彼此之間的尊重。"
         url = "http://cisian.pixnet.net/blog/post/46389783"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/j1a3GzA.jpg"])
+        img = "https://i.imgur.com/j1a3GzA.jpg"
+        return ([card_id,title,content,url,img])
 
 #lovers
     if res == 12:
+        card_id = 12
         title = "戀人(正位)"
         content = "在戀人牌當中，開始出現了天使，拉菲爾天使象圍繞在伊甸園的場景當中，雙手伸開環繞兩人，\
     代表這段感情，是受到祝福的，另外一方面也代表著見證，是一種認定與契約方面的確定，\
@@ -174,9 +195,11 @@ def tarot_detail(res):
     後面聳高的山脈，象徵著一種高峰經驗，兩人在關係當中，逐漸的併融合一，一種中心到中心的接觸經驗。\n\n\
     在工作的職場上，感到環境人際的輕鬆愉快，並且人與人之間不存在著太大的秘密遮掩。"
         url = "http://cisian.pixnet.net/blog/post/46390107"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/V5lEiQm.jpg"])
+        img = "https://i.imgur.com/V5lEiQm.jpg"
+        return ([card_id,title,content,url,img])
             
     if res == 13:
+        card_id = 13
         title = "戀人(逆位)"
         content = "逆位的戀人，形成關係局勢上的破裂，有一種疏遠，漸行漸遠，\
     如果是已是夫妻的關係甚至有離婚的可能性，鴻溝逐漸的擴大，造成雙方彼此不合，\
@@ -184,10 +207,12 @@ def tarot_detail(res):
     在兩人之間的距離越來越遠，中間的天使加於兩端，似乎也暗示著，關係當中第三人現身的可能性，\
     或是出現了競爭者，愛情中的第二選擇。"
         url = "http://cisian.pixnet.net/blog/post/46390107"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/fdOwWnh.jpg"])
+        img = "https://i.imgur.com/fdOwWnh.jpg"
+        return ([card_id,title,content,url,img])
 
 #chariot
     if res == 14:
+        card_id = 14
         title = "戰車(正位)"
         content = "戰車為所有塔羅牌當中，表現速度最快的一張牌，在強大的力量速度面前，\
     使用的是意志力導引前方人面獅身的斯芬克斯，為了能夠駕馭車，變需要強大的結合力以達到人車和一的境界。\
@@ -199,21 +224,25 @@ def tarot_detail(res):
     達倒目的即完成了他的任務，而進行下一階段的征服，感情戰場的一種收穫，如同攻城掠地般享受征服上的成就。\n\n\
     另外離開城堡也代表著遠行、旅行、出差、離開的動作"
         url = "http://cisian.pixnet.net/blog/post/54959820"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/ka5LRRU.jpg"])
+        img = "https://i.imgur.com/ka5LRRU.jpg"
+        return ([card_id,title,content,url,img])
         
-        if re.search("15|d|逆位",res):
-            title = "戰車(逆位)"
-            content = "逆位的戰車，因斯芬克斯在上方，故強調該力量已無法被意志有效的掌握，\
+    if res == 15:
+        card_id = 15
+        title = "戰車(逆位)"
+        content = "逆位的戰車，因斯芬克斯在上方，故強調該力量已無法被意志有效的掌握，\
 變成方向不對，操作錯誤，技術不佳，也由原本正位的進攻變成採取守勢，進行的時候不順利，\
 耽誤延遲，意志力不足，在戰場上容易變成受挫失敗，而缺乏勇氣退縮，防衛心重。\n\n\
 而實際的場景當中，戰車也與實際的車輛有關，旅途中的交通工具與狀況關聯，逆位之時要注意行程進度，\
 是否有交通意外車禍等等。\n\n\
 與人獸合一的力量牌相比，戰車強調力量快速的推進，而力量牌則為剛柔並濟的和緩進行，是塔羅牌中兩種力量的展現方式。"
-            url = "http://cisian.pixnet.net/blog/post/54959820"
-            return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/9ZCFVRU.jpg"])
+        url = "http://cisian.pixnet.net/blog/post/54959820"
+        img = "https://i.imgur.com/9ZCFVRU.jpg"
+        return ([card_id,title,content,url,img])
 
 #strength
     if res == 16:
+        card_id = 16
         title = "力量(正位)"
         content = "力量女神觸摸獅子，於是獅子就被馴服了，這裡的獅子，代表人與生俱來的生物本能，\
 是一種獸性，而需要利用該力量則需一種溫柔的導引，是一種沉著、女性的力量，而面對我們本身的能力，\
@@ -224,9 +253,11 @@ def tarot_detail(res):
 在職場上，這張牌也揭示面對外在強大力量的處事方法，而在人際關係的發展上面，\
 為一種兩人逐漸加溫的感情，所表達的為一種流露的真情，有交心的感受。"
         url = "http://cisian.pixnet.net/blog/post/58195761"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/ahycbLB.jpg"])
+        img = "https://i.imgur.com/ahycbLB.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 17:
+        card_id = 17
         content = "力量逆位時，獸性的力量太過強大，產生獸性大發的影響，失去控制，\
 破壞兩人之間的連結，感覺無能為力，也亦謂著做事不顧他人，而女神也逐漸的失其力量能力，缺乏掌握的信心，\
 在關係上，雙方本質上的不同顯露，距離開始產生，兩人逐漸失去熱情溫度。\n\n\
@@ -234,10 +265,12 @@ def tarot_detail(res):
 而獅子也很常被比喻為外在環境條件，在逆位的時候，現實的挑戰太大，當事人害怕，深怕受到傷害，\
 常見的有如社交畏懼症，對於他者的恐懼。"
         url = "http://cisian.pixnet.net/blog/post/58195761"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/qZS7gw5.jpg"])
+        img = "https://i.imgur.com/qZS7gw5.jpg"
+        return ([card_id,title,content,url,img])
 
 #hermit
     if res == 18:
+        card_id =17
         title = "隱者(正位)"
         content = "隱士站在群山之上，且是所有牌當中年紀最大的一張牌，過去有豐富的經驗，\
 在山峰之上尋求的是通往天國的天梯，這張牌如果投射在一個人身上，有可能內心藏著一位老靈魂，\
@@ -252,18 +285,22 @@ def tarot_detail(res):
 在人生的道路上，我們不斷的前進，時而我們會來到一個發展的階段，這是一種自然的現象，\
 我們要學習到的是，如何去承接這份孤獨，讓自己在生命當中不同的孤獨階段，安住自己，在孤獨中安住。"
         url = "http://cisian.pixnet.net/blog/post/72675351"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/nPmXLzz.jpg"])
+        img = "https://i.imgur.com/nPmXLzz.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 19:
+        card_id = 19
         title = "隱者(逆位)"
         content = "逆位時，隱者低調的特性消失，可能會假裝有智慧、經歷的狀況，貴人的特徵失去，\
 而將事情往錯誤的方向帶去，給予錯誤的建議，找不著方向，往往也使人會感到心煩意亂，\
 煩躁的感受(試想GSP亂帶路的情況)，而整體的行程也產生了拖累的狀況。"
         url = "http://cisian.pixnet.net/blog/post/72675351"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/QypmcUo.jpg"])
+        img = "https://i.imgur.com/QypmcUo.jpg"
+        return ([card_id,title,content,url,img])
 
 #wheeloffortune
     if res == 20:
+        card_id = 20
         title = "命運之輪(正位)"
         content = "命運之輪推動著世事自然界的變化，四聖獸(牛-金牛座、土、春，獅-獅子座、\
 火、夏，老鷹-天蠍座、水、秋，天使-水瓶座、風、冬)代表四季的循環，手中拿著書本誦經，\
@@ -280,9 +317,11 @@ def tarot_detail(res):
 正位雖是偏向順利，然而對於命運的結果仍屬未知之狀態，尚存有不確定之資訊，然而只要懂的命運，\
 看懂並且接受，抓住、把握命運之輪正位時給你創造的機會，一切仍是往正向的方向走去。"
         url = "http://cisian.pixnet.net/blog/post/73077285"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/btfO9z3.jpg"])
+        img = "https://i.imgur.com/btfO9z3.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 21:
+        card_id = 21
         title = "命運之輪(逆位)"
         content = "命運之輪逆位時，偏向是厄運、被環境所決定，命運的捉弄，不得已，\
 時間、人、環境的不對或者是尚未準備好，作什麼事情，感到困難與險阻重重。\
@@ -296,10 +335,12 @@ def tarot_detail(res):
 缺乏對於信任感的學習，她是一位孤兒，生命階段她幼時缺乏照顧者的照顧，\
 形成生命此刻她欠缺了對於環境他人的信任，以至於命運走到此，在親密關係中他是感到如此的不安與混亂。"
         url = "http://cisian.pixnet.net/blog/post/73077285"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/xKoytS2.jpg"])
+        img = "https://i.imgur.com/xKoytS2.jpg"
+        return ([card_id,title,content,url,img])
 
 #justice
     if res == 22:
+        card_id = 22
         title = "正義(正位)"
         content = "正義，其場景在一個如法院般當中，一手持劍，代表決斷，一手持天秤，代表公正的裁量決斷，\
 而被後緊貼的帷幕，沒有絲毫的背景空隙顯露出來，也代表著不想要受其它外力的干擾，\
@@ -313,9 +354,11 @@ def tarot_detail(res):
         只是有時雙方都認為自己是正義的一方，且到底哪個是正義裁量的基準呢?這點便是很難確定，\
         ，或許正義的公正審判兩方都認為不符自己心中的公正，而認為最後的結果不符雙方其待也說不定。"
         url = "http://cisian.pixnet.net/blog/post/74103582"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/lmFfrCk.jpg"])
+        img ="https://i.imgur.com/lmFfrCk.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 23:
+        card_id = 23
         title = "正義(逆位)"
         content = "當正義逆位時，代表不正義、不公正，懷有偏見的想法，在過程當中，\
 當事者可能無法得到內心想要的東西，得到他認為自己應該得的東西，而逆位的劍，也代表錯誤的選擇或是決定，\
@@ -324,10 +367,12 @@ def tarot_detail(res):
 工作方面，倉皇的下決定，顯然無法有良好之收穫，工作結果不佳，甚至是越用越糟，導致後來需要彌補傷口與創傷。\n\n\
 關係方面，出現正義之逆位之時，可能是為了解約方面，例如雙方停止合作，婚姻上可能出現的是離婚的裁量。"
         url = "http://cisian.pixnet.net/blog/post/74103582"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/DovBaU5.jpg"])
+        img ="https://i.imgur.com/DovBaU5.jpg"
+        return ([card_id,title,content,url,img])
 
 #hanged_man
     if res == 24:
+        card_id = 24
         title = "吊人(正位)"
         content = "吊人這張牌的構圖相當的奇特，第一眼看到可能會感到它是否印反了，的確，吊人顛倒看世界，\
         他的眼界與看法跟常人不同，他會吊在樹上，有可能是自願的，為的是一個更大的願景，而犧牲現在的狀況，\
@@ -341,9 +386,11 @@ def tarot_detail(res):
 吊人雖然處於一種命運上的不自由，命運的形式將其吊在樹上，困在此處，而吊人卻透過對於事情另一側面的看法，\
 而從想法精神上跳脫了命運的限制。"
         url = "http://cisian.pixnet.net/blog/post/77187729"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/jFcarxV.jpg"])
+        img ="https://i.imgur.com/jFcarxV.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 25:
+        card_id = 25
         title = "吊人(逆位)"
         content = "逆位的吊人兩個比較常見的講法:\
 １、從樹上解脫了，有可能是目標達到了，從吊人正位轉換為逆位也代表著事情有個結果，\
@@ -352,10 +399,12 @@ def tarot_detail(res):
 對於命運要你償還的部分顯的抗拒，不服從的態度，頭上智慧的光芒消逝也代表智慧的消失，\
 尚未達到時機點就去做也有可能做的事情是白忙一場。"
         url = "http://cisian.pixnet.net/blog/post/77187729"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/Mnc7WIj.jpg"])
+        img ="https://i.imgur.com/Mnc7WIj.jpg"
+        return ([card_id,title,content,url,img])
 
 #hanged_man
     if res == 26:
+        card_id = 26
         title = "死神(正位)"
         content = "這裡的死神，代表象徵性的死亡，從牌面來看，場景倒下的是充滿權力與金錢的國王倒下了，\
 象徵精神世界的教皇仍存活，且恭迎死神的到來，也代表著精神不死，而小孩在此也象徵新的生命，舊的結束，\
@@ -368,9 +417,11 @@ def tarot_detail(res):
 他會擋在人生道路的面前，不讓你前進，唯有我們正視自己當下的位置，與思考當前所面對的狀況，透過認識死亡，\
 了解到人生是有限的，道路與決定是我們自己下的，我們可以更為有效的調整自己，承擔起自己的選擇與行動的責任。"
         url = "http://cisian.pixnet.net/blog/post/77217543"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/0uuAhQC.jpg"])
+        img ="https://i.imgur.com/0uuAhQC.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 27:
+        card_id = 27
         title = "死神(逆位)"
         content = "逆位的死神，同樣的，有兩種解法常見。\n\n\
 １、已經走過死神的考驗階段，又可以前進了，可能找到新的契機，新的開始的一段關係。\n\n\
@@ -380,10 +431,12 @@ def tarot_detail(res):
 另外因為死亡與疾病習習相連，出現死神之時，也必須注意身體狀況，\
 可能是外來、外在的原因所導致的疾病(如骨折、病毒感染……)"
         url = "http://cisian.pixnet.net/blog/post/77217543"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/Ko0HJNk.jpg"])
+        img ="https://i.imgur.com/Ko0HJNk.jpg"
+        return ([card_id,title,content,url,img])
 
 #temperance
     if res == 28:
+        card_id = 28
         title = "節制(正位)"
         content = "如同調酒一般，大天使麥可將兩個杯子的水連續的倒至另一個杯中，代表著是一種淬鍊，\
 一種提煉，有將物質精神揚升之力量，所以這張牌帶有修練之意味，也代表著事情的方向往步步高升的地方走去。\n\n\
@@ -398,9 +451,11 @@ def tarot_detail(res):
 也需要當事人對眼前的環境有所回應，而不是封閉，並且主動積極的參與其中。\n\n\
 工作上，事件專案協調清楚，有互相幫助的可能性，當事人也可以在進行當中增加磨練的經驗與技巧的純熟。"
         url = "http://cisian.pixnet.net/blog/post/78073653"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/jQZrWfj.jpg"])
+        img ="https://i.imgur.com/jQZrWfj.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 29:
+        card_id = 29
         title = "節制(逆位)"
         content = "逆位的節制牌組，大天使手上的水杯翻覆，代表技巧不佳，缺乏成就事情的天份。\
 而提升的力量變弱，也代表心境上的降低與趨於表面，在做事情的時候，可能變成一成不變乏味的工作，\
@@ -409,10 +464,12 @@ def tarot_detail(res):
 只在意名目上的關係，卻不願注重人與人之間的交心與真誠，又或者節制的力量消逝，\
 形成人與人之間的不往來，冷漠，缺乏默契的狀態。"
         url = "http://cisian.pixnet.net/blog/post/78073653"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/1PDldjE.jpg"])
+        img ="https://i.imgur.com/1PDldjE.jpg"
+        return ([card_id,title,content,url,img])
 
 #devil
     if res == 30:
+        card_id = 30
         title = "惡魔(正位)"
         content = "惡魔的對應層面，可能是生物本身的內分泌、賀爾蒙行為，代表一種生物的需求，\
 像是繁衍的需求、飢餓進食的需求...也有可能是精神層面上如性歡愉的需求、享受的需求、金錢權力的需求...，\
@@ -430,18 +487,22 @@ def tarot_detail(res):
 行動外表為一種引誘、誘惑、奉承，或因為為了的到這些，而自願糾纏於其間，然這些當事人可能感受不到，\
 因為其未嘗想過這些，故從他者的眼光來看，或許認為當事人執迷不誤，為了某個目的而存在於當下的關係當中。"
         url = "http://cisian.pixnet.net/blog/post/78487608"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/rt9i69D.jpg"])
+        img ="https://i.imgur.com/rt9i69D.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 31:
+        card_id = 31
         title = "惡魔(逆位)"
         content = "逆位的惡魔牌，可能代表即將解開枷鎖，不再受束縛了，脫身於權力的關係當中，\
 拿調枷鎖也代表著不再受其制約，不自欺欺人逐漸的看清現實。而另外一者的解釋，因為惡魔逆位時，\
 象徵的意義消失了，人看不清楚惡魔，成了一種隱微的控制，人變得更加的被驅力所推動，無法克制自己。"
         url = "http://cisian.pixnet.net/blog/post/78487608"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/5uLrvXd.jpg"])
+        img ="https://i.imgur.com/5uLrvXd.jpg"
+        return ([card_id,title,content,url,img])
 
 #tower
     if res == 32:
+        card_id = 32
         title = "塔(正位)"
         content = "抽到塔牌時，代表一種警訊，敲響了一記警鐘，告訴有危險與危機正要發生，\
 然而這場危機並非是來得突然，一切都有前因，因累積閃電的能量，需要時間，打雷之前，也有所前兆，\
@@ -453,18 +514,22 @@ def tarot_detail(res):
 人際方面，塔牌人物各自逃難，一種分離，鳥獸散，本是同林鳥，如今各自飛，決裂與組織的瓦解。\n\n\
 工作與物質方面，雷電將象徵物質與權力的皇冠摧毀，也象徵著降職、解職，財富的失去。"
         url = "http://cisian.pixnet.net/blog/post/87491673"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/wesFVQj.jpg"])
+        img ="https://i.imgur.com/wesFVQj.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 33:
+        card_id = 33
         title = "塔(逆位)"
         content = "逆位的塔，可能經過了厄運，經歷了災害，正準備開始重建了，重零開始，另外一方面，\
 也有可能未來即將出現的災難，在到來之前，以先被你逃掉了，躲避了一場災害，感到虛驚一場，\
 例如有驚無險的車禍，股災之前已先退場等情形。"
         url = "http://cisian.pixnet.net/blog/post/87491673"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/3dyooAI.jpg"])
+        img ="https://i.imgur.com/3dyooAI.jpg"
+        return ([card_id,title,content,url,img])
 
 #star
     if res == 34:
+        card_id = 34
         title = "星星(正位)"
         content = "正位的星星牌，指的是新的希望、靈光乍現，是一顆未來之星。\n\n\
 星星女神手中的壺水，傾倒入現實面的地與情感面的綠洲當中，產生療育的感受，此張牌告訴妳，未來的日子會更好，\
@@ -477,19 +542,23 @@ def tarot_detail(res):
 案主本身必須要透過不斷的接觸其本身當下，感受是什麼，對於事件與外在有什麼樣的想法，當下真正的感覺是什麼，\
 透過接觸真實的自己，而澄清自己內心真正的願望。"
         url = "http://cisian.pixnet.net/blog/post/87495822"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/OV7Kzxv.jpg"])
+        img ="https://i.imgur.com/OV7Kzxv.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 35:
+        card_id = 35
         title = "星星(逆位)"
         content = "逆位的星星牌，眼前的綠洲不過是一種海市蜃樓，一切的美好雖在，然這份美好卻是一種假象，\
 一種幻想幻影，可能當事人覺察錯誤，體驗不對，或是不願深刻感受，無法探究其深處的內心，\
 成為表面想要的而非內心深處的需要，也有可能案主把未來想的太過美好，與現實層面脫軌，成為過度的盼望。\n\n\
 另一方面，也有可能本身失去希望，產生悲觀的感覺與各種想法，未來前景不被看好。"
         url = "http://cisian.pixnet.net/blog/post/87495822"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/ZtwSc3T.jpg"])
+        img ="https://i.imgur.com/ZtwSc3T.jpg"
+        return ([card_id,title,content,url,img])
 
 #moon
     if res == 36:
+        card_id = 36
         title = "月亮(正位)"
         content = "月有陰晴圓缺，週期性的變化，代表著捉摸不定、充滿曖昧，月亮牌是大秘儀中第2張沒有出現人物的牌，\
 畫的是狼、犬、螯蝦，與月亮環境的氤氳氣息，遠方的路與月亮隱藏其中，雙塔代表與異世界的門，一端連接人世間，\
@@ -505,18 +574,22 @@ def tarot_detail(res):
         在人際關係上，氣氛詭譎無法掌握，雙方彼此猜疑，團體當中或許有敵人隱藏在其中，工作上，\
         感到處處懼怕，沒有挑戰的信心。"
         url = "http://cisian.pixnet.net/blog/post/96957535"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/J0zhw7z.jpg"])
+        img ="https://i.imgur.com/J0zhw7z.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 37:
+        card_id = 37
         title = "月亮(逆位)"
         content = "逆位的月亮，月亮即將落下，破曉時分，雲霧逐漸散去，撥雲見日，前方的道路逐漸明朗，\
 當事人可能逐漸明白一些道理，慢慢的有所變化，人與人之間的關係疑點也逐漸獲得了解，事務方面在不明朗之時出現了轉機，\
 出現了發展的脈絡，原本困難的道路上得以前進，獲得改善。"
         url = "http://cisian.pixnet.net/blog/post/96957535"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/JGvmiNe.jpg"])
+        img ="https://i.imgur.com/JGvmiNe.jpg"
+        return ([card_id,title,content,url,img])
 
 #sun
     if res == 38:
+        card_id = 38
         title = "太陽(正位)"
         content = "熱力大放送，太陽牌是一張充滿熱力的牌，把你的手放上去感受，也會感到手中充滿一股熾熱，\
 太陽高掛，如日中天，正是生命力最為旺盛的時刻，前景出現的嬰兒，象徵著新生，跨越了後方的圍籬，\
@@ -529,19 +602,23 @@ def tarot_detail(res):
 故有部份見解為一種'好朋友'的關係，一種純粹的友誼，而非是戀情關係，而面對太陽牌的人，\
 感到一切都是直來直往的，且話語中感到積極的想法。"
         url = "http://cisian.pixnet.net/blog/post/96963445"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/uq2XP7v.jpg"])
+        img ="https://i.imgur.com/uq2XP7v.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 39:
+        card_id = 39
         title = "太陽(逆位)"
         content = "逆位的太陽，依舊仍有熱度，太陽要下山之時，就是逆位的時間點，\
 此刻的場境產生如熱情下坡的狀況，出現逆位，有可能當事人的付出顯的太過急躁了，未注意到自身的能力與能量，\
         過度消耗自己的汽油，走的太快太急促；而另外考量到時間點為黃昏，也代表著夜晚的黑暗即將到來，\
         有些關於未來的事物需要多加注意，要謹慎的面對未來的風險。"
         url = "http://cisian.pixnet.net/blog/post/96963445"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/6JhgKFC.jpg"])
+        img ="https://i.imgur.com/6JhgKFC.jpg"
+        return ([card_id,title,content,url,img])
 
 #judgement
     if res == 40:
+        card_id = 40
         title = "審判(正位)"
         content = "審判牌即是深刻的反省自己後，從中發現新的價值，棺材表示我們依靠的外在規則、道德判斷、\
 價值評量...，而天使的號角表示來自內心的聲音，此刻人從棺材中站起，迎接天使的祝福，\
@@ -554,9 +631,11 @@ def tarot_detail(res):
 而因之前的經驗更加深刻兩人之間的關係。\n\n\
 在人際、工作上，可能出現轉換的障礙，必須要重新檢視自己與自我反省，評估自己的作為與審視關係當中需要調整的部分。"
         url = "http://cisian.pixnet.net/blog/post/98159101"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/dPf4RYp.jpg"])
+        img ="https://i.imgur.com/dPf4RYp.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 41:
+        card_id = 41
         title = "審判(逆位)"
         content = "逆位的審判，表示案主可能不願意檢視自己的內在，不願意深刻的體會反省，事情無法重生沒有新的作為，\
 所以過去的習慣成為當前的行為根本，因為事情的錯誤沒有正確的被檢討改過，如爭吵分手的兩人復合可能會重蹈之前的爭吵情形，\
@@ -569,10 +648,12 @@ def tarot_detail(res):
 人就必須為其負責，更必須償還過去的種種，為沒有活出的自己做負責，然審判雖然事情已經終結了，\
 事實已就是如此，無法再改變了，消逝的時光不會回來，我們能夠做的，就是用未來來補償過去，盡力的彌補這一切。"
         url = "http://cisian.pixnet.net/blog/post/98159101"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/29swBWr.jpg"])
+        img ="https://i.imgur.com/29swBWr.jpg"
+        return ([card_id,title,content,url,img])
 
 #world
     if res == 42:
+        card_id = 42
         title = "世界(正位)"
         content = "大牌的最後一張，世界意味著自己的世界儼然成形，旅程當中的收穫已在最後這一階段圓滿，\
 形成一個自我的世界，完成了愚者的任務，來到的一個終點。\n\n\
@@ -581,20 +662,24 @@ def tarot_detail(res):
 在世界牌當中，當事人清晰明白當前事務的狀況，一切了然於心，對於事情的總體評斷無有疑慮，且層層周到，\
 就環境面來講，也象徵著當前環境中他人的互動之自然，一切彷彿是自在般的美好，沒有壓力。"
         url = "http://cisian.pixnet.net/blog/post/98162614"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/q1hLiZc.jpg"])
-        
+        img ="https://i.imgur.com/q1hLiZc.jpg"
+        return ([card_id,title,content,url,img])
+    
     if res == 43:
+        card_id = 43
         title = "世界(逆位)"
         content = "逆位的世界，可能代表尚有東西缺乏當中，離終點只差一步之遙，缺了一角，元素尚未齊備，\
 少了關鍵的一步，沒有抓到重點，整體來講，一切雖然還是不錯，只是缺了一點什麼的狀況，\
 有可能的結果是延遲的成功，或是感到不夠完美。\n\n\
 另外也有可能精神層次上未有達到終點，對於眼前的人事物仍有疑惑，無法通盤了解的狀況。"
         url = "http://cisian.pixnet.net/blog/post/98162614"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/YsxNZXj.jpg"])
+        img ="https://i.imgur.com/YsxNZXj.jpg"
+        return ([card_id,title,content,url,img])
     
 #小秘儀
 #king_of_wands
     if res == 44:
+        card_id = 44
         title = "權杖國王(正位)"
         content = "權杖國王是權杖世界的管理者，權杖代表權力，代表工作環境，代表事業，\
 所以權杖國王往往是一個積極的管理者，具有一定的身分地位，有權威的角色，帶領者，熱心的參與帶領團體的人物，\
@@ -602,18 +687,22 @@ def tarot_detail(res):
 是一種謀定而後動的動物，表示了權杖國王處世的態度與方法，其所為之事是經過深思熟慮的，\
 是故權杖國王是透過行動力，透過指導的特性，將自己的意志參與入社會環境與團體之中。"
         url = "http://cisian.pixnet.net/blog/post/181106536"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/QpyfTwk.jpg"])
+        img ="https://i.imgur.com/QpyfTwk.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 45:
+        card_id = 45
         title = "權杖國王(逆位)"
         content = "逆位的權杖國王，管理能力不佳，權力使用的不對，不會帶人，所帶領的團理無法前進，\
 或是濫用權力，使的權杖是一根打人的棒子，用自己的權力地位來修理部下，不顧下屬他人的意見，\
 也有可能是提議無法獲得上級的支持，所做的事情不被肯定。"
         url = "http://cisian.pixnet.net/blog/post/181106536"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/21bQYVt.jpg"])
+        img ="https://i.imgur.com/21bQYVt.jpg"
+        return ([card_id,title,content,url,img])
 
 #king_of_cups
     if res == 46:
+        card_id = 46
         title = "聖杯國王(正位)"
         content = "聖杯國王懂得管理情緒，情緒管理得很好，聖杯國王往往帶有容易親近的特點，\
 有一種溫暖，溫情的感受，成熟的情感態度，具有責任心，懂得人情事故與待人處事，讓人感到放心，\
@@ -622,18 +711,22 @@ def tarot_detail(res):
 值得注意的是桃花運出現此張牌組有可能是具有家室的男人；聖杯國王的場景是在波光淋漓的海面上航行，\
 閱歷各地，相當有經驗，而從海中跳出的魚也象徵的是情感的生命力，具有情感的多元與創造性。"
         url = "http://cisian.pixnet.net/blog/post/181106680"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/ayZ5w4J.jpg"])
+        img ="https://i.imgur.com/ayZ5w4J.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 47:
+        card_id = 47
         title = "聖杯國王(逆位)"
         content = "逆位的聖杯國王，情緒使用不適宜，往往有情緒上的偏頗，偏心的狀態，或是濫用情感，\
 玩弄他人，比如老而不修的男人，心中想要逾越界線，出現不合時宜與不符關係狀態的肢體碰觸，感覺起來噁心，\
 而且往往這樣的角色社交狀態帶有一定程度的複雜特性，其對人的目的性增加，別有它圖。"
         url = "http://cisian.pixnet.net/blog/post/181106680"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/a5q4YrE.jpg"])
+        img ="https://i.imgur.com/a5q4YrE.jpg"
+        return ([card_id,title,content,url,img])
 
 #king_of_swords
     if res == 48:
+        card_id = 48
         title = "寶劍國王(正位)"
         content = "寶劍國王是想法的管理者與將理念推動的人物，是一位軍師級的人物，其本身具有相當的專業性，\
 與寶劍國王討論事情寶劍國王可以給與其專業上的協助，講出的是專業的智慧指導，提出自己的見解，\
@@ -642,19 +735,23 @@ def tarot_detail(res):
 常見的人物比如像是學者、教授等，而寶劍國王與寶劍皇后相比較，寶劍國王有待人的經驗，\
 所以提出得面像還是比較偏向有考量到人的一面的。"
         url = "http://cisian.pixnet.net/blog/post/181106827"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/sNHbPUZ.jpg"])
+        img ="https://i.imgur.com/sNHbPUZ.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 49:
+        card_id = 49
         title = "寶劍國王(逆位)"
         content = "逆位的寶劍國王思想偏頗，可能有偏見，無法公正的採納各種想法，對於討論總是懷有批評的態度，\
 或是對某些知識有所偏頗，對於不同門派、不同的意見給與貶低，意圖將自己的認知理念想法塞給他人，\
 無法公正客觀的看待事物，也有可能其本身專業度不夠，給與錯誤的意見與建議，指導的方向錯誤等等，\
 另外走一些偏門小徑也有可能是逆位的寶劍國王會做的事情。"
         url = "http://cisian.pixnet.net/blog/post/181106827"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/RV6Mcie.jpg"])
+        img ="https://i.imgur.com/RV6Mcie.jpg"
+        return ([card_id,title,content,url,img])
 
 #king_of_pentacles
     if res == 50:
+        card_id = 50
         title = "錢幣國王(正位)"
         content = "錢幣國王是財富的管理者，場景是錢幣國王安坐於自己的城堡中，\
 整個構圖是宮廷牌中最為豐滿的一張牌，象徵的是財富的成功與享受，擁有權杖也表示有一定的財富自由，\
@@ -662,18 +759,22 @@ def tarot_detail(res):
 歷經投資的風險與努力獲致成功，若對方沒有投資的動作，可能是之前的儲蓄積累豐厚，\
 生活穩定實在的老男人，在錢幣國王時，可以象徵的是投資者或是靠山，常見的另有如退休的老阿杯。"
         url = "http://cisian.pixnet.net/blog/post/181106917"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/SZBP6qN.jpg"])
+        img ="https://i.imgur.com/SZBP6qN.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 51:
+        card_id = 51
         title = "錢幣國王(逆位)"
         content = "逆位的錢幣國王可能表示會失去財富，失去已經獲得的財富，投資不當或能力不佳，\
 經營管理不當，擁有資源卻肆意揮霍，燃燒本錢；也有可能是對於金錢有強烈的控制慾望，\
 以致於雖然坐擁金山，確不捨享受的人物；要注意的是也有可能是失去靠山，人際關係或是投資關係上的變化。"
         url = "http://cisian.pixnet.net/blog/post/181106917"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/UpT8ixR.jpg"])
+        img ="https://i.imgur.com/UpT8ixR.jpg"
+        return ([card_id,title,content,url,img])
 
 #queen_of_wands
     if res == 52:
+        card_id = 52
         title = "權杖皇后(正位)"
         content = "權杖皇后是沉浸於火元素中的皇后，火代表熱情，是故權杖皇后從性格來講讓人感到充滿熱力，\
 主動而且積極，有時還帶有火辣的氣質，手中拿著的向日葵也代表陽光，一種開朗，黑貓則是性感的象徵，\
@@ -681,19 +782,23 @@ def tarot_detail(res):
 未嘗擔心過失敗，對自己抱持著高度的自信，行動直接反應快速且靈活，然而這樣的作風有點大喇喇的，\
 對於細心的事情可能比較沒有耐心；常見的如職場上的女強人，對於做事顯的相當積極，有自己的主張與個人風格。"
         url = "http://cisian.pixnet.net/blog/post/181105348"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/2sFuEQF.jpg"])
+        img ="https://i.imgur.com/2sFuEQF.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 53:
+        card_id = 53
         title = "權杖皇后(逆位)"
         content = "逆位的權杖皇后，代表元素的過度氾濫或不足，透過人物的方式顯現出來，如果過度的話，\
 那就是燃燒的太過熱烈，可能火爆脾氣的產生，兇悍的個性，不饒人的態度，凶巴巴恰北北，\
 另外一方面如果元素的作用消逝或不足時，代表失去熱力，有可能是之前過度燃燒自我，反而已經疲累沒有能量了，\
 熱情消退消失。"
         url = "http://cisian.pixnet.net/blog/post/181105348"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/cDVdLI3.jpg"])
+        img ="https://i.imgur.com/cDVdLI3.jpg"
+        return ([card_id,title,content,url,img])
 
 #queen_of_cups
     if res == 54:
+        card_id = 54
         title = "聖杯皇后(正位)"
         content = "聖杯皇后沉浸於情感中，而且是浪漫的情愛感覺，聖杯女王專注於情感的水杯，\
 且這杯子是所有的聖杯牌組中裝飾的最為華麗的一個，附有蓋子，更加得令人對杯中的內容物產生想像，\
@@ -702,19 +807,23 @@ def tarot_detail(res):
 偶爾不時還會臉紅害羞，心態上也很容易掌握，沒什麼大腦，喜歡談論的是各種感情的八卦小道消息，\
 是一位正在戀愛當中的美女子壓，出現這張牌時，如果個案是男性，可能的狀況代表是他內心當中理想女性交往的對向。"
         url = "http://cisian.pixnet.net/blog/post/181105495"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/Cv090bR.jpg"])
+        img ="https://i.imgur.com/Cv090bR.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 55:
+        card_id = 55
         title = "聖杯皇后(逆位)"
         content = "逆位的聖杯皇后，可能感情上過度氾濫，過度的情緒化，已到達缺乏理性的程度了，\
 很難以掌握情感，不知道要如何與之應對與溝通，無法應付，另外一方面可能對於情感的想望太過於強烈了，\
 想要很多對象，用情不專，無法忍受孤寂而極欲得抓住他人，顯得花癡；另外一方面來講有可能元素消散，\
 失去感覺不再愛了。"
         url = "http://cisian.pixnet.net/blog/post/181105495"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/32E9KDw.jpg"])
+        img ="https://i.imgur.com/32E9KDw.jpg"
+        return ([card_id,title,content,url,img])
 
 #queen_of_swords
     if res == 56:
+        card_id = 56
         title = "寶劍皇后(正位)"
         content = "寶劍皇后是沉浸於理智的代表，具有各種知識與評斷的能力，本身是孤高的，\
 特別是寶劍皇后的上方鳥僅有一隻，或許是一隻孤鷹也說不定，對於事物採取知的態度，\
@@ -725,18 +834,22 @@ def tarot_detail(res):
 易成情愛殺手，人際方面也是在所規範，要與她建立關係需要高度的挑戰，相當的難以贏取寶劍皇后的愛，\
 然而遇到挫折，寶劍皇后是具備較多的韌性，能施展以理智應付狀況。"
         url = "http://cisian.pixnet.net/blog/post/181105612"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/ahGMtNv.jpg"])
+        img ="https://i.imgur.com/ahGMtNv.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 57:
+        card_id = 57
         title = "寶劍皇后(逆位)"
         content = "逆位的寶劍皇后，可能胡亂作決定，做事沒有理智可言，對待他人尖酸刻薄，\
 想法偏激，沒有談話的空間，無法溝通，胡亂批評，亂罵一通，無法為他人所理解，過度反對情感，\
 把自己武裝起來，與世界為敵，高傲的態度；另一方面也有可能遲遲無法下定決定，資訊錯誤矛盾等等狀況產生。"
         url = "http://cisian.pixnet.net/blog/post/181105612"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/adftMYo.jpg"])
+        img ="https://i.imgur.com/adftMYo.jpg"
+        return ([card_id,title,content,url,img])
 
 #queen_of_pentacles
     if res == 58:
+        card_id = 58
         title = "錢幣皇后(正位)"
         content = "錢幣皇后是沉浸於金錢中的皇后，具有高度的專注程度，將自己的生命投注於澆灌培育，\
 不受外界打擾，本身的個性是務實的，實際的，省錢的女性角色，而也不太打扮自己，喜歡二手的衣物，\
@@ -745,18 +858,22 @@ def tarot_detail(res):
 能構安排各種省錢賺錢的計畫，兔子的動物，除了代表錢幣皇后的專心，不受外界的躁動打擾外，\
 亦有代表多產的意思，是一位節儉持家的家庭主婦，穩定的感覺也是一位可以信賴角色，給予人具有相當的安全感。"
         url = "http://cisian.pixnet.net/blog/post/181105744"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/qFQWt7I.jpg"])
+        img ="https://i.imgur.com/qFQWt7I.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 59:
+        card_id = 59
         title = "錢幣皇后(逆位)"
         content = "逆位的錢幣皇后，對於理財的能力消失了，可能拜金花錢，失心瘋，太過注重外表，\
 崇尚名牌，受不了外界的誘惑與刺激而花費增加；另外一方面或許太過節儉，而省的有些的小氣；\
 而逆位的角色個性也從內向專注的狀態轉而受到外界的干擾，無法集中專注，心有旁騖。"
         url = "http://cisian.pixnet.net/blog/post/181105744"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/ROdhaIi.jpg"])
+        img ="https://i.imgur.com/ROdhaIi.jpg"
+        return ([card_id,title,content,url,img])
 
 #knight_of_wands
     if res == 60:
+        card_id = 60
         title = "權杖騎士(正位)"
         content = "權杖騎士是一位身體勇健的騎士，可能有在健身，身上的肌肉與盔甲均展現出他的有力，\
 整張牌的顏色，人物的動作與馬兒的姿態，看起來火力全開，具有強大生命力的展現，強大的行動能力衝破一切，\
@@ -765,19 +882,23 @@ def tarot_detail(res):
 所以就愛情來講，雖然一開始的熱烈熱情挑戰相當的吸引權杖騎士，但要注意達陣後，\
 權杖騎士可能會想要找尋新的方向而離去。"
         url = "http://cisian.pixnet.net/blog/post/181103752"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/dyw6za7.jpg"])
+        img ="https://i.imgur.com/dyw6za7.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 61:
+        card_id = 61
         title = "權杖騎士(逆位)"
         content = "逆位的權杖騎士，可能熱情之火燃燒的太旺了，變成衝動，方向錯誤或是做過頭卻不知道自己在做什麼，\
 忘記評量當前的動作是否與目標一致，可能結果是打水漂，做錯了確毫不知道；另外也有可能火的力量削減，\
 行動力減弱，對目標失去興趣，想要轉換跑道尋求更好玩更刺激；技巧不佳尚未準備好去做也有可能只是憑藉著一股熱情，\
 但有勇無謀，做事太過魯莽。"
         url = "http://cisian.pixnet.net/blog/post/181103752"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/MrnDLH1.jpg"])
+        img ="https://i.imgur.com/MrnDLH1.jpg"
+        return ([card_id,title,content,url,img])
 
 #knight_of_cups
     if res == 62:
+        card_id = 62
         title = "聖杯騎士(正位)"
         content = "聖杯騎士是感情的行動者，本身的速度與腳步是和緩的，更像是在騎馬漫步，\
 蜿蜒的河水流動更顯情感上的流動緩緩向前，聖杯騎士所代表的形象是白馬王子，懂得浪漫與調情，華麗的盔甲與精良的裝備，\
@@ -786,19 +907,23 @@ def tarot_detail(res):
 而且對方是具有情感上的創意能力，能夠給予許多的歡樂與樂趣，心臟撲通撲通地跳，感受到愛情的溫熱，\
 而在男性方面，出現聖杯騎士也表示的是愛情上的成功機會增大，有機會獲得對方情感上的回應回饋。"
         url = "http://cisian.pixnet.net/blog/post/181103845"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/xVatjV0.jpg"])
+        img ="https://i.imgur.com/xVatjV0.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 63:
+        card_id = 63
         title = "聖杯騎士(逆位)"
         content = "逆位的聖杯騎士，可能嚮往的對象太多了，情感上的行動太多，變成不專情，\
 花心，這個想要那個也要，僅是使用調情技巧，花言巧語，愛的不真誠，想要對方的愛自己卻不願意付出自己的愛，\
 將聖杯視為一種收藏品，一種收藏的心態；另一方面逆位的聖杯騎士對於情感的行動錯誤，有可能對於情感產生懦弱，\
 退縮遲疑不前，無法下定決心的行動，也有隱含告白失敗的訊息，不是對方喜歡的人，被拒絕。"
         url = "http://cisian.pixnet.net/blog/post/181103845"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/OBREKI7.jpg"])
+        img ="https://i.imgur.com/OBREKI7.jpg"
+        return ([card_id,title,content,url,img])
 
 #knight_of_swords
     if res == 64:
+        card_id = 64
         title = "寶劍騎士(正位)"
         content = "寶劍騎士是宮廷騎士牌中速度最快的一張，從構圖與馬兒的姿勢來看，是飛奔而馳的，\
 來無影去無蹤，難以捉模他的蹤跡，是漂丿的男子漢，有自己的目標與方向，從不為他人駐足停留，奔馳是他的本性，\
@@ -806,19 +931,23 @@ def tarot_detail(res):
 頭腦是清晰且思考快速的，行事匆匆，快速地完成，但是考量上來講沒有顧及太多，可能忽略小小的細節，精緻程度不高，\
 是以速度換來的成果，快速的發展演變，表示事情馬上就有答案了。"
         url = "http://cisian.pixnet.net/blog/post/181103929"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/hw3xVaR.jpg"])
+        img ="https://i.imgur.com/hw3xVaR.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 65:
+        card_id = 65
         title = "寶劍騎士(逆位)"
         content = "逆位的保健騎士，飛馳的速度太快，卻未嘗好好的想過，糊走瞎忙，沒有計畫，僅是靠著感覺行事，\
 缺乏思考，沒有正確的使用自己的能力，沒有用理智去做事，而飛奔太快的馬兒也表示聽不到他人的話語，對他人視而無見，\
 令人感受到一種絕情，拋下他人而去；另一方面寶劍騎士可能在戰場上失敗，逃避前線撤退，也表示逃避眼前的問題，\
 不去理睬思索這些。"
         url = "http://cisian.pixnet.net/blog/post/181103929"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/SusrkTB.jpg"])
+        img ="https://i.imgur.com/SusrkTB.jpg"
+        return ([card_id,title,content,url,img])
 
 #knight_of_pentacles
     if res == 66:
+        card_id = 66
         title = "錢幣騎士(正位)"
         content = "錢幣騎士是務實的行動者，背後開闊墾荒的田野，表示正在進行大規模的耕作行為，\
 馬匹在四張宮廷騎士牌當中是走的最慢的一張，務實穩定，一步一步走的穩健，努力賺錢提升自己，\
@@ -828,19 +957,23 @@ def tarot_detail(res):
 通常帶給對方的是一種安全穩定的感覺(錢幣侍者除外，錢太少了，錢幣侍者最多給予對方有錢途就是)，\
 或許在感情方面聖杯騎士是很好的戀愛對象，然而能夠結婚成家有歸屬感的則偏向是錢幣騎士這樣的角色。"
         url = "http://cisian.pixnet.net/blog/post/181104013"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/bKJepUd.jpg"])
+        img ="https://i.imgur.com/bKJepUd.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 67:
+        card_id = 67
         title = "錢幣騎士(逆位)"
         content = "逆位的錢幣騎士，有可能太過著重於工作層面了，形成工作狂，以公司為家，無心於他處，\
 感情、家庭、生活被視為第二順位，以事業為重，忘了聯繫與身旁他人的情感，一心只想要得到物質的條件，\
 把生命奉獻給事業；另外也有可能逆位的錢幣騎士失去勤勉的心，找尋不著方向，失去工作的計畫目標，\
 亂投資也有可能，一心想賺大錢卻鋌而走險，想要以小博大，有可能背負巨額欠債欠款，失去金錢而烙跑。"
         url = "http://cisian.pixnet.net/blog/post/181104013"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/r5qtTfj.jpg"])
+        img ="https://i.imgur.com/r5qtTfj.jpg"
+        return ([card_id,title,content,url,img])
 
 #page_of_wands
     if res == 68:
+        card_id = 68
         title = "權杖侍者(正位)"
         content = "權杖侍者在權力地位中屬於初階者，通常代表的是階級較為基層的人，比如像是公司剛進來的新人，\
 工讀生，傳遞消息的事務員，輔佐的助理，在正位的時候，做好其服務的角色，對於權力較高的人物抱持專注認真，\
@@ -848,9 +981,11 @@ def tarot_detail(res):
 對於前途懷有憧憬與嚮往，有種活潑率真的個性；而權杖侍者角色本身是訊息傳達者，權杖又為生命的象徵，\
 所以可能代表著是新的契機，符合人生規畫的好機會的訊息到來。"
         url = "http://cisian.pixnet.net/blog/post/180636532"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/jmMH2SL.jpg"])
+        img ="https://i.imgur.com/jmMH2SL.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 69:
+        card_id = 69
         title = "權杖侍者(逆位)"
         content = "逆位的權杖侍者總是讓人感到不受教的，沒有上進心，對於權力並不懂的敬畏，\
 不想被管，自以為是，自認為聰明，而實際上是無知又常常賣弄自己，不知在搞什麼名堂，以自我為中心，\
@@ -859,10 +994,12 @@ def tarot_detail(res):
 常常發現新的有趣事物就放棄當前的目標；訊息傳送方面，逆位的權杖侍者角色可能代表不符合人生規劃的工作機會或相關訊息，\
 或是過度等待盼望等待機會的到來卻不做努力。"
         url = "http://cisian.pixnet.net/blog/post/180636532"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/WhTWyk9.jpg"])
+        img ="https://i.imgur.com/WhTWyk9.jpg"
+        return ([card_id,title,content,url,img])
 
 #page_of_cups
     if res == 70:
+        card_id = 70
         title = "聖杯侍者(正位)"
         content = "聖杯侍者是感情界的新手與初心者，對於感情世界的嚮往，聖杯侍者手拿的杯子正在試驗如何使用它，\
 對於感情的事物抱有熱情，能讓人感到有趣好玩，猶如果小學生那種小小的愛情世界觀，\
@@ -870,9 +1007,11 @@ def tarot_detail(res):
 人物的角色是情感的積極回應，關懷與分享，大方天真又無所保留，開放輕鬆；而聖杯侍者通常也代表感情的訊息到來，\
 想是情書、傳情小卡或紙條等。"
         url = "http://cisian.pixnet.net/blog/post/180637297"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/UIPQFzC.jpg"])
+        img ="https://i.imgur.com/UIPQFzC.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 71:
+        card_id = 71
         title = "聖杯侍者(逆位)"
         content = "逆位的聖杯侍者可能對於感情有所追求，但用錯方法，想逗逗對方開心卻玩得太過火，\
 惡作劇，耍猴戲，引起他人的不滿；而逆位的時候也有可能是感情上不知如何進入他人的情感，\
@@ -880,44 +1019,55 @@ def tarot_detail(res):
 聖杯當中沒有水也有可能只是應付對方而已，再搭配侍者的角色，也是感情上的表面敷衍，\
 如果積極的話多半也只是一種奉承應付，又或者是喜歡浮華的感情遊戲。"
         url = "http://cisian.pixnet.net/blog/post/180637297"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/HvXrxRw.jpg"])
+        img ="https://i.imgur.com/HvXrxRw.jpg"
+        return ([card_id,title,content,url,img])
 
 #page_of_swords
     if res == 72:
+        card_id = 72
         title = "寶劍侍者(正位)"
         content = "寶劍侍者是資訊與訊息的收集者，蒐集資料資訊，打聽消息，而一方面角色的代表也可以像是學校新生，\
 學習新的才藝的人物，在正位時，謹慎的判斷與觀察事物，獲得正確的資訊，了解整體狀況，心思銳利且敏捷，\
 掌握先機，機警的態度，表達清楚；而寶劍通常也與溝通有關，正位的寶劍侍者代表一些溝通的機會管道，一些訊息的出現。"
         url = "http://cisian.pixnet.net/blog/post/180637747"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/pgadKVA.jpg"])
+        img ="https://i.imgur.com/pgadKVA.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 73:
+        card_id = 73
         title = "寶劍侍者(逆位)"
         content = "逆位的寶劍侍者，對於訊息是不懂得加以過濾分析的，所以往往來講事情感到繁雜無章，\
 帶有錯誤的資訊資料，不了解狀況，訊息不完全，遺漏重要的訊息，或是傳達錯誤，口才不佳。"
         url = "http://cisian.pixnet.net/blog/post/180637747"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/ZEkV4sI.jpg"])
+        img ="https://i.imgur.com/ZEkV4sI.jpg"
+        return ([card_id,title,content,url,img])
 
 #page_of_pentacles
     if res == 74:
+        card_id = 74
         title = "錢幣侍者(正位)"
         content = "錢幣侍者是剛進投資市場的新手，正在專心地面對眼前投資的機會，學習如何將金錢投入以產生效益收穫，\
 是故錢幣是者是對金錢物質充滿嚮往的，理財之道是錢幣侍者學習的主題，身價與財富穩定的成長，謹慎專注小心翼翼，\
 並且掌握時機；正位的時候可以說是一些投資的資訊到來，一些門路。"
         url = "http://cisian.pixnet.net/blog/post/180638242"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/lEAjvYX.jpg"])
+        img ="https://i.imgur.com/lEAjvYX.jpg"
+        return ([card_id,title,content,url,img])
+
         
     if res == 75:
+        card_id = 75
         title = "寶劍侍者(逆位)"
         content = "逆位的錢幣侍者，掌握不住投資的方法，能力差，錯誤的投資內容，沒有金錢概念，\
 短視近利不懂長遠的規劃，最終失去財富與財產；而另一方面也有可能太想要財富，面對誘惑，想要以小博大，\
 卻忽視了風險；逆位的錢幣侍者也有可能代表的是一些錯誤、危險的投資訊息，或是錯過時機的投資訊息。"
         url = "http://cisian.pixnet.net/blog/post/180638242"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/B00TALC.jpg"])
+        img ="https://i.imgur.com/B00TALC.jpg"
+        return ([card_id,title,content,url,img])
 
 #小秘儀
 #ace_of_wands
     if res == 76:
+        card_id = 76
         title = "權杖(正位)"
         content = "權杖代表火元素，塔羅牌利用權杖代表火，木頭是一種可以燃燒的物質，故象徵性的，將生命之火，\
 包覆在權杖當中，在遇到權杖牌組時，請想像火的燃燒，一種熾熱的感受，故此牌的代表為熱情如火、生命力之燃燒、熱血沸騰，\
@@ -929,9 +1079,11 @@ def tarot_detail(res):
 故權杖代表著一種事業權力的傳承，是一種交棒，權力的移轉意味著是更多責任的承擔，\
 這一點在提醒著握有權力的權杖需有付諸更大的義務。"
         url = "http://cisian.pixnet.net/blog/post/152462386"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/rAaCPP5.jpg"])
+        img ="https://i.imgur.com/rAaCPP5.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 77:
+        card_id = 77
         title = "權杖(逆位)"
         content = "逆位的權杖代表火元素的失控，比如火元素過度氾濫，反而不顧事情的延續性，快速的燃燒自己的熱情，\
 反而燒盡了自我，無法在付出更多，熱力不再，看起來僅是一時的衝動，感情當中熱度逐漸的走下坡，不再向之前那樣的熱戀，\
@@ -940,10 +1092,12 @@ def tarot_detail(res):
 權力面來講，可能用人錯誤，在權力地位上，想獲得權力本身卻是沒有承擔這份權力的能力，交棒給錯誤的人選，\
 或者是失去權力，被別人取代，又或者是權杖成為一根打人的棒子，依靠本身的權力去修理他人。"
         url = "http://cisian.pixnet.net/blog/post/152462386"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/hCf89t1.jpg"])
+        img ="https://i.imgur.com/hCf89t1.jpg"
+        return ([card_id,title,content,url,img])
 
 #ace_of_cups
     if res == 78:
+        card_id = 78
         title = "聖杯(正位)"
         content = "聖杯代表水元素，杯子可以裝水，塔羅牌利用杯子代表水元素的變化與承載，遇到聖杯之時，\
 請想像水的流動與柔軟，而杯子的器物是我們於宴會賓客上所使用的器皿，故水元素的流動也是我們用以社交的工具，\
@@ -956,9 +1110,11 @@ def tarot_detail(res):
 事物工作方面，雖然不會有大事件，新挑戰的產生，然而卻能安於當下，享受一種安於此處的滿足感。\n\n\
 另一方面，聖杯ACE的構圖下方為平靜的水面，情感的涓流掀起陣陣的漣漪，也象徵的是此情感是一種真實，真正的觸碰到我們的內心當中。"
         url = "http://cisian.pixnet.net/blog/post/152498059"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/elFvNcb.jpg"])
+        img ="https://i.imgur.com/elFvNcb.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 79:
+        card_id = 79
         title = "聖杯(逆位)"
         content = "逆位的聖杯ACE，可能代表的是情感的流失喪失，鴿子所帶的生命無法進入意味的是沒有用心，\
 不願投入情感，無法活出自己。\n\n\
@@ -968,10 +1124,12 @@ def tarot_detail(res):
 另外感受無法進入潛意識當中，無法真正的觸及人的內心，有可能是該情緒僅是一種表面情緒，交流浮於表面，\
 例如客套的恭維，強作的笑容，內心與外表的疏離亦有可能為逆位所要展現的現象。"
         url = "http://cisian.pixnet.net/blog/post/152498059"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/q1caX5z.jpg"])
+        img ="https://i.imgur.com/q1caX5z.jpg"
+        return ([card_id,title,content,url,img])
 
 #ace_of_swords
     if res == 80:
+        card_id = 80
         title = "寶劍(正位)"
         content = "寶劍代表風元素，寶劍的使用動作為揮動，當揮動劍之時，掀起的一股劍風，帶有肅殺之氣，故遇見寶劍元素之時，\
 請想像著劍的鋒利、冰冷，與風的流動之無形。\n\n\
@@ -986,9 +1144,11 @@ def tarot_detail(res):
 寶劍是武器，是征戰，在戰場上出現的往往是敵人，難以有愛的關係。\n\n\
 在工作方面，劍相當的有力，鋒利無比的劍氣大殺四方，工作因有依據且分工良好，責任邊界清楚，故事物面向快速進展，推進快速。"
         url = "http://cisian.pixnet.net/blog/post/152558578"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/mhhZt7x.jpg"])
+        img ="https://i.imgur.com/mhhZt7x.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 81:
+        card_id = 81
         title = "寶劍(逆位)"
         content = "逆位的寶劍ACE，皇冠的掉落失去，代表想法不再光榮，想法可能偏有私心，帶有偏頗偏激的特點，\
 不公正的想法出現，不顧他人的想法浮現，若把寶劍比喻為認知，逆位的寶劍ACE也代表不合時宜的信念，或是原本堅定的信念有所動搖；\
@@ -998,10 +1158,12 @@ def tarot_detail(res):
 也有可能為切割感特別的強烈，表示雙方彼此之間保持距離，雙方檯面下的規則很多，或是有所偏見誤會，\
 冷淡與冷漠是關係的描述，不甘己事與不願理睬是內心的想法，雙方之間的關係被斬斷，逐漸的散掉了。"
         url = "http://cisian.pixnet.net/blog/post/152558578"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/Yhr8YKZ.jpg"])
+        img ="https://i.imgur.com/Yhr8YKZ.jpg"
+        return ([card_id,title,content,url,img])
 
 #ace_of_pentacles
     if res == 82:
+        card_id = 82
         title = "錢幣(正位)"
         content = "錢幣代表土元素，有土廝有財，土能生長孕育萬物，是故錢幣代表著各種實體的物質，有形體的東西，\
 而土地意味著耕種，收穫的如何乃是各種狀況的綜合，故錢幣意味著投資的動作，而構圖中的花園與道路，說明投資需要有門路；\
@@ -1016,9 +1178,11 @@ def tarot_detail(res):
 工作方面來說，金幣元素象徵著物質的得到，環境資源的豐沛也保障了工作穩健的進行與獲利的延續，\
 工作的結果也是有所得的，投資上擁有回報。"
         url = "http://cisian.pixnet.net/blog/post/152579755"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/bmFIBOm.jpg"])
+        img ="https://i.imgur.com/bmFIBOm.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 83:
+        card_id = 83
         title = "錢幣(逆位)"
         content = "逆位的金幣ACE，可能本身來講環境並不優渥，先天的資源不足，環境給予的支持並不高，\
 投資方面缺乏本金，另外逆位也代表著錢幣的失去，物質的流失，漏財，投資方向錯誤的管道方法，掌握不住投資的核心脈絡，\
@@ -1027,10 +1191,12 @@ def tarot_detail(res):
 又或者是給予的東西不是對方想要的，關係投資上的失利，有所求的愛沒有得到回報與回饋，往往是另人失望的。\n\n\
 工作的面向上，許多擬定的計劃，因為沒有良好的資源可供運用，故計劃推不動，或是推動後沒有獲利，無法持續的經營下去。"
         url = "http://cisian.pixnet.net/blog/post/152579755"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/uXOsO7V.jpg"])
+        img ="https://i.imgur.com/uXOsO7V.jpg"
+        return ([card_id,title,content,url,img])
     
 #2_of_wands
     if res == 84:
+        card_id = 84
         title = "權杖二(正位)"
         content = "權杖二是一個領主，望向遠方，心中想著如何去擴張自己的領地，想著下一步，如何讓更多的旗幟在城堡飄揚，\
 故此副牌面來說，乃在於權力的擴張。\n\n\
@@ -1040,18 +1206,22 @@ def tarot_detail(res):
 已經達到了一個階段，往更高的權力位階走去，以統轄更多的城堡，所以也有升遷的契機出現，積極的想法是權杖二所代表的含意，\
 然本牌組上尚未達到實體的行動階段。"
         url = "http://cisian.pixnet.net/blog/post/162592372"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/RZ1eXMu.jpg"])
+        img ="https://i.imgur.com/RZ1eXMu.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 85:
+        card_id = 85
         title = "權杖二(逆位)"
         content = "逆位的權杖二表示，可能表示不再思索，開始了行動，因為已經將手中的權杖帶離了現在的城堡，\
 表示已經往遠方擴展去了；另外也有可能表示，計劃規劃不週全，退回自己現有的城堡，代表無法勝任新的權力地位，\
 而退回原本的位置當中"
         url = "http://cisian.pixnet.net/blog/post/162592372"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/RMflBxt.jpg"])
+        img ="https://i.imgur.com/RMflBxt.jpg"
+        return ([card_id,title,content,url,img])
 
 #2_of_cups
     if res == 86:
+        card_id = 86
         title = "聖杯二(正位)"
         content = "聖杯二，兩人交換手中的杯子，分享彼此的情感，中間的赫密士之杖，獅子，翅膀，火風水土俱足，\
 兩人的接觸，產生了種種的元素反應，形成一個小小的兩人世界，情感的花火，而後方的家，也象徵著情感發展的面向與基礎，\
@@ -1062,9 +1232,11 @@ def tarot_detail(res):
 有了契約的關係，與天使的見證，親密的碰觸結合與長遠的戀人關係是大牌中戀人牌當中所要展現的。\n\n\
 工作上出現聖杯二來說，氣氛與氛圍是愉快的，具有一種均衡的工作感覺。"
         url = "http://cisian.pixnet.net/blog/post/167959471-%E8%81%96%E6%9D%AF%E4%BA%8C-%E7%89%8C%E7%BE%A9"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/S7ujOP2.jpg"])
+        img ="https://i.imgur.com/S7ujOP2.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 87:
+        card_id = 87
         title = "聖杯二(逆位)"
         content = "逆位的聖杯二代表隔閡，兩人之間雖然乾杯，但無法產生新天地新世界，兩人之間的話題無法碰處對方的內心，\
 無法喚起情感，可能只是喝完酒就結束了對話，雙方關係逐漸消散，沒有吸引引利力以吸引對方的，關係消散流失，\
@@ -1073,10 +1245,12 @@ def tarot_detail(res):
 隔閡、衝突與糾紛於是產生。\n\n\
 整體來講，聖杯二逆位即為兩人之間的種種不合諧，情感流動的不順暢。"
         url = "http://cisian.pixnet.net/blog/post/167959471-%E8%81%96%E6%9D%AF%E4%BA%8C-%E7%89%8C%E7%BE%A9"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/PfujuDS.jpg"])
+        img ="https://i.imgur.com/PfujuDS.jpg"
+        return ([card_id,title,content,url,img])
 
 #2_of_swords
     if res == 88:
+        card_id = 88
         title = "寶劍二(正位)"
         content = "寶劍二描述的是一種想法的對立，矛盾與衝突的想法產生，當事人可能困在一個兩難的循環當中，\
 無法決定該選擇什麼，兩個都好，兩者也都不好，處於無法決定的處境，兩邊都有得/失，這樣想好像也對，那樣也不錯，\
@@ -1086,18 +1260,22 @@ def tarot_detail(res):
 表面上可能冷處理，然雙方心中皆有所盤算著，是一種衝突的冷處理狀況，假裝沒看見。\n\n\
 在工作面向上，寶劍二卡在事情當中，無法前進，整體躊躇不前，可能對於工作的許多方面也採取漠視的狀態"
         url = "http://cisian.pixnet.net/blog/post/168009544"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/XAx8nzM.jpg"])
+        img ="https://i.imgur.com/XAx8nzM.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 89:
+        card_id = 89
         title = "寶劍二(逆位)"
         content = "逆位的寶劍二，可能來講，當事人已做出了選擇，放下了一把劍，選了另一把，脫下眼罩準備向前了，\
 行動力產生，正位的對立躊躇不見了，情況開始出現變化；另一方面當事人可能什麼都不選，乾脆就放棄擺爛，事情認他去，\
 交給他人決定或交由命運選擇，完全不管彼此之間不合的存在，跳離話題，避免爭議。"
         url = "http://cisian.pixnet.net/blog/post/168009544"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/W6XfBwz.jpg"])
+        img ="https://i.imgur.com/W6XfBwz.jpg"
+        return ([card_id,title,content,url,img])
 
 #2_of_pentacles
     if res == 90:
+        card_id = 90
         title = "錢幣二(正位)"
         content = "錢幣二在說一個人的技巧高明，能夠在波動的環境當中仍能運作自如，投資當中需要有資金，\
 資金需要周轉調度，在正位的時候，當事人能夠配合環境的波動與避開可能的風險進行操作，資金調度達人是也。\n\n\
@@ -1106,19 +1284,23 @@ def tarot_detail(res):
 在工作面向上，錢幣二有不斷的運作特質，故工作相當的忙碌，要應付環境波動的變化做出反應，也相當需要動腦筋，\
 且案子一件一件的到來，同時數件專案在案頭，沒有喘息的餘地。"
         url = "http://cisian.pixnet.net/blog/post/168011515"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/nzfzi40.jpg"])
+        img ="https://i.imgur.com/nzfzi40.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 91:
+        card_id = 91
         title = "錢幣二(逆位)"
         content = "逆位的錢幣二，錢幣運轉不順暢，周轉不靈，部分項目的資金短缺，部分又有太多的資金閒置，\
 技巧不佳為當事人的寫照，錢幣掉下也代表有失去金錢的訊息；另外也有可能是環境波動太大，突如其來的事件讓當事人無法適應，\
 環境的狀況超出當事人可以應對的情形。"
         url = "http://cisian.pixnet.net/blog/post/152579755"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/sA30xao.jpg"])
+        img ="https://i.imgur.com/sA30xao.jpg"
+        return ([card_id,title,content,url,img])
 
 
 #3_of_wands
     if res == 92:
+        card_id = 92
         title = "權杖三(正位)"
         content = "商人站在出海口的岩石上，展望指揮自己的商船進行的方向，相較於權杖二積極的想像，權杖三多了一根權杖，\
 多了一份行動力，同時商人的角色也代表有一定的基礎了，貿易是將這份基礎進行更大的擴張，而貿易團隊也象徵的是同伴間的合作，\
@@ -1127,19 +1309,23 @@ def tarot_detail(res):
 不論關係如何走，雙方都可以配合，感情中帶有一種熱烈的態度。\n\n\
 在工作事業方面，可能出現新的領導者，提出新的計劃與方向，如同成功的商人一般，工作的成果總是能夠豐收。"
         url = "http://cisian.pixnet.net/blog/post/168079438"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/kLOTxhn.jpg"])
+        img ="https://i.imgur.com/kLOTxhn.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 93:
+        card_id = 93
         title = "權杖三(逆位)"
         content = "逆位的權杖三要注意的是可能貿易不如預期，海在上方代表波動變大，有事先未能預測出的風險存在，\
 對行動力存在影響，可能行程有所延遲，有所耽擱，遲疑不前等等，而領導人物的消失可能是沒有夠力的領導核心人物，\
 或是上層決策錯誤，決定不對，無法凝聚向心力，造成人際關係之間的分離分裂，團隊協力合作的部分不再，無法產生綜效，\
 最後的結果與報酬得利無法預期的到或是有所減損。"
         url = "http://cisian.pixnet.net/blog/post/168079438"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/rnkgoHf.jpg"])
+        img ="https://i.imgur.com/rnkgoHf.jpg"
+        return ([card_id,title,content,url,img])
 
 #3_of_cups
     if res == 94:
+        card_id = 94
         title = "聖杯三(正位)"
         content = "聖杯三是享樂牌，團體聚會、多人聚會的場景，派對，開趴，各種享樂為主的聚會範疇皆屬之，\
 屬於水元素的高漲，情感的高漲，歡愉享受，是故圖面穿插各種物質果實的場景，而豐收的場景表示此牌也與慶功宴有關，\
@@ -1148,9 +1334,11 @@ def tarot_detail(res):
 沉浸在情感的支持之中；而感情方面雙方之間的朋友圈圈互相相處和樂，彼此之間溝通交流也是順暢。\n\n\
 工作方面，有歡慶聚會表示或有好結果了，可能公司獲利，老闆賺錢了，要注意的是快樂過後還是要收心，恢復正常的軌道。"
         url = "http://cisian.pixnet.net/blog/post/168082537"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/TeZf3uZ.jpg"])
+        img ="https://i.imgur.com/TeZf3uZ.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 95:
+        card_id =95
         title = "聖杯三(逆位)"
         content = "逆位的聖杯三要注意了，可能完的太過放縱，脫軌踰矩的現象出現，另三即是多，特別是聖杯三有團體之含意，\
 是故感情中出現聖杯三逆位或有第三者的介入，檯面下有隱藏的關係或訊息存在。\n\n\
@@ -1159,10 +1347,12 @@ def tarot_detail(res):
 或是團體中出現小圈圈，形成團體中的情感中小圈圈的情感互相拉扯。\n\n\
 逆位的聖杯三有時也表示無法享，例如在團體中只是”裝做”很開心的樣子，卻無法享受聲色場所的肆意放縱。"
         url = "http://cisian.pixnet.net/blog/post/168082537"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/Iv24vri.jpg"])
+        img ="https://i.imgur.com/Iv24vri.jpg"
+        return ([card_id,title,content,url,img])
 
 #3_of_swords
     if res == 96:
+        card_id = 96
         title = "寶劍三(正位)"
         content = "寶劍三是傷心牌，陰雨的天氣，一種低迷的沉浸，各種思緒，各種想法穿過心中，心被糾纏糾結，無法走出，\
 感受到各種傷害的痛，思緒萬千，想的都是各種悲傷，當事人處於自連自哀當中，本張圖面來講滿好解釋的，\
@@ -1170,18 +1360,22 @@ def tarot_detail(res):
 另一方面來講，因為是寶劍，可能帶有自我批判，自我傷害的想法，在感情面來講，有如把關係的失敗當作是自己的責任，\
 將其原因歸咎於自己，各種各樣我不對、我不好的想法縈繞心中，然當事者承擔了太多關係的責任因素，給予自己太大的情感壓力。"
         url = "http://cisian.pixnet.net/blog/post/168084376"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/Yr6JLlN.jpg"])
+        img ="https://i.imgur.com/Yr6JLlN.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 97:
+        card_id = 97
         title = "寶劍三(逆位)"
         content = "逆位的寶劍三，有可能是逐漸的走出傷心的情緒，鬆脫的寶劍從心中滑落，心中的傷痛開始逐漸的復原，\
 走出寶劍三的正位情況。\n\n\
 另一方面來說，正位的寶劍三偏向於自傷，而在逆位的寶劍三則有可能是傷了他人的心"
         url = "http://cisian.pixnet.net/blog/post/168084376"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/Yr6JLlN.jpg"])
+        img ="https://i.imgur.com/Yr6JLlN.jpg"
+        return ([card_id,title,content,url,img])
 
 #3_of_pentacles
     if res == 98:
+        card_id = 98
         title = "錢幣三(正位)"
         content = "錢幣三的場景是在建造教堂，圖中三個人分別代表參與建築的角色，設計師、教堂方的人員、建造工匠，\
 三個人正在討論確認設計是否符合，教堂以經建造了一半，初步的完成，正在確認下一部是否正確，故有團體討論、合作的意義在這張牌當中，\
@@ -1194,18 +1388,22 @@ def tarot_detail(res):
 並且目前看起來有一定的基礎了，未來雙方將其建造的更加美好。\n\n\
 工作中，合作無間，互相配合，具有建設性的討論，且每個人技藝專業度佳。"
         url = "http://cisian.pixnet.net/blog/post/168088150"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/TJuZl65.jpg"])
+        img ="https://i.imgur.com/TJuZl65.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 99:
+        card_id = 99
         title = "錢幣三(逆位)"
         content = "逆位的錢幣三，教堂垮台了，可能是不願合作、破局，大家均有不同的理念，或是建造的技藝不足，\
 能力差，技能差，沒有具備升任任務所需的知識，無法為他人所肯定；關係出現裂痕，雙方對於未來沒有共識沒有想法，\
 只做自己的事情對他人不聞不問。"
         url = "http://cisian.pixnet.net/blog/post/168088150"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/TJuZl65.jpg"])
+        img ="https://i.imgur.com/TJuZl65.jpg"
+        return ([card_id,title,content,url,img])
 
 #4_of_wands
     if res == 100:
+        card_id = 100
         title = "權杖四(正位)"
         content = "權杖四是歡慶的慶典場景，節慶的活動，慶祝工作上努力的收穫與成就，人物從城堡中走出，\
 來到前面的廣場慶祝，伴隨著樂團的音樂與各種慶祝活動，前方四根權杖與在權杖上的瓜果代表眾人的心力完成了一段的豐收，\
@@ -1215,17 +1413,21 @@ def tarot_detail(res):
 故也蘊含有婚姻跡象出現。\n\n\
 工作上興旺的結果，工作收穫成累累的結實。"
         url = "http://cisian.pixnet.net/blog/post/168104005"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/T2R2z0m.jpg"])
+        img ="https://i.imgur.com/T2R2z0m.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 101:
+        card_id = 101
         title = "權杖四(逆位)"
         content = "逆位的權杖四，可能是穩定的基礎被打破了，開始有所動搖，關係之間出現裂痕，造成人際之間的狀況不佳，\
 也有可能是原本直挺的權杖歪斜了，各種的意見不合，目標腳步無法一致，另外權杖上的瓜果掉落失去，也代表著沒有收穫，或是收成不佳。"
         url = "http://cisian.pixnet.net/blog/post/168104005"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/XhkMvV4.jpg"])
+        img ="https://i.imgur.com/XhkMvV4.jpg"
+        return ([card_id,title,content,url,img])
 
 #4_of_cups
     if res == 102:
+        card_id = 102
         title = "聖杯四(正位)"
         content = "聖杯四場景是一個人座在樹下休息乘涼，閉上眼睛並沒有什麼事情好做，或許是在發呆，做做白日夢吧，\
 感情的穩定作用，成為一種無聊無趣，不知道要幹嘛，想做點什麼來打發時間，雲中穿出的手是一種遐想，想著能夠更有趣一點嗎?\
@@ -1234,18 +1436,22 @@ def tarot_detail(res):
 感情方面就是無聊無趣，雙方可能太過安定了，可能安定到有不安份的想法，不過僅於想想的階段。\n\n\
 而工作方面充滿無趣，沒有什麼吸引力值得注目的事情，沒有突發的狀況，可能常常發呆，沒有事情可做。"
         url = "http://cisian.pixnet.net/blog/post/168108982"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/k5GivHh.jpg"])
+        img ="https://i.imgur.com/k5GivHh.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 103:
+        card_id = 103
         title = "聖杯四(逆位)"
         content = "逆位的聖杯四可能有所行動了，從原本的乘涼樹下起立，繼續向前，有可能當事人想到了什麼，做出了選擇，\
 接受了什麼邀請，或是受到誘惑，又或者是拒絕誘惑，願意接受眼前的生活狀況，了解到穩定的生活也是一種生活，並不加以拒絕，\
 沒有目標的生活狀況也有它的美，並不因此而再煩躁；總而言之，讓自己不再無聊是聖杯四逆位的狀況。"
         url = "http://cisian.pixnet.net/blog/post/168108982"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/h6TeihZ.jpg"])
+        img ="https://i.imgur.com/h6TeihZ.jpg"
+        return ([card_id,title,content,url,img])
     
 #4_of_swords
     if res == 104:
+        card_id = 104
         title = "寶劍四(正位)"
         content = "寶劍四，由左上的玻璃水晶窗可以看到，所在的場景是教堂當中，在教堂裡面，有一個精緻雕琢的人形棺材，\
 開口微開，或許有人躲在其中休息，而牆上掛著寶劍與棺木旁的寶劍，象徵著作戰，這人或許正在教堂中尋求庇蔭，遭受庇護，\
@@ -1256,17 +1462,21 @@ def tarot_detail(res):
 又或是兩人之間的相處疲累，雙方都倦了。\n\n\
 工作面向上來講，寶劍四拋開當前的工作挑戰，想要好好的放鬆自己，可能對於工作有所倦怠，想離開工作岡位調整自我。"
         url = "http://cisian.pixnet.net/blog/post/168111985"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/Nz9b6Cq.jpg"])
+        img ="https://i.imgur.com/Nz9b6Cq.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 105:
+        card_id = 105
         title = "寶劍四(逆位)"
         content = "逆位的寶劍四，有所行動，可能是休息已足，準備再次的面對，\
 又或者是外界的環境狀況不得不在尚未調整好身心的時候，仍必須出來面對挑戰的狀況，此時疲累加劇，慌慌張張，勉強自己。"
         url = "http://cisian.pixnet.net/blog/post/168111985"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/hL4UIVG.jpg"])
+        img ="https://i.imgur.com/hL4UIVG.jpg"
+        return ([card_id,title,content,url,img])
 
 #4_of_pentacles
     if res == 106:
+        card_id = 106
         title = "錢幣四(正位)"
         content = "錢幣四中，坐著一位房東，後面是他的房子，也是他的收入來源，是他的收入基礎，所以抽到這副牌，\
 代表是有經濟基礎的，有實力的，小土財主，圖中的人物手環抱著錢幣，看似怪異的手部姿勢是太極運轉的圖形，\
@@ -1277,17 +1487,21 @@ def tarot_detail(res):
 兩人的行程總是不花錢的行程，免費是最好的。\n\n\
 工作層面來講的話，穩定進行，沒有開創性的格局，然而基礎之上的業務已足以讓工作穩定進行，收獲也是得宜。"
         url = "http://cisian.pixnet.net/blog/post/168116104"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/n4gX1lV.jpg"])
+        img ="https://i.imgur.com/n4gX1lV.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 107:
+        card_id = 107
         title = "錢幣四(逆位)"
         content = "逆位的錢幣四，財富會失去，會有金錢丟失的狀況，雖然小氣謹慎，但終究是守不住財富狀，\
 另外太極的運轉之力減弱，代表錢丟進去卻無法賺錢，有坐吃山空之感；另外也有可能是到了不得不花錢的地步了，房屋漏水終究要修理。"
         url = "http://cisian.pixnet.net/blog/post/168116104"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/h0HFD8a.jpg"])
+        img ="https://i.imgur.com/h0HFD8a.jpg"
+        return ([card_id,title,content,url,img])
 
 #5_of_wands
     if res == 108:
+        card_id = 108
         title = "權杖五(正位)"
         content = "許多人在一個高地上方，在一個基礎之上，正在互相推擠，看起來正在打架，許多人一同在爭執當中，\
 為的是要如何蓋起一個建築物，要如何去取得共識，在這個狀況每個人都有他自己的意見，誰也不讓誰，且大家的權力是公平的，\
@@ -1296,19 +1510,23 @@ def tarot_detail(res):
 感情層面上來講的話，衝突不斷，且雙方吵得火爆，小心變成家暴。\n\n\
 工作上，各方人馬出現，每個單位與角色皆要自己的計劃實踐，認為自己才是最重要，最好的，衝突不斷。"
         url = "http://cisian.pixnet.net/blog/post/168147217"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/5Oua9Jq.jpg"])
+        img ="https://i.imgur.com/5Oua9Jq.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 109:
+        card_id = 109
         title = "權杖五(逆位)"
         content = "逆位的權杖五，有可能原本正位的狀況持續變糟，本來正位的時候或多或少還有一些建設性的提議，\
 在逆位之時已經為了吵而吵，意氣用事爭個輸贏，甚至是鬧上法院，開始打訴訟官司的狀況。\n\n\
 另一個方面來說，如果原本正位的狀況有被好好地加以利用，雙方逐漸取得共識的話，或許可以達到事情最佳的發展，\
 雙方的誤解與爭執得以解決，利益共享均霑。"
         url = "http://cisian.pixnet.net/blog/post/168147217"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/MNKFKPA.jpg"])
+        img ="https://i.imgur.com/MNKFKPA.jpg"
+        return ([card_id,title,content,url,img])
 
 #5_of_cups
     if res == 110:
+        card_id = 110
         title = "聖杯五(正位)"
         content = "聖杯五的場景是一種哀傷，圖中的人物身穿黑色斗篷，看起來有一種壓抑，低著頭看前方三個倒掉的杯子，\
 為這樣的結果感到失落與哀傷，無法再度的挽回，落空的心情，無能為力，甚至不知為何最後會有這樣的結果產生，\
@@ -1318,19 +1536,23 @@ def tarot_detail(res):
 情感面向上來講，悲觀的人際特質往往不討人喜歡，或是太過著重對方的不足之處，對於感情無實際上的幫助。\n\n\
 工作面向上，眼前翻倒的杯子或許有所失誤，工作上犯錯而形成情感上的低落低潮。"
         url = "http://cisian.pixnet.net/blog/post/168154843"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/YgRcHG9.jpg"])
+        img ="https://i.imgur.com/YgRcHG9.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 111:
+        card_id = 111
         title = "聖杯五(逆位)"
         content = "逆位的聖杯五當事人可能調整好了，逐漸的走出悲傷的情緒當中，又或者是當事人轉身發現自己並非一無所有，\
 仍有許多讓自己開心的地方，漸漸的心中有所舒坦，不再那樣的傷心。\n\n\
 逆位有另外一種狀況，有可能當事人不願意走出來，更加的哀傷，也有可能是逆位之時，橋斷掉了，\
 當事人獲得不了社會環境他人的支持，或是身邊並沒有可以給予撫慰的他人，以至於悲傷與失落的情況更為嚴重。"
         url = "http://cisian.pixnet.net/blog/post/168154843"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/3yIPtnu.jpg"])
+        img ="https://i.imgur.com/3yIPtnu.jpg"
+        return ([card_id,title,content,url,img])
 
 #5_of_swords
     if res == 112:
+        card_id = 112
         title = "寶劍五(正位)"
         content = "寶劍五是一張小人牌，圖中有三個人，最前方的人物露出詭異的笑容，後方的兩人顯然是失落離去，\
 遭受到暗箭重傷的狀況出現，整個場景是相當的凌亂，天空中的流雲與地上散落的寶劍顯現出思緒的快速流動與矛盾衝突的狀況產生，\
@@ -1338,18 +1560,22 @@ def tarot_detail(res):
 得到了勝利卻失去了更多，有笑容卻懷有遺憾，是一種意氣之爭。\n\n\
 感情上與工作上皆會出現重大的問題，其在於爭強的態度雖然讓對方無法招架，但是確失去了信任，得到的僅是自我沾沾自滿，目空一切的虛空。"
         url = "http://cisian.pixnet.net/blog/post/168159079"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/YgRcHG9.jpg"])
+        img ="https://i.imgur.com/YgRcHG9.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 113:
+        card_id = 113
         title = "寶劍五(逆位)"
         content = "逆位的寶劍五可能找到對付小人的方法了，雖然小人還在，但是已可以應付對方，當對方放暗槍使用賤招之時，\
 知道如何去應對，又或是對方為自己的行為道歉，彼此有和好的機會。\n\n\
 或者是衝突已無法彌補，失敗，遭受欺負的一方離去，懷有悲傷與怨恨而離開。"
         url = "http://cisian.pixnet.net/blog/post/168159079"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/3yIPtnu.jpg"])
+        img ="https://i.imgur.com/3yIPtnu.jpg"
+        return ([card_id,title,content,url,img])
 
 #5_of_pentacles
     if res == 114:
+        card_id = 114
         title = "錢幣五(正位)"
         content = "錢幣五是一張貧窮牌，牌面上的兩人在寒冷風雪中行走，並沒有什麼樣保暖的裝備，或許一切太過混亂，\
 兩人沒有準備好面對這場風雪與嚴寒，後面的玻璃裝飾的精緻門窗與前面兩人的遭遇形成了強烈的對比，本張牌裡面雖然有錢，\
@@ -1359,19 +1585,23 @@ def tarot_detail(res):
 但是彼此之間願意互相扶持與照顧，多了一些人心上的溫暖，連繫兩人在一起的是為了更好的生活狀態。\n\n\
 在工作上出現錢幣五的時後，或許是業績最差的時後，景氣的寒冬出現，收入急遽的下降，需要想辦法開擴財源。"
         url = "http://cisian.pixnet.net/blog/post/168160927"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/vALxh2G.jpg"])
+        img ="https://i.imgur.com/vALxh2G.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 115:
+        card_id = 115
         title = "錢幣五(逆位)"
         content = "逆位的錢幣五，可能是走過了寒冬，找到進入了後方教堂，得救了，開始出現好轉雨過天晴，\
 然而關係中要注意的是可能生活條件改善了，卻失去了原本溫情的關係，兩人失去了真心，從同路人變成陌路人。\n\n\
 另一方面，有可能出現比正位更加混亂的情形，一直找尋不到可以提供幫助的對象使的兩人的命運更加的岌岌可危了，\
 在關係中也有可能雙方因為真正實際的經濟面上因素，而兩人之間真的不得不分開與分離。"
         url = "http://cisian.pixnet.net/blog/post/168160927"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/DhxqnHX.jpg"])
+        img ="https://i.imgur.com/DhxqnHX.jpg"
+        return ([card_id,title,content,url,img])
 
 #6_of_wands
     if res == 116:
+        card_id = 116
         title = "權杖六(正位)"
         content = "權杖六是勝利的場景，光榮的行軍，勝利的歸來，捎來好消息，前方有一個掛有榮耀桂冠的權杖騎馬者，\
 而後方的五根權杖代表前面權杖五的五個人，前方的騎士想必是有能力之人，能夠擺平原本混亂的場景，平服眾人，\
@@ -1379,18 +1609,22 @@ def tarot_detail(res):
 代表升遷了，大家正在慶祝高升，另權杖六也與成行有關，也有可能是帶有收穫的回來，衣錦還鄉，工作具有回饋與收穫。\n\n\
 在感情方面，騎士給人的感覺是傑出的，或許在對方眼中，他是人群當中特別的那一個，而交往的狀況也是順暢的。"
         url = "http://cisian.pixnet.net/blog/post/179037265"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/fnBw0SM.jpg"])
+        img ="https://i.imgur.com/fnBw0SM.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 117:
+        card_id = 117
         title = "權杖六(逆位)"
         content = "逆位的權杖六，可能騎士落馬了，不再獲得他人的肯定，不再榮耀，還帶有失望的情緒，失敗鎩羽而歸，\
 帶回不好的失敗的消息回來，也失去了自信的態度，別人不再看好他的能力，計不如人，\
 而用走的也表示或許有消息會較晚到或者是行程有所耽擱。"
         url = "http://cisian.pixnet.net/blog/post/179037265"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/Ys0VJaX.jpg"])
+        img ="https://i.imgur.com/Ys0VJaX.jpg"
+        return ([card_id,title,content,url,img])
 
 #6_of_cups
     if res == 118:
+        card_id = 118
         title = "聖杯六(正位)"
         content = "聖杯六的顏色是黃澄澄的一片，一種溫暖的配色，前方有兩個小孩，男孩正再將他所栽種的花分享給予小女孩，\
 聖杯六講的是對於家鄉的回憶，還有兒時那種不求有回報的單純關愛，兩小無猜，真心的接觸，那些兒時純真年代的種種回憶，\
@@ -1400,17 +1634,21 @@ def tarot_detail(res):
 在關係當中，雙方之間抱有純情的愛，單純的快樂，兩人之間相處創造美好的回憶；在工作面向上來講，\
 雖然工作的內容單純而愉快，沒有挑戰，但有時太過沉溺於過去反而在工作上沒有新的突破。"
         url = "http://cisian.pixnet.net/blog/post/179037832"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/ltUubEp.jpg"])
+        img ="https://i.imgur.com/ltUubEp.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 119:
+        card_id = 119
         title = "聖杯六(逆位)"
         content = "逆位的聖杯六，過去的回憶可能並不美好，甚至有悲慘的遭遇，受傷的童年，感情面上來講，雙方所創造的回憶不佳，\
 可能是種種關係上的受傷，吵架的情況；另外守衛離開了原本的位置表示當事人不再回想或不願回想過去，向人生的前方邁進，看向未來。"
         url = "http://cisian.pixnet.net/blog/post/179037832"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/y4Au8Do.jpg"])
+        img ="https://i.imgur.com/y4Au8Do.jpg"
+        return ([card_id,title,content,url,img])
 
 #6_of_swords
     if res == 120:
+        card_id = 120
         title = "寶劍六(正位)"
         content = "寶劍六是哀傷的離去，離開傷心地到達彼岸的過程，正在渡過當前的難關，圖中的人物緊緊的抓住身上的斗篷，\
 隱藏自己的心，顯的相當的處於低潮的狀況，不過好在的是，他並非孤獨，身旁的小孩與後方的船夫陪伴，均使的她感到一些安慰，\
@@ -1421,17 +1659,21 @@ def tarot_detail(res):
 在感情層面出現寶劍六正位之時，雙方之間是可以溝通的。\n\n\
 而工作事業上出現寶劍六，或許有些問題狀況，不過可以順利度過難關。"
         url = "http://cisian.pixnet.net/blog/post/179038192"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/bXSyHr1.jpg"])
+        img ="https://i.imgur.com/bXSyHr1.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 121:
+        card_id = 121
         title = "寶劍六(逆位)"
         content = "逆位的寶劍六，可能翻船了，水在上方也表示波動太大，導致無法度過難關，船無法到達彼岸代表無法交流，\
 很多情緒無法訴說與傾聽，更陷於情緒當中，想法鑽牛角尖，更加的傷心與悲傷，認為沒有人可以幫助她。"
         url = "http://cisian.pixnet.net/blog/post/179038192"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/OIzg6WI.jpg"])
+        img ="https://i.imgur.com/OIzg6WI.jpg"
+        return ([card_id,title,content,url,img])
 
 #6_of_pentacles
     if res == 122:
+        card_id = 122
         title = "錢幣六(正位)"
         content = "錢幣六是施捨與給予，從前方錢幣五的混亂狀況，錢幣六顯然獲得救助物資與金錢，\
 可能是獲得獎金或是中小發票之類的小小財運，得大獎的機率是比較小一點，錢幣六比較像是小恩小惠，\
@@ -1441,18 +1683,22 @@ def tarot_detail(res):
 具有均勻分配的特點，在現在的場合比如公司賺錢，生意順暢，公司發獎金或是分紅。\n\n\
 在感情的層面出現錢幣六，因錢幣六有一方給予物質與一方，且角色差異較大，代表雙方的關係是照顧式的關係，或者是如同天平般公平的對待。"
         url = "http://cisian.pixnet.net/blog/post/179038885"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/HKKIpEd.jpg"])
+        img ="https://i.imgur.com/HKKIpEd.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 123:
+        card_id = 123
         title = "錢幣六(逆位)"
         content = "逆位的錢幣六，或許城堡內的財主不給予施捨，表示公司不賺錢，沒有良好的金錢收入，或是天秤歪斜，\
 表示給予的不公平，偏心，分配不均；甚至是逆位之時，錢幣反而從窮人的身上流到施捨者，對窮人來說反而更加的貧窮，\
 對富人來講，取得的財富係為不義之財，貧富差距加大，像是有時老闆想賺更多，利用的手段叫員工共體時艱，感到苛刻。"
         url = "http://cisian.pixnet.net/blog/post/179038885"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/BD0iEZK.jpg"])
+        img ="https://i.imgur.com/BD0iEZK.jpg"
+        return ([card_id,title,content,url,img])
 
 #7_of_wands
     if res == 124:
+        card_id = 124
         title = "權杖七(正位)"
         content = "權杖七的牌面場景是一個人站在高地，手中拿著權杖，挑戰下方的敵人侵擾，他的一雙襪子並未穿著好，\
 想必是挑戰來的突然，他在守護他的優勢與地盤，從正位來看，雖然匆忙上場應對面對挑戰，然其仍係屬於勉強可以應付的狀況，\
@@ -1461,17 +1707,21 @@ def tarot_detail(res):
 事物都有個特性就是變化迅速，常常需要快速的行動反應，並且拿出高度的自信。\n\n\
 感情當中出現權杖七，變化的速度相當快，常常需要出任務，或是出現敵手需要應對。"
         url = "http://cisian.pixnet.net/blog/post/179936845"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/akO3QJh.jpg"])
+        img ="https://i.imgur.com/akO3QJh.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 125:
+        card_id = 125
         title = "權杖七(逆位)"
         content = "逆位的權杖七，可能從高地上跌落下來，失去優勢與機會，無法撐住各種挑戰任務，\
 不能勝任，信心失去，落敗而逃，被當前的事件擊垮，或是正位的時間太過長、挑戰太大，沒有休息最終累倒，過於疲累而放棄了。"
         url = "http://cisian.pixnet.net/blog/post/179936845"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/oXMaRFx.jpg"])
+        img ="https://i.imgur.com/oXMaRFx.jpg"
+        return ([card_id,title,content,url,img])
 
 #7_of_cups
     if res == 126:
+        card_id = 126
         title = "聖杯七(正位)"
         content = "聖杯七的場景相當的特殊，似乎很難在現實的生活當中或有類似的場景，因為聖杯七是一張夢境的牌，\
 描述的是夢中的場景，對於各種情慾的想像，像是金錢珠寶、名利、榮耀、性、房產等等，\
@@ -1481,17 +1731,21 @@ def tarot_detail(res):
 在感情中出現聖杯七，雙方之間的資訊不對等，很多事情是自己幻想出來的，對於對方並未有深刻的認識，甚至只是素面之緣而已。\n\n\
 工作上，弄不清楚現在狀況是什麼，認為一切都會如想像般的美好。"
         url = "http://cisian.pixnet.net/blog/post/179937301"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/zUtFdAx.jpg"])
+        img ="https://i.imgur.com/zUtFdAx.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 127:
+        card_id = 127
         title = "聖杯七(逆位)"
         content = "逆位的聖杯七，從夢中醒來，或許看清了現實，接受了事實，或者是最終發現，一切僅是自己的幻覺幻想，\
 或是最終發現等待的不是想像中的，幻想的破滅，思緒凌亂。"
         url = "http://cisian.pixnet.net/blog/post/179937301"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/PC14YBe.jpg"])
+        img ="https://i.imgur.com/PC14YBe.jpg"
+        return ([card_id,title,content,url,img])
 
 #7_of_swords
     if res == 128:
+        card_id = 128
         title = "寶劍七(正位)"
         content = "寶劍七是一張謀略牌，寶劍即是已經代表想像了，再加上想像作用的七這個數字，所以是想法的極致發揮，\
 寶劍七中的人物，躡手躡腳的，潛入敵方的陣營當中偷取對方的武器，偷偷來，以削弱對方戰鬥的實力，\
@@ -1503,18 +1757,22 @@ def tarot_detail(res):
 在工作上出現寶劍七，表示工作上往往沒有一個規矩可循，要創新的想出點子來解決問題，或是掌握什麼偏方之類，\
 以解決工作上的問題，不照SOP進行。"
         url = "http://cisian.pixnet.net/blog/post/179937619"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/heXFI8s.jpg"])
+        img ="https://i.imgur.com/heXFI8s.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 129:
+        card_id = 129
         title = "寶劍七(逆位)"
         content = "逆位的寶劍七，雖然偷偷的潛入敵營，但是卻被發現了，所以這個點子可能是糟糕的點子，計畫不週全，\
 造成傷害而歸，沒有削弱敵人的能力，自己卻被敵人所傷，在感情中出現，偷偷摸摸的去做一些檯面下的事情被發現，被揭發，\
 被抓到；又或者是根本上無法可想，只能維持現狀。"
         url = "http://cisian.pixnet.net/blog/post/179937619"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/kXkuay1.jpg"])
+        img ="https://i.imgur.com/kXkuay1.jpg"
+        return ([card_id,title,content,url,img])
 
 #7_of_pentacles
     if res == 130:
+        card_id = 130
         title = "錢幣七(正位)"
         content = "錢幣七中，圖中的人物正在觀望自己種下的東西，是一顆搖錢樹，植物係不斷生長的作物，\
 所以這顆搖錢樹的概念是在於種下種子後可以產生錢幣果實，投資收益的概念，角色很像是農夫，在他的鋤頭下，\
@@ -1526,17 +1784,21 @@ def tarot_detail(res):
 所以兩人的關係也有可能是強烈的想要利用對方達成自己的渴望。\n\n\
 工作上出現錢幣七，相當的專注於任務之上，只是有時會稍有煩惱停頓，但終究是會獲得逐步的進展，選擇好時機也是相當重要的"
         url = "http://cisian.pixnet.net/blog/post/179937934"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/Nv2m3li.jpg"])
+        img ="https://i.imgur.com/Nv2m3li.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 131:
+        card_id = 131
         title = "錢幣七(逆位)"
         content = "逆位的錢幣七，可能搖錢樹上的錢幣掉了，投資失利，失去金錢，不如原本預期的收穫，而環境的變數加大，\
 可能本身來講，也無法掌握投資的方向，而踟躕不決，游移不定。"
         url = "http://cisian.pixnet.net/blog/post/179937934"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/aDp31hQ.jpg"])
+        img ="https://i.imgur.com/aDp31hQ.jpg"
+        return ([card_id,title,content,url,img])
 
 #8_of_wands
     if res == 132:
+        card_id = 132
         title = "權杖八(正位)"
         content = "權杖八是在空中飛翔的權杖，很像是拉緊的弓所釋放的箭，在這裡就有如中世紀的戰爭，\
 弓箭手聽從號令，將箭釋放到空中，落下成箭雨以獲得有效的殺傷力，所以圖中的箭之間幾乎保持平行，\
@@ -1544,17 +1806,21 @@ def tarot_detail(res):
 感情中出現權杖八雙方進展快速，幾乎是關係立馬達陣，但是少了很多認識與情感交流的機會，是憑藉著一股熱情而結合再一起的。\n\n\
 工作上出現權杖八，進展的速度快，行事積極有為，但細緻度稍稍差了一點。"
         url = "http://cisian.pixnet.net/blog/post/179938954"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/yme708z.jpg"])
+        img ="https://i.imgur.com/yme708z.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 133:
+        card_id = 133
         title = "權杖八(逆位)"
         content = "逆位的權杖八，可能空中的箭歪斜了，表示行動力的不一致，有的時候太過急躁衝動，有的時候又太過於緩慢，\
 沒有進展，停滯，行動的層面上來講無法配合，無法合作協調，失去控制。"
         url = "http://cisian.pixnet.net/blog/post/179938954"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/74ghG9D.jpg"])
+        img ="https://i.imgur.com/74ghG9D.jpg"
+        return ([card_id,title,content,url,img])
 
 #8_of_cups
     if res == 134:
+        card_id = 134
         title = "聖杯八(正位)"
         content = "聖杯八是一個人在離開原本的位置，時間點是夜晚，無風無雨無聲的夜，場景在沼澤當中，\
 圖中的人物面對眼前牌得整齊的杯子，頭也不回的就走了，離開的原因可能是對於現狀的不滿意，例如太過安定了，\
@@ -1564,17 +1830,21 @@ def tarot_detail(res):
 關係中出現聖杯八，對於情感有不滿的地方，雖然穩定，但總覺需要一點情感上的刺激，尋求一些歡樂。\n\n\
 工作中出現聖杯八，對於工作上沒有太大的心思，心在他處，圖中缺了一角的聖杯，或許也代表了工作上的半途而廢。"
         url = "http://cisian.pixnet.net/blog/post/179939242"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/SePYJcb.jpg"])
+        img ="https://i.imgur.com/SePYJcb.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 135:
+        card_id = 135
         title = "聖杯八(逆位)"
         content = "逆位的聖杯八，當事人可能真的離開了此地，找尋他要的，又或者是已經找到更好的，所以離開了原本的環境關係，\
 另一方面也有可能當事人躊躇往來，猶豫不決，繼續存在不慎滿意又可以接受的環境當中，不走不離開了。"
         url = "http://cisian.pixnet.net/blog/post/179939242"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/UBVhZd9.jpg"])
+        img ="https://i.imgur.com/UBVhZd9.jpg"
+        return ([card_id,title,content,url,img])
 
 #8_of_swords
     if res == 136:
+        card_id = 136
         title = "寶劍八(正位)"
         content = "寶劍八是受困牌，圖中的人物困於利劍與泥淖中，遠方的城堡安全之地離得很遠，蒙上的雙眼，\
 身上布條的包裹，他受困於想法當中，想法強大的作用性，讓他的行動能力受到限制，他正小心翼翼的，\
@@ -1584,17 +1854,21 @@ def tarot_detail(res):
 感情上出現寶劍八，雙方的關係意見上的不合，或者是兩人的關係受到他者的批判，膠著無法前進與進展。\n\n\
 工作上出現寶劍八，工作上的他人無法提供資源，處處受到拒絕，只能依稀得靠自己感覺的可能性前進，不過前進的速度相當緩慢。"
         url = "http://cisian.pixnet.net/blog/post/179939638"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/CyHTB71.jpg"])
+        img ="https://i.imgur.com/CyHTB71.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 137:
+        card_id = 137
         title = "寶劍八(逆位)"
         content = "逆位的寶劍八，從萬劍林立的狀況走出，獲得解脫，想清楚了，知道要怎麼走，怎麼做了，\
 心情逐漸開朗，放開心胸，脫離了困境，走向未來的方向與目標。"
         url = "http://cisian.pixnet.net/blog/post/179939638"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/MdQLFfK.jpg"])
+        img ="https://i.imgur.com/MdQLFfK.jpg"
+        return ([card_id,title,content,url,img])
 
 #8_of_pentacles
     if res == 138:
+        card_id = 138
         title = "錢幣八(正位)"
         content = "錢幣八所繪製的是努力工作的牌組，圖中的工匠正努力的造錢幣，專注的態度，發揮他熟悉的技能知識，\
 錘子與鑿子表示他的工具完備，底下是已經鑄造好的金幣，錢幣八這個角色，因為是工匠，\
@@ -1605,18 +1879,22 @@ def tarot_detail(res):
 或者是專注於工作而對於感情放的比較少的關注。\n\n\
 工作上，即是認真的工作，穩定健全工作步調，從中也可以得到技術上的進步。"
         url = "http://cisian.pixnet.net/blog/post/179940085"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/wVAeSg5.jpg"])
+        img ="https://i.imgur.com/wVAeSg5.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 139:
+        card_id = 139
         title = "錢幣八(逆位)"
         content = "錢逆位的錢幣八，工作太過穩定做不下去，缺乏變化一成不變的工作內容也覺得乏味，對於未來的目標另有它意，\
 想要轉行轉職轉換跑道，另一方面也有可能技能不足、工具不佳，無法適當的勝任這份職務；而在逆位時，\
 地上的錢幣也有可能失去，表示失去所得，工作的產出不佳，收入不甚穩定。"
         url = "http://cisian.pixnet.net/blog/post/179940085"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/Nx62BQw.jpg"])
+        img ="https://i.imgur.com/Nx62BQw.jpg"
+        return ([card_id,title,content,url,img])
 
 #9_of_wands
     if res == 140:
+        card_id = 140
         title = "權杖九(正位)"
         content = "權杖九是一名傷兵，站在他從1-8號牌組取得的領地城堡當中，用他手上的權杖勉強撐住她受傷的身體，\
 後面有八根權杖，當中缺的一角即是這位士兵所站立之處，他緊緊的守住他的位置，從狀況來講，可能遭受到了圍城的狀況，\
@@ -1625,9 +1903,11 @@ def tarot_detail(res):
 且每項工作皆有它的緊急程度，已經累到攤掉，目前處在沒有進展，僅是到處救火的狀況，祈禱不要出錯。\n\n\
 在感情方面，雙方互動爭吵不已，感受到傷害，孤立的狀況也沒有人給與安慰。"
         url = "http://cisian.pixnet.net/blog/post/179943115"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/l53BldE.jpg"])
+        img ="https://i.imgur.com/l53BldE.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 141:
+        card_id = 141
         title ="權杖九(逆位)"
         content = "逆位的權杖九，最後的防線棄守，逃離逃難，造成這樣的原因可能是等不到援助，太過疲累，\
 傷的太重無法再繼續堅持，最為擔憂與恐懼的狀況出現了，或者看不到希望，失去生存的鬥志，認為再堅持下去也已無意義。\n\n\
@@ -1635,10 +1915,12 @@ def tarot_detail(res):
 考驗的是持久與疲累，權杖七屬於近身戰，考驗的是個人的能力與反應的靈敏度，兩者雖然皆有多且雜的概念，\
 但是持續時間、時機與對應之方式不同。"
         url = "http://cisian.pixnet.net/blog/post/179943115"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/nUUXfv1.jpg"])
+        img ="https://i.imgur.com/nUUXfv1.jpg"
+        return ([card_id,title,content,url,img])
 
 #9_of_cups
     if res == 142:
+        card_id = 142
         title = "聖杯九(正位)"
         content = "聖杯九是集滿眾人肯定的牌組，後面的聖杯，可能是過去獲勝的獎杯，代表對他個人能力的肯定與支持，\
 圖中的人物手插於胸前，顯的相當的得意與滿足，達到了自己認為的成就，美夢成真了，當時許下的願望實現了，\
@@ -1647,17 +1929,21 @@ def tarot_detail(res):
 交流方面亦是和諧滿足。\n\n\
 在感情當中出現聖杯九，或許兩人對於感情的渴望成為了真實，並且方方面面都感到相當的滿足；而過去的人脈積累廣闊，現在處處得人緣。"
         url = "http://cisian.pixnet.net/blog/post/179943700"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/J5xndtO.jpg"])
+        img ="https://i.imgur.com/J5xndtO.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 143:
+        card_id = 143
         title ="聖杯九(逆位)"
         content = "逆位的聖杯九，人物從椅子上跌落下來，背後的獎杯消失或杯子打翻了，代表不受到眾人的支持，失去現在的成果，\
 對於表現並無法肯定，甚至是遭受到奚落，而夢想的實踐遭受拒絕，夢想破滅，可能當初想的太過美好了，自己並無法達成自己的條件。"
         url = "http://cisian.pixnet.net/blog/post/179943700"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/2zg58lM.jpg"])
+        img ="https://i.imgur.com/2zg58lM.jpg"
+        return ([card_id,title,content,url,img])
 
 #9_of_swords
     if res == 144:
+        card_id = 144
         title = "寶劍九(正位)"
         content = "寶劍九是惡夢牌，因為過去的傷害潛抑而於夢中再次出現，過去的傷害就如背後的芒刺一樣，貫穿圖中人物的身與心，\
 因夢境真實的展現了傷害，所以直接遭受到各種創痛的作用，一時之間並無法做出應對，所以圖中的人物角色用雙手遮掩他的臉，\
@@ -1666,17 +1952,21 @@ def tarot_detail(res):
 感情上出現寶劍九，雙方的過去經驗造成當前關係上的挫折，太過巨大的傷兩人不願面對也難以有撫平的機會。\n\n\
 工作上出現寶劍九，許多煩事不斷出現，事情的失敗與錯誤也在心中烙下難以抹去的痛。"
         url = "http://cisian.pixnet.net/blog/post/179944207"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/1XKaPVX.jpg"])
+        img ="https://i.imgur.com/1XKaPVX.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 145:
+        card_id = 145
         title ="寶劍九(逆位)"
         content = "逆位的寶劍九，一方來說可能逐漸的舒緩了痛楚，慢慢擺脫憂鬱的狀態，事情逐漸出現轉機，但是仍要好好的穩定心神，\
 從難過中恢復過來；然另外一方面也可能代表一直沉浸於這些難過的經驗，逆位或許也代表越沉越深，終就無法自拔於其中。"
         url = "http://cisian.pixnet.net/blog/post/179944207"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/JelibUD.jpg"])
+        img ="https://i.imgur.com/JelibUD.jpg"
+        return ([card_id,title,content,url,img])
 
 #9_of_pentacles
     if res == 146:
+        card_id = 146
         title = "錢幣九(正位)"
         content = "錢幣九是貴婦牌，那種不用工作娛樂每天的那種，感覺起來令人嚮往壓，財富自由享受一個人的時光與時間，\
 沒有什麼要完成的事情，每天就在花園逛逛，時間彷彿緩慢得流動，顯得高雅別緻，活的很優雅，有自己的時間消遣玩樂，\
@@ -1685,19 +1975,23 @@ def tarot_detail(res):
 但是失去了自由，不在天上飛的鳥兒還算是鳥嗎?他與他的同類是要如何聯繫連結呢?\n\n\
 感情中出現錢幣九，不算是熱絡，但是一切俱足，愉快玩樂的場景很多，但是畢竟是金幣不是聖杯，或許比較沒有那樣的親暱感。"
         url = "http://cisian.pixnet.net/blog/post/179944918"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/vRKdXWk.jpg"])
+        img ="https://i.imgur.com/vRKdXWk.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 147:
+        card_id = 147
         title ="錢幣九(逆位)"
         content = "逆位的錢幣九，可能購物的本能上身了，特殊的日子特別容易變成這樣，比如結婚紀念日、生日、\
 百貨公司的周年慶，任意的肆意揮霍，造成浪費；而另外一方面逆位之時，鳥兒從手中飛去，\
 或許象徵的是耐不住富裕但寂寞的生活而追尋自由去了。"
         url = "http://cisian.pixnet.net/blog/post/179944918"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/eZ7Zk6B.jpg"])
+        img ="https://i.imgur.com/eZ7Zk6B.jpg"
+        return ([card_id,title,content,url,img])
 
 
 #10_of_wands
     if res == 148:
+        card_id = 148
         title = "權杖十(正位)"
         content = "權杖十所描述的牌面是打仗完收工的場面，圖中的人物收拾起武器，將各個權杖搬運回城堡，\
 以備下次作戰所需，而戰爭的傷亡嚴重，所以一個人必須承擔起負重的任物，圖中可以看到人物將頭埋於所有的權杖之中，\
@@ -1707,17 +2001,21 @@ def tarot_detail(res):
 只是埋頭苦幹，沒有任何的怨言。\n\n\
 感情上，可能一方的付出極大，有工具人的基因存在，不過累到極致或許關係難以長久。"
         url = "http://cisian.pixnet.net/blog/post/179948167"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/YIZvD5V.jpg"])
+        img ="https://i.imgur.com/YIZvD5V.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 149:
+        card_id = 149
         title ="權杖十(逆位)"
         content = "逆位的權杖十，倒下了，權杖散落一地，已經過勞不堪，無法再承受更多，失去原本勉強的平衡倒地不起，\
 也有可能是團體解體了，解散了。"
         url = "http://cisian.pixnet.net/blog/post/179948167"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/jTD3xXl.jpg"])
+        img ="https://i.imgur.com/jTD3xXl.jpg"
+        return ([card_id,title,content,url,img])
 
 #10_of_cups
     if res == 150:
+        card_id = 150
         title = "聖杯十(正位)"
         content = "聖杯十是美滿幸福的小家庭，出現的彩虹與幸福夫妻還有玩樂的小孩，遠方是他們的家，\
 彩虹上的聖杯充滿了感情的洋溢，滿了出來形成一道彩虹，聖杯十是充滿溫馨歡樂的牌，從聖杯九的獨自快樂，\
@@ -1725,17 +2023,21 @@ def tarot_detail(res):
 在關係中出現聖杯十，一切圓滿歡樂，愛的交流與對未來的發展均向正向的面向發展，彼此之間也願係付出愛與關懷。\n\n\
 工作上出現聖杯十，工作均能順利完成，尤其是團隊之間的合作任務更是協調，受到讚揚肯定。"
         url = "http://cisian.pixnet.net/blog/post/179948641"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/DmtIrcI.jpg"])
+        img ="https://i.imgur.com/DmtIrcI.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 151:
+        card_id = 151
         title ="聖杯十(逆位)"
         content = "逆位的聖杯十，有關係上的誤會，團體出現裂痕，若未及時修補可能造成團體的分裂破裂，不合，\
 衝突產生等，而掉下的聖杯與消失的彩虹，也出現了低潮期，關係不那樣的美滿，對於未來失去憧憬。"
         url = "http://cisian.pixnet.net/blog/post/179948641"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/pxkjaY9.jpg"])
+        img ="https://i.imgur.com/pxkjaY9.jpg"
+        return ([card_id,title,content,url,img])
 
 #10_of_swords
     if res == 152:
+        card_id = 152
         title = "寶劍十(正位)"
         content = "寶劍十，已死亡，圖面當中是一個人倒下，死亡表示再也沒有任何的機會了，不再有任何的可能性，\
 但是另外一方面，也代表不再受到死亡的威脅侵擾，不再有痛苦了，解脫了，表示事件雖然可能以不滿意的狀況結束，\
@@ -1746,17 +2048,21 @@ def tarot_detail(res):
 感情上可能產生決裂的狀況，且是一點的希望不復存在，從此無法回頭。\n\n\
 工作上遭遇相當大的困難，甚至來到已無法挽救的階段，事情已不可為了。"
         url = "http://cisian.pixnet.net/blog/post/179949112"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/51Aecv2.jpg"])
+        img ="https://i.imgur.com/51Aecv2.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 153:
+        card_id = 153
         title ="寶劍十(逆位)"
         content = "逆位的寶劍十，遠方的晨光泛白，或許可以迎來新的生命而重新開始，\
 命運告訴你一條死路又為妳開一條新的道路，砍掉重練，從之前的絕望慢慢走出來重新來過(只是之前的痛處仍在)。"
         url = "http://cisian.pixnet.net/blog/post/179949112"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/eWuk52V.jpg"])
+        img ="https://i.imgur.com/eWuk52V.jpg"
+        return ([card_id,title,content,url,img])
 
 #10_of_pentacles
     if res == 154:
+        card_id = 154
         title = "錢幣十(正位)"
         content = "錢幣十是家族企業牌，錢幣排成生命之樹的形狀，其與宇宙產生了連係，\
 根扎進其中，基業穩固，具有豐厚的實力基礎，且生命之樹係不斷的生長，也保有了家族與企業之間的長久與延續，\
@@ -1768,12 +2074,15 @@ def tarot_detail(res):
 在工作上出現錢幣十，幾乎所有的工作流程都已經穩定，固定的商業交易與合作夥伴，並沒有太大的波動，\
 就穩定的完成且持續下去，部分的傳統產業百年如一日即是如此。"
         url = "http://cisian.pixnet.net/blog/post/179949658"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/E32VhEU.jpg"])
+        img ="https://i.imgur.com/E32VhEU.jpg"
+        return ([card_id,title,content,url,img])
         
     if res == 155:
+        card_id = 155
         title ="錢幣十(逆位)"
         content = "逆位的錢幣十，可能失去金錢，家族企業逐漸不賺錢了，可能是無法跟上時代的潮流，\
 家道中落，經驗無法傳承，而感情中出現錢幣十逆位可能是家中的長輩有意見，或是與家中的長輩相處關係不和睦，\
 家庭無法提供資助；另一方面也有可能是世代的溝壑，對於傳統觀念的挑戰，跳脫傳統的觀念行事，守舊與革新之間的衝突狀態。"
         url = "http://cisian.pixnet.net/blog/post/179949658"
-        return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/xtwlruZ.jpg"])
+        img ="https://i.imgur.com/xtwlruZ.jpg"
+        return ([card_id,title,content,url,img])
