@@ -2319,7 +2319,7 @@ def handle_message(event):
                                 )
                             ]
                         ),
-                       CarouselColumn(
+                        CarouselColumn(
                             thumbnail_image_url=tarot_content[1][1],
                             title=_"現在-關係-心理",
                             text="tarot_content[1][0]",
@@ -2330,7 +2330,7 @@ def handle_message(event):
                                 )
                             ]
                         ),
-                       CarouselColumn(
+                        CarouselColumn(
                             thumbnail_image_url=tarot_content[2][1],
                             title=_"未來-對方-身體",
                             text="tarot_content[2][0]",
@@ -2340,10 +2340,10 @@ def handle_message(event):
                                     uri=tarot_content [2][1]
                                 )
                             ]
-                        ),
-                     ]
-                 )
-              )
+                        )
+                    ]
+                )
+            )
             line_bot_api.reply_message(event.reply_token,carousel_template_message)
         else:
             tarot_content = tarot_random()
