@@ -1,8 +1,18 @@
 import re
 import random
 
+
+
+
 def tarot_random():
     return tarot_detail(random.randint(0,155))
+
+def tarot_random_3():
+    tarot_list = []
+    for obj in random.sample(range(156),3):
+        tarot_list.append(tarot_detail(obj))
+
+    return tarot_list
 
 def tarot_detail(res):
 
@@ -1767,6 +1777,3 @@ def tarot_detail(res):
 家庭無法提供資助；另一方面也有可能是世代的溝壑，對於傳統觀念的挑戰，跳脫傳統的觀念行事，守舊與革新之間的衝突狀態。"
         url = "http://cisian.pixnet.net/blog/post/179949658"
         return (["{}\n\n{}\n{}".format(title,content,url),"https://i.imgur.com/xtwlruZ.jpg"])
-
-if __name__ == '__main__':
-    print(tarot_random())
