@@ -2311,7 +2311,7 @@ def handle_message(event):
                         CarouselColumn(
                             thumbnail_image_url=tarot_content[0][1],
                             title="過去-自已-靈魂",
-                            text="tarot_content[0][0]",
+                            text=tarot_content[0][0],
                             actions=[
                                 URITemplateAction(
                                     label='View detail',
@@ -2322,7 +2322,7 @@ def handle_message(event):
                         CarouselColumn(
                             thumbnail_image_url=tarot_content[1][1],
                             title="現在-關係-心理",
-                            text="tarot_content[1][0]",
+                            text=tarot_content[1][0],
                             actions=[
                                 URITemplateAction(
                                     label='View detail',
@@ -2333,7 +2333,7 @@ def handle_message(event):
                         CarouselColumn(
                             thumbnail_image_url=tarot_content[2][1],
                             title="未來-對方-身體",
-                            text="tarot_content[2][0]",
+                            text=tarot_content[2][0],
                             actions=[
                                 URITemplateAction(
                                     label='View detail',
