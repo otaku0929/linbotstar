@@ -2337,7 +2337,7 @@ def handle_message(event):
                             actions=[
                                 MessageTemplateAction(
                                     label='牌義說明',
-                                    text=tarot_random()
+                                    text="抽塔羅"
                                 )
                             ]
                         )
