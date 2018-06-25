@@ -2294,15 +2294,57 @@ def handle_message(event):
     #抽塔羅牌
     if re.search("抽[塔羅牌|塔羅|tarot]",event.message.text):
         if re.search("3|三[張]|三角",event.message.text):
-            for obj in tarot_random_3():
-                url = obj[1]
-                content = obj[0]
-                image_message = ImageSendMessage(
-                    original_content_url=url,
-                    preview_image_url=url
+            #for obj in tarot_random_3():
+            #    url = obj[1]
+            #    content = obj[0]
+            #    image_message = ImageSendMessage(
+            #        original_content_url=url,
+            #        preview_image_url=url
+            #    )
+            #    line_bot_api.reply_message(
+            #        event.reply_token, [image_message, TextSendMessage(text=content)])
+            tarot_content = tarot_random_3()
+            carousel_template_message = TemplateSendMessage(
+                    alt_text='Carousel template',
+                    template=CarouselTemplate(
+                        columns=[
+                            CarouselColumn(
+                                thumbnail_image_url=tarot_content[0][1],
+                                title=_"過去/自已/靈魂",
+                                text="tarot_content[0][0]",
+                                actions=[
+                                    URITemplateAction(
+                                        label='View detail',
+                                        uri=tarot_content [0][1]
+                                    )
+                                ]
+                            ),
+                           CarouselColumn(
+                                thumbnail_image_url=tarot_content[1][1],
+                                title=_"現在/關係/心理",
+                                text="tarot_content[1][0]",
+                                actions=[
+                                    URITemplateAction(
+                                        label='View detail',
+                                        uri=tarot_content [1][1]
+                                    )
+                                ]
+                            ),
+                           CarouselColumn(
+                                thumbnail_image_url=tarot_content[2][1],
+                                title=_"未來/對方/身體",
+                                text="tarot_content[2][0]",
+                                actions=[
+                                    URITemplateAction(
+                                        label='View detail',
+                                        uri=tarot_content [2][1]
+                                    )
+                                ]
+                            ),
+                         ]
+                     )
                 )
-                line_bot_api.reply_message(
-                    event.reply_token, [image_message, TextSendMessage(text=content)])              
+            line_bot_api.reply_message(event.reply_token,carousel_template_message)
         else:
             tarot_content = tarot_random()
             url = tarot_content[1]
