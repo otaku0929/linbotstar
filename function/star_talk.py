@@ -54,7 +54,7 @@ def star_talk(messages_talk):
             return random.choice(trouble())
         elif re.search("聊天]",messages_talk):
             return random.choice(talk())
-        elif re.search("聽話|乖|乖乖".messages_talk):
+        elif re.search("聽話|乖|乖乖",messages_talk):
             return random.choice(goodboy())
         elif re.search("[喜歡|愛]什麼",messages_talk):
             return random.choice(like())
@@ -347,4 +347,5 @@ def sing():
             '每到夏天我要去海邊　海邊有個漂亮高雄妹 只打電話不常見面我好想念　不知她會在哪個海邊',
             '小小螢火蟲~飛到西~飛到東~這邊亮~那邊亮~好像許多小燈籠~~~~',
             '小小淫魔手~摸到西~摸到東~這邊摸~那邊摸~摸到好多大饅頭~~~~',
+            '我就是香蕉 你嘛是香蕉 春夏秋冬熱情全年無休 春天來吹吹微風 秋天咱最秋條~~~',
             '抽歡歌','UID526155','UID1048784','UID637621','UID954530','UID181460','UID814357','UID1585626']
