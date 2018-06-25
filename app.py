@@ -2305,45 +2305,45 @@ def handle_message(event):
             #        event.reply_token, [image_message, TextSendMessage(text=content)])
             tarot_content = tarot_random_3()
             carousel_template_message = TemplateSendMessage(
-                    alt_text='Carousel template',
-                    template=CarouselTemplate(
-                        columns=[
-                            CarouselColumn(
-                                thumbnail_image_url=tarot_content[0][1],
-                                title=_"過去-自已-靈魂",
-                                text="tarot_content[0][0]",
-                                actions=[
-                                    URITemplateAction(
-                                        label='View detail',
-                                        uri=tarot_content [0][1]
-                                    )
-                                ]
-                            ),
-                           CarouselColumn(
-                                thumbnail_image_url=tarot_content[1][1],
-                                title=_"現在-關係-心理",
-                                text="tarot_content[1][0]",
-                                actions=[
-                                    URITemplateAction(
-                                        label='View detail',
-                                        uri=tarot_content [1][1]
-                                    )
-                                ]
-                            ),
-                           CarouselColumn(
-                                thumbnail_image_url=tarot_content[2][1],
-                                title=_"未來-對方-身體",
-                                text="tarot_content[2][0]",
-                                actions=[
-                                    URITemplateAction(
-                                        label='View detail',
-                                        uri=tarot_content [2][1]
-                                    )
-                                ]
-                            ),
-                         ]
-                     )
-                )
+                alt_text='Carousel template',
+                template=CarouselTemplate(
+                    columns=[
+                        CarouselColumn(
+                            thumbnail_image_url=tarot_content[0][1],
+                            title=_"過去-自已-靈魂",
+                            text="tarot_content[0][0]",
+                            actions=[
+                                URITemplateAction(
+                                    label='View detail',
+                                    uri=tarot_content [0][1]
+                                )
+                            ]
+                        ),
+                       CarouselColumn(
+                            thumbnail_image_url=tarot_content[1][1],
+                            title=_"現在-關係-心理",
+                            text="tarot_content[1][0]",
+                            actions=[
+                                URITemplateAction(
+                                    label='View detail',
+                                    uri=tarot_content [1][1]
+                                )
+                            ]
+                        ),
+                       CarouselColumn(
+                            thumbnail_image_url=tarot_content[2][1],
+                            title=_"未來-對方-身體",
+                            text="tarot_content[2][0]",
+                            actions=[
+                                URITemplateAction(
+                                    label='View detail',
+                                    uri=tarot_content [2][1]
+                                )
+                            ]
+                        ),
+                     ]
+                 )
+              )
             line_bot_api.reply_message(event.reply_token,carousel_template_message)
         else:
             tarot_content = tarot_random()
