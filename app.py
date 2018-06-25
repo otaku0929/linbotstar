@@ -2300,7 +2300,7 @@ def handle_message(event):
                 template=CarouselTemplate(
                     columns=[
                         CarouselColumn(
-                            thumbnail_image_url=tarot_content[0][1],
+                            thumbnail_image_url=tarot_content[0][4],
                             title="過去/自已/靈魂/上司",
                             text=tarot_content[0][1],
                             actions=[
@@ -2311,7 +2311,7 @@ def handle_message(event):
                             ]
                         ),
                         CarouselColumn(
-                            thumbnail_image_url=tarot_content[1][1],
+                            thumbnail_image_url=tarot_content[1][4],
                             title="現在/關係/心理/自已",
                             text=tarot_content[1][1],
                             actions=[
@@ -2322,7 +2322,7 @@ def handle_message(event):
                             ]
                         ),
                         CarouselColumn(
-                            thumbnail_image_url=tarot_content[2][1],
+                            thumbnail_image_url=tarot_content[2][4],
                             title="未來/對方/身體/屬下",
                             text=tarot_content[2][1],
                             actions=[
