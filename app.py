@@ -2294,15 +2294,6 @@ def handle_message(event):
     #抽塔羅牌
     if re.search("抽[塔羅牌|塔羅|tarot]",event.message.text):
         if re.search("3|三[張]|三角",event.message.text):
-            #for obj in tarot_random_3():
-            #    url = obj[1]
-            #    content = obj[0]
-            #    image_message = ImageSendMessage(
-            #        original_content_url=url,
-            #        preview_image_url=url
-            #    )
-            #    line_bot_api.reply_message(
-            #        event.reply_token, [image_message, TextSendMessage(text=content)])
             tarot_content = tarot_random_3()
             carousel_template_message = TemplateSendMessage(
                 alt_text='Carousel template',
@@ -2310,8 +2301,8 @@ def handle_message(event):
                     columns=[
                         CarouselColumn(
                             thumbnail_image_url=tarot_content[0][1],
-                            title="過去-自已-靈魂",
-                            text="tarot_content[0][0]",
+                            title="過去/自已/靈魂/上司",
+                            text=tarot_content[0][1],
                             actions=[
                                 MessageTemplateAction(
                                     label='牌義說明',
@@ -2321,8 +2312,8 @@ def handle_message(event):
                         ),
                         CarouselColumn(
                             thumbnail_image_url=tarot_content[1][1],
-                            title="現在-關係-心理",
-                            text="tarot_content[1][0]",
+                            title="現在/關係/心理/自已",
+                            text=tarot_content[1][1],
                             actions=[
                                 MessageTemplateAction(
                                     label='牌義說明',
@@ -2332,8 +2323,8 @@ def handle_message(event):
                         ),
                         CarouselColumn(
                             thumbnail_image_url=tarot_content[2][1],
-                            title="未來-對方-身體",
-                            text="tarot_content[2][0]",
+                            title="未來/對方/身體/屬下",
+                            text=tarot_content[2][1],
                             actions=[
                                 MessageTemplateAction(
                                     label='牌義說明',
@@ -2347,8 +2338,8 @@ def handle_message(event):
             line_bot_api.reply_message(event.reply_token,carousel_template_message)
         else:
             tarot_content = tarot_random()
-            url = tarot_content[1]
-            content = tarot_content[0]
+            url = tarot_content[4]
+            content = '{}\n\n{}\{}'.format(tarot_content[1],tarot_content[2],tarot_content[3]
             image_message = ImageSendMessage(
                 original_content_url=url,
                 preview_image_url=url
