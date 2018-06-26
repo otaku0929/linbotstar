@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-import requests
 from bs4 import BeautifulSoup
 import pandas
 import datetime
+import pytz
 
 def rate(res):
 
@@ -15,7 +15,8 @@ def rate(res):
     currency[u'貨幣'] = currency[u'貨幣'].str.split().str[0]
 
     us = pytz.timezone('US/Pacific')
-    now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M").replace(tzinfo=us)
+    now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+    dt = datetime.datetime.strptime(now,"%Y-%m-%d %H:%M").replace(tzinfo=us)
 
     for a in currency.index:
         data = currency.ix[a,0]
