@@ -28,6 +28,7 @@ def rate(res):
             return [now,title,rate, re_rate]
 
 def rate_ex(res):
+    #print(res)
     rate_ex = "(.+)(美金|港幣|英鎊|澳幣|加拿大幣|新加坡幣|瑞士法郎|日圓|日幣|南非幣|瑞典幣|紐元|泰幣|菲國比索|印尼幣|歐元|韓元|越南盾|馬來幣|人民幣)=(\d+)(\D+)"
     rate_rex = "(\D+)(\d+)=(美金|港幣|英鎊|澳幣|加拿大幣|新加坡幣|瑞士法郎|日圓|日幣|南非幣|瑞典幣|紐元|泰幣|菲國比索|印尼幣|歐元|韓元|越南盾|馬來幣|人民幣)(.+)"
     rate_ex_0 = "(美金|港幣|英鎊|澳幣|加拿大幣|新加坡幣|瑞士法郎|日圓|日幣|南非幣|瑞典幣|紐元|泰幣|菲國比索|印尼幣|歐元|韓元|越南盾|馬來幣|人民幣)=(\d+)"
@@ -46,7 +47,7 @@ def rate_ex(res):
         money = int(re.search(rate_rex,res).group(2))
         get_rate = float(rate_list[3])
         count = round((money*get_rate),2)
-        content = '臺灣銀行匯率 1:{}\n換算 {} {} = {} TWD'.format(get_rate, count, rate_type,money)
+        content = '臺灣銀行匯率 1:{}\n換算 {} {} = {} TWD'.format(get_rate, money, rate_type,count)
         return content
     if re.match(rate_ex_0,res):
         rate_type = re.search(rate_ex_0,res).group(1).replace('日幣','日圓')
@@ -60,7 +61,7 @@ def rate_ex(res):
         rate_type = re.search(rate_rex_0,res).group(2).replace('日幣','日圓')
         rate_list = rate(rate_type)
         money = int(re.search(rate_rex_0,res).group(1))
-        get_rate = float(rate_list[3])
+        get_rate = float(rate_list[2])
         count = round((money*get_rate),2)
-        content = '臺灣銀行匯率 1:{}\n換算 {} {} = {} TWD'.format(get_rate, count, rate_type,money)
+        content = '臺灣銀行匯率 1:{}\n換算 {} {} = {} TWD'.format(get_rate, money, rate_type, count)
         return content
