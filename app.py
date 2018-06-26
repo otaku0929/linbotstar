@@ -22,6 +22,7 @@ from function.tarot_detail import tarot_random
 from function.tarot_detail import tarot_random_get
 from function.tarot_detail import tarot_detail
 from function.rate import rate
+from function.rate import rate_ex
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -2429,10 +2430,15 @@ def handle_message(event):
     #匯率
     rate_list = "美金|港幣|英鎊|澳幣|加拿大幣|新加坡幣|瑞士法郎|日圓|日幣|南非幣|瑞典幣|紐元|泰幣|菲國比索|印尼幣|歐元|韓元|越南盾|馬來幣|人民幣"
     if re.search(rate_list,event.message.text):
-        res = re.search(rate_list,event.message.text).group(0).replace('日幣','日圓')
-        content = rate(res)
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
-        return 0
+        if re.search("=",event.message.text):
+            content = rate_ex(event.message.text)
+            line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+            return 0
+        else:
+            rate_content = rate(re.search(rate_list,event.message.text).group(0)) 
+            content = '臺灣銀行牌告匯率\n查詢時間:{}\n{} 1:{}'.format(rate_list[0],rate_list[1],rate_list[2])
+            line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+            return 0
     if len(words)>=1:
         resf = words
         content = fwords(resf)
