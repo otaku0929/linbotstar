@@ -2432,7 +2432,6 @@ def handle_message(event):
     if re.search(rate_list,event.message.text):
         if re.search("=",event.message.text):
             content = rate_ex(event.message.text)
-            print(content)
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
             return 0
         else:
