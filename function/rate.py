@@ -14,7 +14,7 @@ def rate(res):
     currency[u'貨幣'] = currency[u'貨幣'].str.split('\(',1).str[0]
     currency[u'貨幣'] = currency[u'貨幣'].str.split().str[0]
 
-    now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+    now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M").replace(tzinfo=us)
 
     for a in currency.index:
         data = currency.ix[a,0]
