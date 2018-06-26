@@ -2435,7 +2435,7 @@ def handle_message(event):
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
             return 0
         else:
-            rate_content = rate(re.search(rate_list,event.message.text).group(0)) 
+            rate_content = rate(re.search(rate_list,event.message.text).group(0).replace('日幣','日圓')) 
             content = '臺灣銀行牌告匯率\n查詢時間:{}\n{} 1:{}'.format(rate_list[0],rate_list[1],rate_list[2])
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
             return 0
