@@ -40,7 +40,7 @@ def rate_ex(res):
         money = int(re.search(rate_ex,res).group(3))
         get_rate = float(rate_list[2])
         count = round((money/get_rate),2)
-        content = '臺灣銀行匯率 1:{}\n換算 {} TWD = {} {}'.format(get_rate, money,rate_type,count)
+        content = '臺灣銀行匯率 1:{}\n換算 {} {} = {} TWD'.format(get_rate, money, rate_type,count)
         return content
     if re.match(rate_rex,res):
         rate_type = re.search(rate_rex,res).group(3).replace('日幣','日圓').replace('加幣','加拿大幣').replace('泰銖','泰幣').replace('法郎','瑞士法郎')
@@ -48,7 +48,7 @@ def rate_ex(res):
         money = int(re.search(rate_rex,res).group(2))
         get_rate = float(rate_list[3])
         count = round((money*get_rate),2)
-        content = '臺灣銀行匯率 1:{}\n換算 {} {} = {} TWD'.format(get_rate, money, rate_type,count)
+        content = '臺灣銀行匯率 1:{}\n換算 {} TWD = {} {}'.format(get_rate, money,rate_type,count)
         return content
     if re.match(rate_ex_0,res):
         rate_type = re.search(rate_ex_0,res).group(1).replace('日幣','日圓').replace('加幣','加拿大幣').replace('泰銖','泰幣').replace('法郎','瑞士法郎')
@@ -56,7 +56,7 @@ def rate_ex(res):
         money = int(re.search(rate_ex_0,res).group(2))
         get_rate = float(rate_list[2])
         count = round((money/get_rate),2)
-        content = '臺灣銀行匯率 1:{}\n換算 {} TWD = {} {}'.format(get_rate, money,rate_type,count)
+        content = '臺灣銀行匯率 1:{}\n換算 {} {} = {} TWD'.format(get_rate, money, rate_type, count)
         return content
     if re.match(rate_rex_0,res):
         rate_type = re.search(rate_rex_0,res).group(2).replace('日幣','日圓').replace('加幣','加拿大幣').replace('泰銖','泰幣').replace('法郎','瑞士法郎')
@@ -64,7 +64,7 @@ def rate_ex(res):
         money = int(re.search(rate_rex_0,res).group(1))
         get_rate = float(rate_list[2])
         count = round((money*get_rate),2)
-        content = '臺灣銀行匯率 1:{}\n換算 {} {} = {} TWD'.format(get_rate, money, rate_type, count)
+        content = '臺灣銀行匯率 1:{}\n換算 {} TWD = {} {}'.format(get_rate, money,rate_type,count)
         return content
 
 def rate_chart(res):
@@ -89,3 +89,4 @@ def rate_chart(res):
                 '人民幣':'CNY'
                 };
     return rate_dict[res]
+    #return 'http://www.taiwanrate.org/exchange_rate_chart.php?c={}'.format(res)
