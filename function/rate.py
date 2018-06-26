@@ -25,8 +25,7 @@ def rate(res):
             title = currency.ix[a,0]
             rate =currency.ix[a,2]
             re_rate = currency.ix[a,1]
-
-    return [now,title,rate, re_rate]
+            return [now,title,rate,re_rate]
 
 def rate_ex(res):
     rate_ex = "(.+)(美金|港幣|英鎊|澳幣|加拿大幣|新加坡幣|瑞士法郎|日圓|日幣|南非幣|瑞典幣|紐元|泰幣|菲國比索|印尼幣|歐元|韓元|越南盾|馬來幣|人民幣)=(\d+)(\D+)"
