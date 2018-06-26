@@ -573,69 +573,6 @@ def starcontent(sdata):
     content = '{}{}'.format(today,text)
     return content
 
-def rate_o(res):
-
-    url = "http://rate.bot.com.tw/xrt?Lang=zh-TW"
-    dfs = pandas.read_html(url)
-    currency = dfs[0]
-    currency = currency.ix[:,0:3]
-    currency.columns = [u'貨幣',u'匯率(賣)',u'匯率(買)']
-    currency[u'貨幣'] = currency[u'貨幣'].str.split('\(',1).str[0]
-    currency[u'貨幣'] = currency[u'貨幣'].str.split().str[0]
-    #a = currency.values
-
-    title = ""
-    content = ""
-
-    request = requests.get(url)
-    soup = BeautifulSoup(request.content, "html.parser")
-
-    datelist = soup.select('p.text-info')
-
-    for data in datelist:
-        ratedate = data.get_text().strip() 
- 
-    for a in currency.index:
-        data = currency.ix[a,0]
-        if data == res:
-            title = currency.ix[a,0]
-            rate =currency.ix[a,2]
-            ratedata = '{} 1:{}'.format(title,rate)
-          
-    content = '臺灣銀行牌告匯率\n{}\n\n{}'.format(ratedate,ratedata)
-
-    return content
-     
-
-def ratecount(res,nt,xt):
-    
-    url = "http://rate.bot.com.tw/xrt?Lang=zh-TW"
-    dfs = pandas.read_html(url)
-    currency = dfs[0]
-    currency = currency.ix[:,0:3]
-    currency.columns = [u'貨幣',u'匯率(賣)',u'匯率(買)']
-    currency[u'貨幣'] = currency[u'貨幣'].str.split('\(',1).str[0]
-    currency[u'貨幣'] = currency[u'貨幣'].str.split().str[0]
-
-    a = currency.values
-
-    for a in currency.index:
-        data = currency.ix[a,0]
-        if data == res:
-            title = currency.ix[a,0]
-            rate =currency.ix[a,2]
-            ratecountnt = round(int(nt)/float(rate),2)
-            ratecountxt = round(int(xt)*float(rate))
-            if int(nt)>1 and int(xt)==1:
-                content = '臺灣銀行牌告匯率 {} 1:{}\n台幣 {} 可換得 {} {}'.format(title,rate,nt,ratecountnt,title)
-                return content
-            if int(nt)==1 and int(xt)>1:
-                content = '臺灣銀行牌告匯率 {} 1:{}\n兌換 {} {} 需要 {} 台幣'.format(title,rate,xt,title,ratecountxt)
-            else:
-                content = "輸入金額有誤 NT換 幣名n10000x1  換回NT 幣名n1x10000"
-
-    return content
-
 def check_coffie():
 
     url = 'https://cafe.goodlife.tw/'
@@ -1553,8 +1490,6 @@ def fwords(resf):
     print(words)
     olist = (["幹","操","靠"])
     wlist = (["三小","靠北","馬的","媽的","放屁","屁啦","狗屁","爆料","八卦","三字經","幹你娘","壞掉了","小星星"])
-    #rlist = (["美金","港幣","英鎊","澳幣","加拿大幣","新加坡幣","瑞士法郎","日圓","日幣","南非幣","瑞典幣",\
-    #         "紐元","泰幣","菲國比索","印尼幣","歐元","韓元","越南盾","馬來幣","人民幣"])
     ylist = (["聽歌","找歌"])
     tlist = (['翻譯'])
     glist = (['查優惠'])
@@ -1562,13 +1497,7 @@ def fwords(resf):
     dlist = (['time','Time'])
     slist = (['抽歡歌'])
     sdlist = (['查歌詞'])
-    if words.find('n')>=2:
-        res = words[0:words.find('n')].replace('日幣','日圓')
-        nt = words[words.find('n')+1:words.find('x')]
-        xt = words[words.find('x')+1:]
-        content = ratecount(res,nt,xt)
-        return content
-    elif words[0:2] in ylist:
+    if words[0:2] in ylist:
         res = words[2:]
         content = youtube_search(res)
         return content
