@@ -24,8 +24,3 @@ def rate(res):
             ratedata = '{} 1:{}'.format(title,rate)   
 
     return '臺灣銀行牌告匯率\n查詢時間{}\n{}'.format(now,ratedata)
-
-
-if __name__ == '__main__':
-    res = '美金'
-    print(rate(res))
