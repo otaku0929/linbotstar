@@ -1879,7 +1879,7 @@ def handle_message(event):
                 actions=[
                     MessageTemplateAction(
                         label='功能說明',
-                        text='!'
+                        text='!help'
                     ),
                     MessageTemplateAction(
                         label='詳細功能說明',
