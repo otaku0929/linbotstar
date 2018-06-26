@@ -21,6 +21,7 @@ from function.s17api import s17uidsong
 from function.tarot_detail import tarot_random
 from function.tarot_detail import tarot_random_get
 from function.tarot_detail import tarot_detail
+from function.rate import rate
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -571,7 +572,7 @@ def starcontent(sdata):
     content = '{}{}'.format(today,text)
     return content
 
-def rate(res):
+def rate_o(res):
 
     url = "http://rate.bot.com.tw/xrt?Lang=zh-TW"
     dfs = pandas.read_html(url)
