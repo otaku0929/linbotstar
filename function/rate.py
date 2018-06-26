@@ -14,7 +14,7 @@ def rate(res):
     currency[u'貨幣'] = currency[u'貨幣'].str.split('\(',1).str[0]
     currency[u'貨幣'] = currency[u'貨幣'].str.split().str[0]
 
-    us = pytz.timezone('US/Pacific')
+    us = pytz.timezone('Asia/Taipei')
     now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
     dt = datetime.datetime.strptime(now,"%Y-%m-%d %H:%M").replace(tzinfo=us)
 
