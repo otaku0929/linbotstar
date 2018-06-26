@@ -2431,8 +2431,8 @@ def handle_message(event):
     rate_list = "美金|港幣|英鎊|澳幣|加拿大幣|新加坡幣|瑞士法郎|日圓|日幣|南非幣|瑞典幣|紐元|泰幣|菲國比索|印尼幣|歐元|韓元|越南盾|馬來幣|人民幣"
     if re.search(rate_list,event.message.text):
         if re.search("=",event.message.text):
-            print(event.message.text)
             content = rate_ex(event.message.text)
+            print(content)
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
             return 0
         else:
