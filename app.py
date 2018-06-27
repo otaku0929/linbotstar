@@ -2112,7 +2112,7 @@ def handle_message(event):
             content = '臺灣銀行牌告匯率\n查詢時間:{}\n{} 1:{}\n\n走勢圖:{}'.format(rate_content[0],rate_content[1],rate_content[2],rate_content[4])
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
             return 0
-    words_list = "幹|操|fuck|三小|靠北|爆料|三字經|壞掉了|小星星|早安|早啊|晚安|睡囉|哈哈哈哈哈"
+    words_list = "幹|操|fuck|三小|靠北|爆料|三字經|壞掉了|小星星|早安|早啊|晚安|睡囉|哈哈哈哈哈|[才|你|小星星]尿床|尿好了|有尿了"
     if re.search(words_list,event.message.text):
         content = star_talk(event.message.text)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
