@@ -25,6 +25,8 @@ def star_talk(messages_talk):
          return talk_dict('哈N')
     elif re.search("早安|早啊",messages_talk):
          return talk_dict('早安')
+    elif re.search("晚安",messages_talk):
+         return talk_dict('晚安')
     elif re.search("小星星",messages_talk):
         if re.search("早[安|啊|上好]",messages_talk):
             return talk_dict('早安')
