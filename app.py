@@ -1488,7 +1488,6 @@ def mojim(res):
 def fwords(resf):
     words = resf
     print(words)
-    wlist = 
     ylist = (["聽歌","找歌"])
     tlist = (['翻譯'])
     glist = (['查優惠'])
