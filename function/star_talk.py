@@ -5,7 +5,7 @@ from function.s17api import s17uidrandom_star
 from function.function import shelp
 
 if __name__ == '__main__':
-    res = '小星星好來首歌'
+    res = '要去睡囉'
     print(star_talk(res))
 
 def star_talk(messages_talk):
@@ -25,7 +25,7 @@ def star_talk(messages_talk):
          return talk_dict('哈N')
     elif re.search("早安|早啊",messages_talk):
          return talk_dict('早安')
-    elif re.search("晚安",messages_talk):
+    elif re.search("晚安|睡囉",messages_talk):
          return talk_dict('晚安')
     elif re.search("小星星",messages_talk):
         if re.search("早[安|啊|上好]",messages_talk):
