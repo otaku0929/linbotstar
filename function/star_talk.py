@@ -5,7 +5,7 @@ from function.s17api import s17uidrandom_star
 from function.function import shelp
 
 if __name__ == '__main__':
-    res = '要去睡囉'
+    res = '小星星尿床'
     print(star_talk(res))
 
 def star_talk(messages_talk):
@@ -27,6 +27,10 @@ def star_talk(messages_talk):
          return talk_dict('早安')
     elif re.search("晚安|睡囉",messages_talk):
          return talk_dict('晚安')
+    elif re.search("尿好了|有尿了",messages_talk):
+         return talk_dict('尿好了')
+    elif re.search("(才|你|小星星)尿床",messages_talk):
+         return talk_dict('尿床')
     elif re.search("小星星",messages_talk):
         if re.search("早[安|啊|上好]",messages_talk):
             return talk_dict('早安')
@@ -117,6 +121,8 @@ def star_talk(messages_talk):
         
 def talk_dict(res):
     dict={
+            '尿好了':['很好~那快去睡吧日~晚安','那就不用包屁屁了'],
+            '尿床':['我早就不用包屁屁了','我很久沒尿床了','前天~~~~~~'],
             'fuck':['喵喵~','汪汪~','咩~','啊嘶~','噓~好孩子不說這個','講~f~u~c~k~才有英特內訊NO','十十人一十','操你媽好嗎~幹我媽很好',
                     '你媽知道你在講幹話嗎','汝聲何其大','E04','每60秒就會有一分鐘過去~你還在這講幹話','人生何其短~何必幹不停',
                     '喂~氣質一點','別操來幹去啦','不要過來~我會叫~','來跟著小星星幹~一定會成功','環保不分你我~垃圾不分藍綠',
@@ -297,3 +303,4 @@ def talk_dict(res):
             }
     
     return random.choice(dict[res])
+    
