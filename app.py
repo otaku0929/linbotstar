@@ -1555,10 +1555,6 @@ def fwords(resf):
             chour = ctime.strftime("%H")
             content = chdate(cyear,cmonth,cdate,chour)
             return content
-    elif words[0] in olist:
-        messages_talk = words[0]
-        content = star_talk(messages_talk)
-        return content
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
