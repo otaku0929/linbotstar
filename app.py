@@ -1488,8 +1488,7 @@ def mojim(res):
 def fwords(resf):
     words = resf
     print(words)
-    olist = (["幹","操","靠"])
-    wlist = (["三小","靠北","馬的","媽的","放屁","屁啦","狗屁","爆料","八卦","三字經","幹你娘","壞掉了","小星星"])
+    wlist = 
     ylist = (["聽歌","找歌"])
     tlist = (['翻譯'])
     glist = (['查優惠'])
@@ -1561,13 +1560,6 @@ def fwords(resf):
         messages_talk = words[0]
         content = star_talk(messages_talk)
         return content
-    elif len(words) >=2:
-        for data in wlist:
-            if words.find(data)>-1:
-                return (star_talk(words))
-        #for data in rlist:
-        #    if words.find(data)>-1:
-        #        return rate(data.replace('日幣','日圓'))
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
@@ -2125,6 +2117,11 @@ def handle_message(event):
             content = '臺灣銀行牌告匯率\n查詢時間:{}\n{} 1:{}\n\n走勢圖:{}'.format(rate_content[0],rate_content[1],rate_content[2],rate_content[4])
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
             return 0
+    words_list = "幹|操|fuck|三小|靠北|爆料|三字經|壞掉了|小星星|早安|早啊|晚安|睡囉|哈哈哈哈哈"
+    if re.search(wrds_list,event.message.text):
+        content = return (star_talk(event.message.text))
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        return 0    
     if len(words)>=1:
         resf = words
         content = fwords(resf)
