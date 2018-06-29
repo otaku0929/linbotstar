@@ -352,37 +352,6 @@ def ymovie_content(res):
     
     return alist
 
-def technews():
-    target_url = 'https://technews.tw/'
-    print('Start parsing movie ...')
-    rs = requests.session()
-    res = rs.get(target_url, verify=False)
-    res.encoding = 'utf-8'
-    soup = BeautifulSoup(res.text, 'html.parser')
-    content = ""
-
-    for index, data in enumerate(soup.select('article div h1.entry-title a')):
-        if index == 12:
-            return content
-        title = data.text
-        link = data['href']
-        content += '{}\n{}\n\n'.format(title, link)
-    return content
-
-
-def panx():
-    target_url = 'https://panx.asia/'
-    print('Start parsing ptt hot....')
-    rs = requests.session()
-    res = rs.get(target_url, verify=False)
-    soup = BeautifulSoup(res.text, 'html.parser')
-    content = ""
-    for data in soup.select('div.container div.row div.desc_wrap h2 a'):
-        title = data.text
-        link = data['href']
-        content += '{}\n{}\n\n'.format(title, link)
-    return content
-
 def yt():
 
     url = "https://www.youtube.com/channel/UC-9-kyTW8ZkZNDHQJ6FgpwQ/featured?gl=TW#loc0=it"
@@ -1709,18 +1678,6 @@ def handle_message(event):
         return 0
     if event.message.text == "本週上映":
         content = movie_new()
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=content))
-        return 0
-    if event.message.text == "科技新報":
-        content = technews()
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=content))
-        return 0
-    if event.message.text == "PanX泛科技":
-        content = panx()
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=content))
