@@ -1927,8 +1927,6 @@ def handle_message(event):
         return 0
     if re.search("小星星(福利社|賣場|商店街)",event.message.text):
         store_content = star_store()
-        print(store_content)
-        print(store_content[0]['url'])
         carousel_template_message = TemplateSendMessage(
             alt_text='star_store_info',
             template=CarouselTemplate(
@@ -1940,7 +1938,7 @@ def handle_message(event):
                         actions=[
                             URITemplateAction(
                                 label='詳細說明',
-                                url= store_content[0]['url']
+                                uri= store_content[0]['url']
                             )
                         ]
                     ),
@@ -1951,18 +1949,18 @@ def handle_message(event):
                         actions=[
                             URITemplateAction(
                                 label='詳細說明',
-                                url= store_content[1]['url']
+                                uri= store_content[1]['url']
                             )
                         ]
                     ),
                     CarouselColumn(
-                        thumbnail_image_url=store_content[1]['image'],
-                        title=store_content[1]['title'],
-                        text=store_content[1]['detail'],
+                        thumbnail_image_url=store_content[2]['image'],
+                        title=store_content[2]['title'],
+                        text=store_content[2]['detail'],
                         actions=[
                             URITemplateAction(
                                 label='詳細說明',
-                                url= store_content[1]['url']
+                                uri= store_content[2]['url']
                             )
                         ]
                     )
