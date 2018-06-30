@@ -1927,6 +1927,8 @@ def handle_message(event):
         return 0
     if re.search("小星星(福利社|賣場|商店街)",event.message.text):
         store_content = star_store()
+        print(sotre_content)
+        print(store_content[0]['url'])
         carousel_template_message = TemplateSendMessage(
             alt_text='star_store_info',
             template=CarouselTemplate(
