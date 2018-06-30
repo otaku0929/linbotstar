@@ -23,6 +23,7 @@ from function.tarot_detail import tarot_random_get
 from function.tarot_detail import tarot_detail
 from function.rate import rate
 from function.rate import rate_ex
+from function.star_store import star_store
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -1923,6 +1924,50 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=content))
+        return 0
+    if re.search("小星星(福利社|賣場|商店街)",event.message.text):
+        store_content = star_store()
+        carousel_template_message = TemplateSendMessage(
+            alt_text='star_store_info',
+            template=CarouselTemplate(
+                columns=[
+                    CarouselColumn(
+                        thumbnail_image_url=store_content[0]['image'],
+                        title=store_content[0]['title'],
+                        text=store_content[0]['detail'],
+                        actions=[
+                            URITemplateAction(
+                                label='牌義說明',
+                                url= 'store_content[0]['url']'
+                            )
+                        ]
+                    ),
+                    CarouselColumn(
+                        thumbnail_image_url=store_content[1]['image'],
+                        title=store_content[1]['title'],
+                        text=store_content[1]['detail'],
+                        actions=[
+                            URITemplateAction(
+                                label='牌義說明',
+                                url= 'store_content[1]['url']'
+                            )
+                        ]
+                    ),
+                    CarouselColumn(
+                        thumbnail_image_url=store_content[1]['image'],
+                        title=store_content[1]['title'],
+                        text=store_content[1]['detail'],
+                        actions=[
+                            URITemplateAction(
+                                label='牌義說明',
+                                url= 'store_content[1]['url']'
+                            )
+                        ]
+                    )
+                ]
+            )
+        )
+        line_bot_api.reply_message(event.reply_token,carousel_template_message)
         return 0
     #查塔羅牌說明
     if re.search("查(塔羅牌|塔羅|tarot)說明(\d+)",event.message.text):
