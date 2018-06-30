@@ -13,7 +13,7 @@ def star_store():
                 'title':'夜光卡通造型汽車臨時停車卡',
                 'url':'http://seller.pcstore.com.tw/S198614447/C1200056412.htm',
                 'image':'https://i.imgur.com/jrg2cmw.jpg',
-                'detail':'..厚度增加，防止受熱后，出現卷邊情況\n..環保硅膠材質，柔軟可見，不易變形\n..防滑背面'
+                'detail':'環保硅膠材質，柔軟可見，不易變形'
                     },
             {
                 'title':'長效防蚊扣',
