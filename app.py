@@ -1937,7 +1937,7 @@ def handle_message(event):
                         text=store_content[0]['detail'],
                         actions=[
                             URITemplateAction(
-                                label='牌義說明',
+                                label='詳細說明',
                                 url= store_content[0]['url']
                             )
                         ]
@@ -1948,7 +1948,7 @@ def handle_message(event):
                         text=store_content[1]['detail'],
                         actions=[
                             URITemplateAction(
-                                label='牌義說明',
+                                label='詳細說明',
                                 url= store_content[1]['url']
                             )
                         ]
@@ -1959,7 +1959,7 @@ def handle_message(event):
                         text=store_content[1]['detail'],
                         actions=[
                             URITemplateAction(
-                                label='牌義說明',
+                                label='詳細說明',
                                 url= store_content[1]['url']
                             )
                         ]
