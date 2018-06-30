@@ -23,7 +23,7 @@ def star_store():
                     },
             {
                 'title':'匠師的故鄉美景農場',
-                'url':'https://0426815735.tw.tranews.com/',
+                'url':'https://beauty-farm.webnode.tw/',
                 'image':'https://i.imgur.com/ISbRAsA.jpg',
                 'detail':'匠師的故鄉‧包子匠師‧濱海體驗‧台中旅遊',
                     }
