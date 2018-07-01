@@ -1963,6 +1963,17 @@ def handle_message(event):
                                 uri= store_content[2]['url']
                             )
                         ]
+                    ),
+                      CarouselColumn(
+                        thumbnail_image_url=store_content[3]['image'],
+                        title=store_content[3]['title'],
+                        text=store_content[3]['detail'],
+                        actions=[
+                            URITemplateAction(
+                                label='詳細說明',
+                                uri= store_content[3]['url']
+                            )
+                        ]
                     )
                 ]
             )
