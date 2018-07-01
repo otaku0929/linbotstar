@@ -31,7 +31,7 @@ def store_list():
                 'title':'DIY迷你冰球圓形製冰球4入',
                 'url':'https://cadm.pcstore.com.tw/prod/prod_nmod.htm?c_prd_no=C1201104944',
                 'image':'https://i.imgur.com/bTNaZLM.jpg',
-                'detail':'炎炎夏日喝杯冰爽的可樂以及洋酒無比樂哉，可糾結的是冰塊不一會就融化了，而且酒跟可樂的味道也會變淡，有了它就不怕了，超級難融化，超級持久的大冰球，夏天沒有怎麼能行呢。',
+                'detail':'超級難融化，超級持久的大冰球，炎炎夏日有了它就不怕了。',
                     }
                     
             ]
@@ -47,16 +47,9 @@ def adv_list():
                 'url':'https://beauty-farm.webnode.tw/',
                 'image':'https://i.imgur.com/ISbRAsA.jpg',
                 'detail':'匠師的故鄉‧包子匠師‧濱海體驗‧台中旅遊',
-                    },
-            {
-                'title':'2',
-                'url':'https://beauty-farm.webnode.tw/',
-                'image':'https://i.imgur.com/ISbRAsA.jpg',
-                'detail':'匠師的故鄉‧包子匠師‧濱海體驗‧台中旅遊',
-                    }     
+                    } 
             ]
-    
-    
+       
     return random.choice(dict)
 
 if __name__ == '__main__':
