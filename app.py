@@ -1694,7 +1694,7 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=content))
-        gs_write('B19)
+        gs_write('B19')
         return 0
     if event.message.text == "youtube熱門":
         content = yt_hot()
