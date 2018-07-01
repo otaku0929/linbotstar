@@ -24,6 +24,7 @@ from function.tarot_detail import tarot_detail
 from function.rate import rate
 from function.rate import rate_ex
 from function.star_store import star_store
+from function.function_count import gs_write
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -1568,6 +1569,7 @@ def handle_message(event):
         )
         line_bot_api.reply_message(
             event.reply_token, image_message)
+        gs_write('B5')
         return 0
     if event.message.text == "比大小":
         client = ImgurClient('33ed33e765afedc', '04f0d5531b1d0978ff97fd990554c899e9e7e1f5')
@@ -1592,6 +1594,7 @@ def handle_message(event):
         )
         line_bot_api.reply_message(
             event.reply_token, image_message)
+        gs_write('B7')
         return 0
     if event.message.text == "抽單身":
         client = ImgurClient('33ed33e765afedc', '04f0d5531b1d0978ff97fd990554c899e9e7e1f5')
@@ -1617,6 +1620,7 @@ def handle_message(event):
         )
         line_bot_api.reply_message(
             event.reply_token, [image_message, TextSendMessage(text=content)])
+        gs_write('B3')
         return 0
     if event.message.text == "抽正妹":
         image = requests.get(API_Get_Image)
@@ -1628,6 +1632,7 @@ def handle_message(event):
         )
         line_bot_api.reply_message(
             event.reply_token, [image_message, TextSendMessage(text=content)])
+        gs_write('B4')
         return 0
     if event.message.text in ["抽","來點正能量"]:
         
@@ -1652,6 +1657,7 @@ def handle_message(event):
         )
         line_bot_api.reply_message(
             event.reply_token, image_message)
+        gs_write('B2')
         return 0
     if event.message.text == "PTTHOT":
         content = ptt_hot()
@@ -1688,6 +1694,7 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=content))
+        gs_write('B19)
         return 0
     if event.message.text == "youtube熱門":
         content = yt_hot()
@@ -1712,6 +1719,7 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=content))
+        gs_write('B8')
         return 0
     if event.message.text == "現在吃什麼":
         client = ImgurClient('33ed33e765afedc', '04f0d5531b1d0978ff97fd990554c899e9e7e1f5')
@@ -1723,6 +1731,7 @@ def handle_message(event):
             preview_image_url=url
         )
         line_bot_api.reply_message(event.reply_token, image_message)
+        gs_write('B6')
         return 0
     if event.message.text == "抽歡歌":
         content = sing17()
@@ -1883,6 +1892,7 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=content))
+        gs_write('B14')
         return 0    
     if mlist[mlist.find('查股市',0):3]=='查股市':
         res = mlist[mlist.find('查股市',0)+3:5]
@@ -1901,6 +1911,7 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=content))
+        gs_write('B4')
         return 0 
     if mlist[mlist.find('查伴奏',0):3]=='查伴奏':
         res = mlist[mlist.find('查伴奏',0)+3:]
@@ -1912,8 +1923,10 @@ def handle_message(event):
     if mlist[mlist.find('歡歌',0):2]=='歡歌':
         if mlist.find(':')<0:
             content = s17uidrandom(mlist)
+            gs_write('B10')
         else:
             content = s17uidsong(mlist)
+            gs_write('B11')
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=content))
@@ -1924,6 +1937,7 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=content))
+        gs_write('B13')
         return 0
     if re.search("小星星(福利社|賣場|商店街)",event.message.text):
         store_content = star_store()
@@ -1979,6 +1993,7 @@ def handle_message(event):
             )
         )
         line_bot_api.reply_message(event.reply_token,carousel_template_message)
+        gs_write('B12')
         return 0
     #查塔羅牌說明
     if re.search("查(塔羅牌|塔羅|tarot)說明(\d+)",event.message.text):
@@ -2112,6 +2127,7 @@ def handle_message(event):
             )
             line_bot_api.reply_message(
                 event.reply_token, [image_message, TextSendMessage(text=content)])
+        gs_write('B16')
         return 0
     #匯率
     rate_list = "美金|港幣|英鎊|澳幣|加拿大幣|加幣|新加坡幣|瑞士法郎|法郎|日圓|日幣|南非幣|瑞典幣|紐元|泰幣|泰銖|菲國比索|印尼幣|歐元|韓元|越南盾|馬來幣|人民幣"
@@ -2119,11 +2135,13 @@ def handle_message(event):
         if re.search("=",event.message.text):
             content = rate_ex(event.message.text)
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+            gs_write('B22')
             return 0
         else:
             rate_content = rate(re.search(rate_list,event.message.text).group(0).replace('日幣','日圓').replace('加幣','加拿大幣').replace('泰銖','泰幣').replace('法郎','瑞士法郎')) 
             content = '臺灣銀行牌告匯率\n查詢時間:{}\n{} 1:{}\n\n走勢圖:{}'.format(rate_content[0],rate_content[1],rate_content[2],rate_content[4])
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+            gs_write('B23')
             return 0
     words_list = "幹|操|fuck|三小|靠北|爆料|三字經|壞掉了|小星星|早安|早啊|晚安|睡囉|哈哈哈哈哈|(才|你|小星星)尿床|尿好了|有尿了"
     if re.search(words_list,event.message.text):
