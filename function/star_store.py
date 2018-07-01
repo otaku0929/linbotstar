@@ -6,8 +6,14 @@ Created on Sat Jun 30 20:40:17 2018
 """
 import random
 
-    
 def star_store():
+    content_list = store_list()
+    content_list.append(adv_list())
+    random.shuffle(content_list)
+    return content_list
+
+    
+def store_list():
     dict=[
             {
                 'title':'夜光卡通造型汽車臨時停車卡',
@@ -22,18 +28,39 @@ def star_store():
                 'detail':'使用時效長，拆封使用就能有效驅趕蚊蟲時效長達2-3個月～',
                     },
             {
-                'title':'匠師的故鄉美景農場',
-                'url':'https://beauty-farm.webnode.tw/',
-                'image':'https://i.imgur.com/ISbRAsA.jpg',
-                'detail':'匠師的故鄉‧包子匠師‧濱海體驗‧台中旅遊',
+                'title':'DIY迷你冰球圓形製冰球4入',
+                'url':'https://cadm.pcstore.com.tw/prod/prod_nmod.htm?c_prd_no=C1201104944',
+                'image':'https://i.imgur.com/bTNaZLM.jpg',
+                'detail':'炎炎夏日喝杯冰爽的可樂以及洋酒無比樂哉，可糾結的是冰塊不一會就融化了，而且酒跟可樂的味道也會變淡，有了它就不怕了，超級難融化，超級持久的大冰球，夏天沒有怎麼能行呢。',
                     }
                     
             ]
     
     random.shuffle(dict)
-    return dict[0:]
+    return dict[0:3]
+
+
+def adv_list():
+    dict=[
+            {
+                'title':'匠師的故鄉美景農場',
+                'url':'https://beauty-farm.webnode.tw/',
+                'image':'https://i.imgur.com/ISbRAsA.jpg',
+                'detail':'匠師的故鄉‧包子匠師‧濱海體驗‧台中旅遊',
+                    },
+            {
+                'title':'2',
+                'url':'https://beauty-farm.webnode.tw/',
+                'image':'https://i.imgur.com/ISbRAsA.jpg',
+                'detail':'匠師的故鄉‧包子匠師‧濱海體驗‧台中旅遊',
+                    }     
+            ]
+    
+    
+    return random.choice(dict)
 
 if __name__ == '__main__':
     store_content = star_store()
-    print(store_content[0]['title'])
+    print(store_content)
+    #print(store_content[0]['title'])
 
