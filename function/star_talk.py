@@ -105,6 +105,12 @@ def star_talk(messages_talk):
             return talk_dict('drink_酒')
         elif re.search("虧妹|虧你|虧妳|虧我",messages_talk):
             return talk_dict('bamai')
+        elif re.search("誰最帥",messages_talk):
+            return talk_dict('最帥')
+        elif re.search("誰最美",messages_talk):
+            return talk_dict('最美')
+        elif re.search("誰最醜",messages_talk):
+            return talk_dict('最醜')
         elif re.search("[難|不好]聽",messages_talk):
             return talk_dict('badsing')
         elif re.search("[唱|唱一｜換｜換一|來一][歌|首]",messages_talk):
@@ -122,11 +128,23 @@ def star_talk(messages_talk):
                     return s17uidrandom_star(re.search("UID(.+)",content).group(1))
             else:
                 return content
+        elif re.search("辭海",messages_talk):
+            return talk_dict('辭海')
+        elif re.search("誰是福哥",messages_talk):
+            return talk_dict('福哥')
+        elif re.search("卡米狗|Orz|linebot",messages_talk):
+            return talk_dict('linebot')
         else:
             return talk_dict('random')
         
 def talk_dict(res):
     dict={
+            'linebot':['一個群只能有一個機器人','要我離開群才能用別的機器人哦~嗚~~~~~~','我不好用嗎?傷心~~~~~'],
+            '福哥':['福哥就是福哥囉','就說了N年要拍辭海影片都不拍','大家一起說辭海拍了沒'],
+            '最帥':['辭海的故事~要問福哥','就是~~~~我不好意思說','這關係到...的問題~別多問'],
+            '最帥':['當然是星爸啊','我最帥了~','拍個辭海來看看就知道帥不帥了'],
+            '最美':['我想想哦~~','當然是~妳啊','看看我的眼~看到了誰呢?'],
+            '最醜':['你去照照鏡子就知道了啊','總之不是我'],            
             '尿好了':['很好~那快去睡吧日~晚安','那就不用包屁屁了'],
             '尿床':['我早就不用包屁屁了','我很久沒尿床了','前天~~~~~~'],
             'fuck':['喵喵~','汪汪~','咩~','啊嘶~','噓~好孩子不說這個','講~f~u~c~k~才有英特內訊NO','十十人一十','操你媽好嗎~幹我媽很好',
@@ -312,3 +330,4 @@ def talk_dict(res):
             }
     
     return random.choice(dict[res])
+    
