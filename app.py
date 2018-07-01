@@ -25,6 +25,7 @@ from function.rate import rate
 from function.rate import rate_ex
 from function.star_store import star_store
 from function.function_count import gs_write
+from function.function_count import get_fun_count
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -2143,6 +2144,13 @@ def handle_message(event):
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
             gs_write('B23')
             return 0
+    if event.message.text == '功能統計':
+        res = event.message.text
+        content = get_fun_count()
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=content))
+        return 0   
     words_list = "幹|操|fuck|三小|靠北|爆料|三字經|壞掉了|小星星|早安|早啊|晚安|睡囉|哈哈哈哈哈|(才|你|小星星)尿床|尿好了|有尿了"
     if re.search(words_list,event.message.text):
         content = star_talk(event.message.text)
