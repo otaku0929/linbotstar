@@ -18,7 +18,7 @@ def star_store():
             {
                 'title':'長效防蚊扣',
                 'url':'https://seller.pcstore.com.tw/S198614447/C1200281208.htm',
-                'image':'https://i.imgur.com/90WjznL.jpg',
+                'image':'https://i.imgur.com/8JxptEF.jpg',
                 'detail':'使用時效長，拆封使用就能有效驅趕蚊蟲時效長達2-3個月～',
                     },
             {
