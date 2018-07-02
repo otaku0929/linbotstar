@@ -17,11 +17,22 @@ def mygopen(res):
     url = '{}{}'.format(ourl,res)
     request = requests.get(url)
     soup = BeautifulSoup(request.content, "html.parser")
-    soup_content = soup.select("article[class='post hentry'] a")
+    soup_content0 = soup.select("article[class='post hentry']")
+    soup_content = soup.select("div[class='img-thumbnail']")
+    return_obj = ""
+    i = 0
+    
     if len(soup_content) == 0:
-        return "查無相關資料,請更新關鍵字或至 https://www.mygopen.com 登錄流言"    
+        return "查無相關資料,請更新關鍵字或至https://www.mygopen.com登錄流言"    
     else:
-        return '{}\n{}\n\n{}'.format("MyGoPen Say:",soup_content[1].get('href'),'請共同抵制假消息')
+        for obj in soup_content0:
+          content = obj.select("a")[1].get('href')
+          return_obj = '{}\n{}'.format(return_obj,content)
+          i += 1;
+          if i == 5:
+              return '{}\n{}\n\n{}'.format("MyGoPen Say:",return_obj,'*超過5筆，僅列出前5筆*\n請共同抵制假消息')            
+    
+        return '{}\n{}\n\n{}'.format("MyGoPen Say:",return_obj,'請共同抵制假消息')
     
 def wt(res):
 
@@ -32,5 +43,7 @@ def wt(res):
     print ('--print ok--')   
 
 if __name__ == '__main__':
-    res = '這種雞蛋不要買'
+    messages = '查證LINE隱私'
+    #print(messages[0:2])
+    res = re.search("查證(.+)",messages).group(1)
     print(mygopen(res))
