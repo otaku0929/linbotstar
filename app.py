@@ -2150,7 +2150,7 @@ def handle_message(event):
         content = get_fun_count()
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
-    if event.message.text == '查證':
+    if event.message.text[0:2] == '查證':
         res = re.search("查證(.+)",event.message.text).group(1)
         content = mygopen(res)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
