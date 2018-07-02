@@ -2148,16 +2148,13 @@ def handle_message(event):
     if event.message.text == '功能統計':
         res = event.message.text
         content = get_fun_count()
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=content))
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
     if event.message.text == '查證':
         res = re.search("查證(.+)",event.message.text).group(1)
         content = mygopen(res)
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=content))
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        gs_write('B25')
         return 0   
     if re.search("小星星",event.message.text):
         content = star_talk(event.message.text)
