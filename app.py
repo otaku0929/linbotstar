@@ -26,6 +26,7 @@ from function.rate import rate_ex
 from function.star_store import star_store
 from function.function_count import gs_write
 from function.function_count import get_fun_count
+from function.mygopen import mygopen 
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -2151,6 +2152,13 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=content))
         return 0
+    if event.message.text == '查證':
+        res = re.search("查證(.+)",event.message.text).group(1)
+        content = mygopen(res)
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=content))
+        return 0   
     if re.search("小星星",event.message.text):
         content = star_talk(event.message.text)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
