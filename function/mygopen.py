@@ -19,7 +19,7 @@ def mygopen(res):
     soup = BeautifulSoup(request.content, "html.parser")
     soup_content = soup.select("article[class='post hentry'] a")
     if len(soup_content) == 0:
-        return "查無相關資料,請更新關鍵字或至https://www.mygopen.com登錄流言"    
+        return "查無相關資料,請更新關鍵字或至 https://www.mygopen.com 登錄流言"    
     else:
         return '{}\n{}\n\n{}'.format("MyGoPen Say:",soup_content[1].get('href'),'請共同抵制假消息')
     
