@@ -29,15 +29,27 @@ def store_list():
                     },
             {
                 'title':'DIY迷你冰球圓形製冰球4入',
-                'url':'https://cadm.pcstore.com.tw/prod/prod_nmod.htm?c_prd_no=C1201104944',
+                'url':'http://seller.pcstore.com.tw/S198614447/C1201104944.htm',
                 'image':'https://i.imgur.com/bTNaZLM.jpg',
                 'detail':'超級難融化，超級持久的大冰球，炎炎夏日有了它就不怕了。',
-                    }
+                    },
+             {
+                'title':'炫彩封口夾6入',
+                'url':'http://seller.pcstore.com.tw/S198614447/C1201902776.htm',
+                'image':'https://i.imgur.com/hPe1hnv.jpg',
+                'detail':'炫彩保鮮封夾、加長、加寬、封口平整、漂亮還很好打',
+                    },
+             {
+                'title':'糖果色細長密封夾5入',
+                'url':'http://seller.pcstore.com.tw/S198614447/C1201906373.htm',
+                'image':'https://i.imgur.com/RrK6A9z.jpg',
+                'detail':'各種塑料袋已開過的食品袋，密封保存時使用！',
+                    }      
                     
             ]
     
     random.shuffle(dict)
-    return dict[0:3]
+    return dict[0:4]
 
 
 def adv_list():
@@ -47,9 +59,10 @@ def adv_list():
                 'url':'https://beauty-farm.webnode.tw/',
                 'image':'https://i.imgur.com/ISbRAsA.jpg',
                 'detail':'匠師的故鄉‧包子匠師‧濱海體驗‧台中旅遊',
-                    } 
+                    }, 
             ]
-       
+    
+    
     return random.choice(dict)
 
 if __name__ == '__main__':
