@@ -1991,6 +1991,17 @@ def handle_message(event):
                                 uri= store_content[3]['url']
                             )
                         ]
+                    ),
+                       CarouselColumn(
+                        thumbnail_image_url=store_content[4]['image'],
+                        title=store_content[4]['title'],
+                        text=store_content[4]['detail'],
+                        actions=[
+                            URITemplateAction(
+                                label='詳細說明',
+                                uri= store_content[4]['url']
+                            )
+                        ]
                     )
                 ]
             )
