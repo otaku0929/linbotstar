@@ -43,8 +43,8 @@ def wt(res):
     print ('--print ok--')   
 
 if __name__ == '__main__':
-    messages = '巴哈世紀帝國'
-    #print(messages[0:2])
-    res = re.search("巴哈(.+)",messages).group(1)
+    messages = '巴哈=世紀帝國'
+    #print(messages[0:3])
+    res = re.search("巴哈=(.+)",messages).group(1)
     print(gamer(res))
     print(wt(res))
