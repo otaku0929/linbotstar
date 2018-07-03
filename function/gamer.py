@@ -21,14 +21,18 @@ def gamer(res):
     _json = requests.get(s_url, params=payload)
     json_content = json.loads(_json.content)
     
-    game_list = json_content['results'][0:5]
-    #game_list[0]['richSnippet']
+    game_list = json_content['results']
+
     content = ""
+    i = 0
     for obj in game_list:
-        url = obj['richSnippet']['metatags']['ogUrl']
-        content = content + url +'\n'
-    
-    return content
+        _obj = str(obj['richSnippet']['metatags'])
+        if re.search('ogUrl',_obj):
+            url = obj['richSnippet']['metatags']['ogUrl']
+            content = content + url +'\n\n'
+            i = i+1;
+            if i == 5:
+                return content
 
 def wt(res):
 
@@ -39,7 +43,7 @@ def wt(res):
     print ('--print ok--')   
 
 if __name__ == '__main__':
-    messages = '巴哈天堂M黑妖練法'
+    messages = '巴哈世紀帝國'
     #print(messages[0:2])
     res = re.search("巴哈(.+)",messages).group(1)
     print(gamer(res))
