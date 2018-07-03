@@ -26,7 +26,8 @@ from function.rate import rate_ex
 from function.star_store import star_store
 from function.function_count import gs_write
 from function.function_count import get_fun_count
-from function.mygopen import mygopen 
+from function.mygopen import mygopen
+from function.gamer import gamer 
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -2155,7 +2156,13 @@ def handle_message(event):
         content = mygopen(res)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         gs_write('B25')
-        return 0   
+        return 0
+    if event.message.text[0:2] == '巴哈':
+        res = re.search("巴哈(.+)",event.message.text).group(1)
+        content = gamer(res)
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        gs_write('B26')
+        return 0 
     if re.search("小星星",event.message.text):
         content = star_talk(event.message.text)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
