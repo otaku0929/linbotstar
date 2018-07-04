@@ -37,6 +37,8 @@ def star_talk(messages_talk):
     if re.search("(才|你|小星星)尿床",messages_talk):
          return talk_dict('尿床')
     if re.search("小星星",messages_talk):
+        if re.search('[很|好|超][煩|吵]',messages_talk):
+            return talk_dict('很煩')
         if re.search('傷心|難過|想哭',messages_talk):
             return talk_dict('傷心')
         if re.search('失戀',messages_talk):
@@ -170,6 +172,8 @@ def star_talk(messages_talk):
         
 def talk_dict(res):
     dict={
+            '很煩':['啦啦啦啦','嘿嘿~我是煩人的小星星','怎樣怎樣~我就是吵','沒有我~你會無聊的','來咬我啊~','我靜不下來啊',
+                  '這樣世界才不會太孤單','因為我想吸引妳的注意啊'],
             '愛他':['想一下下就好哦','剛剛分開一定會想的','等那天突然想起來時~就代表放開了','沒關係~就想吧~','不要再想了'],
             '傷心':['怎麼了嗎?','誰欺負妳了','那就哭一下吧','來我秀秀','想討拍嗎?','發生什麼事情了呢?','0.0 說說'],
             '失戀':['啊~是那個不長眼的','沒關係~妳還有我','雖然我不知道什麼叫失戀~但我可以給妳抱抱','不是還好好的嗎?',
