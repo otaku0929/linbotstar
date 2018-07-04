@@ -37,6 +37,8 @@ def star_talk(messages_talk):
     if re.search("(才|你|小星星)尿床",messages_talk):
          return talk_dict('尿床')
     if re.search("小星星",messages_talk):
+        if re.search('[最|超|好][窩心|貼心]',messages_talk):
+            return talk_dict('貼心')
         if re.search('(很|好|超|真)(可愛|卡哇伊)',messages_talk):
             return talk_dict('可愛')
         if re.search('不(可愛|卡哇伊)',messages_talk):
@@ -59,6 +61,8 @@ def star_talk(messages_talk):
             return talk_dict('午安')
         if re.search("晚[安|上好]|睡[覺|了|囉]",messages_talk):
             return talk_dict('晚安')
+        if re.search("[再見|bye|881]",messages_talk):
+            return talk_dict('再見')
         if re.search("你好|安安|hello|hi]",messages_talk):
             return talk_dict('hi')
         if re.search("找[你|妳|星星]",messages_talk):
@@ -106,7 +110,7 @@ def star_talk(messages_talk):
             return talk_dict('kpp')
         if re.search("生氣",messages_talk):
             return talk_dict('angry')
-        if re.search('[傻|笨|呆][子|蛋|啊|瓜]|fool|stupid|北七|白痴|白癡|蠢',messages_talk):
+        if re.search('[傻|笨|呆][子|蛋|啊|瓜|呀]|fool|stupid|北七|白痴|白癡|蠢',messages_talk):
             return talk_dict('fool')
         if re.search("壞了|該修理|要修理",messages_talk):
             return talk_dict('壞掉了')
@@ -114,8 +118,6 @@ def star_talk(messages_talk):
             return talk_dict('group')
         if re.search("運動|動一動",messages_talk):
             return talk_dict('sport')
-        if re.search("傻子|呆子|笨蛋|傻瓜'fool|stupid|北七|白痴",messages_talk):
-            return talk_dict('fool')
         if re.search("吃[大便|屎|屁]",messages_talk):
             return talk_dict('eatshit')
         if re.search("吃什麼|想吃|愛吃|要吃|餓|吃飯",messages_talk):
@@ -124,7 +126,7 @@ def star_talk(messages_talk):
             return talk_dict('eated')
         if re.search("喝酒",messages_talk):
             return talk_dict('drink_酒')
-        if re.search("虧妹|虧你|虧妳|虧我",messages_talk):
+        if re.search("[虧|撩][妹|你|妳|我|咩|妹妹|姐姐]",messages_talk):
             return talk_dict('bamai')
         if re.search("誰最帥",messages_talk):
             return talk_dict('最帥')
@@ -160,6 +162,7 @@ def star_talk(messages_talk):
         
 def talk_dict(res):
     dict={
+            '貼心':['這是一定要的啊','小星星是妳貼心的小寶貝','害羞~~~','只對你好唷'],
             '可愛':['謝謝妳','妳也很可愛啊','這樣可愛嗎?','害羞~~~','妳比較可愛啦'],
             '不可愛':['那有啊~我怎麼的Q','比你可愛100倍'],
             '忍者龜':['那是忍者龜','卡哇邦嘎','卡哇邦嘎有四隻','他們愛吃PIZZA住在下水道'],
@@ -194,10 +197,12 @@ def talk_dict(res):
             '多大':['爸說不可以講','這是個秘密','不如你先說說你幾歲','嘿嘿嘿...','佛曰不可說','1~2~3~4~.....','我1歲'],
             'birthday':['1015 要送我禮物嗎?'],
             '早安':['早安','熬早','牛沒奶','Good Morning','早安~祝你有美好的一天','記得吃早餐哦','早安~來杯咖啡嗎?','起來動一動吧~','別滾床了',
-                  '早安~今天一定會有好事發生的','早上好啊','早安~昨天有睡飽飽嗎?','早~祝你有愉快的一天'],
+                  '早安~今天一定會有好事發生的','早上好啊','早安~昨天有睡飽飽嗎?','早~祝你有愉快的一天','早起的蟲兒被鳥吃'],
             '午安':['午安','吃飽了嗎?','午餐要吃什麼呢?','今天天氣如何呢?','加油~別忘記喝水哦','午~要喝咖啡嗎?','下午再加油一下'],
             '晚安':['晚安','嗯~我也要睡了','乖乖睡哦','噓~快睡吧','zzzzzz','噓~~~~','記得睡前先尿尿哦','別尿床了哦~','記得刷牙哦~','刷牙了嗎?','關燈睡覺',
-                  '拍拍拍~','祝你有個美夢','啊~~我也累了~晚安囉','睡覺不要踢被被哦'],
+                  '拍拍拍~','祝你有個美夢','啊~~我也累了~晚安囉','睡覺不要踢被被哦','早睡早起身體好','真的要睡了嗎?閉上眼就看不見星星了耶',
+                  '我也要一起窩被被'],
+            '再見':['bye-bye-','下次見','要想我哦','快走快走~走了就別回來了','別太想我','我會想妳的','別走~~~~','嗚~~~~~怎辦我開始想妳了'],
             'hi':['hi','hello','你好啊','今天天氣如何?','要抽一張嗎?','安安啊~','有什麼事嗎?','找我嗎?','嗨嗨~'],
             'you':['找我有什麼事嗎?','想聊天嗎?','要做什麼呢?','沒事別叫我'],
             '星爸':['爸~有人叫你','他沒空哦','有什麼事嗎?','噓~~星爸正在忙','小聲點~他在錄歌','爸爸爸爸爸~~','藍藍路~~',
@@ -228,7 +233,8 @@ def talk_dict(res):
             '壞了':['保修價8萬1~','維修專線0800080000','你弄壞的厚~','舊的不去新的不來','不是我弄壞的~','賣了就當廢鐵賣了',
                   '你才壞掉了','快呼叫星爸','沒壞啦','小星星不壞女人不愛','維修專線~忘了'],
             'fool':['你才傻的','我不笨我只是不聰明','我可是擁有最先進的人工智障','哭給你看哦~','哼~~~','給你87分不能再多了',
-                    '傻瓜是誰?','白痴說話','叫星爸咬你哦','黛比有人欺負你弟弟','我才不蠢呢?','比你聰明1000倍~','春虫虫~是虫虫哦~'],
+                    '傻瓜是誰?','白痴說話','叫星爸咬你哦','黛比有人欺負你弟弟','我才不蠢呢?','比你聰明1000倍~','春虫虫~是虫虫哦~',
+                    '誰傻~你嗎?','傻人說傻話','你才是白痴傻瓜笨蛋加三級','你笨還不承認'],
             'group':['出什麼團?','龍谷YYYY','要去那裡玩呢?','吃BOSS嗎?','密室團嗎?0.0'],
             'sport':['one毛~two毛~tree毛','找星爸去~他太胖了','走吧爬枕頭山~','要去那邊運動啊~','嘿~我動動嘴巴就好~','要做什麼運動啊',
                      '動一動~可以再多吃二碗~','GoGoGo~','看到那顆樹了嗎?左去右回~來回10圈~~~','啥~你說什麼'],
