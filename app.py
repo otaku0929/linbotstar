@@ -2144,7 +2144,7 @@ def handle_message(event):
         gs_write('B16')
         return 0
     #匯率
-    rate_list = "美金|港幣|英鎊|澳幣|加拿大幣|加幣|新加坡幣|瑞士法郎|法郎|日圓|日幣|南非幣|瑞典幣|紐元|泰幣|泰銖|菲國比索|印尼幣|歐元|韓元|越南盾|馬來幣|人民幣"
+    rate_list = "美金|港幣|英鎊|澳幣|加拿大幣|加幣|新加坡幣|瑞士法郎|法郎|日圓|日幣|南非幣|瑞典幣|紐元|泰幣|泰銖|菲國比索|印尼幣|歐元|韓元|韓幣|越南盾|馬來幣|人民幣"
     if re.search(rate_list,event.message.text):
         if re.search("=",event.message.text):
             content = rate_ex(event.message.text)
@@ -2152,7 +2152,7 @@ def handle_message(event):
             gs_write('B22')
             return 0
         else:
-            rate_content = rate(re.search(rate_list,event.message.text).group(0).replace('日幣','日圓').replace('加幣','加拿大幣').replace('泰銖','泰幣').replace('法郎','瑞士法郎')) 
+            rate_content = rate(re.search(rate_list,event.message.text).group(0)) 
             content = '臺灣銀行牌告匯率\n查詢時間:{}\n{} 1:{}\n\n走勢圖:{}'.format(rate_content[0],rate_content[1],rate_content[2],rate_content[4])
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
             gs_write('B23')
