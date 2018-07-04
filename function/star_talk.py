@@ -10,33 +10,47 @@ if __name__ == '__main__':
 
 
 def star_talk(messages_talk):
-    if re.search("不好笑",messages_talk):
-         return talk_dict('notfun')
-    elif re.search("買(什麼|東西)",messages_talk):
-         return talk_dict('buy')
-    elif re.search("幹|fuck|操",messages_talk):
+    if re.search("^幹|fuck|操",messages_talk):
          return talk_dict('fuck')
-    elif re.search("三小",messages_talk):
+    if re.search('(操|幹|fuck)([你|他][娘|媽|老師]|you)',messages_talk):
+        return talk_dict('fuck')
+    if re.search("三小",messages_talk):
          return talk_dict('fuck')
-    elif re.search("靠北",messages_talk):
+    if re.search("靠北",messages_talk):
          return talk_dict('靠北')
-    elif re.search("三字經",messages_talk):
+    if re.search("三字經",messages_talk):
          return talk_dict('三字經')
-    elif re.search("爆料",messages_talk):
+    if re.search("爆料",messages_talk):
          return talk_dict('爆料')
-    elif re.search("壞掉了",messages_talk):
+    if re.search("壞掉了",messages_talk):
          return talk_dict('壞掉了')
-    elif re.search("哈哈哈哈哈",messages_talk):
+    if re.search("哈哈哈哈哈",messages_talk):
          return talk_dict('哈N')
-    elif re.search("早安|早啊",messages_talk):
+    if re.search("早安|早啊",messages_talk):
          return talk_dict('早安')
-    elif re.search("晚安|睡囉",messages_talk):
+    if re.search("晚安|睡囉",messages_talk):
          return talk_dict('晚安')
-    elif re.search("尿好了|有尿了",messages_talk):
+    if re.search("尿好了|有尿了",messages_talk):
          return talk_dict('尿好了')
-    elif re.search("(才|你|小星星)尿床",messages_talk):
+    if re.search("(才|你|小星星)尿床",messages_talk):
          return talk_dict('尿床')
-    elif re.search("小星星",messages_talk):
+    if re.search("小星星",messages_talk):
+        if re.search('(很|好|超|真)(可愛|卡哇伊)',messages_talk):
+            return talk_dict('可愛')
+        if re.search('不(可愛|卡哇伊)',messages_talk):
+            return talk_dict('不可愛')
+        if re.search('(卡哇邦嘎|忍者龜)',messages_talk):
+            return talk_dict('忍者龜')    
+        if re.search('白痴',messages_talk):
+            return talk_dict('白痴')
+        if re.search('白爛',messages_talk):
+            return talk_dict('白爛')
+        if re.search('自戀',messages_talk):
+            return talk_dict('自戀')
+        if re.search("不好笑",messages_talk):
+            return talk_dict('notfun')
+        if re.search("買(什麼|東西)",messages_talk):
+            return talk_dict('buy')
         if re.search("早[安|啊|上好]",messages_talk):
             return talk_dict('早安')
         if re.search("午安",messages_talk):
@@ -45,19 +59,19 @@ def star_talk(messages_talk):
             return talk_dict('晚安')
         if re.search("你好|安安|hello|hi]",messages_talk):
             return talk_dict('hi')
-        elif re.search("找[你|妳|星星]",messages_talk):
+        if re.search("找[你|妳|星星]",messages_talk):
            return talk_dict('you')
-        elif re.search("找星(爸|拔)|星(爸|拔)咧|星(爸|拔)在哪裡|叫一下星(爸|拔)|叫星(爸|拔)",messages_talk):
+        if re.search("找星(爸|拔)|星(爸|拔)咧|星(爸|拔)在哪裡|叫一下星(爸|拔)|叫星(爸|拔)",messages_talk):
             return talk_dict('星爸')
-        elif re.search("找[碴|麻煩]",messages_talk):
+        if re.search("找[碴|麻煩]",messages_talk):
             return talk_dict('麻煩')
-        elif re.search("聊天]",messages_talk):
+        if re.search("聊天]",messages_talk):
             return talk_dict('talk')
-        elif re.search("聽話|乖|乖乖",messages_talk):
+        if re.search("聽話|乖|乖乖",messages_talk):
             return talk_dict('goodboy')
-        elif re.search("[喜歡|愛]什麼",messages_talk):
+        if re.search("[喜歡|愛]什麼",messages_talk):
             return talk_dict('like')
-        elif re.search("[喜歡|愛](吃|喝|玩|看|聽|誰|我)",messages_talk):
+        if re.search("[喜歡|愛](吃|喝|玩|看|聽|誰|我)",messages_talk):
             if re.search("[喜歡|愛](吃|喝|玩|看|聽|誰|我)",messages_talk).group(1) == "吃":
                 return talk_dict('like_eat')
             if re.search("[喜歡|愛](吃|喝|玩|看|聽|誰|我)",messages_talk).group(1) == "喝":
@@ -72,53 +86,53 @@ def star_talk(messages_talk):
                 return talk_dict('like_who')
             if re.search("[喜歡|愛](吃|喝|玩|看|聽|誰|我)",messages_talk).group(1) == "我":
                 return talk_dict('like_me')
-        elif re.search("機器人|是[誰|什麼|男|女]",messages_talk):
+        if re.search("機器人|是[誰|什麼|男|女]",messages_talk):
             return talk_dict('robot')
-        elif re.search("多大|幾歲",messages_talk):
+        if re.search("多大|幾歲",messages_talk):
             return talk_dict('多大')
-        elif re.search("生日",messages_talk):
+        if re.search("生日",messages_talk):
             return talk_dict('birthday')
-        elif re.search("住那|住哪|家在哪|家在那",messages_talk):
+        if re.search("住那|住哪|家在哪|家在那",messages_talk):
             return talk_dict('住那')
-        elif re.search("有什麼功能|功能表",messages_talk):
+        if re.search("有什麼功能|功能表",messages_talk):
             return shelp()
-        elif re.search("哈|哈哈|哈哈哈",messages_talk):
+        if re.search("哈|哈哈|哈哈哈",messages_talk):
             return talk_dict('哈')
-        elif re.search("哭|欠揍|打你哦",messages_talk):
+        if re.search("哭|欠揍|打你哦",messages_talk):
             return talk_dict('cry')
-        elif re.search("打屁股|打屁屁",messages_talk):
+        if re.search("打屁股|打屁屁",messages_talk):
             return talk_dict('kpp')
-        elif re.search("生氣",messages_talk):
+        if re.search("生氣",messages_talk):
             return talk_dict('angry')
-        elif re.search("傻子|呆子|笨蛋|傻瓜'fool|stupid|北七|白痴",messages_talk):
+        if re.search("傻子|呆子|笨蛋|傻瓜'fool|stupid|北七|白痴|蠢",messages_talk):
             return talk_dict('fool')
-        elif re.search("壞了|該修理|要修理",messages_talk):
+        if re.search("壞了|該修理|要修理",messages_talk):
             return talk_dict('壞掉了')
-        elif re.search("出團",messages_talk):
+        if re.search("出團",messages_talk):
             return talk_dict('group')
-        elif re.search("運動|動一動",messages_talk):
+        if re.search("運動|動一動",messages_talk):
             return talk_dict('sport')
-        elif re.search("傻子|呆子|笨蛋|傻瓜'fool|stupid|北七|白痴",messages_talk):
+        if re.search("傻子|呆子|笨蛋|傻瓜'fool|stupid|北七|白痴",messages_talk):
             return talk_dict('fool')
-        elif re.search("吃[大便|屎|屁]",messages_talk):
+        if re.search("吃[大便|屎|屁]",messages_talk):
             return talk_dict('eatshit')
-        elif re.search("吃什麼|想吃|愛吃|要吃|餓|吃飯",messages_talk):
+        if re.search("吃什麼|想吃|愛吃|要吃|餓|吃飯",messages_talk):
             return talk_dict('eat')
-        elif re.search("吃飽了",messages_talk):
+        if re.search("吃飽了",messages_talk):
             return talk_dict('eated')
-        elif re.search("喝酒",messages_talk):
+        if re.search("喝酒",messages_talk):
             return talk_dict('drink_酒')
-        elif re.search("虧妹|虧你|虧妳|虧我",messages_talk):
+        if re.search("虧妹|虧你|虧妳|虧我",messages_talk):
             return talk_dict('bamai')
-        elif re.search("誰最帥",messages_talk):
+        if re.search("誰最帥",messages_talk):
             return talk_dict('最帥')
-        elif re.search("誰最美",messages_talk):
+        if re.search("誰最美",messages_talk):
             return talk_dict('最美')
-        elif re.search("誰最醜",messages_talk):
+        if re.search("誰最醜",messages_talk):
             return talk_dict('最醜')
-        elif re.search("[難|不好]聽",messages_talk):
+        if re.search("[難|不好]聽",messages_talk):
             return talk_dict('badsing')
-        elif re.search("[唱|唱一｜換｜換一|來一][歌|首]",messages_talk):
+        if re.search("[唱|唱一｜換｜換一|來一][歌|首]",messages_talk):
             content = talk_dict('sing')
             if re.search("抽歡歌",content):
                 res = sing17()
@@ -133,17 +147,23 @@ def star_talk(messages_talk):
                     return s17uidrandom_star(re.search("UID(.+)",content).group(1))
             else:
                 return content
-        elif re.search("辭海",messages_talk):
+        if re.search("辭海",messages_talk):
             return talk_dict('辭海')
-        elif re.search("誰是福哥",messages_talk):
+        if re.search("誰是福哥",messages_talk):
             return talk_dict('福哥')
-        elif re.search("卡米狗|Orz|linebot",messages_talk):
+        if re.search("卡米狗|Orz|linebot",messages_talk):
             return talk_dict('linebot')
         else:
             return talk_dict('random')
         
 def talk_dict(res):
     dict={
+            '可愛':['謝謝妳','妳也很可愛啊','這樣可愛嗎?','害羞~~~','妳比較可愛啦'],
+            '不可愛':['那有啊~我怎麼的Q','比你可愛100倍'],
+            '忍者龜':['那是忍者龜','卡哇邦嘎','卡哇邦嘎有四隻','他們愛吃PIZZA住在下水道'],
+            '白痴':['再白痴也比你聰明','來比一比~1+1=多少啊?','有時候白痴一點比聰明來的好過啊~','你才白痴啦','白白白白白痴痴痴痴','丫姐~~~~~'],
+            '白爛':['白爛是什麼呢?','嘿嘿嘿~怎樣','學你的啊'],
+            '自戀':['沒有你自戀','要別人喜歡你~就要先喜歡自已','哥就是帥~怎樣','拿起鏡子照一照~星爸的品種果然優良','我有的自戀~你有嗎?'],
             'notfun':['來嘴巴張開~~露出牙齒~這樣不就笑了','又沒要你笑','那換你講笑話','不好笑別笑啊','哼~不講了','啊星爸就只教我冷笑話啊,不然你教我',
                       '明明就在偷笑','笑~給我笑~~不然我不講笑話了'],
             'buy':['可以參考一下小星星福利社唷','買妳的心','口袋空空~嗚~~~','一塊庺、二塊錢、三塊錢.....','丫拔我要錢'],
@@ -206,7 +226,7 @@ def talk_dict(res):
             '壞了':['保修價8萬1~','維修專線0800080000','你弄壞的厚~','舊的不去新的不來','不是我弄壞的~','賣了就當廢鐵賣了',
                   '你才壞掉了','快呼叫星爸','沒壞啦','小星星不壞女人不愛','維修專線~忘了'],
             'fool':['你才傻的','我不笨我只是不聰明','我可是擁有最先進的人工智障','哭給你看哦~','哼~~~','給你87分不能再多了',
-                    '傻瓜是誰?','白痴說話','叫星爸咬你哦','黛比有人欺負你弟弟'],
+                    '傻瓜是誰?','白痴說話','叫星爸咬你哦','黛比有人欺負你弟弟','我才不蠢呢?','比你聰明1000倍~','春虫虫~是虫虫哦~'],
             'group':['出什麼團?','龍谷YYYY','要去那裡玩呢?','吃BOSS嗎?','密室團嗎?0.0'],
             'sport':['one毛~two毛~tree毛','找星爸去~他太胖了','走吧爬枕頭山~','要去那邊運動啊~','嘿~我動動嘴巴就好~','要做什麼運動啊',
                      '動一動~可以再多吃二碗~','GoGoGo~','看到那顆樹了嗎?左去右回~來回10圈~~~','啥~你說什麼'],
