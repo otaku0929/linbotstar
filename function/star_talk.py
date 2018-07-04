@@ -37,6 +37,14 @@ def star_talk(messages_talk):
     if re.search("(才|你|小星星)尿床",messages_talk):
          return talk_dict('尿床')
     if re.search("小星星",messages_talk):
+        if re.search('傷心|難過|想哭',messages_talk):
+            return talk_dict('傷心')
+        if re.search('失戀',messages_talk):
+            return talk_dict('失戀')
+        if re.search('[想][他|她]',messages_talk):
+            return talk_dict('想他')
+        if re.search('看穿了',messages_talk):
+            return talk_dict('看穿')
         if re.search('[最|超|好][窩心|貼心]',messages_talk):
             return talk_dict('貼心')
         if re.search('(很|好|超|真)(可愛|卡哇伊)',messages_talk):
@@ -162,6 +170,11 @@ def star_talk(messages_talk):
         
 def talk_dict(res):
     dict={
+            '愛他':['想一下下就好哦','剛剛分開一定會想的','等那天突然想起來時~就代表放開了','沒關係~就想吧~','不要再想了'],
+            '傷心':['怎麼了嗎?','誰欺負妳了','那就哭一下吧','來我秀秀','想討拍嗎?','發生什麼事情了呢?','0.0 說說'],
+            '失戀':['啊~是那個不長眼的','沒關係~妳還有我','雖然我不知道什麼叫失戀~但我可以給妳抱抱','不是還好好的嗎?',
+                  '是他不懂得珍惜','哭吧~哭一哭就好了','別為那種人難過'],
+            '看穿':['妳有透視眼嗎?','別人笑我太瘋癲，我笑他人看不穿~','那有看到我的真心嗎?'],
             '貼心':['這是一定要的啊','小星星是妳貼心的小寶貝','害羞~~~','只對你好唷'],
             '可愛':['謝謝妳','妳也很可愛啊','這樣可愛嗎?','害羞~~~','妳比較可愛啦'],
             '不可愛':['那有啊~我怎麼的Q','比你可愛100倍'],
