@@ -10,7 +10,7 @@ if __name__ == '__main__':
 
 
 def star_talk(messages_talk):
-    if re.search("^幹|fuck|操",messages_talk):
+    if re.match("^幹|fuck|操",messages_talk):
          return talk_dict('fuck')
     if re.search('(操|幹|fuck)([你|他][娘|媽|老師]|you)',messages_talk):
         return talk_dict('fuck')
@@ -26,7 +26,7 @@ def star_talk(messages_talk):
          return talk_dict('壞掉了')
     if re.search("哈哈哈哈哈",messages_talk):
          return talk_dict('哈N')
-    if re.search("早安|早啊",messages_talk):
+    if re.search("早安|早啊|早",messages_talk):
          return talk_dict('早安')
     if re.search("晚安|睡囉",messages_talk):
          return talk_dict('晚安')
