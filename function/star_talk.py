@@ -104,7 +104,7 @@ def star_talk(messages_talk):
             return talk_dict('kpp')
         if re.search("生氣",messages_talk):
             return talk_dict('angry')
-        if re.search("傻子|呆子|笨蛋|傻瓜'fool|stupid|北七|白痴|蠢",messages_talk):
+        if re.search("傻子|呆子|笨蛋|傻瓜'fool|stupid|北七|白痴|白癡|蠢",messages_talk):
             return talk_dict('fool')
         if re.search("壞了|該修理|要修理",messages_talk):
             return talk_dict('壞掉了')
