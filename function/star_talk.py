@@ -12,6 +12,8 @@ if __name__ == '__main__':
 def star_talk(messages_talk):
     if re.match("^幹|fuck|操",messages_talk):
          return talk_dict('fuck')
+    if re.search("幹|fuck|操$",messages_talk):
+         return talk_dict('fuck')
     if re.search('(操|幹|fuck)([你|他][娘|媽|老師]|you)',messages_talk):
         return talk_dict('fuck')
     if re.search("三小",messages_talk):
@@ -104,7 +106,7 @@ def star_talk(messages_talk):
             return talk_dict('kpp')
         if re.search("生氣",messages_talk):
             return talk_dict('angry')
-        if re.search("傻子|呆子|笨蛋|傻瓜'fool|stupid|北七|白痴|白癡|蠢",messages_talk):
+        if re.search('[傻|笨|呆][子|蛋|啊|瓜]|fool|stupid|北七|白痴|白癡|蠢',messages_talk):
             return talk_dict('fool')
         if re.search("壞了|該修理|要修理",messages_talk):
             return talk_dict('壞掉了')
@@ -171,7 +173,7 @@ def talk_dict(res):
             '福哥':['福哥就是福哥囉','就說了N年要拍辭海影片都不拍','大家一起說辭海拍了沒'],
             '最帥':['辭海的故事~要問福哥','就是~~~~我不好意思說','這關係到...的問題~別多問'],
             '最帥':['當然是星爸啊','我最帥了~','拍個辭海來看看就知道帥不帥了','帥能當飯吃嗎?','別問這個問題~我們來喝茶吧'],
-            '最美':['我想想哦~~','當然是~妳啊','看看我的眼~看到了誰呢?'],
+            '最美':['我想想哦~~','當然是~妳啊','看看我的眼~看到了誰呢?','這問題~在我的心中早就有了答案~那個人就是~妳'],
             '最醜':['你去照照鏡子就知道了啊','總之不是我','這件事~天知地知他知我知~就是你不知道'],            
             '尿好了':['很好~那快去睡吧日~晚安','那就不用包屁屁了'],
             '尿床':['我早就不用包屁屁了','我很久沒尿床了','前天~~~~~~'],
