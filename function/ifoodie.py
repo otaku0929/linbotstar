@@ -41,7 +41,20 @@ def ifoodie(city,res):
     food_list = json_content['response']
     random.shuffle(food_list)
     
-    return food_list[0:5]
+    max_i = 0
+    new_list = []
+    for obj in food_list:
+        if obj['restaurant']:
+            new_list.append(obj)
+        if not obj['restaurant']:
+            #"obj['user']['display_name']"
+            obj['restaurant'] = {'name':obj['user']['display_name']}
+            new_list.append(obj)
+        max_i = max_i+1
+        if max_i == 5:
+            return new_list
+
+
     #id
     #description
     #thumb
@@ -52,7 +65,6 @@ def ifoodie_line(city,res):
         if res == None:
             res = "美食"
         ifoodie_content = ifoodie(city,res)
-        
         if len(ifoodie_content)==0:
             return "查詢位置暫無資料,或請確認關鍵字內容"
         if len(ifoodie_content)==1:
