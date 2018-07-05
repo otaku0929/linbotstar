@@ -49,11 +49,33 @@ def ifoodie(city,res):
     
 
 def ifoodie_line(city,res):
-
+        if res == None:
+            res = "美食"
         ifoodie_content = ifoodie(city,res)
+        
         if len(ifoodie_content)==0:
             return "查詢位置暫無資料,或請確認關鍵字內容"
-        else:
+        if len(ifoodie_content)==1:
+            carousel_template_message = TemplateSendMessage(
+                alt_text='美食特搜結果',
+                template=CarouselTemplate(
+                    columns=[
+                        CarouselColumn(
+                            thumbnail_image_url=ifoodie_content[0]['thumb'],
+                            title=ifoodie_content[0]['restaurant']['name'],
+                            text=ifoodie_content[0]['description'][0:51]+'...',
+                            actions=[
+                                URITemplateAction(
+                                    label='詳細內容',
+                                    uri= 'https://ifoodie.tw/blog/'+ifoodie_content[0]['id']
+                                )
+                            ]
+                        )
+                    ]
+                )
+            )
+            return carousel_template_message
+        if len(ifoodie_content)==2:
             carousel_template_message = TemplateSendMessage(
                 alt_text='美食特搜結果',
                 template=CarouselTemplate(
@@ -72,7 +94,38 @@ def ifoodie_line(city,res):
                         CarouselColumn(
                             thumbnail_image_url=ifoodie_content[1]['thumb'],
                             title=ifoodie_content[1]['restaurant']['name'],
+                            text=ifoodie_content[1]['description'][0:51]+'...',
+                            actions=[
+                                URITemplateAction(
+                                    label='詳細內容',
+                                    uri= 'https://ifoodie.tw/blog/'+ifoodie_content[1]['id']
+                                )
+                            ]
+                        )
+                    ]
+                )
+            )
+            return carousel_template_message
+        if len(ifoodie_content)==3:
+            carousel_template_message = TemplateSendMessage(
+                alt_text='美食特搜結果',
+                template=CarouselTemplate(
+                    columns=[
+                        CarouselColumn(
+                            thumbnail_image_url=ifoodie_content[0]['thumb'],
+                            title=ifoodie_content[0]['restaurant']['name'],
                             text=ifoodie_content[0]['description'][0:51]+'...',
+                            actions=[
+                                URITemplateAction(
+                                    label='詳細內容',
+                                    uri= 'https://ifoodie.tw/blog/'+ifoodie_content[0]['id']
+                                )
+                            ]
+                        ),
+                        CarouselColumn(
+                            thumbnail_image_url=ifoodie_content[1]['thumb'],
+                            title=ifoodie_content[1]['restaurant']['name'],
+                            text=ifoodie_content[1]['description'][0:51]+'...',
                             actions=[
                                 URITemplateAction(
                                     label='詳細內容',
@@ -83,7 +136,49 @@ def ifoodie_line(city,res):
                         CarouselColumn(
                             thumbnail_image_url=ifoodie_content[2]['thumb'],
                             title=ifoodie_content[2]['restaurant']['name'],
+                            text=ifoodie_content[2]['description'][0:51]+'...',
+                            actions=[
+                                URITemplateAction(
+                                    label='詳細內容',
+                                    uri= 'https://ifoodie.tw/blog/'+ifoodie_content[2]['id']
+                                )
+                            ]
+                        )
+                    ]
+                )
+            )
+            return carousel_template_message
+        if len(ifoodie_content)==4:
+            carousel_template_message = TemplateSendMessage(
+                alt_text='美食特搜結果',
+                template=CarouselTemplate(
+                    columns=[
+                        CarouselColumn(
+                            thumbnail_image_url=ifoodie_content[0]['thumb'],
+                            title=ifoodie_content[0]['restaurant']['name'],
                             text=ifoodie_content[0]['description'][0:51]+'...',
+                            actions=[
+                                URITemplateAction(
+                                    label='詳細內容',
+                                    uri= 'https://ifoodie.tw/blog/'+ifoodie_content[0]['id']
+                                )
+                            ]
+                        ),
+                        CarouselColumn(
+                            thumbnail_image_url=ifoodie_content[1]['thumb'],
+                            title=ifoodie_content[1]['restaurant']['name'],
+                            text=ifoodie_content[1]['description'][0:51]+'...',
+                            actions=[
+                                URITemplateAction(
+                                    label='詳細內容',
+                                    uri= 'https://ifoodie.tw/blog/'+ifoodie_content[1]['id']
+                                )
+                            ]
+                        ),
+                        CarouselColumn(
+                            thumbnail_image_url=ifoodie_content[2]['thumb'],
+                            title=ifoodie_content[2]['restaurant']['name'],
+                            text=ifoodie_content[2]['description'][0:51]+'...',
                             actions=[
                                 URITemplateAction(
                                     label='詳細內容',
@@ -94,7 +189,60 @@ def ifoodie_line(city,res):
                         CarouselColumn(
                             thumbnail_image_url=ifoodie_content[3]['thumb'],
                             title=ifoodie_content[3]['restaurant']['name'],
+                            text=ifoodie_content[3]['description'][0:51]+'...',
+                            actions=[
+                                URITemplateAction(
+                                    label='詳細內容',
+                                    uri= 'https://ifoodie.tw/blog/'+ifoodie_content[3]['id']
+                                )
+                            ]
+                        )
+                    ]
+                )
+            )
+            return carousel_template_message
+        if len(ifoodie_content)==5:
+            carousel_template_message = TemplateSendMessage(
+                alt_text='美食特搜結果',
+                template=CarouselTemplate(
+                    columns=[
+                        CarouselColumn(
+                            thumbnail_image_url=ifoodie_content[0]['thumb'],
+                            title=ifoodie_content[0]['restaurant']['name'],
                             text=ifoodie_content[0]['description'][0:51]+'...',
+                            actions=[
+                                URITemplateAction(
+                                    label='詳細內容',
+                                    uri= 'https://ifoodie.tw/blog/'+ifoodie_content[0]['id']
+                                )
+                            ]
+                        ),
+                        CarouselColumn(
+                            thumbnail_image_url=ifoodie_content[1]['thumb'],
+                            title=ifoodie_content[1]['restaurant']['name'],
+                            text=ifoodie_content[1]['description'][0:51]+'...',
+                            actions=[
+                                URITemplateAction(
+                                    label='詳細內容',
+                                    uri= 'https://ifoodie.tw/blog/'+ifoodie_content[1]['id']
+                                )
+                            ]
+                        ),
+                        CarouselColumn(
+                            thumbnail_image_url=ifoodie_content[2]['thumb'],
+                            title=ifoodie_content[2]['restaurant']['name'],
+                            text=ifoodie_content[2]['description'][0:51]+'...',
+                            actions=[
+                                URITemplateAction(
+                                    label='詳細內容',
+                                    uri= 'https://ifoodie.tw/blog/'+ifoodie_content[2]['id']
+                                )
+                            ]
+                        ),
+                        CarouselColumn(
+                            thumbnail_image_url=ifoodie_content[3]['thumb'],
+                            title=ifoodie_content[3]['restaurant']['name'],
+                            text=ifoodie_content[3]['description'][0:51]+'...',
                             actions=[
                                 URITemplateAction(
                                     label='詳細內容',
@@ -105,7 +253,7 @@ def ifoodie_line(city,res):
                         CarouselColumn(
                             thumbnail_image_url=ifoodie_content[4]['thumb'],
                             title=ifoodie_content[4]['restaurant']['name'],
-                            text=ifoodie_content[0]['description'][0:51]+'...',
+                            text=ifoodie_content[4]['description'][0:51]+'...',
                             actions=[
                                 URITemplateAction(
                                     label='詳細內容',
