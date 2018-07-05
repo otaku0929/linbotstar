@@ -28,7 +28,7 @@ from function.function_count import gs_write
 from function.function_count import get_fun_count
 from function.mygopen import mygopen
 from function.gamer import gamer
-form function.ifoodie import ifoodie
+form function.ifoodie import ifoodie_line
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -1943,6 +1943,16 @@ def handle_message(event):
             TextSendMessage(text=content))
         gs_write('B13')
         return 0
+    #查美食
+    ifoodie_line_match = re.match(r'查美食=(\D.)[市縣]*(.+)',event.message.text)
+    if ifoodie_line_match:
+        city = ifoodie_line_match.group(2).replace('新北','台北').replace('北市','台北')
+        res = ifoodie_line_match.group(3)
+        carousel_template_message = ifoodie_line(city,res)
+        line_bot_api.reply_message(event.reply_token,carousel_template_message)
+        gs_write('B27')
+        return 0
+    #小星星福利社carousel_template_message
     if re.search("小星星(福利社|賣場|商店街)",event.message.text):
         store_content = star_store()
         carousel_template_message = TemplateSendMessage(
