@@ -170,7 +170,7 @@ def getsongjson(sid,res):
     #type=0 全部 1 合唱 2 底版 3 MV
     #qyt最多50筆
     #token = 'CXDYeA-EQZvjkHav_Z3hAgQlO9hKVVhFJpWqT2-yOUiXznYtAObKlmHfcRru8huomWqdupzIGi_My77-oU-Wj2kvQtaZmEbhab-Vihd9vjChJzuAwpb3Y4Tf9CR1W2Qho_YkL2FbtPuRDvOfVBwsQp6RdF9Vo6HZBNXKOGuAmp5f-1x-tHge-swl9SVh8Fhh'
-    token='xp9tH2ESXEjYdYDQalrPy8UaUrR4Lbe1PjYhiZqdg1jSfsdq_Iz_Rh0BinheXCPrdvEn_nEEQi_gH_G5PVq4S75KphKBh9bxpxK8tKve_C5l-C2SmZQRXmYoaDrNd7hzm_U884m8oTMAoFCBNwigQRbHhscm51mhbxeqnyr9kuTEcZ1XgVEd5rxz5Pxnfr0T'
+    token='9rGhKd1Fsohwgr-XBTamFXqt839O3l9zXom8wbKg_s8kRCz8_CHk7ZE1kI9Rqa8qmGc4OpjA61fyZTPp9YRr_jdVt3P8HTf90jlzb3kt5UWKlmeLr4gr8hjCTQgkOb6OEMCh3C1NVlFsAyfKxGeHqJlj76iTdgJOLAThbOJnZvn38wMUC0hNOcmWIPk35YYo'
     api_url = 'http://act.17sing.tw/index.php?songId={}&qty=50&token={}&uid={}&stick=0&action=GetMySong&type=0'.format(sid,token,res)
 
     request = requests.get(api_url)
