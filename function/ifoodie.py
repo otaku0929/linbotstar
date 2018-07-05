@@ -9,13 +9,23 @@ import re
 import json
 import requests
 import random
-from linebot import (
-    LineBotApi, WebhookHandler
-)
-from linebot.exceptions import (
-    InvalidSignatureError
-)
+
 from linebot.models import *
+#from linebot.models.template import TemplateSendMessage
+#from linebot.models.template import CarouselTemplate
+#from linebot.models.template import CarouselColumn
+#from linebot.models.actions import (  # noqa
+#    Action,
+#    PostbackAction,
+#    MessageAction,
+#    URIAction,
+#    DatetimePickerAction,
+#    Action as TemplateAction,  # backward compatibility
+#    PostbackAction as PostbackTemplateAction,  # backward compatibility
+#    MessageAction as MessageTemplateAction,  # backward compatibility
+#    URIAction as URITemplateAction,  # backward compatibility
+#    DatetimePickerAction as DatetimePickerTemplateAction,  # backward compatibility
+#)
 
 def ifoodie(city,res):
     
@@ -31,14 +41,14 @@ def ifoodie(city,res):
     food_list = json_content['response']
     random.shuffle(food_list)
     
-    return food_list[0:5][0]['restaurant']['name']
+    return food_list[0:5]
     #id
     #description
     #thumb
     #['restaurant']['name']
     
 
-def ifoodie_line(reply_token, city,res):
+def ifoodie_line(city,res):
 
         ifoodie_content = ifoodie(city,res)
         carousel_template_message = TemplateSendMessage(
@@ -103,9 +113,10 @@ def ifoodie_line(reply_token, city,res):
                 ]
             )
         )
-        line_bot_api.reply_message(reply_token,carousel_template_message)
+        return carousel_template_message
+        #line_bot_api.reply_message(reply_token,carousel_template_message)
         #gs_write('B27')
-        return 0
+        #return 0
 
 if __name__ == '__main__':
     messages = '查美食=南京復興餐廳'
@@ -117,5 +128,5 @@ if __name__ == '__main__':
         res = match.group(2)
         #print(res)
         #print (res)
-        print(ifoodie(city,res))
+        print(ifoodie_line(city,res))
         #(wt(res))    
