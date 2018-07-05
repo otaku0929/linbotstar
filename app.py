@@ -1947,12 +1947,13 @@ def handle_message(event):
     ifoodie_line_match = re.match('(.+)*查美食=(\D.)[市縣]*(.+)',event.message.text)
     if ifoodie_line_match:
         city = ifoodie_line_match.group(2).replace('新北','台北').replace('北市','台北')
-        print(city)
         res = ifoodie_line_match.group(3)
-        print(res)
-        carousel_template_message = ifoodie_line(city,res)
-        print(carousel_template_message)
-        line_bot_api.reply_message(event.reply_token,carousel_template_message)
+        content = ifoodie_line(city,res)
+        if re.match('^查詢位置暫無資料',str(content)):
+            line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        else:
+            carousel_template_message = content
+            line_bot_api.reply_message(event.reply_token,carousel_template_message)
         gs_write('B27')
         return 0
     #小星星福利社carousel_template_message
@@ -2020,7 +2021,6 @@ def handle_message(event):
                 ]
             )
         )
-        print(carousel_template_message)
         line_bot_api.reply_message(event.reply_token,carousel_template_message)
         gs_write('B12')
         return 0
