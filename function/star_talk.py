@@ -4,17 +4,12 @@ from .hsing import sing17
 from .s17api import s17uidrandom_star
 from .function import shelp
 
-if __name__ == '__main__':
-    res = '小星星唱歌'
-    print(star_talk(res))
-
-
 def star_talk(messages_talk):
     if re.match("^幹|fuck|操",messages_talk):
          return talk_dict('fuck')
     if re.search("幹|fuck|操$",messages_talk):
          return talk_dict('fuck')
-    if re.search('(操|幹|fuck)([你|他][娘|媽|老師]|you)',messages_talk):
+    if re.search('(操|幹|fuck)[你|他](娘|媽|老師|you)',messages_talk):
         return talk_dict('fuck')
     if re.search("三小",messages_talk):
          return talk_dict('fuck')
@@ -36,7 +31,7 @@ def star_talk(messages_talk):
          return talk_dict('尿好了')
     if re.search("(才|你|小星星)尿床",messages_talk):
          return talk_dict('尿床')
-    if re.search("小星星",messages_talk):
+    if re.search("小星星",messages_talk):    
         if re.search('[很|好|超][煩|吵]',messages_talk):
             return talk_dict('很煩')
         if re.search('傷心|難過|想哭',messages_talk):
@@ -47,35 +42,37 @@ def star_talk(messages_talk):
             return talk_dict('想他')
         if re.search('看穿了',messages_talk):
             return talk_dict('看穿')
-        if re.search('[最|超|好][窩心|貼心]',messages_talk):
+        if re.search('[最|超|好](窩心|貼心)',messages_talk):
             return talk_dict('貼心')
-        if re.search('(很|好|超|真)(可愛|卡哇伊)',messages_talk):
+        if re.search('[很|好|超|真](可愛|卡哇伊)',messages_talk):
             return talk_dict('可愛')
         if re.search('不(可愛|卡哇伊)',messages_talk):
             return talk_dict('不可愛')
         if re.search('(卡哇邦嘎|忍者龜)',messages_talk):
             return talk_dict('忍者龜')    
-        if re.search('白痴',messages_talk):
+        if re.search('[很|好|超|是|一臉|真](白痴|白癡)',messages_talk):
             return talk_dict('白痴')
-        if re.search('白爛',messages_talk):
+        if re.search('[很|好|超|是|一臉|真]白爛',messages_talk):
             return talk_dict('白爛')
-        if re.search('自戀',messages_talk):
+        if re.search('[很|好|超|是|一臉|真]自戀',messages_talk):
             return talk_dict('自戀')
+        if re.search('[很|好|超|是|一臉|真]白目',messages_talk):
+            return talk_dict('白目')
         if re.search("不好笑",messages_talk):
             return talk_dict('notfun')
         if re.search("買(什麼|東西)",messages_talk):
             return talk_dict('buy')
-        if re.search("早[安|啊|上好]",messages_talk):
+        if re.search("早(安|啊|上好)",messages_talk):
             return talk_dict('早安')
         if re.search("午安",messages_talk):
             return talk_dict('午安')
-        if re.search("晚[安|上好]|睡[覺|了|囉]",messages_talk):
+        if re.search("晚(安|上好)|睡[覺|了|囉]",messages_talk):
             return talk_dict('晚安')
         if re.search("[再見|bye|881]",messages_talk):
             return talk_dict('再見')
         if re.search("你好|安安|hello|hi]",messages_talk):
             return talk_dict('hi')
-        if re.search("找[你|妳|星星]",messages_talk):
+        if re.search("找(你|妳|星星)",messages_talk):
            return talk_dict('you')
         if re.search("找星(爸|拔)|星(爸|拔)咧|星(爸|拔)在哪裡|叫一下星(爸|拔)|叫星(爸|拔)",messages_talk):
             return talk_dict('星爸')
@@ -87,20 +84,20 @@ def star_talk(messages_talk):
             return talk_dict('goodboy')
         if re.search("[喜歡|愛]什麼",messages_talk):
             return talk_dict('like')
-        if re.search("[喜歡|愛](吃|喝|玩|看|聽|誰|我)",messages_talk):
-            if re.search("[喜歡|愛](吃|喝|玩|看|聽|誰|我)",messages_talk).group(1) == "吃":
+        if re.search("(喜歡|愛)[吃|喝|玩|看|聽|誰|我]",messages_talk):
+            if re.search("(喜歡|愛)[吃|喝|玩|看|聽|誰|我]",messages_talk).group(1) == "吃":
                 return talk_dict('like_eat')
-            if re.search("[喜歡|愛](吃|喝|玩|看|聽|誰|我)",messages_talk).group(1) == "喝":
+            if re.search("(喜歡|愛)[吃|喝|玩|看|聽|誰|我]",messages_talk).group(1) == "喝":
                 return talk_dict('like_drink')         
-            if re.search("[喜歡|愛](吃|喝|玩|看|聽|誰|我)",messages_talk).group(1) == "玩":
+            if re.search("(喜歡|愛)[吃|喝|玩|看|聽|誰|我]",messages_talk).group(1) == "玩":
                 return talk_dict('like_play')
-            if re.search("[喜歡|愛](吃|喝|玩|看|聽|誰|我)",messages_talk).group(1) == "看":
-                return rtalk_dict('like_see')
-            if re.search("[喜歡|愛](吃|喝|玩|看|聽|誰|我)",messages_talk).group(1) == "聽":
+            if re.search("(喜歡|愛)[吃|喝|玩|看|聽|誰|我]",messages_talk).group(1) == "看":
+                return talk_dict('like_see')
+            if re.search("(喜歡|愛)[吃|喝|玩|看|聽|誰|我]",messages_talk).group(1) == "聽":
                 return talk_dict('like_listen')
-            if re.search("[喜歡|愛](吃|喝|玩|看|聽|誰|我)",messages_talk).group(1) == "誰":
+            if re.search("(喜歡|愛)[吃|喝|玩|看|聽|誰|我]",messages_talk).group(1) == "誰":
                 return talk_dict('like_who')
-            if re.search("[喜歡|愛](吃|喝|玩|看|聽|誰|我)",messages_talk).group(1) == "我":
+            if re.search("(喜歡|愛)[吃|喝|玩|看|聽|誰|我]",messages_talk).group(1) == "我":
                 return talk_dict('like_me')
         if re.search("機器人|是[誰|什麼|男|女]",messages_talk):
             return talk_dict('robot')
@@ -136,7 +133,7 @@ def star_talk(messages_talk):
             return talk_dict('eated')
         if re.search("喝酒",messages_talk):
             return talk_dict('drink_酒')
-        if re.search("[虧|撩][妹|你|妳|我|咩|妹妹|姐姐]",messages_talk):
+        if re.search("[虧|撩](妹|你|妳|我|咩|妹妹|姐姐])",messages_talk):
             return talk_dict('bamai')
         if re.search("誰最帥",messages_talk):
             return talk_dict('最帥')
@@ -144,9 +141,19 @@ def star_talk(messages_talk):
             return talk_dict('最美')
         if re.search("誰最醜",messages_talk):
             return talk_dict('最醜')
+        if re.search("誰最笨",messages_talk):
+            return talk_dict('最笨')
+        if re.search("誰最[傻|呆]",messages_talk):
+            return talk_dict('最呆')
+        if re.search("誰最白[痴|癡]",messages_talk):
+            return talk_dict('最痴')
+        if re.search("誰最[色|好色]",messages_talk):
+            return talk_dict('最色')
+        if re.search("是辭海",messages_talk):
+            return talk_dict('辭海')
         if re.search("[難|不好]聽",messages_talk):
             return talk_dict('badsing')
-        if re.search("[唱|唱一｜換｜換一|來一][歌|首]",messages_talk):
+        if re.search("(唱|唱一｜換｜換一|來一])[歌|首]",messages_talk):
             content = talk_dict('sing')
             if re.search("抽歡歌",content):
                 res = sing17()
@@ -172,16 +179,17 @@ def star_talk(messages_talk):
         
 def talk_dict(res):
     dict={
+            '白目':['誰不是眼白多','我又不是寧次','差你一點點','怎樣~不行哦','嘿啦~就是白目~','我戴墨鏡你也看的到?'],
             '很煩':['啦啦啦啦','嘿嘿~我是煩人的小星星','怎樣怎樣~我就是吵','沒有我~你會無聊的','來咬我啊~','我靜不下來啊',
                   '這樣世界才不會太孤單','因為我想吸引妳的注意啊'],
-            '愛他':['想一下下就好哦','剛剛分開一定會想的','等那天突然想起來時~就代表放開了','沒關係~就想吧~','不要再想了'],
+            '想他':['想一下下就好哦','剛剛分開一定會想的','等那天突然想起來時~就代表放開了','沒關係~就想吧~','不要再想了'],
             '傷心':['怎麼了嗎?','誰欺負妳了','那就哭一下吧','來我秀秀','想討拍嗎?','發生什麼事情了呢?','0.0 說說'],
             '失戀':['啊~是那個不長眼的','沒關係~妳還有我','雖然我不知道什麼叫失戀~但我可以給妳抱抱','不是還好好的嗎?',
                   '是他不懂得珍惜','哭吧~哭一哭就好了','別為那種人難過'],
             '看穿':['妳有透視眼嗎?','別人笑我太瘋癲，我笑他人看不穿~','那有看到我的真心嗎?'],
             '貼心':['這是一定要的啊','小星星是妳貼心的小寶貝','害羞~~~','只對你好唷'],
             '可愛':['謝謝妳','妳也很可愛啊','這樣可愛嗎?','害羞~~~','妳比較可愛啦'],
-            '不可愛':['那有啊~我怎麼的Q','比你可愛100倍'],
+            '不可愛':['那有啊~我怎麼的Q','比你可愛100倍','說我不可愛~那你呢?','對啦她比較可愛'],
             '忍者龜':['那是忍者龜','卡哇邦嘎','卡哇邦嘎有四隻','他們愛吃PIZZA住在下水道'],
             '白痴':['再白痴也比你聰明','來比一比~1+1=多少啊?','有時候白痴一點比聰明來的好過啊~','你才白痴啦','白白白白白痴痴痴痴','丫姐~~~~~'],
             '白爛':['白爛是什麼呢?','嘿嘿嘿~怎樣','學你的啊'],
@@ -191,11 +199,18 @@ def talk_dict(res):
             'buy':['可以參考一下小星星福利社唷','買妳的心','口袋空空~嗚~~~','一塊庺、二塊錢、三塊錢.....','丫拔我要錢'],
             'linebot':['一個群只能有一個機器人','要我離開群才能用別的機器人哦~嗚~~~~~~','我不好用嗎?傷心~~~~~'],
             '福哥':['福哥就是福哥囉','就說了N年要拍辭海影片都不拍','大家一起說辭海拍了沒'],
-            '最帥':['辭海的故事~要問福哥','就是~~~~我不好意思說','這關係到...的問題~別多問'],
-            '最帥':['當然是星爸啊','我最帥了~','拍個辭海來看看就知道帥不帥了','帥能當飯吃嗎?','別問這個問題~我們來喝茶吧'],
-            '最美':['我想想哦~~','當然是~妳啊','看看我的眼~看到了誰呢?','這問題~在我的心中早就有了答案~那個人就是~妳'],
-            '最醜':['你去照照鏡子就知道了啊','總之不是我','這件事~天知地知他知我知~就是你不知道'],            
-            '尿好了':['很好~那快去睡吧日~晚安','那就不用包屁屁了'],
+            '辭海':['辭海的故事~要問福哥','就是~~~~我不好意思說','這關係到...的問題~別多問'],
+            '最帥':['當然是星爸啊','我最帥了~','拍個辭海來看看就知道帥不帥了','帥能當飯吃嗎?','別問這個問題~我們來喝茶吧','難到是你嗎?','當然是小星星啊',
+                  '你沒張開眼嗎?就這麼一個玉樹臨風的帥哥站在這裡','拿起鏡子照一照~原來就是我啊','這裡就我們二個~我不是~那你說呢?'],
+            '最美':['我想想哦~~','當然是~妳啊','看看我的眼~看到了誰呢?','這問題~在我的心中早就有了答案~那個人就是~妳','我是小星星不是魔鏡','魔鏡跟我說是白雪公主囉'],
+            '最醜':['你去照照鏡子就知道了啊','總之不是我','這件事~天知地知他知我知~就是你不知道','醜沒關係重點是那顆心','東看看西看看~我偷偷跟你說~是~~~~',
+                  '這裡就我們二個~我不是~那你說呢?'],
+            '最笨':['笨蛋才問這個問題','你啊~不然還有誰','這裡就我們二個~我不是~那你說呢?','有沒有看到牆角~那邊有一把雨傘~乖乖當香菇去嘿~','你不笨~你只是不聰明'],
+            '最呆':['當然不是我','你啊~不然還有誰','這裡就我們二個~我不是~那你說呢?','什麼~為什麼這樣問','你知道問這個問題你媽為傷心嗎?','真的要我說出來?'],
+            '最白痴':['當然不是我','你啊~不然還有誰','這裡就我們二個~我不是~那你說呢?','什麼~為什麼這樣問','你知道問這個問題你媽為傷心嗎?','真的要我說出來?',
+                   '白痴沒關係~別白吃就好~快去工作'],
+            '最色':['福哥~','當然是你囉','你看看你抽到口水都流出來了','你你你~就是你~','誰不好色呢?','這問題我不好意思回答啦','子曰:食色性也~','色不打緊~不要太快射就好~'],
+            '尿好了':['很好~那快去睡吧~晚安','那就不用包屁屁了','好棒~那來睡覺吧'],
             '尿床':['我早就不用包屁屁了','我很久沒尿床了','前天~~~~~~'],
             'fuck':['喵喵~','汪汪~','咩~','啊嘶~','噓~好孩子不說這個','講~f~u~c~k~才有英特內訊NO','十十人一十','操你媽好嗎~幹我媽很好',
                     '你媽知道你在講幹話嗎','汝聲何其大','E04','每60秒就會有一分鐘過去~你還在這講幹話','人生何其短~何必幹不停',
