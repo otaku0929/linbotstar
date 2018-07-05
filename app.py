@@ -28,7 +28,7 @@ from function.function_count import gs_write
 from function.function_count import get_fun_count
 from function.mygopen import mygopen
 from function.gamer import gamer
-form function.ifoodie import ifoodie_line
+from function.ifoodie import ifoodie_line
 
 from linebot import (
     LineBotApi, WebhookHandler
