@@ -1944,7 +1944,7 @@ def handle_message(event):
         gs_write('B13')
         return 0
     #查美食
-    ifoodie_line_match = re.match('(.+)*查美食=(\D.)[市縣]*(.+)',event.message.text)
+    ifoodie_line_match = re.match('(.+)*查美食=(\D.)[市縣]*(.+)*',event.message.text)
     if ifoodie_line_match:
         city = ifoodie_line_match.group(2).replace('新北','台北').replace('北市','台北')
         res = ifoodie_line_match.group(3)
