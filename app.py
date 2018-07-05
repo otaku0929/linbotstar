@@ -2020,6 +2020,7 @@ def handle_message(event):
                 ]
             )
         )
+        print(carousel_template_message)
         line_bot_api.reply_message(event.reply_token,carousel_template_message)
         gs_write('B12')
         return 0
