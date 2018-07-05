@@ -27,7 +27,8 @@ from function.star_store import star_store
 from function.function_count import gs_write
 from function.function_count import get_fun_count
 from function.mygopen import mygopen
-from function.gamer import gamer 
+from function.gamer import gamer
+form function.ifoodie import ifoodie
 
 from linebot import (
     LineBotApi, WebhookHandler
