@@ -54,7 +54,7 @@ def ifoodie(city,res):
         if max_i == 5:
             return new_list
 
-
+    return new_list
     #id
     #description
     #thumb
