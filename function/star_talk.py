@@ -1,7 +1,7 @@
 import re
 import random
 from .hsing import sing17
-import s17api
+import .s17api
 #from s17api import s17uidrandom_star
 from .function import shelp
 
