@@ -8,6 +8,10 @@ import pandas
 import gspread
 import twstock
 import json
+
+import function.s17api
+hsing = s17api.hsing()
+
 from oauth2client.service_account import ServiceAccountCredentials as SAC
 from bs4 import BeautifulSoup
 from flask import Flask, request, abort
@@ -16,8 +20,8 @@ from selenium import webdriver
 from datetime import datetime, timedelta
 from function.function import shelp
 from function.star_talk import star_talk
-from function.s17api import s17uidrandom
-from function.s17api import s17uidsong
+#from function.s17api import s17uidrandom
+#from function.s17api import s17uidsong
 from function.tarot_detail import tarot_random
 from function.tarot_detail import tarot_random_get
 from function.tarot_detail import tarot_detail
@@ -1925,12 +1929,16 @@ def handle_message(event):
             TextSendMessage(text=content))
         return 0
     if re.match('(.+)*歡歌(\d+)[:|=](.+)',event.message.text):
-        content = s17uidsong(event.message.text)
+        match = re.match('(.+)*歡歌(\d+)[:|=](.+)',event.message.text)
+        content = hsing.s17uidsong(match.group(2),match.group(3))
+        #content = s17uidsong(event.message.text)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         gs_write('B11')
         return 0
     if re.match('歡歌(\d+)',event.message.text):
-        content = s17uidrandom(event.message.text)
+        match = re.match('歡歌(\d+)',event.message.text)
+        content = hsing.s17uidrandom(match.group(1))
+        #content = s17uidrandom(event.message.text)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         gs_write('B10')
         return 0        
