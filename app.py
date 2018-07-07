@@ -1929,7 +1929,7 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         gs_write('B10')
         return 0        
-    if re.match('(.+)*歡歌(\d+):(.+)',event.message.text):
+    if re.match('(.+)*歡歌(\d+)[:|=](.+)',event.message.text):
         content = s17uidsong(event.message.text)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         gs_write('B11')
