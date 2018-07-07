@@ -1924,16 +1924,15 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=content))
         return 0
-    if mlist[mlist.find('歡歌',0):2]=='歡歌':
-        if mlist.find(':')<0:
-            content = s17uidrandom(mlist)
-            gs_write('B10')
-        else:
-            content = s17uidsong(mlist)
-            gs_write('B11')
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=content))
+    if re.match('歡歌(\d+)',event.message.text):
+        content = s17uidrandom(event.message.text)
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        gs_write('B10')
+        return 0        
+    if re.match('(.+)*歡歌(\d+):(.+)',event.message.text):
+        content = s17uidsong(event.message.text)
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        gs_write('B11')
         return 0
     if event.message.text in [ "牡羊座","金牛座","雙子座","巨蟹座","獅子座","處女座","天秤座","天蠍座","射手座","魔羯座","水瓶座","雙魚座"]:
         res = event.message.text
