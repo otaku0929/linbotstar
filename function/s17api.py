@@ -26,14 +26,13 @@ def s17uidrandom(res):
 
     song_url = 'http://17sing.tw/share_song/index.html?sid={}&selfUid={}'
 
-    uid = res[2:]
+    uid = re.match('歡歌(\d+)',res).group(1)
     if (is_number(uid) == False):
         return "UID後面不得有中文字, 正確輸入:歡歌UID"
     print (uid)
     sid = 0;
     get_song_count = 0;
     song_count = 0;
-    list_content=""
     new_dict = []
 
     while (sid==0 or get_song_count==50):        
@@ -63,19 +62,17 @@ def s17uidrandom(res):
     return song_data
 
 
-
 def s17uidrandom_star(res):
 
     song_url = 'http://17sing.tw/share_song/index.html?sid={}&selfUid={}'
 
-    uid = res
+    uid = re.match('歡歌(\d+)',res).group(1)
     if (is_number(uid) == False):
         return "UID後面不得有中文字, 正確輸入:歡歌UID"
     #print (uid)
     sid = 0;
     get_song_count = 0;
     song_count = 0;
-    list_content=""
     new_dict = []
 
     while (sid==0 or get_song_count==50):        
@@ -108,11 +105,12 @@ def s17uidsong(res):
 
     song_url = 'http://17sing.tw/share_song/index.html?sid={}'
 
-    uid = res[2:res.find(':')]
+    match = re.match('(.+)*歡歌(\d+)[:|=](.+)',res)
+    uid = match.group(2)
     if (is_number(uid) == False):
         return "UID後面不得有中文字, 正確輸入:歡歌UID 或 歡歌UID:歌名"
 
-    song = res[res.find(':')+1:].strip()
+    song = match.group(3)
 
     sid = 0;
     get_song_count = 0;
@@ -172,9 +170,20 @@ def getsongjson(sid,res):
     #token = 'CXDYeA-EQZvjkHav_Z3hAgQlO9hKVVhFJpWqT2-yOUiXznYtAObKlmHfcRru8huomWqdupzIGi_My77-oU-Wj2kvQtaZmEbhab-Vihd9vjChJzuAwpb3Y4Tf9CR1W2Qho_YkL2FbtPuRDvOfVBwsQp6RdF9Vo6HZBNXKOGuAmp5f-1x-tHge-swl9SVh8Fhh'
     token='9rGhKd1Fsohwgr-XBTamFXqt839O3l9zXom8wbKg_s8kRCz8_CHk7ZE1kI9Rqa8qmGc4OpjA61fyZTPp9YRr_jdVt3P8HTf90jlzb3kt5UWKlmeLr4gr8hjCTQgkOb6OEMCh3C1NVlFsAyfKxGeHqJlj76iTdgJOLAThbOJnZvn38wMUC0hNOcmWIPk35YYo'
     api_url = 'http://act.17sing.tw/index.php?songId={}&qty=50&token={}&uid={}&stick=0&action=GetMySong&type=0'.format(sid,token,res)
-
+    #print(api_url)
     request = requests.get(api_url)
     rcontent = request.content.decode('utf8')
     song_json = json.loads(rcontent)
 
     return song_json   
+
+
+
+
+if __name__ == '__main__':
+    res = '我想查歡歌1912544=我要吃肉肉'
+    #match = re.match('歡歌(\d+)',res)
+    match = re.match('(.+)*歡歌(\d+)[:|=](.+)',res)
+    #print(match.group(0))
+    if re.match('(.+)*歡歌(\d+)[:|=](.+)',res):
+        print (s17uidsong(res))
