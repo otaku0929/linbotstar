@@ -1,11 +1,11 @@
 import re
 import random
 from .hsing import sing17
-import .s17api
+import function.s17api
 #from s17api import s17uidrandom_star
 from .function import shelp
 
-get17 = s17api.hsing()
+get17 = function.s17api.hsing()
 
 def main():
     res = '小星星唱歌'
