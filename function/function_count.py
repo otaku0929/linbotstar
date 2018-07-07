@@ -33,7 +33,7 @@ def gs_read():
     
     fun_json=[]
     
-    for obj in range(2,27):
+    for obj in range(2,28):
         json_obj={worksheet.acell('A'+str(obj)).value:worksheet.acell('B'+str(obj)).value}
         fun_json.append(json_obj)
     
