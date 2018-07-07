@@ -1,8 +1,15 @@
 import re
 import random
 from .hsing import sing17
-from .s17api import s17uidrandom_star
+import s17api
+#from s17api import s17uidrandom_star
 from .function import shelp
+
+get17 = s17api.hsing()
+
+def main():
+    res = '小星星唱歌'
+    print(star_talk(res))
 
 def star_talk(messages_talk):
     if re.match("^幹|fuck|操",messages_talk):
@@ -162,10 +169,11 @@ def star_talk(messages_talk):
                 else:
                     return res
             elif re.search("UID",content):
-                if s17uidrandom_star(re.search("UID(.+)",content).group(1)) == "查不到歌曲":
+                if  get17.s17uidrandom(re.search("UID(\d+)",content).group(1)) == "查不到歌曲":
                     return "突然不知道要唱什麼"
                 else:
-                    return s17uidrandom_star(re.search("UID(.+)",content).group(1))
+                    print(content)
+                    return get17.s17uidrandom(re.search("UID(\d+)",content).group(1))
             else:
                 return content
         if re.search("辭海",messages_talk):
@@ -403,4 +411,5 @@ def talk_dict(res):
     
     return random.choice(dict[res])
 
-    
+if __name__ == '__main__':
+    main()
