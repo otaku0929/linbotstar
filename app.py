@@ -10,7 +10,7 @@ import twstock
 import json
 
 import function.s17api
-hsing = s17api.hsing()
+hsing = function.s17api.hsing()
 
 from oauth2client.service_account import ServiceAccountCredentials as SAC
 from bs4 import BeautifulSoup
