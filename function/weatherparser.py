@@ -27,7 +27,7 @@ def main():
     #print(wp_state)
     #wp_content = (wp.getReportWithAPI(wp_state['state_name']))
     wp_content = wp.getReportWithAPI(loc)
-    content = '地點:{}\n{}'.format(loc,wp_content)
+    content = '地點：{}\n{}'.format(loc,wp_content)
     print(content)
 
 class WeatherParser(object):
