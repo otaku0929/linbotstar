@@ -75,16 +75,22 @@ class WeatherParser(object):
         #WS15M
         #WD15M
         #WS15T
+        #D_TX 本日最高溫   #D_TXT 本日最低溫時間
+        #D_TN 本日最低溫   #D_TNT 本日最低溫時間
+        #CITY_SN 縣市編號  #TOWN_SN 鄉鎮編號
         #print(wp_json['records']['location'][0]['weatherElement'])
         if len(wp_json['records']['location']) == 0:
             return '目前 {} 觀測站沒有任何資料'.format(wp_loc)
         else:
             TIME = wp_json['records']['location'][0]['time']['obsTime']
+            WDSD = wp_json['records']['location'][0]['weatherElement'][2]['elementValue']
             TEMP = wp_json['records']['location'][0]['weatherElement'][3]['elementValue']
             HUMD = wp_json['records']['location'][0]['weatherElement'][4]['elementValue']
             H_24R = wp_json['records']['location'][0]['weatherElement'][7]['elementValue']
-        
-            content = '觀測站:{}\n查詢時間:{}\n溫度:{} C\n濕度:{}%\n日累積雨量:{} 毫米'.format(wp_loc,TIME[0:16],TEMP,HUMD,H_24R)
+            D_TX = wp_json['records']['location'][0]['weatherElement'][11]['elementValue']
+            D_TN = wp_json['records']['location'][0]['weatherElement'][13]['elementValue']
+            
+            content = '觀測站：{}\n時間：{}\n溫度：{}°C\n本日最高溫：{}°C\n本日最低溫：{}°C\n濕度：{}%\n風速：{} m/s\n日累積雨量：{} 毫米\n-----———————-\n資料來源：中央氣象局'.format(wp_loc,TIME[5:16],TEMP,D_TX, D_TN,HUMD,WDSD,H_24R)
             return content
     
 
