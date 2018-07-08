@@ -1958,7 +1958,7 @@ def handle_message(event):
         match = re.match('(.+)*天氣=(.+)',event.message.text)
         loc = match.group(2)
         wp_content = locationwp.getReportWithAPI(loc)
-        content = '地點:{}\n{}'.format(loc,wp_content)
+        content = '地點：{}\n{}'.format(loc,wp_content)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         gs_write('B28')
         return 0
