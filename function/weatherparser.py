@@ -79,13 +79,13 @@ class WeatherParser(object):
         if len(wp_json['records']['location']) == 0:
             return '目前 {} 觀測站沒有任何資料'.format(wp_loc)
         else:
-        TIME = wp_json['records']['location'][0]['time']['obsTime']
-        TEMP = wp_json['records']['location'][0]['weatherElement'][3]['elementValue']
-        HUMD = wp_json['records']['location'][0]['weatherElement'][4]['elementValue']
-        H_24R = wp_json['records']['location'][0]['weatherElement'][7]['elementValue']
+            TIME = wp_json['records']['location'][0]['time']['obsTime']
+            TEMP = wp_json['records']['location'][0]['weatherElement'][3]['elementValue']
+            HUMD = wp_json['records']['location'][0]['weatherElement'][4]['elementValue']
+            H_24R = wp_json['records']['location'][0]['weatherElement'][7]['elementValue']
         
-        content = '觀測站:{}\n查詢時間:{}\n溫度:{} C\n濕度:{}%\n日累積雨量:{} 毫米'.format(wp_loc,TIME[0:16],TEMP,HUMD,H_24R)
-        return content
+            content = '觀測站:{}\n查詢時間:{}\n溫度:{} C\n濕度:{}%\n日累積雨量:{} 毫米'.format(wp_loc,TIME[0:16],TEMP,HUMD,H_24R)
+            return content
     
 
 if __name__ == '__main__':
