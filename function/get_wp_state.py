@@ -82,7 +82,7 @@ def update_wp_dict():
  
 def rd_json():
     #print (os.getcwd())
-    with open(wp_state_json) as jsonfile:  
+    with open(wp_state_json, encoding='UTF-8') as jsonfile:  
        data = json.load(jsonfile)
     
     return(data)
