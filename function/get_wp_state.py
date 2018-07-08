@@ -65,6 +65,7 @@ def get_wp_state():
             addr = cells[6].text.strip()
             if len(state_no) == 6:
                 wp_state = {state_no:{
+                                    'state_no':state_no,
                                     'state_name':state_name,
                                     'altitude':altitude,
                                     'loc_x':loc_x,
