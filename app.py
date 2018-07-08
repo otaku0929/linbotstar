@@ -16,7 +16,7 @@ import function.weatherparser
 locationwp = function.weatherparser.WeatherParser()
 
 import function.g_function
-_function = function.g_function.function
+_function = function.g_function.function()
 
 from oauth2client.service_account import ServiceAccountCredentials as SAC
 from bs4 import BeautifulSoup
@@ -1947,14 +1947,7 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=content))
         gs_write('B13')
-        return 0
-    #天氣預報
-    if re.match('^查天氣(...)',event.message.text):
-        location = re.match('^查天氣(...)',event.message.text).group(1).replace('台','臺')
-        content = weather(location)
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
-        gs_write('B14')
-        return 0    
+        return 0   
     #地點天氣
     if re.match('(.+)*天氣=(.+)',event.message.text):
         match = re.match('(.+)*天氣=(.+)',event.message.text)
@@ -1966,7 +1959,14 @@ def handle_message(event):
         content = '地點:{}\n{}'.format(loc,wp_content)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         gs_write('B28')
-        return 0       
+        return 0
+      #天氣預報
+    if re.match('^查天氣(...)',event.message.text):
+        location = re.match('^查天氣(...)',event.message.text).group(1).replace('台','臺')
+        content = weather(location)
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        gs_write('B14')
+        return 0 
     #查美食
     ifoodie_line_match = re.match('(.+)*查美食=(\D.)[市縣]*(.+)*',event.message.text)
     if ifoodie_line_match:
