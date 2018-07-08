@@ -1959,6 +1959,7 @@ def handle_message(event):
     if re.match('(.+)*天氣=(.+)',event.message.text):
         match = re.match('(.+)*天氣=(.+)',event.message.text)
         loc = match.group(2)
+        print(loc)
         location = _function.getGeoForAddress(loc)
         wp_state = get_state(location,'C0')
         wp_content = locationwp.getReportWithAPI(wp_name['state_name'])
