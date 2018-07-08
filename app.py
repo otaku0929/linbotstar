@@ -640,7 +640,6 @@ def weather(location):
 
     weather_elements = weather_api['records']['location'][0]['weatherElement']
     
-
     sTs = (weather_elements[0]['time'])[0].get('startTime')[5:16]
     eTs = (weather_elements[0]['time'])[0].get('endTime')[5:16]
     Wxs = (weather_elements[0]['time'])[0]['parameter'].get('parameterName')
@@ -1901,14 +1900,6 @@ def handle_message(event):
         content = changbamp3(res)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
-    if mlist[mlist.find('查天氣',0):3]=='查天氣':
-        location = mlist[mlist.find('查天氣',0)+3:6].replace('台','臺')
-        content = weather(location)
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=content))
-        gs_write('B14')
-        return 0    
     if mlist[mlist.find('查股市',0):3]=='查股市':
         res = mlist[mlist.find('查股市',0)+3:5]
         content = stock(res)
@@ -1957,6 +1948,13 @@ def handle_message(event):
             TextSendMessage(text=content))
         gs_write('B13')
         return 0
+    #天氣預報
+    if re.match('^查天氣(...)',event.message.text):
+        location = re.match('^查天氣(...)',event.message.text).group(1).replace('台','臺')
+        content = weather(location)
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        gs_write('B14')
+        return 0    
     #地點天氣
     if re.match('(.+)*天氣=(.+)',event.message.text):
         match = re.match('(.+)*天氣=(.+)',event.message.text)
