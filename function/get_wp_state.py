@@ -4,7 +4,7 @@ Created on Sat Jul  7 23:25:35 2018
 
 @author: 宇星
 """
-
+import os
 import json
 import requests
 from bs4 import BeautifulSoup
@@ -13,7 +13,7 @@ import re
 import function.g_function
 gfunction = function.g_function.function()
 
-wp_state_json = 'wp_state.json'
+wp_state_json = '\\wp_state.json'
 
 def main():
        
@@ -81,7 +81,7 @@ def update_wp_dict():
     return('wt_OK')
  
 def rd_json():
-
+    print (os.getcwd())
     with open(wp_state_json) as json_file:  
         data = json.load(json_file)
         return(data)
