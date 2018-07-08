@@ -13,7 +13,7 @@ import re
 import function.g_function
 gfunction = function.g_function.function()
 
-wp_state_json = '\\wp_state.json'
+wp_state_json = '..\\app\\function\\wp_state.json'
 
 def main():
        
