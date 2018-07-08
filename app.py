@@ -1949,7 +1949,7 @@ def handle_message(event):
         gs_write('B13')
         return 0 
     #更新氣象觀測站json
-    if event.message.text == 'update_wp_state:
+    if event.message.text == 'update_wp_state':
         content = update_wp_dict()
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
