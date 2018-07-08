@@ -87,10 +87,11 @@ class WeatherParser(object):
             TEMP = wp_json['records']['location'][0]['weatherElement'][3]['elementValue']
             HUMD = wp_json['records']['location'][0]['weatherElement'][4]['elementValue']
             H_24R = wp_json['records']['location'][0]['weatherElement'][7]['elementValue']
-            D_TX = wp_json['records']['location'][0]['weatherElement'][14]['elementValue']
-            D_TN = wp_json['records']['location'][0]['weatherElement'][16]['elementValue']
+            #D_TX = wp_json['records']['location'][0]['weatherElement'][14]['elementValue']
+            #D_TN = wp_json['records']['location'][0]['weatherElement'][16]['elementValue']
+            THW = round(1.04*float(TEMP)+0.2*float(HUMD)-0.65*float(WDSD)-2.7,1)
             
-            content = '觀測站：{}\n時間：{}\n溫度：{}°C\n本日最高溫：{}°C\n本日最低溫：{}°C\n濕度：{}%\n風速：{} m/s\n日累積雨量：{} 毫米\n-----———————-\n資料來源：中央氣象局'.format(wp_loc,TIME[5:16],TEMP,D_TX, D_TN,HUMD,WDSD,H_24R)
+            content = '觀測站：{}\n時間：{}\n溫度：{}°C\n體感溫度:{}°C\n濕度：{}%\n風速：{} m/s\n日累積雨量：{} 毫米\n----------\n資料來源：中央氣象局'.format(wp_loc,TIME[5:16],TEMP,THW,HUMD,WDSD,H_24R)
             return content
     
 
