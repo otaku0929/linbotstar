@@ -13,7 +13,6 @@ import re
 import function.g_function
 gfunction = function.g_function.function()
 
-
 def main():
        
     locA = gfunction.getGeoForAddress('中和興南夜市')
@@ -81,14 +80,14 @@ def update_wp_dict():
  
 def rd_json():
 
-    with open('wp_state.txt') as json_file:  
+    with open('json_file/wp_state.txt') as json_file:  
         data = json.load(json_file)
         return(data)
    
     
 def wt_json(data):   
 
-    with open('wp_state.txt', 'w') as outfile:  
+    with open('json_file/wp_state.txt', 'w') as outfile:  
         json.dump(data, outfile ,ensure_ascii=False,indent=2)
     
     return "OK"
