@@ -6,8 +6,6 @@ Created on Sat Jul  7 22:58:43 2018
 """
 import json
 import requests
-#import urllib
-#from urllib.request import urlopen
 import math
 
 def main():
