@@ -10,8 +10,8 @@ import requests
 from bs4 import BeautifulSoup
 import re
 
-import g_function
-gfunction = g_function.function()
+import function.g_function
+gfunction = function.g_function.function()
 
 
 def main():
