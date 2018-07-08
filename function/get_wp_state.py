@@ -74,6 +74,10 @@ def get_wp_state():
                             }
                 wp_state_list.update(wp_state)
     return wp_state_list
+
+def update_wp_dict():
+    wt_json(get_wp_state())
+    return('wt_OK')
  
 def rd_json():
 
