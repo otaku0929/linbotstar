@@ -12,6 +12,12 @@ import json
 import function.s17api
 hsing = function.s17api.hsing()
 
+import function.weatherparser
+locationwp = function.weatherparser.WeatherParser()
+
+import function.g_function
+_function = function.g_function.function
+
 from oauth2client.service_account import ServiceAccountCredentials as SAC
 from bs4 import BeautifulSoup
 from flask import Flask, request, abort
@@ -33,6 +39,7 @@ from function.function_count import get_fun_count
 from function.mygopen import mygopen
 from function.gamer import gamer
 from function.ifoodie import ifoodie_line
+from function.get_wp_state import (update_wp_dict, get_state)
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -1950,6 +1957,17 @@ def handle_message(event):
             TextSendMessage(text=content))
         gs_write('B13')
         return 0
+    #地點天氣
+    if re.match('(.+)*天氣=(.+)',event.message.text):
+        match = re.match('(.+)*天氣=(.+)',event.message.text)
+        loc = match.group(2)
+        location = _function.getGeoForAddress(loc)
+        wp_state = get_state(location,'C0')
+        wp_content = locationwp.getReportWithAPI(wp_name['state_name'])
+        content = '地點:{}\n{}'.format(loc,wp_content)
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        gs_write('B28')
+        return 0       
     #查美食
     ifoodie_line_match = re.match('(.+)*查美食=(\D.)[市縣]*(.+)*',event.message.text)
     if ifoodie_line_match:
