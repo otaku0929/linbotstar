@@ -4,7 +4,7 @@ Created on Sat Jul  7 23:09:59 2018
 
 @author: 宇星
 """
-
+import math
 import requests
 import json
 import re
@@ -93,7 +93,7 @@ class WeatherParser(object):
             e = ((HUMD/100)*6.105*exp)         
             AT = round(1.07*float(TEMP)+0.2*e-0.65*float(WDSD)-2.7,1)
             
-            content = '觀測站：{}\n時間：{}\n溫度：{}°C\n體感溫度：{}°C\n濕度：{}%\n風速：{} m/s\n日累積雨量：{} 毫米\n-----———————-\n資料來源：中央氣象局'.format(wp_loc,TIME[5:16],TEMP,AT,HUMD,WDSD,H_24R)
+            content = '觀測站：{}\n時間：{}\n溫度：{}°C\n體感溫度：{}°C\n濕度：{}%\n風速：{} m/s\n雨量：{} 毫米\n-----———————-\n資料來源：中央氣象局'.format(wp_loc,TIME[5:16],TEMP,AT,HUMD,WDSD,H_24R)
             return content
     
 
