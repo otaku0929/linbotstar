@@ -1947,15 +1947,17 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=content))
         gs_write('B13')
-        return 0   
-    #地點天氣
+        return 0 
+    #更新氣象觀測站json
+    if event.message.text == 'update_wp_state:
+        content = update_wp_dict()
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        return 0
+    #地點天氣update_wp_dict
     if re.match('(.+)*天氣=(.+)',event.message.text):
         match = re.match('(.+)*天氣=(.+)',event.message.text)
         loc = match.group(2)
-        print(loc)
-        location = _function.getGeoForAddress(loc)
-        wp_state = get_state(location,'C0')
-        wp_content = locationwp.getReportWithAPI(wp_state['state_name'])
+        wp_content = locationwp.getReportWithAPI(loc)
         content = '地點:{}\n{}'.format(loc,wp_content)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         gs_write('B28')
