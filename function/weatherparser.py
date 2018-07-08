@@ -10,9 +10,8 @@ import json
 import re
 from .get_wp_state import get_state
 
-
-import g_function
-gfunction = g_function.function()
+import function.g_function
+gfunction = function.g_function.function()
 
 def main():
     messages = '天氣=台北公館'
