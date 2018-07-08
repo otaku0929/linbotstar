@@ -18,14 +18,14 @@ wp_state_json = '/app/json_file/wp_state.json'
 def main():
        
     locA = gfunction.getGeoForAddress('中和興南夜市')
-    print(get_state(locA, 'C0'))
+    print(get_state(locA, 'WP'))
 
 def get_state(locA, stype):
     
     wps=rd_json()
-    if stype == 'C0':
-        match_key = '^C0(.+)'
-    elif stype == 'C1':
+    if stype == 'wp':
+        match_key = '^(C0|46)(.+)'
+    elif stype == 'rain':
         match_key = '^C1(.+)'
 
     get_dis_list ={}
