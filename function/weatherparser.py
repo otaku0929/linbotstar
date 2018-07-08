@@ -8,7 +8,7 @@ Created on Sat Jul  7 23:09:59 2018
 import requests
 import json
 import re
-from get_wp_state import get_state
+from .get_wp_state import get_state
 
 
 import g_function
