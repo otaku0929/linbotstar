@@ -1955,7 +1955,7 @@ def handle_message(event):
         print(loc)
         location = _function.getGeoForAddress(loc)
         wp_state = get_state(location,'C0')
-        wp_content = locationwp.getReportWithAPI(wp_name['state_name'])
+        wp_content = locationwp.getReportWithAPI(wp_state['state_name'])
         content = '地點:{}\n{}'.format(loc,wp_content)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         gs_write('B28')
