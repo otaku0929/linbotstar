@@ -85,14 +85,13 @@ class WeatherParser(object):
             TIME = wp_json['records']['location'][0]['time']['obsTime']
             WDSD = wp_json['records']['location'][0]['weatherElement'][2]['elementValue']
             TEMP = wp_json['records']['location'][0]['weatherElement'][3]['elementValue']
-            HUMD = wp_json['records']['location'][0]['weatherElement'][4]['elementValue']
+            HUMD = round(float(wp_json['records']['location'][0]['weatherElement'][4]['elementValue'])*100)
             H_24R = wp_json['records']['location'][0]['weatherElement'][7]['elementValue']
             #D_TX = wp_json['records']['location'][0]['weatherElement'][14]['elementValue']
             #D_TN = wp_json['records']['location'][0]['weatherElement'][16]['elementValue']
-            e = float(HUMD)/100*6.105*math.exp(17.27*float(TEMP)/(237.7+float(TEMP)))
-            print(e)
+     
+            e = float(HUMD)/100*6.105*math.exp(17.27*float(TEMP)/(237.7+float(TEMP)))      
             AT = round(1.07*float(TEMP)+0.2*e-0.65*float(WDSD)-2.7,1)
-            print(AT)
             
             content = '觀測站：{}\n時間：{}\n溫度：{}°C\n體感溫度：{}°C\n濕度：{}%\n風速：{} m/s\n日累積雨量：{} 毫米\n-------------------\n資料來源：中央氣象局'.format(wp_loc,TIME[5:16],TEMP,AT,HUMD,WDSD,H_24R)
             return content
