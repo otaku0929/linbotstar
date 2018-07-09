@@ -103,7 +103,7 @@ class function(object):
         arr=['北','北北東','東北','東北東','東','東南東','東南','南南東','南','南南西','西南','西南西','西','西北西','西北','北北西']
         return arr[(val % 16)]
 
-    def mergejpg_h(self,p1,p2):
+    def mergejpg_h(self,p1,p2,output):
         
         img1 = Image.open(p1)
         img2 = Image.open(p2)
@@ -113,8 +113,8 @@ class function(object):
         #resized = im2.resize((w1,))
         _h=int(float(w1)/float(w2)*h2)
         nim = img2.resize((w1,_h),Image.BILINEAR)
-        #nim.save("app\temp\resized.jpg")
-        nim.save("..//jpg//resized.jpg")
+        nim.save("/app/temp/resized.jpg")
+        #nim.save("..//jpg//resized.jpg")
         
         mh= h1+_h
         merge_img = Image.new('RGB', (w1, mh), 0xffffff)
@@ -122,8 +122,8 @@ class function(object):
         merge_img.paste(img1, (0, i))
         merge_img.paste(nim, (0, i+h1))
     
-        #merge_img.save("app\temp\merge_img.png")
-        merge_img.save("..//temp_jpg//merge_img.png")   
+        merge_img.save(output)
+        #merge_img.save("..//temp_jpg//merge_img.png")   
         
         return ("merge_OK")
     
