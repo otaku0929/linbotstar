@@ -1943,6 +1943,11 @@ def handle_message(event):
         return 0
     #AQI
     if event.message.text == 'AQI':
+        aqi_url = 'https://taqm.epa.gov.tw/taqm/Chart/AqiMap/map2.aspx?lang=tw'
+        with open('ap\jpg\api_test.png', 'wb') as handle:
+            aqi_pic = requests.get(url, stream=True)
+            handle.write(aqi_pic.content)
+        print('download ok')
         url = 'https://raw.githubusercontent.com/otaku0929/linbotstar/master/temp_jpg/merge_img.png'
         image_message = ImageSendMessage(
             original_content_url=url,
