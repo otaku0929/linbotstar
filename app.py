@@ -8,6 +8,7 @@ import pandas
 import gspread
 import twstock
 import json
+import os
 
 import function.s17api
 hsing = function.s17api.hsing()
@@ -1941,11 +1942,17 @@ def handle_message(event):
             TextSendMessage(text=content))
         gs_write('B13')
         return 0
+    #print sys dir
+    if re.match('^oss=(.+)*',event.message.text):
+        path = re.match('^oss=(.+)*',event.message.text).group(1)
+        content = os.listdir(path)
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        return 0
     #AQI
     if event.message.text == 'AQI':
         aqi_url = 'https://taqm.epa.gov.tw/taqm/Chart/AqiMap/map2.aspx?lang=tw'
-        with open('ap\jpg\api_test.png', 'wb') as handle:
-            aqi_pic = requests.get(url, stream=True)
+        with open('\app\jpg\api_test.png', 'wb') as handle:
+            aqi_pic = requests.get(aqi_url, stream=True)
             handle.write(aqi_pic.content)
         print('download ok')
         url = 'https://raw.githubusercontent.com/otaku0929/linbotstar/master/temp_jpg/merge_img.png'
