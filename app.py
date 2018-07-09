@@ -1945,7 +1945,7 @@ def handle_message(event):
     #print sys dir
     if re.match('^oss=(.+)*',event.message.text):
         path = re.match('^oss=(.+)*',event.message.text).group(1)
-        content = os.listdir(path)
+        content = str(os.listdir(path))
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
     #AQI
