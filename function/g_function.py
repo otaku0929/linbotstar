@@ -95,6 +95,12 @@ class function(object):
         c = 2 * math.asin(math.sqrt(a))
         r = 6371.137  # 地球平均半径，单位为公里
         return float('%.2f' % (c * r))
+
+    def degToCompass(self,num):
+        val=int((num/22.5)+.5)
+        #arr=["N","NNE","NE","ENE","E","ESE", "SE", "SSE","S","SSW","SW","WSW","W","WNW","NW","NNW"]
+        arr=['北','北北東','東北','東北東','東','東南東','東南','南南東','南','南南西','西南','西南西','西','西北西','西北','北北西']
+        return arr[(val % 16)]
     
 #def get_hsing():
 #    return s17api.hsing.getjson(0,1912544)
