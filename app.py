@@ -1954,7 +1954,7 @@ def handle_message(event):
         location = match.group(2)
         location_xy = _function.getGeoForAddress(location)       
         location_message = LocationSendMessage(
-        title=座標位置,
+        title='座標位置',
         address=location,
         latitude=location_xy[0],
         longitude=location_xy[1]
