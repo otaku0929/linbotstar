@@ -7,6 +7,7 @@ Created on Sat Jul  7 22:58:43 2018
 import json
 import requests
 import math
+from PIL import Image
 
 def main():
     #print(get_hsing())
@@ -101,6 +102,30 @@ class function(object):
         #arr=["N","NNE","NE","ENE","E","ESE", "SE", "SSE","S","SSW","SW","WSW","W","WNW","NW","NNW"]
         arr=['北','北北東','東北','東北東','東','東南東','東南','南南東','南','南南西','西南','西南西','西','西北西','西北','北北西']
         return arr[(val % 16)]
+
+    def mergejpg_h(self,p1,p2):
+        
+        img1 = Image.open(p1)
+        img2 = Image.open(p2)
+        w1,h1 = img1.size
+        w2,h2 = img2.size
+        
+        #resized = im2.resize((w1,))
+        _h=int(float(w1)/float(w2)*h2)
+        nim = img2.resize((w1,_h),Image.BILINEAR)
+        #nim.save("app\temp\resized.jpg")
+        nim.save("..//jpg//resized.jpg")
+        
+        mh= h1+_h
+        merge_img = Image.new('RGB', (w1, mh), 0xffffff)
+        i=0
+        merge_img.paste(img1, (0, i))
+        merge_img.paste(nim, (0, i+h1))
+    
+        #merge_img.save("app\temp\merge_img.png")
+        merge_img.save("..//temp_jpg//merge_img.png")   
+        
+        return ("merge_OK")
     
 #def get_hsing():
 #    return s17api.hsing.getjson(0,1912544)
