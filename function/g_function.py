@@ -59,6 +59,10 @@ class function(object):
 
         responseJson = self.getGeoForAddress_json(address)
         status = responseJson['status']
+        
+        if status == "ZERO_RESULTS":
+            return "ZERO_RESULTS"
+        
         while status == 'OVER_QUERY_LIMIT':
             responseJson = self.getGeoForAddress_json(address)
             status = responseJson['status']
