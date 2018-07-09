@@ -113,7 +113,7 @@ class function(object):
         #resized = im2.resize((w1,))
         _h=int(float(w1)/float(w2)*h2)
         nim = img2.resize((w1,_h),Image.BILINEAR)
-        nim.save("/app/temp/resized.jpg")
+        nim.save("/app/temp_jpg/resized.jpg")
         #nim.save("..//jpg//resized.jpg")
         
         mh= h1+_h
