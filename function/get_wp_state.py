@@ -44,7 +44,12 @@ def get_state(locA, stype):
         dis_list.append(obj)
     dis_list.sort()
     
-    return (wps[get_dis_list[dis_list[0]]])
+    wp_list = []
+    for obj in dis_list:
+        wp_list.append(wps[get_dis_list[obj]])
+    
+    #return (wps[get_dis_list[dis_list[0]]])
+    return wp_list
     
 def get_wp_state():
     
