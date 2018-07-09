@@ -4,7 +4,7 @@ from .hsing import sing17
 import function.s17api
 from .function import shelp
 
-get17 = s17api.hsing()
+get17 = function.s17api.hsing()
 
 def main():
     res = '小星星喜歡聽什麼'
