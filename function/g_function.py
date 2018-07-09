@@ -59,6 +59,7 @@ class function(object):
 
         responseJson = self.getGeoForAddress_json(address)
         status = responseJson['status']
+        print(responseJson)
         
         if status == "ZERO_RESULTS":
             return "ZERO_RESULTS"
