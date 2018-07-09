@@ -56,8 +56,10 @@ config.read("config.ini")
 
 line_bot_api = LineBotApi(config['line_bot']['Channel_Access_Token'])
 handler = WebhookHandler(config['line_bot']['Channel_Secret'])
-client_id = config['imgur_api']['Client_ID']
-client_secret = config['imgur_api']['Client_Secret']
+imgur_client_id = config['imgur_api']['Client_ID']
+imgur_client_secret = config['imgur_api']['Client_Secret']
+imgur_client_access_token = config['imgur_api']['Access_Token']
+imgur_client_refresh_token = config['imgur_api']['Refresh_Token']
 album_id = config['imgur_api']['Album_ID']
 API_Get_Image = config['other_api']['API_Get_Image']
 
@@ -1951,11 +1953,14 @@ def handle_message(event):
     #AQI
     if event.message.text == 'AQI':
         aqi_url = 'https://taqm.epa.gov.tw/taqm/Chart/AqiMap/map2.aspx?lang=tw'
-        with open('/app/jpg/api_test.png', 'wb') as handle:
+        with open('/app/jpg/aqi_map.png', 'wb') as handle:
             aqi_pic = requests.get(aqi_url, stream=True)
             handle.write(aqi_pic.content)
-        print('download ok')
-        url = 'https://raw.githubusercontent.com/otaku0929/linbotstar/master/temp_jpg/merge_img.png'
+        _function.mergejpg_h('/app/jpg/aqi.png','/app/jpg/aqi_map.png','/app/jpg/merge_aqi.png')
+        client = ImgurClient(imgur_client_id, imgur_client_secret, imgur_client_access_token, imgur_client_refresh_token)
+        conf = {"album":'sJMh0RE'}
+        res = client.upload_from_path('https://taqm.epa.gov.tw/taqm/Chart/AqiMap/map2.aspx?lang=tw',config=conf,anon=False)
+        url = res[link]
         image_message = ImageSendMessage(
             original_content_url=url,
             preview_image_url=url
