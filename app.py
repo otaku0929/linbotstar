@@ -1956,7 +1956,7 @@ def handle_message(event):
         with open('/app/jpg/aqi_map.png', 'wb') as handle:
             aqi_pic = requests.get(aqi_url, stream=True)
             handle.write(aqi_pic.content)
-        _function.mergejpg_h('/app/jpg/aqi.png','/app/jpg/aqi_map.png','/app/jpg/merge_aqi.png')
+        _function.mergejpg_h('/app/jpg/aqi_map.png','/app/jpg/aqi.png','/app/jpg/merge_aqi.png')
         client = ImgurClient(imgur_client_id, imgur_client_secret, imgur_client_access_token, imgur_client_refresh_token)
         conf = {"album":'sJMh0RE'}
         res = client.upload_from_path('/app/jpg/merge_aqi.png',config=conf,anon=False)
