@@ -1947,7 +1947,21 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=content))
         gs_write('B13')
-        return 0 
+        return 0
+    #查地圖
+    if re.match('(.+)*座標=(.+)',event.message.text): 
+        match = re.match('(.+)*座標=(.+)',event.message.text)
+        location = match.group(2)
+        location_xy = _function.getGeoForAddress(location)       
+        location_message = LocationSendMessage(
+        title=座標位置,
+        address=location,
+        latitude=location_xy[0],
+        longitude=location_xy[1]
+        )
+        line_bot_api.reply_message(event.reply_token,location_message)
+        return0
+
     #更新氣象觀測站json
     if event.message.text == 'update_wp_state':
         content = update_wp_dict()
