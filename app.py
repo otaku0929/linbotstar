@@ -1966,7 +1966,7 @@ def handle_message(event):
             longitude=location_xy[1]
             )
             line_bot_api.reply_message(event.reply_token,location_message)
-        s_write('B29')
+        gs_write('B29')
         return 0
     #更新氣象觀測站json
     if event.message.text == 'update_wp_state':
