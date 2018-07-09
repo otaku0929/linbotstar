@@ -1952,14 +1952,18 @@ def handle_message(event):
     if re.match('(.+)*座標=(.+)',event.message.text): 
         match = re.match('(.+)*座標=(.+)',event.message.text)
         location = match.group(2)
-        location_xy = _function.getGeoForAddress(location)       
-        location_message = LocationSendMessage(
-        title='座標位置',
-        address=location,
-        latitude=location_xy[0],
-        longitude=location_xy[1]
-        )
-        line_bot_api.reply_message(event.reply_token,location_message)
+        location_xy = _function.getGeoForAddress(location)
+        if location_xy == "ZERO_RESULTS":
+            content = random.choice(['這地點查不到哦','別一直亂玩啦','換個地方找看看','這到底是哪裡啊~'])
+            line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        else:
+            location_message = LocationSendMessage(
+            title='座標位置',
+            address=location,
+            latitude=location_xy[0],
+            longitude=location_xy[1]
+            )
+            line_bot_api.reply_message(event.reply_token,location_message)
         s_write('B29')
         return 0
     #更新氣象觀測站json
