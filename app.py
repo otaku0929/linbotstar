@@ -715,7 +715,7 @@ def ty():
     imgurl = imgsoure[0].get('href')
     imglink = 'http://www.cwb.gov.tw/V7/prevent/typhoon/Data/PTA_NEW/{}'.format(imgurl)
 
-    content = '{}\n{}'.format(text,imglink)
+    content = '台灣附近颱風動態：\n{}'.format(text)
 
     return content
 
@@ -1876,13 +1876,6 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=content))
         return 0  
-    if event.message.text=='查颱風':
-        res = event.message.text
-        content = ty()
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=content))
-        return 0   
     if event.message.text in ['查樂透','抽樂透']:
         res = event.message.text
         content = lotto()
@@ -1948,6 +1941,15 @@ def handle_message(event):
             TextSendMessage(text=content))
         gs_write('B13')
         return 0
+    #查颱風
+    if re.match('^查颱風(.+)*',event.message.text):
+        url = 'https://www.windy.com/?25.048,121.532,5'
+        ty_content = ty()
+        content = '{}\n颱風動態連結:{}\n------\n資料來源:中央氣象局&windy'.format(ty_content,url)
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=content))
+        return 0   
     #查地圖
     if re.match('(.+)*座標=(.+)',event.message.text): 
         match = re.match('(.+)*座標=(.+)',event.message.text)
