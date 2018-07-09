@@ -1941,6 +1941,15 @@ def handle_message(event):
             TextSendMessage(text=content))
         gs_write('B13')
         return 0
+    #AQI
+    if event.message.text == 'AQI':
+        url = 'https://raw.githubusercontent.com/otaku0929/linbotstar/master/temp_jpg/merge_img.png'
+        image_message = ImageSendMessage(
+            original_content_url=url,
+            preview_image_url=url
+        )
+        line_bot_api.reply_message(event.reply_token,image_message)
+        return 0        
     #查颱風
     if re.match('^查颱風(.+)*',event.message.text):
         url = 'https://www.windy.com/?25.048,121.532,5'
