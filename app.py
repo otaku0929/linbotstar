@@ -1787,12 +1787,6 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=content))
         return 0
-    if event.message.text in ["查PM2.5","查空氣品質","查pm2.5"]:
-        content = pm25()
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=content))
-        return 0
     if event.message.text == "天氣特報":
         content = sweather()
         line_bot_api.reply_message(
@@ -1950,8 +1944,14 @@ def handle_message(event):
         content = str(os.listdir(path))
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
+    #if event.message.text in ["查PM2.5","查空氣品質","查pm2.5"]:
+    #    content = pm25()
+    #    line_bot_api.reply_message(
+    #        event.reply_token,
+    #        TextSendMessage(text=content))
+    #    return 0
     #AQI
-    if event.message.text == 'AQI':
+    if event.message.text == event.message.text in ["查PM2.5","查空氣品質","查pm2.5","AQI","現在空氣品質"]:
         aqi_url = 'https://taqm.epa.gov.tw/taqm/Chart/AqiMap/map2.aspx?lang=tw'
         with open('/app/jpg/aqi_map.png', 'wb') as handle:
             aqi_pic = requests.get(aqi_url, stream=True)
@@ -1959,7 +1959,7 @@ def handle_message(event):
         _function.mergejpg_h('/app/jpg/aqi.png','/app/jpg/aqi_map.png','/app/jpg/merge_aqi.png')
         client = ImgurClient(imgur_client_id, imgur_client_secret, imgur_client_access_token, imgur_client_refresh_token)
         conf = {"album":'sJMh0RE'}
-        res = client.upload_from_path('https://taqm.epa.gov.tw/taqm/Chart/AqiMap/map2.aspx?lang=tw',config=conf,anon=False)
+        res = client.upload_from_path('/app/jpg/merge_aqi.png',config=conf,anon=False)
         url = res[link]
         image_message = ImageSendMessage(
             original_content_url=url,
