@@ -8,7 +8,7 @@ from .function import shelp
 get17 = function.s17api.hsing()
 
 def main():
-    res = '小星星唱歌'
+    res = '小星星喜歡聽什麼'
     print(star_talk(res))
 
 def star_talk(messages_talk):
@@ -92,19 +92,19 @@ def star_talk(messages_talk):
         if re.search("[喜歡|愛]什麼",messages_talk):
             return talk_dict('like')
         if re.search("(喜歡|愛)[吃|喝|玩|看|聽|誰|我]",messages_talk):
-            if re.search("(喜歡|愛)[吃|喝|玩|看|聽|誰|我]",messages_talk).group(1) == "吃":
+            if re.search("(喜歡|愛)([吃喝玩看聽誰我])",messages_talk).group(2) == "吃":
                 return talk_dict('like_eat')
-            if re.search("(喜歡|愛)[吃|喝|玩|看|聽|誰|我]",messages_talk).group(1) == "喝":
+            if re.search("(喜歡|愛)([吃喝玩看聽誰我])",messages_talk).group(2) == "喝":
                 return talk_dict('like_drink')         
-            if re.search("(喜歡|愛)[吃|喝|玩|看|聽|誰|我]",messages_talk).group(1) == "玩":
+            if re.search("(喜歡|愛)([吃喝玩看聽誰我])",messages_talk).group(2) == "玩":
                 return talk_dict('like_play')
-            if re.search("(喜歡|愛)[吃|喝|玩|看|聽|誰|我]",messages_talk).group(1) == "看":
+            if re.search("(喜歡|愛)([吃喝玩看聽誰我])",messages_talk).group(2) == "看":
                 return talk_dict('like_see')
-            if re.search("(喜歡|愛)[吃|喝|玩|看|聽|誰|我]",messages_talk).group(1) == "聽":
+            if re.search("(喜歡|愛)([吃喝玩看聽誰我])",messages_talk).group(2) == "聽":
                 return talk_dict('like_listen')
-            if re.search("(喜歡|愛)[吃|喝|玩|看|聽|誰|我]",messages_talk).group(1) == "誰":
+            if re.search("(喜歡|愛)([吃喝玩看聽誰我])",messages_talk).group(2) == "誰":
                 return talk_dict('like_who')
-            if re.search("(喜歡|愛)[吃|喝|玩|看|聽|誰|我]",messages_talk).group(1) == "我":
+            if re.search("(喜歡|愛)([吃喝玩看聽誰我])",messages_talk).group(2) == "我":
                 return talk_dict('like_me')
         if re.search("機器人|是[誰|什麼|男|女]",messages_talk):
             return talk_dict('robot')
