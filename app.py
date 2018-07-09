@@ -1960,7 +1960,7 @@ def handle_message(event):
         client = ImgurClient(imgur_client_id, imgur_client_secret, imgur_client_access_token, imgur_client_refresh_token)
         conf = {"album":'sJMh0RE'}
         res = client.upload_from_path('/app/jpg/merge_aqi.png',config=conf,anon=False)
-        url = res[link]
+        url = res['link']
         image_message = ImageSendMessage(
             original_content_url=url,
             preview_image_url=url
