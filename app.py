@@ -1951,7 +1951,7 @@ def handle_message(event):
     #AQI
     if event.message.text == 'AQI':
         aqi_url = 'https://taqm.epa.gov.tw/taqm/Chart/AqiMap/map2.aspx?lang=tw'
-        with open('\app\jpg\api_test.png', 'wb') as handle:
+        with open('/app/jpg/api_test.png', 'wb') as handle:
             aqi_pic = requests.get(aqi_url, stream=True)
             handle.write(aqi_pic.content)
         print('download ok')
