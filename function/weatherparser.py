@@ -40,6 +40,10 @@ class WeatherParser(object):
         
     def getReportWithAPI(self, location):
         locA =  _function.getGeoForAddress(location)
+        
+        if locA == "ZERO_RESULTS":
+            return "查不到座標位置，請重新提供關鍵字"
+        
         wp_state = get_state(locA,'wp')
         #print(wp_state)
         
