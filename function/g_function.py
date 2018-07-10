@@ -143,10 +143,10 @@ class function(object):
         
         return ("delete complete")
     
-    def imgur_images_delete(self,image_url):
+    def imgur_images_delete(self,image_id):
         
         client = ImgurClient(imgur_client_id, imgur_client_secret, imgur_client_access_token, imgur_client_refresh_token)
-        client.delete_image(image_url)
+        client.delete_image(image_id)
         
         return ("delete complete")
 
