@@ -144,7 +144,8 @@ class function(object):
 
     def add_watermark(self,text, fontsize, ttf, position, imagefile, output_dir):
         
-        ttf_path='..//font//'
+        #ttf_path='..//font//'
+        ttf_path='./app/font/'
         
         if ttf == 't1':
             fontname = ttf_path+'wt014.ttf'
