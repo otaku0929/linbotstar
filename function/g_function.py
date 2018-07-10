@@ -14,6 +14,12 @@ def main():
     gfunction = function()
     #print (gfunction.getDistance('121.7812','25.0712','21.4420','24.9976'))
     print(gfunction.getGeoForAddress('龍山寺'))
+    
+    imgur_client_id = '33ed33e765afedc'
+    imgur_client_secret = '04f0d5531b1d0978ff97fd990554c899e9e7e1f5'
+    imgur_client_access_token = '85b737858a3ca32f1517bd9b8e2f5d2c5c97a647'
+    imgur_client_refresh_token = '797c2292b2600815f93cc73bec6eb7c8bdbcd67e'
+    album_id = 'sJMh0RE'
 
 class function(object):
     
@@ -126,6 +132,15 @@ class function(object):
         #merge_img.save("..//temp_jpg//merge_img.png")   
         
         return ("merge_OK")
+    
+    def imgur_album_images_delete(self,album_id):
+        
+        client = ImgurClient(imgur_client_id, imgur_client_secret, imgur_client_access_token, imgur_client_refresh_token)
+        image_list = client.get_album_images(album_id)
+        for obj in image_list:
+            client.delete_image(obj.id)
+        
+        return ("delete complete")
     
 #def get_hsing():
 #    return s17api.hsing.getjson(0,1912544)
