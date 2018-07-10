@@ -2294,7 +2294,7 @@ def handle_image_message(event):
         photo_name = event.message.id
         image_file = '/app/temp_jpg/'+photo_name+'.jpg'
         output_jpg = '/app/temp_jpg/wm_'+photo_name+'.jpg'
-        output_dir = '/app/temp_jpg/
+        output_dir = '/app/temp_jpg/'
         with open(image_file, 'wb') as fd:
             for chunk in message_content.iter_content():
                 fd.write(chunk)
