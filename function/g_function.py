@@ -9,6 +9,7 @@ import json
 import requests
 import math
 from PIL import Image, ImageFont, ImageDraw
+from imgurpython import ImgurClient
 
 def main():
     #print(get_hsing())
