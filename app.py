@@ -2299,7 +2299,7 @@ def handle_image_message(event):
                 fd.write(chunk)
         _function.add_watermark("小星星浮水印", 48, 't4','p9', image_file, output_dir)
         client = ImgurClient(imgur_client_id, imgur_client_secret, imgur_client_access_token, imgur_client_refresh_token)
-        conf = {"album":'sJMh0RE'}
+        conf = {"album":'SZMo93Z'}
         res = client.upload_from_path(output_jpg_path,config=conf,anon=False)
         url = res['link'] 
         image_message = ImageSendMessage(
