@@ -2312,7 +2312,7 @@ def handle_image_message(event):
                 fontsize = data['watermark']['fontsize']
                 ttf = data['watermark']['ttf']
                 position = data['watermark']['position']
-            _function.add_watermark(text, fontsize, ttf, position, image_file, output_dir)
+            _function.add_watermark(text, int(fontsize), ttf, position, image_file, output_dir)
              #_function.add_watermark("小星星浮水印", 58, 't2','p9', image_file, output_dir)
             client = ImgurClient(imgur_client_id, imgur_client_secret, imgur_client_access_token, imgur_client_refresh_token)
             conf = {"album":'SZMo93Z'}
