@@ -1957,9 +1957,9 @@ def handle_message(event):
         return 0
     #imgur_images_delete
     if re.match('^dimg=https://i.imgur.com/(.+).jpg',event.message.text):
-        img_url = re.match('^dimg=https://i.imgur.com/(.+).jpg',event.message.text).group(1)
-        print(img_url)
-        content = _function.imgur_images_delete(img_url)
+        img_id = re.match('^dimg=https://i.imgur.com/(.+).jpg',event.message.text).group(1)
+        print(img_id)
+        content = _function.imgur_images_delete(img_id)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0  
     #imgur_function delete imgur album images imgur_album_images_delete
