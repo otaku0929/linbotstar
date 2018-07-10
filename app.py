@@ -1938,18 +1938,20 @@ def handle_message(event):
             TextSendMessage(text=content))
         gs_write('B13')
         return 0
-    #print sys dir
+    #OS function print sys dir
     if re.match('^oss=(.+)*',event.message.text):
         path = re.match('^oss=(.+)*',event.message.text).group(1)
         content = str(os.listdir(path))
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
-    #if event.message.text in ["查PM2.5","查空氣品質","查pm2.5"]:
-    #    content = pm25()
-    #    line_bot_api.reply_message(
-    #        event.reply_token,
-    #        TextSendMessage(text=content))
-    #    return 0
+    #imgur_function delete imgur album images imgur_album_images_delete
+    if re.match('^#imd=(.+)*',event.message.text):
+        album_id = re.match('^oss=(.+)*',event.message.text).group(1)
+        if album_id==starf:
+            album_id = sJMh0RE
+        content = _function(album_id)
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        return 0    
     #AQI
     if event.message.text == event.message.text in ["查PM2.5","查空氣品質","查pm2.5","AQI","現在空氣品質"]:
         aqi_url = 'https://taqm.epa.gov.tw/taqm/Chart/AqiMap/map2.aspx?lang=tw'
