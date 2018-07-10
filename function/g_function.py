@@ -212,8 +212,8 @@ class function(object):
 
     def set_watermark(uid, text, fontsize, ttf, position):
 
-        set_json = '/app/json_file/watermark_{}.json'.format(uid)'
-        #set_json = '..//json_file//watermark_{}.json'.format(uid)
+        set_json = '/app/json_file/watermark_{}.json'.format(uid)
+        #set_json = '..//json_file//watermark_{}.json'.format(uid)'
         print(set_json)
         watermark_json = {'watermark':{'text':text,'fontsize':fontsize,'ttf':ttf,'position':position}}
         if os.path.exists(set_json):
