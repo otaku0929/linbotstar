@@ -210,7 +210,7 @@ class function(object):
         
         return ("imagefile saved")
 
-    def set_watermark(uid, text, fontsize, ttf, position):
+    def set_watermark(self,uid, text, fontsize, ttf, position):
 
         set_json = '/app/json_file/watermark_{}.json'.format(uid)
         #set_json = '..//json_file//watermark_{}.json'.format(uid)'
