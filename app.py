@@ -1955,12 +1955,18 @@ def handle_message(event):
         content = str(os.listdir(path))
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
+    #imgur_images_delete
+    if re.match('^dimg=(.+.jpg)',event.message.text):
+        img_url = re.match('^dimg=(.+.jpg)',event.message.text).group(1)
+        content = _function.imgur_images_delete(img_url)
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        return 0  
     #imgur_function delete imgur album images imgur_album_images_delete
-    if re.match('^#imd=(.+)*',event.message.text):
+    if re.match('^#dimga=(.+)*',event.message.text):
         album_id = re.match('^oss=(.+)*',event.message.text).group(1)
         if album_id==starf:
             album_id = sJMh0RE
-        content = _function(album_id)
+        content = _function.imgur_album_images_delete(album_id)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0    
     #AQI
@@ -2295,7 +2301,7 @@ def handle_image_message(event):
     print("event",event)
     if event.source.type == 'user':
         uid = event.source.user_id
-        watermar_json = '/app/json_file/watermark_{}.json'.format(uid) 
+        watermark_json = '/app/json_file/watermark_{}.json'.format(uid) 
         message_content = line_bot_api.get_message_content(event.message.id)
         photo_name = event.message.id
         image_file = '/app/temp_jpg/'+photo_name+'.jpg'
@@ -2304,9 +2310,9 @@ def handle_image_message(event):
         with open(image_file, 'wb') as fd:
             for chunk in message_content.iter_content():
                 fd.write(chunk)
-        if os.path.exists(watermar_json):
+        if os.path.exists(watermark_json):
             #with open(watermar_json, encoding='CP950') as jsonfile:
-            with open(watermar_json) as jsonfile:
+            with open(watermark_json) as jsonfile:
                 data = json.load(jsonfile)
                 text = data['watermark']['text']
                 fontsize = data['watermark']['fontsize']
@@ -2317,12 +2323,13 @@ def handle_image_message(event):
             client = ImgurClient(imgur_client_id, imgur_client_secret, imgur_client_access_token, imgur_client_refresh_token)
             conf = {"album":'SZMo93Z'}
             res = client.upload_from_path(output_jpg,config=conf,anon=False)
-            url = res['link'] 
+            url = res['link']
+            del_messages = '下載完圖檔後，請輸入 \ndimg={} \n刪除加浮水印的照片'.format(url)
             image_message = ImageSendMessage(
                 original_content_url=url,
                 preview_image_url=url
-            )
-            line_bot_api.reply_message(event.reply_token, [image_message, TextSendMessage(text=url)])             
+            )         
+            line_bot_api.reply_message(event.reply_token, [image_message, TextSendMessage(text=del_messages)])             
         else:
             content = '請先設定浮水印輸出格式，方式如下:\n浮水印t=小星星浮水印f=52ttf=t4p=p9\n------------\n *t=浮水印內容\n*f=字體大小\n*ttf=字型：目前共有5種t1~t5\n*p=浮水印位置：以九宮格方式劃分'
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text=url))
