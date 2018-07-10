@@ -1944,7 +1944,8 @@ def handle_message(event):
             match = re.match('浮水印t=(.+)f=(\d+)ttf=(t.)p=(p.)',event.message.text)
             #print (match.group(0))
             print (event.source)
-            content = _function.set_watermark(event.source.userId,match.group(1),match.group(2),match.group(3),match.group(4))            
+            uid = event.source.userId
+            content = _function.set_watermark(uid,match.group(1),match.group(2),match.group(3),match.group(4))            
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         else:
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text='此功能不能在群組使用'))
