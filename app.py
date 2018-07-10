@@ -1938,10 +1938,13 @@ def handle_message(event):
             TextSendMessage(text=content))
         gs_write('B13')
         return 0
-    #test group and onebyone
-    if event.message.text == '#浮水印':
+    #setting watermark
+    if re.match('浮水印t=(.+)f=(\d+)ttf=(t.)p=(p.)',event.message.text):
         if event.source.type == 'user':
-            line_bot_api.reply_message(event.reply_token,TextSendMessage(text='開始轉換'))
+            match =  re.match('浮水印t=(.+)f=(\d+)ttf=(t.)p=(p.)',messages)
+            #print (match.group(0))
+            content = _function.set_watermark(event.source.userId,match.group(1),match.group(2),match.group(3),match.group(4))            
+            line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         else:
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text='此功能不能在群組使用'))
         return 0
