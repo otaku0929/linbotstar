@@ -2326,6 +2326,7 @@ def handle_image_message(event):
             client = ImgurClient(imgur_client_id, imgur_client_secret, imgur_client_access_token, imgur_client_refresh_token)
             conf = {"album":'SZMo93Z'}
             res = client.upload_from_path(output_jpg,config=conf,anon=False)
+            print(res)
             url = res['link']
             del_messages = '下載完圖檔後，請輸入 \ndimg={} \n刪除加浮水印的照片'.format(url)
             image_message = ImageSendMessage(
