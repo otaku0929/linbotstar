@@ -41,7 +41,7 @@ def star_talk(messages_talk):
     if re.search("小星星",messages_talk):
         if re.search('[講說]幹話',messages_talk):
             return talk_dict('幹話')        
-        if re.search('[出賣|賣了]',messages_talk):
+        if re.search('(出賣|賣了)',messages_talk):
             return talk_dict('出賣')
         if re.search('玻璃心',messages_talk):
             return talk_dict('玻璃心')
