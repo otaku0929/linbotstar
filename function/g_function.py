@@ -142,6 +142,13 @@ class function(object):
             client.delete_image(obj.id)
         
         return ("delete complete")
+    
+    def imgur_images_delete(self,image_url):
+        
+        client = ImgurClient(imgur_client_id, imgur_client_secret, imgur_client_access_token, imgur_client_refresh_token)
+        client.delete_image(image_url)
+        
+        return ("delete complete")
 
     def add_watermark(self,text, fontsize, ttf, position, imagefile, output_dir):
         
