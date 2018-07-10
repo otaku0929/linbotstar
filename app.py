@@ -2292,10 +2292,22 @@ def handle_image_message(event):
     if event.source.type == 'user':
         message_content = line_bot_api.get_message_content(event.message.id)
         photo_name = event.message.id
-        with open('/app/jpg/'+photo_name, 'wb') as fd:
+        line_jpg_path = '/app/temp_jpg/'+photo_name+'.jpg'
+        output_jpg_path = '/app/temp_jpg/wm_'+photo_name+'.jpg'
+        with open(line_jpg_path, 'wb') as fd:
             for chunk in message_content.iter_content():
                 fd.write(chunk)
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text='浮水印轉換中...'))
+        _function.add_watermark("小星星浮水印", 48, 't4','p9', image_file, output_dir)
+        client = ImgurClient(imgur_client_id, imgur_client_secret, imgur_client_access_token, imgur_client_refresh_token)
+        conf = {"album":'sJMh0RE'}
+        res = client.upload_from_path(output_jpg_path,config=conf,anon=False)
+        url = res['link'] 
+        image_message = ImageSendMessage(
+            original_content_url=url,
+            preview_image_url=url
+        )
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=url))
+        line_bot_api.reply_message(event.reply_token,image_message)
         return 0    
     
 @handler.add(MessageEvent, message=LocationMessage)
