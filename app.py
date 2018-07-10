@@ -2290,9 +2290,12 @@ def handle_message(event):
 def handle_image_message(event):
     print("event",event)
     if event.source.type == 'user':
+        message_content = line_bot_api.get_message_content(event.message.id)
+        with open('/app/jpg/', 'wb') as fd:
+            for chunk in message_content.iter_content():
+                fd.write(chunk)  
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text='浮水印轉換中...'))
-        return 0
-    
+        return 0    
     
 @handler.add(MessageEvent, message=LocationMessage)
 def handle_location_message(event):
