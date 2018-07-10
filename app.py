@@ -2332,7 +2332,7 @@ def handle_image_message(event):
             line_bot_api.reply_message(event.reply_token, [image_message, TextSendMessage(text=del_messages)])             
         else:
             content = '請先設定浮水印輸出格式，方式如下:\n浮水印t=小星星浮水印f=52ttf=t4p=p9\n------------\n *t=浮水印內容\n*f=字體大小\n*ttf=字型：目前共有5種t1~t5\n*p=浮水印位置：以九宮格方式劃分'
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=url))
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=content))
     return 0
     
 @handler.add(MessageEvent, message=LocationMessage)
