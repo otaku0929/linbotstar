@@ -210,8 +210,8 @@ class function(object):
         
         return ("imagefile saved")
 
-     def set_watermark(uid, text, fontsize, ttf, position):
-        
+    def set_watermark(uid, text, fontsize, ttf, position):
+
         set_json = '/app/json_file/watermark_{}.json'.format(uid)'
         #set_json = '..//json_file//watermark_{}.json'.format(uid)
         print(set_json)
@@ -224,8 +224,8 @@ class function(object):
         else:        
             with open(set_json,'w') as outfile:
                 json.dump(watermark_json, outfile ,ensure_ascii=False,indent=2)
-                
-        print('完成設定')
+
+        return '完成設定'
     
 #def get_hsing():
 #    return s17api.hsing.getjson(0,1912544)
