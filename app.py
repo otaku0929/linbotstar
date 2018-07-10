@@ -14,7 +14,7 @@ import function.s17api
 hsing = function.s17api.hsing()
 
 import function.weatherparser
-locationwp = function.weatherparser.WeatherParser()
+_weather = function.weatherparser.WeatherParser()
 
 import function.g_function
 _function = function.g_function.function()
@@ -2023,7 +2023,7 @@ def handle_message(event):
     if re.match('(.+)*天氣=(.+)',event.message.text):
         match = re.match('(.+)*天氣=(.+)',event.message.text)
         loc = match.group(2)
-        wp_content = locationwp.getReportWithAPI(loc)
+        wp_content = _weather.getReportWithAPI(loc)
         content = '地點：{}\n{}'.format(loc,wp_content)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         gs_write('B28')
