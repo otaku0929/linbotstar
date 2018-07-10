@@ -11,6 +11,11 @@ import math
 from PIL import Image, ImageFont, ImageDraw
 from imgurpython import ImgurClient
 
+imgur_client_id = '33ed33e765afedc'
+imgur_client_secret = '04f0d5531b1d0978ff97fd990554c899e9e7e1f5'
+imgur_client_access_token = '85b737858a3ca32f1517bd9b8e2f5d2c5c97a647'
+imgur_client_refresh_token = '797c2292b2600815f93cc73bec6eb7c8bdbcd67e'
+
 def main():
     #print(get_hsing())
     gfunction = function()
