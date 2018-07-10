@@ -1940,7 +1940,7 @@ def handle_message(event):
         return 0
     #test group and onebyone
     if event.message.text == '#浮水印':
-        if event.type == 'group':
+        if event.message.type == 'group':
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text='此功能不能在群組使用'))
         else:
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text='開始轉換'))
