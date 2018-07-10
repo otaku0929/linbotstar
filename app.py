@@ -1547,9 +1547,9 @@ def fwords(resf):
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     print("event",event)
-    print("event.groupID:",event.source)
-    print("event.reply_token:", event.reply_token)
-    print("event.message.text:", event.message.text)
+    #print("event.groupID:",event.source)
+    #print("event.reply_token:", event.reply_token)
+    #print("event.message.text:", event.message.text)
 
     grouplist = str(event.source)
     mlist = event.message.text
@@ -2288,6 +2288,7 @@ def handle_message(event):
 
 @handler.add(MessageEvent, message=ImageMessage)
 def handle_image_message(event):
+    print("event",event)
     if event.source.type == 'user':
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text='浮水印轉換中...'))
         return 0
