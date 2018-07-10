@@ -27,8 +27,6 @@ from selenium import webdriver
 from datetime import datetime, timedelta
 from function.function import shelp
 from function.star_talk import star_talk
-#from function.s17api import s17uidrandom
-#from function.s17api import s17uidsong
 from function.tarot_detail import tarot_random
 from function.tarot_detail import tarot_random_get
 from function.tarot_detail import tarot_detail
