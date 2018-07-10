@@ -1940,10 +1940,10 @@ def handle_message(event):
         return 0
     #test group and onebyone
     if event.message.text == '#浮水印':
-        if event.source.type == 'group':
-            line_bot_api.reply_message(event.reply_token,TextSendMessage(text='此功能不能在群組使用'))
-        else:
+        if event.source.type == 'user':
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text='開始轉換'))
+        else:
+            line_bot_api.reply_message(event.reply_token,TextSendMessage(text='此功能不能在群組使用'))
         return 0
     #OS function print sys dir
     if re.match('^oss=(.+)*',event.message.text):
@@ -2286,6 +2286,13 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0    
 
+@handler.add(MessageEvent, message=ImageMessage)
+def handle_image_message(event):
+    if event.source.type == 'user':
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text='浮水印轉換中...'))
+        return 0
+    
+    
 @handler.add(MessageEvent, message=LocationMessage)
 def handle_location_message(event):
     
