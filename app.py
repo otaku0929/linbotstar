@@ -2301,7 +2301,8 @@ def handle_image_message(event):
     print("event",event)
     if event.source.type == 'user':
         uid = event.source.user_id
-        watermark_json = '/app/json_file/watermark_{}.json'.format(uid) 
+        watermark_json = '/app/json_file/watermark_{}.json'.format(uid)
+        print(watermark_json)
         message_content = line_bot_api.get_message_content(event.message.id)
         photo_name = event.message.id
         image_file = '/app/temp_jpg/'+photo_name+'.jpg'
@@ -2314,6 +2315,7 @@ def handle_image_message(event):
             #with open(watermar_json, encoding='CP950') as jsonfile:
             with open(watermark_json) as jsonfile:
                 data = json.load(jsonfile)
+                print(data)
                 text = data['watermark']['text']
                 fontsize = data['watermark']['fontsize']
                 ttf = data['watermark']['ttf']
