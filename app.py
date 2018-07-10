@@ -2291,9 +2291,10 @@ def handle_image_message(event):
     print("event",event)
     if event.source.type == 'user':
         message_content = line_bot_api.get_message_content(event.message.id)
-        with open('/app/jpg/', 'wb') as fd:
+        photo_name = event.message.id
+        with open('/app/jpg/'+photo_name, 'wb') as fd:
             for chunk in message_content.iter_content():
-                fd.write(chunk)  
+                fd.write(chunk)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text='浮水印轉換中...'))
         return 0    
     
