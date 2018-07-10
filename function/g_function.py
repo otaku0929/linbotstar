@@ -4,6 +4,7 @@ Created on Sat Jul  7 22:58:43 2018
 
 @author: 宇星
 """
+import os
 import json
 import requests
 import math
@@ -208,6 +209,23 @@ class function(object):
         del img0, img, img2
         
         return ("imagefile saved")
+
+     def set_watermark(uid, text, fontsize, ttf, position):
+        
+        set_json = '/app/json_file/watermark_{}.json'.format(uid)'
+        #set_json = '..//json_file//watermark_{}.json'.format(uid)
+        print(set_json)
+        watermark_json = {'watermark':{'text':text,'fontsize':fontsize,'ttf':ttf,'position':position}}
+        if os.path.exists(set_json):
+            with open(set_json, encoding='CP950') as jsonfile:
+                data = json.load(jsonfile)
+                data.update(watermark_json)
+                print(data)
+        else:        
+            with open(set_json,'w') as outfile:
+                json.dump(watermark_json, outfile ,ensure_ascii=False,indent=2)
+                
+        print('完成設定')
     
 #def get_hsing():
 #    return s17api.hsing.getjson(0,1912544)
