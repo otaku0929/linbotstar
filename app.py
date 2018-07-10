@@ -1957,9 +1957,9 @@ def handle_message(event):
         return 0
     #imgur_images_delete
     if re.match('^dimg=(.+)',event.message.text):
-        print(event.message.text)
-        img_id = re.match('^dimg=https://i.imgur.com/(.+).jpg',event.message.text).group(1)
-        print(img_id)
+        #print(event.message.text)
+        img_id = re.match('^dimg=(.+)',event.message.text).group(1)
+        #print(img_id)
         content = _function.imgur_images_delete(img_id)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0  
@@ -2329,7 +2329,8 @@ def handle_image_message(event):
             res = client.upload_from_path(output_jpg,config=conf,anon=False)
             print(res)
             url = res['link']
-            del_messages = '下載完圖檔後，請輸入 \ndimg={} \n刪除加浮水印的照片'.format(url)
+            img_id = res['id']
+            del_messages = '下載完圖檔後，請輸入下面指令刪除圖檔 \ndimg={}'.format(img_id)
             image_message = ImageSendMessage(
                 original_content_url=url,
                 preview_image_url=url
