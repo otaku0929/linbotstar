@@ -1943,7 +1943,7 @@ def handle_message(event):
         if event.source.type == 'user':
             match = re.match('浮水印t=(.+)f=(\d+)ttf=(t.)p=(p.)',event.message.text)
             uid = event.source.user_id
-            print(uid)
+            #print(uid)
             content = _function.set_watermark(uid,match.group(1),match.group(2),match.group(3),match.group(4))            
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         else:
@@ -2294,6 +2294,8 @@ def handle_message(event):
 def handle_image_message(event):
     print("event",event)
     if event.source.type == 'user':
+        uid = event.source.user_id
+        watermar_json = '/app/json_file/watermark_{}.json'.format(uid) 
         message_content = line_bot_api.get_message_content(event.message.id)
         photo_name = event.message.id
         image_file = '/app/temp_jpg/'+photo_name+'.jpg'
@@ -2302,17 +2304,28 @@ def handle_image_message(event):
         with open(image_file, 'wb') as fd:
             for chunk in message_content.iter_content():
                 fd.write(chunk)
-        _function.add_watermark("小星星浮水印", 58, 't2','p9', image_file, output_dir)
-        client = ImgurClient(imgur_client_id, imgur_client_secret, imgur_client_access_token, imgur_client_refresh_token)
-        conf = {"album":'SZMo93Z'}
-        res = client.upload_from_path(output_jpg,config=conf,anon=False)
-        url = res['link'] 
-        image_message = ImageSendMessage(
-            original_content_url=url,
-            preview_image_url=url
-        )
-        line_bot_api.reply_message(event.reply_token, [image_message, TextSendMessage(text=url)])
-        return 0    
+        if os.path.exists(watermar_json):
+            with open(watermar_json, encoding='CP950') as jsonfile:
+                data = json.load(jsonfile)
+                text = data['watermark']['text']
+                fontsize = data['watermark']['fontsize']
+                ttf = data['watermark']['ttf']
+                position = data['watermark']['position']
+            _function.add_watermark(text, fontsize, ttf, position, image_file, output_dir)
+             #_function.add_watermark("小星星浮水印", 58, 't2','p9', image_file, output_dir)
+            client = ImgurClient(imgur_client_id, imgur_client_secret, imgur_client_access_token, imgur_client_refresh_token)
+            conf = {"album":'SZMo93Z'}
+            res = client.upload_from_path(output_jpg,config=conf,anon=False)
+            url = res['link'] 
+            image_message = ImageSendMessage(
+                original_content_url=url,
+                preview_image_url=url
+            )
+            line_bot_api.reply_message(event.reply_token, [image_message, TextSendMessage(text=url)])             
+        else:
+            content = '請先設定浮水印輸出格式，方式如下:\n浮水印t=小星星浮水印f=52ttf=t4p=p9\n------------\n *t=浮水印內容\n*f=字體大小\n*ttf=字型：目前共有5種t1~t5\n*p=浮水印位置：以九宮格方式劃分'
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=url))
+    return 0
     
 @handler.add(MessageEvent, message=LocationMessage)
 def handle_location_message(event):
