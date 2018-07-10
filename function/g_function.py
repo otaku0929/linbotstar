@@ -226,8 +226,9 @@ class function(object):
         if os.path.exists(set_json):
             with open(set_json) as jsonfile:
                 data = json.load(jsonfile)
-                data.update(watermark_json)
-                print(data)
+                data['watermark'] = watermark_json['watermark']
+            with open(set_json,'w') as outfile:
+                json.dump(data, outfile ,ensure_ascii=False,indent=2)
         else:        
             with open(set_json,'w') as outfile:
                 json.dump(watermark_json, outfile ,ensure_ascii=False,indent=2)
