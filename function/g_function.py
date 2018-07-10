@@ -7,7 +7,7 @@ Created on Sat Jul  7 22:58:43 2018
 import json
 import requests
 import math
-from PIL import Image
+from PIL import Image, ImageFont, ImageDraw
 
 def main():
     #print(get_hsing())
@@ -141,6 +141,72 @@ class function(object):
             client.delete_image(obj.id)
         
         return ("delete complete")
+
+    def add_watermark(self,text, fontsize, ttf, position, imagefile, output_dir):
+        
+        ttf_path='..//font//'
+        
+        if ttf == 't1':
+            fontname = ttf_path+'wt014.ttf'
+        elif ttf == 't2':
+            fontname = ttf_path+'/wt028.ttf'
+        elif ttf == 't3':
+            fontname = ttf_path+'wt040.ttf'
+        elif ttf == 't4':
+            fontname = ttf_path+'wt064.ttf'
+        elif ttf == 't5':
+            fontname = ttf_path+'wt071.ttf'
+            
+            
+        img0 = Image.new("RGBA", (1,1))
+        draw0 = ImageDraw.Draw(img0)
+        font = ImageFont.truetype(fontname, fontsize)
+        t_width, t_height = draw0.textsize(text, font=font)
+        #t_width, t_height = draw0.textsize(unicode(text, 'UTF-8'), font=font)
+        img = Image.new("RGBA", (t_width, t_height), (255,0,0,0))
+        draw = ImageDraw.Draw(img)
+        #draw.text((0,0),unicode(text, 'UTF-8'), font=font, fill=(255,255,255,128))
+        draw.text((0,0),text,font=font, fill=(255,255,255,128))
+        img2 = Image.open(imagefile)
+        i_width, i_height = img2.size
+        
+        if position == 'p1':
+            px = int(i_width*(1/15))
+            py = int(i_height*(1/15))
+        elif position == 'p2':
+            px = int(i_width*(1/15))
+            py = int((i_height-t_height)/2)
+        elif position == 'p3':
+            px = int(i_width*(1/15))
+            py = int((i_height-t_height)*(14/15))
+        elif position == 'p4':
+            px = int((i_width-t_width)/2)
+            py = int(i_height*(1/15))
+        elif position == 'p5':
+            px = int((i_width-t_width)/2)
+            py = int((i_height-t_height)/2)
+        elif position == 'p6':
+            px = int((i_width-t_width)/2)
+            py = int(i_height*(14/15))
+        elif position == 'p7':
+            px = int((i_width-t_width)*(14/15))
+            py = int(i_height*(1/15))
+        elif position == 'p8':
+            px = int((i_width-t_width)*(14/15))
+            py = int((i_height-t_height)/2)
+        elif position == 'p9':
+            px = int((i_width-t_width)*(14/15))
+            py = int((i_height-t_height)*(14/15))
+    
+        img2.paste(img, (px, py), img)
+        imagefile = imagefile.split('/')[-1]
+        imagefile = "wm_" + imagefile
+        print (imagefile + " saved...")
+        img2.save(output_dir + imagefile)
+        del draw0, draw
+        del img0, img, img2
+        
+        return ("imagefile saved")
     
 #def get_hsing():
 #    return s17api.hsing.getjson(0,1912544)
