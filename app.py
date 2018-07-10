@@ -1987,6 +1987,7 @@ def handle_message(event):
             preview_image_url=url
         )
         line_bot_api.reply_message(event.reply_token,image_message)
+        gs_write('B15')
         return 0        
     #查颱風
     if re.match('^查颱風(.+)*',event.message.text):
