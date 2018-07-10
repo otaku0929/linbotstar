@@ -2305,7 +2305,8 @@ def handle_image_message(event):
             for chunk in message_content.iter_content():
                 fd.write(chunk)
         if os.path.exists(watermar_json):
-            with open(watermar_json, encoding='CP950') as jsonfile:
+            #with open(watermar_json, encoding='CP950') as jsonfile:
+            with open(watermar_json) as jsonfile:
                 data = json.load(jsonfile)
                 text = data['watermark']['text']
                 fontsize = data['watermark']['fontsize']
