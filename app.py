@@ -2292,15 +2292,16 @@ def handle_image_message(event):
     if event.source.type == 'user':
         message_content = line_bot_api.get_message_content(event.message.id)
         photo_name = event.message.id
-        line_jpg_path = '/app/temp_jpg/'+photo_name+'.jpg'
-        output_jpg_path = '/app/temp_jpg/wm_'+photo_name+'.jpg'
-        with open(line_jpg_path, 'wb') as fd:
+        image_file = '/app/temp_jpg/'+photo_name+'.jpg'
+        output_jpg = '/app/temp_jpg/wm_'+photo_name+'.jpg'
+        output_dir = '/app/temp_jpg/
+        with open(image_file, 'wb') as fd:
             for chunk in message_content.iter_content():
                 fd.write(chunk)
         _function.add_watermark("小星星浮水印", 48, 't4','p9', image_file, output_dir)
         client = ImgurClient(imgur_client_id, imgur_client_secret, imgur_client_access_token, imgur_client_refresh_token)
         conf = {"album":'SZMo93Z'}
-        res = client.upload_from_path(output_jpg_path,config=conf,anon=False)
+        res = client.upload_from_path(output_jpg,config=conf,anon=False)
         url = res['link'] 
         image_message = ImageSendMessage(
             original_content_url=url,
