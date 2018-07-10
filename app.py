@@ -2298,7 +2298,7 @@ def handle_image_message(event):
         with open(image_file, 'wb') as fd:
             for chunk in message_content.iter_content():
                 fd.write(chunk)
-        _function.add_watermark("小星星浮水印", 48, 't4','p9', image_file, output_dir)
+        _function.add_watermark("小星星浮水印", 58, 't2','p9', image_file, output_dir)
         client = ImgurClient(imgur_client_id, imgur_client_secret, imgur_client_access_token, imgur_client_refresh_token)
         conf = {"album":'SZMo93Z'}
         res = client.upload_from_path(output_jpg,config=conf,anon=False)
@@ -2307,8 +2307,7 @@ def handle_image_message(event):
             original_content_url=url,
             preview_image_url=url
         )
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=url))
-        line_bot_api.reply_message(event.reply_token,image_message)
+        line_bot_api.reply_message(event.reply_token, [image_message, TextSendMessage(text=url)])
         return 0    
     
 @handler.add(MessageEvent, message=LocationMessage)
