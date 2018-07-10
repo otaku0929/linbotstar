@@ -233,7 +233,7 @@ class function(object):
             with open(set_json,'w') as outfile:
                 json.dump(watermark_json, outfile ,ensure_ascii=False,indent=2)
 
-        return '完成設定'
+        return '完成設定，此設定僅為暫存下次使用時可能需要重新設定'
     
 #def get_hsing():
 #    return s17api.hsing.getjson(0,1912544)
