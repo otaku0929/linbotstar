@@ -1422,9 +1422,9 @@ def handle_message(event):
 #   profile = line_bot_api.get_profile(event.source.user_id)
     #gprofile = line_bot_api.get_profile(event.source.group_id)
     #setting watermark
-    if re.match('^#浮水印%(.+)%f(\d+)%([t|e]\d)%(red|green|blue|white|break|pink|yellow|gold|#......)%al(\d+)%(p\d)',event.message.text):
+    if re.match('^#浮水印%(.+)%f(\d+)%([t|e]\d)%(red|green|blue|white|black|pink|yellow|gold|#......)%al(\d+)%(p\d)',event.message.text):
         if event.source.type == 'user':
-            match = re.match('^#浮水印%(.+)%f(\d+)%([t|e]\d)%(red|green|blue|white|break|pink|yellow|gold|#......)%al(\d+)%(p\d)',event.message.text)
+            match = re.match('^#浮水印%(.+)%f(\d+)%([t|e]\d)%(red|green|blue|white|black|pink|yellow|gold|#......)%al(\d+)%(p\d)',event.message.text)
             uid = event.source.user_id
             print('setting watermark ing....')
             #print(uid)
