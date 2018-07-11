@@ -1806,10 +1806,9 @@ def handle_message(event):
             TextSendMessage(text=content))
         return 0
     #setting watermark
-    if re.match('浮水印t=(.+)*',event.message.text):
-        print (re.match('浮水印t=(.+)*',event.message.text).group(0))
+    if re.search('浮水印t=(.+)f=(\d+)ttf=([t|e]\d)c=(red|green|blue|white|break|pink|yellow|gold|#......)al=(\d+)p=(p\d)',event.message.text):
         if event.source.type == 'user':
-            match = re.match('浮水印t=(.+)f=(\d+)ttf=([t|e]\d)c=(red|green|blue|white|break|pink|yellow|gold|#......)al=(\d+)p=(p\d)',event.message.text)
+            match = re.search('浮水印t=(.+)f=(\d+)ttf=([t|e]\d)c=(red|green|blue|white|break|pink|yellow|gold|#......)al=(\d+)p=(p\d)',event.message.text)
             uid = event.source.user_id
             #print(uid)
             content = _function.set_watermark(uid,match.group(1),match.group(2),match.group(3),match.group(4),match.group(5),match.group(6))            
