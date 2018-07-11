@@ -8,7 +8,7 @@ import os
 import json
 import requests
 import math
-from PIL import Image, ImageFont, ImageDraw
+from PIL import Image, ImageFont, ImageDraw, ImageColor
 from imgurpython import ImgurClient
 
 imgur_client_id = '33ed33e765afedc'
@@ -156,22 +156,48 @@ class function(object):
         
         return ("delete complete")
 
-    def add_watermark(self,text, fontsize, ttf, position, imagefile, output_dir):
+    def add_watermark(self, text, fontsize, ttf, color, alpha, position, imagefile, output_dir):
         
         #ttf_path='..//font//'
         ttf_path='/app/font/'
         
+        #set fon tts
         if ttf == 't1':
             fontname = ttf_path+'wt014.ttf'
         elif ttf == 't2':
-            fontname = ttf_path+'/wt028.ttf'
+            fontname = ttf_path+'wt028.ttf'
         elif ttf == 't3':
             fontname = ttf_path+'wt040.ttf'
         elif ttf == 't4':
             fontname = ttf_path+'wt064.ttf'
         elif ttf == 't5':
             fontname = ttf_path+'wt071.ttf'
-            
+        elif ttf == 't6':
+            fontname = ttf_path+'c01W4.ttc'
+        elif ttf == 't7':
+            fontname = ttf_path+'c02W3.ttc'
+        
+        #set font color
+        if color == 'red':
+            r=255;g=0;b=0
+        elif color == 'green':
+            r=0;g=255;b=0
+        elif color == 'blue':
+            r=0;g=0;b=255
+        elif color == 'white':
+            r=255;g=255;b=255
+        elif color == 'black':
+            r=0;g=0;b=0
+        elif color == 'yellow':
+            r, g, b = ImageColor.getrgb("#ffff00")
+        elif color == 'pink':
+            r, g, b = ImageColor.getrgb("#ffc0cb")
+        elif color == 'gold':
+            r, g, b = ImageColor.getrgb("#ffd700")
+        else:
+            r, g, b = ImageColor.getrgb(color)
+            #print(r,g,b)
+              
             
         img0 = Image.new("RGBA", (1,1))
         draw0 = ImageDraw.Draw(img0)
@@ -181,7 +207,7 @@ class function(object):
         img = Image.new("RGBA", (t_width, t_height), (255,0,0,0))
         draw = ImageDraw.Draw(img)
         #draw.text((0,0),unicode(text, 'UTF-8'), font=font, fill=(255,255,255,128))
-        draw.text((0,0),text,font=font, fill=(255,255,255,128))
+        draw.text((0,0),text,font=font, fill=(r,g,b,alpha))
         img2 = Image.open(imagefile)
         i_width, i_height = img2.size
         
@@ -220,17 +246,15 @@ class function(object):
         img2.save(output_dir + imagefile)
         del draw0, draw
         del img0, img, img2
+
+    def set_watermark(uid, text, fontsize, ttf, color, alpha, position):
         
-        return ("imagefile saved")
-
-    def set_watermark(self,uid, text, fontsize, ttf, position):
-
         set_json = '/app/json_file/watermark_{}.json'.format(uid)
-        #set_json = '..//json_file//watermark_{}.json'.format(uid)'
-        print(set_json)
-        watermark_json = {'watermark':{'text':text,'fontsize':fontsize,'ttf':ttf,'position':position}}
+        #set_json = '..\\json_file\\watermark_{}.json'.format(uid)
+        #print(set_json)
+        watermark_json = {'watermark':{'text':text,'fontsize':fontsize,'ttf':ttf, 'color':color, 'alpha':alpha, 'position':position}}
         if os.path.exists(set_json):
-            with open(set_json) as jsonfile:
+            with open(set_json, encoding='CP950') as jsonfile:
                 data = json.load(jsonfile)
                 data['watermark'] = watermark_json['watermark']
             with open(set_json,'w') as outfile:
@@ -238,8 +262,8 @@ class function(object):
         else:        
             with open(set_json,'w') as outfile:
                 json.dump(watermark_json, outfile ,ensure_ascii=False,indent=2)
-
-        return '完成設定，此設定僅為暫存下次使用時可能需要重新設定'
+                
+        print('完成設定，此設定僅為暫存下次使用時可能需要重新設定')
     
 #def get_hsing():
 #    return s17api.hsing.getjson(0,1912544)
