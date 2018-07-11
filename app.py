@@ -1417,13 +1417,12 @@ def handle_message(event):
     #print("event.message.text:", event.message.text)
 
     grouplist = str(event.source)
-    markcontent = event.message.text
     mlist = event.message.text
     words = event.message.text
-#    profile = line_bot_api.get_profile(event.source.user_id)
+#   profile = line_bot_api.get_profile(event.source.user_id)
     #gprofile = line_bot_api.get_profile(event.source.group_id)
     #setting watermark
-    if re.match('^#浮水印(+.)',event.message.text):
+    if re.match('^#浮水印(.+)',event.message.text):
         if event.source.type == 'user':
             #match = re.match('t=(.+)f=(\d+)ttf=([t|e]\d)c=(red|green|blue|white|break|pink|yellow|gold|#......)al=(\d+)p=(\d)',event.message.text)
             uid = event.source.user_id
