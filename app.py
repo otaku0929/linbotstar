@@ -1424,6 +1424,7 @@ def handle_message(event):
     #setting watermark
     if re.match('^#浮水印%(.+)%(f\d+)%([t|e]\d)%(red|green|blue|white|break|pink|yellow|gold|#......)%al(\d+)%(p\d)',event.message.text):
         if event.source.type == 'user':
+            print("TEST")
             match = re.match('^#浮水印%(.+)%(f\d+)%([t|e]\d)%(red|green|blue|white|break|pink|yellow|gold|#......)%al(\d+)%(p\d)',event.message.text)
             uid = event.source.user_id
             #print(uid)
@@ -1435,7 +1436,7 @@ def handle_message(event):
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
     #查浮水印怎麼使用
-    if event.message.text in ['浮水印','浮水印功能','查浮水印','浮水印怎麼使用','怎麼用浮水印']:
+    if event.message.text in ['浮水印','浮水印功能','查浮水印','查浮水印怎麼用','浮水印怎麼使用','怎麼用浮水印']:
         content = _sys_mg.m_addmark()
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0        
