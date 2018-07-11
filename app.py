@@ -1434,6 +1434,11 @@ def handle_message(event):
             content = _sys_mg.m_addmark()
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
+    #查浮水印怎麼使用
+    if event.message.text in ['浮水印','浮水印功能','查浮水印','浮水印怎麼使用','怎麼用浮水印']:
+        content = _sys_mg.m_addmark()
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        return 0        
     if event.message.text == "蘋果新聞":
         content = apple_news()
         line_bot_api.reply_message(
