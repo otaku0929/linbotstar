@@ -1422,7 +1422,21 @@ def handle_message(event):
     words = event.message.text
 #    profile = line_bot_api.get_profile(event.source.user_id)
     #gprofile = line_bot_api.get_profile(event.source.group_id)
-
+    #setting watermark
+    if event.message.text[0:4]== '#浮水印':
+        if event.source.type == 'user':
+            print (event.message.text)
+            #match = re.search('t=(.+)f=(]d+)ttf=([t|e]\d)c=(red|green|blue|white|break|pink|yellow|gold|#......)',markcontent)
+            #match = re.match('t=(.+)f=(\d+)ttf=([t|e]\d)c=(red|green|blue|white|break|pink|yellow|gold|#......)al=(\d+)p=(\d)',event.message.text)
+            uid = event.source.user_id
+            #print(uid)
+            content = event.message.text[4:]
+            #content = _function.set_watermark(uid,match.group(1),match.group(2),match.group(3),match.group(4),match.group(5),match.group(6))            
+            line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        else:
+            content = _sys_mg.m_addmark()
+            line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        return 0
     if event.message.text == "eyny":
         content = eyny_movie()
         line_bot_api.reply_message(
@@ -1805,21 +1819,6 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=content))
-        return 0
-    #setting watermark
-    if event.message.text[0:4]== '#浮水印':
-        if event.source.type == 'user':
-            print (event.message.text)
-            #match = re.search('t=(.+)f=(]d+)ttf=([t|e]\d)c=(red|green|blue|white|break|pink|yellow|gold|#......)',markcontent)
-            #match = re.match('t=(.+)f=(\d+)ttf=([t|e]\d)c=(red|green|blue|white|break|pink|yellow|gold|#......)al=(\d+)p=(\d)',event.message.text)
-            uid = event.source.user_id
-            #print(uid)
-            content = event.message.text[4:]
-            #content = _function.set_watermark(uid,match.group(1),match.group(2),match.group(3),match.group(4),match.group(5),match.group(6))            
-            line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
-        else:
-            content = _sys_mg.m_addmark()
-            line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
     #OS function print sys dir
     if re.match('^oss=(.+)*',event.message.text):
