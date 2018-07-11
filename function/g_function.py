@@ -254,7 +254,8 @@ class function(object):
         #print(set_json)
         watermark_json = {'watermark':{'text':text,'fontsize':fontsize,'ttf':ttf, 'color':color, 'alpha':alpha, 'position':position}}
         if os.path.exists(set_json):
-            with open(set_json, encoding='CP950') as jsonfile:
+            with open(set_json) as jsonfile:
+            #with open(set_json, encoding='CP950') as jsonfile:
                 data = json.load(jsonfile)
                 data['watermark'] = watermark_json['watermark']
             with open(set_json,'w') as outfile:
