@@ -1806,12 +1806,15 @@ def handle_message(event):
             TextSendMessage(text=content))
         return 0
     #setting watermark
-    if re.search('浮水印t=(.+)f=(\d+)ttf=([t|e]\d)c=(red|green|blue|white|break|pink|yellow|gold|#......)al=(\d+)p=(p\d)',event.message.text):
+    if re.match('浮水印t=(.+)',event.message.text):
         if event.source.type == 'user':
-            match = re.search('浮水印t=(.+)f=(\d+)ttf=([t|e]\d)c=(red|green|blue|white|break|pink|yellow|gold|#......)al=(\d+)p=(p\d)',event.message.text)
+            print (event.message.text)
+            match = re.search('t=(.+)f=(]d+)ttf=([t|e]\d)c=(red|green|blue|white|break|pink|yellow|gold|#......)',event.messages.text)
+            #match = re.match('t=(.+)f=(\d+)ttf=([t|e]\d)c=(red|green|blue|white|break|pink|yellow|gold|#......)al=(\d+)p=(\d)',event.message.text)
             uid = event.source.user_id
             #print(uid)
-            content = _function.set_watermark(uid,match.group(1),match.group(2),match.group(3),match.group(4),match.group(5),match.group(6))            
+            content = "test"
+            #content = _function.set_watermark(uid,match.group(1),match.group(2),match.group(3),match.group(4),match.group(5),match.group(6))            
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         else:
             content = _sys_mg.m_addmark()
