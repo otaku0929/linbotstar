@@ -22,6 +22,9 @@ _function = function.g_function.function()
 import function.games_zone
 _games = function.games_zone.games_zone()
 
+import function.sys_messages
+_games = function._sys_mg.sys_messages()
+
 from oauth2client.service_account import ServiceAccountCredentials as SAC
 from bs4 import BeautifulSoup
 from flask import Flask, request, abort
@@ -1803,15 +1806,16 @@ def handle_message(event):
             TextSendMessage(text=content))
         return 0
     #setting watermark
-    if re.match('浮水印t=(.+)f=(\d+)ttf=(t.)p=(p.)',event.message.text):
+    if re.match('浮水印t=(.+)f=(\d+)ttf=([t|e]\d)c=(red|green|blue|white|break|pink|yellow|gold|#......)al=(\d+)p=(p\d)',event.message.text):
         if event.source.type == 'user':
-            match = re.match('浮水印t=(.+)f=(\d+)ttf=(t.)p=(p.)',event.message.text)
+            match = re.match('浮水印t=(.+)f=(\d+)ttf=([t|e]\d)c=(red|green|blue|white|break|pink|yellow|gold|#......)al=(\d+)p=(p\d)',event.message.text)
             uid = event.source.user_id
             #print(uid)
-            content = _function.set_watermark(uid,match.group(1),match.group(2),match.group(3),match.group(4))            
+            content = _function.set_watermark(uid,match.group(1),match.group(2),match.group(3),match.group(4),match.group(5),match.group(6))            
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         else:
-            line_bot_api.reply_message(event.reply_token,TextSendMessage(text='此功能不能在群組使用'))
+            content = _sys_mg.m_addmark()
+            line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
     #OS function print sys dir
     if re.match('^oss=(.+)*',event.message.text):
@@ -2186,13 +2190,15 @@ def handle_image_message(event):
                 text = data['watermark']['text']
                 fontsize = data['watermark']['fontsize']
                 ttf = data['watermark']['ttf']
+                color = data['watermark']['color']
+                alpha = data['watermark']['alpha']
                 position = data['watermark']['position']
-            _function.add_watermark(text, int(fontsize), ttf, position, image_file, output_dir)
+            _function.add_watermark(text, int(fontsize), ttf, color, alpha, int(position), image_file, output_dir)
              #_function.add_watermark("小星星浮水印", 58, 't2','p9', image_file, output_dir)
             client = ImgurClient(imgur_client_id, imgur_client_secret, imgur_client_access_token, imgur_client_refresh_token)
             conf = {"album":'SZMo93Z'}
             res = client.upload_from_path(output_jpg,config=conf,anon=False)
-            print(res)
+            #print(res)
             url = res['link']
             img_id = res['id']
             del_messages = '下載完圖檔後，請輸入下面指令刪除圖檔 \ndimg={}'.format(img_id)
@@ -2203,7 +2209,7 @@ def handle_image_message(event):
             line_bot_api.reply_message(event.reply_token, [image_message, TextSendMessage(text=del_messages)]) 
             gs_write('B30')
         else:
-            content = '請先設定浮水印輸出格式，方式如下:\n浮水印t=小星星浮水印f=52ttf=t4p=p9\n------------\n *t=浮水印內容\n*f=字體大小\n*ttf=字型：目前共有5種t1~t5\n*p=浮水印位置：以九宮格方式劃分'
+            content = _sys_mg.m_addmark()
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text=content))   
     return 0
     
