@@ -1807,7 +1807,7 @@ def handle_message(event):
             TextSendMessage(text=content))
         return 0
     #setting watermark
-    if re.match('浮水印t=(.+)'event.message.text):
+    if re.match('浮水印t=(.+)',event.message.text):
         if event.source.type == 'user':
             print (event.message.text)
             #match = re.search('t=(.+)f=(]d+)ttf=([t|e]\d)c=(red|green|blue|white|break|pink|yellow|gold|#......)',markcontent)
