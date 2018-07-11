@@ -19,6 +19,9 @@ _weather = function.weatherparser.WeatherParser()
 import function.g_function
 _function = function.g_function.function()
 
+import function.games_zone
+_games = function.games_zone.games_zone()
+
 from oauth2client.service_account import ServiceAccountCredentials as SAC
 from bs4 import BeautifulSoup
 from flask import Flask, request, abort
@@ -719,80 +722,6 @@ def ty():
     content = '台灣附近颱風動態：\n{}'.format(text)
 
     return content
-
-def gsheet():
-    
-    GDriveJSON = 'star-lucky777-580f56621f40.json'
-    GSpreadSheet = 'lucky777'
-
-    scope = ['https://spreadsheets.google.com/feeds']
-    key = SAC.from_json_keyfile_name(GDriveJSON, scope)
-    gc = gspread.authorize(key)
-    worksheet = gc.open(GSpreadSheet).sheet1
-
-    n = int(worksheet.acell('A1').value)
-    x = "%03d"% random.randint(0,999)
-
-    if x == '777':
-        content ="winner"
-        n = 0
-        worksheet.update_acell('A1',n)
-    else:
-        n += 1
-        content = 'Lucky 777 \n目前累積拉霸次數:{}\n本次幸運號為:{} \n再試試手氣吧'.format(n,x)
-        worksheet.update_acell('A1',n)
-
-    return content
-
-def r18():
-
-    a = random.randint(1,6)
-    b = random.randint(1,6)
-    c = random.randint(1,6)
-    d = random.randint(1,6)
-
-    rlist = [a,b,c,d]
-    seen = set()      
-    y = [n for n in rlist if n not in seen and not seen.add(n)]
-
-    c2=""
-    c3=""
-    n=0
-
-    for i in rlist:
-        if rlist.count(int(i)) == 2:
-           c2 = i
-        if rlist.count(int(i)) == 3:
-           c3 = i
-
-    if len(y) == 4:
-        content = '18啦~~\n\n本次擲出結果為:{},{},{}.{}\n\n沒點, 再擲一次吧!!!'.format(a,b,c,d)
-        return content
-    if len(y) ==1:
-      if y[0]==6:
-         content = '18啦~~\n\n本次擲出結果為:{},{},{}.{}\n\n豹子通殺!!!!'.format(a,b,c,d)
-         return content
-      else:
-         content = '18啦~~\n\n本次擲出結果為:{},{},{}.{}\n\n點數為:水哦 {}一色'.format(a,b,c,d,y[0])
-         return content
-    if len(y)==3:
-      for i2 in rlist:
-          if i2 != c2:
-              n = n+i2
-          else:
-              pass
-      if n ==3:
-          content = '18啦~~\n\n本次擲出結果為:{},{},{}.{}\n\n{}點 逼機 >"<" '.format(a,b,c,d,n)
-          return content
-      else:
-          content = '18啦~~\n\n本次擲出結果為:{},{},{}.{}\n\n{}點'.format(a,b,c,d,n)
-          return content
-    if len(y)==2 and c3 !='':
-        content = '18啦~~\n\n本次擲出結果為:{},{},{}.{}\n\n沒點, 再擲一次吧!!!'.format(a,b,c,d,n)
-        return content
-    if len(y)==2:         
-       content = '18啦~~\n\n本次擲出結果為:{},{},{}.{}\n\n水哦  十八!!!!'.format(a,b,c,d,n)
-       return content       
 
 def getpoint():
 
@@ -1689,25 +1618,6 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=content))
         return 0
-    if event.message.text == "拉霸":
-        content = gsheet()
-        if content == 'winner':
-            url = 'https://imgur.com/eYrlcRb.jpg'
-            image_message=ImageSendMessage(
-               original_content_url=url,
-               preview_image_url=url
-            )
-            line_bot_api.reply_message(event.reply_token, image_message)
-            return 0
-        else:        
-            line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
-            return 0
-    if event.message.text == "18r" or event.message.text == "18啦":
-        content = r18()
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=content))
-        return 0
     if event.message.text == "查集點":
         content = getpoint()
         line_bot_api.reply_message(
@@ -1870,6 +1780,27 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=content))
         gs_write('B13')
+        return 0
+    #luck777
+    if event.message.text == "拉霸":
+        content = _games.lunck777()
+        if content == 'winner':
+            url = 'https://imgur.com/eYrlcRb.jpg'
+            image_message=ImageSendMessage(
+               original_content_url=url,
+               preview_image_url=url
+            )
+            line_bot_api.reply_message(event.reply_token, image_message)
+            return 0
+        else:        
+            line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+            return 0
+    #r18
+    if event.message.text == "18r" or event.message.text == "18啦":
+        content = _games.r18()
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=content))
         return 0
     #setting watermark
     if re.match('浮水印t=(.+)f=(\d+)ttf=(t.)p=(p.)',event.message.text):
