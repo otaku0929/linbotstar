@@ -1783,7 +1783,7 @@ def handle_message(event):
         return 0
     #luck777
     if event.message.text == "拉霸":
-        content = _games.lunck777()
+        content = _games.luck777()
         if content == 'winner':
             url = 'https://imgur.com/eYrlcRb.jpg'
             image_message=ImageSendMessage(
