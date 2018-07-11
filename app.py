@@ -1807,14 +1807,14 @@ def handle_message(event):
             TextSendMessage(text=content))
         return 0
     #setting watermark
-    if re.search('^#浮水印(.+)',event.message.text):
+    if event.message.text[0:4]== '#浮水印':
         if event.source.type == 'user':
             print (event.message.text)
             #match = re.search('t=(.+)f=(]d+)ttf=([t|e]\d)c=(red|green|blue|white|break|pink|yellow|gold|#......)',markcontent)
             #match = re.match('t=(.+)f=(\d+)ttf=([t|e]\d)c=(red|green|blue|white|break|pink|yellow|gold|#......)al=(\d+)p=(\d)',event.message.text)
             uid = event.source.user_id
             #print(uid)
-            content = re.match('#浮水印(.+)',event.message.text).group(0)
+            content = event.message.text[4:]
             #content = _function.set_watermark(uid,match.group(1),match.group(2),match.group(3),match.group(4),match.group(5),match.group(6))            
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         else:
