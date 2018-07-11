@@ -11,7 +11,7 @@ from oauth2client.service_account import ServiceAccountCredentials as SAC
 
 def main():
     _games = games_zone()
-    content = _games.r18()
+    content = _games.luck777()
     print(content)
 
 class games_zone(object):
@@ -69,7 +69,7 @@ class games_zone(object):
            content = '18啦~~\n\n本次擲出結果為:{},{},{}.{}\n\n水哦  十八!!!!'.format(a,b,c,d,n)
            return content
 
-    def luck777():
+    def luck777(self):
         
         GDriveJSON = 'star-lucky777-580f56621f40.json'
         GSpreadSheet = 'lucky777'
