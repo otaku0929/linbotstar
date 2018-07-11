@@ -1807,10 +1807,10 @@ def handle_message(event):
             TextSendMessage(text=content))
         return 0
     #setting watermark
-    if re.match('浮水印t=(.+)',markcontent):
+    if re.match('浮水印t=(.+)'event.message.text):
         if event.source.type == 'user':
             print (event.message.text)
-            match = re.search('t=(.+)f=(]d+)ttf=([t|e]\d)c=(red|green|blue|white|break|pink|yellow|gold|#......)',markcontent)
+            #match = re.search('t=(.+)f=(]d+)ttf=([t|e]\d)c=(red|green|blue|white|break|pink|yellow|gold|#......)',markcontent)
             #match = re.match('t=(.+)f=(\d+)ttf=([t|e]\d)c=(red|green|blue|white|break|pink|yellow|gold|#......)al=(\d+)p=(\d)',event.message.text)
             uid = event.source.user_id
             #print(uid)
