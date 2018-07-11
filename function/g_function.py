@@ -247,7 +247,7 @@ class function(object):
         del draw0, draw
         del img0, img, img2
 
-    def set_watermark(uid, text, fontsize, ttf, color, alpha, position):
+    def set_watermark(self, uid, text, fontsize, ttf, color, alpha, position):
         
         set_json = '/app/json_file/watermark_{}.json'.format(uid)
         #set_json = '..\\json_file\\watermark_{}.json'.format(uid)
