@@ -23,7 +23,7 @@ import function.games_zone
 _games = function.games_zone.games_zone()
 
 import function.sys_messages
-_games = function._sys_mg.sys_messages()
+_sys_mg = function.sys_messages.sys_messages()
 
 from oauth2client.service_account import ServiceAccountCredentials as SAC
 from bs4 import BeautifulSoup
