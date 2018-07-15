@@ -1434,7 +1434,7 @@ def handle_message(event):
         #print(uid)
         #profile = line_bot_api.get_group_member_profile(gid,uid)
         profile = _lineapi.get_group_member_profile(gid,uid)
-        #print(profile)
+        print(profile)
         user_name = profile['displayName']
     if event.source.type == 'user':
         uid = event.source.user_id
