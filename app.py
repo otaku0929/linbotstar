@@ -1429,14 +1429,14 @@ def handle_message(event):
     #setting watermark
     if event.source.type == 'group':
         gid = event.source.group_id
-        #print(gid)
+        print(gid)
         uid = event.source.user_id
-        #print(uid)
+        print(uid)
         profile = line_bot_api.get_group_member_profile(gid,uid)
         #profile = _lineapi.get_group_member_profile(gid,uid)
         print(profile)
-        #user_name = profile['displayName']
-        user_name = profile.display_name
+        user_name = profile['displayName']
+        #user_name = profile.display_name
     if event.source.type == 'user':
         uid = event.source.user_id
         profile = line_bot_api.get_profile(event.source.user_id)
