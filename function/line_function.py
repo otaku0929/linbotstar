@@ -30,7 +30,7 @@ class linbotapi(object):
                  timeout=5):
         
         self.__version__ = '1.7.1'
-        self.channel_access_token = 'WlEMGtaG4o/2msjFkueoT6daMcPzCD5MEPQer081zB4mqoUcSvHrBAIcdQh9yG5L3en6HKj5PNRaxP+wLpoGQE08A44fDgWrY0LOrCHvq08Qgc/A/T7FWXZoLV81aBD8m7coT7YWnXcI7HUFtDRIbgdB04t89/1O/w1cDnyilFU='
+        self.channel_access_token = 'EZcRgZVSqqzxzPO+PSuREAJxtAIMuKoHWkhH/Swj5xVe9Xvpv0eiBm3k8jDcwFMjEM0pmKx2Bb1vCGN45THZCEj9dLxpkAMrPiskCmgjXNZ8ivg6bzbEaWjst92+IMUSP+MklC/YkuGZ7GAyt/Uo8wdB04t89/1O/w1cDnyilFU='
         self.endpoint = endpoint
         self.headers = {
             'Authorization': 'Bearer ' + self.channel_access_token,
