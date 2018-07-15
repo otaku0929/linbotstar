@@ -62,7 +62,7 @@ class linbotapi(object):
             '/v2/bot/group/{group_id}/member/{user_id}'.format(group_id=group_id, user_id=user_id),
             timeout=timeout
         )
-        print(response)
+        #print(response)
         #response.replace('b','')
         content = json.loads(response)
         return(content)
