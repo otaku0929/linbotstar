@@ -28,6 +28,9 @@ _sys_mg = function.sys_messages.sys_messages()
 import function.line_function
 _lineapi = function.line_function.linbotapi()
 
+import function.star_talk
+_star_talk = function.star_talk.start_talk()
+
 from oauth2client.service_account import ServiceAccountCredentials as SAC
 from bs4 import BeautifulSoup
 from flask import Flask, request, abort
@@ -35,7 +38,6 @@ from imgurpython import ImgurClient
 from selenium import webdriver
 from datetime import datetime, timedelta
 from function.function import shelp
-from function.star_talk import star_talk
 from function.tarot_detail import tarot_random
 from function.tarot_detail import tarot_random_get
 from function.tarot_detail import tarot_detail
@@ -2169,13 +2171,13 @@ def handle_message(event):
         gs_write('B26')
         return 0 
     if re.search("小星星",event.message.text):
-        content = star_talk(event.message.text,user_name)
+        content = _star_talk.star_talk(event.message.text,user_name)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         gs_write('B9')
         return 0  
     words_list = "幹|操|fuck|三小|靠北|爆料|三字經|壞掉了|早安|早啊|晚安|睡囉|哈哈哈哈哈|(才|你|小星星)尿床|尿好了|有尿了"
     if re.search(words_list,event.message.text):
-        content = star_talk(event.message.text,user_name)
+        content = _star_talk.star_talk(event.message.text,user_name)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0 
     if len(words)>=1:
