@@ -40,7 +40,9 @@ class sys_messages(object):
                       '#getconfig',
                       '^##del_config=(.+)',
                       '^#oss=(.+)*',
-                      '^#dimga=(.+)*'
+                      '^#dimga=(.+)*',
+                      '#update_wp_state',
+                      '^#wp_state=(.+)'
                 ]
         
         content = ""
