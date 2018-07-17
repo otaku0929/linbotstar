@@ -581,7 +581,10 @@ def handle_message(event):
                     else:
                         content = _star_talk.star_talk(event.message.text,user_name)
                         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
-                return 0
+                else:
+                    content = _star_talk.star_talk(event.message.text,user_name)    
+                    line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+                    return 0 
             else:
                 content = _star_talk.star_talk(event.message.text,user_name)    
                 line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
