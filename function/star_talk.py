@@ -1,8 +1,10 @@
 import re
 import random
 
-import function.hsing
-_hsing = function.hsing.hsing()
+from .hsing import sing17
+
+import function.s17api
+get17 = function.s17api.hsing()
 
 from .function import shelp
 
