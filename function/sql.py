@@ -26,8 +26,8 @@ class Sql(object):
          
     def __init__(self):
         
-        #url = urlparse.urlparse(os.environ['DATABASE_URL'])
-        url = urlparse.urlparse('postgres://emghycqpjwctwr:04a3e938a72371fd03f0ed0428836f805c95b08fc332e9976fa9f2f82cdc1549@ec2-54-83-33-213.compute-1.amazonaws.com:5432/dcfuue2glgrc2m')
+        url = urlparse.urlparse(os.environ['DATABASE_URL'])
+        #url = urlparse.urlparse('postgres://emghycqpjwctwr:04a3e938a72371fd03f0ed0428836f805c95b08fc332e9976fa9f2f82cdc1549@ec2-54-83-33-213.compute-1.amazonaws.com:5432/dcfuue2glgrc2m')
         
         self.class_name = 'Sql'
         self.database = url.path[1:]
@@ -198,10 +198,11 @@ class Sql(object):
         print ("Opened database successfully")
         
         cur = conn.cursor()
-#        cur.execute('''CREATE TABLE user_config
-#               (user_id varchar(50) PRIMARY KEY NOT NULL,
-#               user_name TEXT,
-#               config TEXT);''')
+        cur.execute('''CREATE TABLE user_config
+               (user_id varchar(50) PRIMARY KEY NOT NULL,
+               user_name TEXT,
+               config TEXT);''')
+        
         cur.execute('''CREATE TABLE system_json
                (id varchar(4) PRIMARY KEY NOT NULL,
                json_name varchar(50),
