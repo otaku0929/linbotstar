@@ -574,7 +574,7 @@ def handle_message(event):
                 json_data = json.loads(config_list[2])
                 if key in json_data['function_option']:
                     if json_data['function_option'][key] == 'off':
-                        if re.search('小星星(怎麼|為什麼)不(會)?[回講說]話了',event.message.text):
+                        if re.search('小星星(怎麼|為什麼)不(會)?[回講說]話',event.message.text):
                             content = random.choice(['%s 因為大家覺得我太吵，所以關掉了'%user_name,'%s 檢查一下設定吧'%user_name])
                             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
                         return 0
