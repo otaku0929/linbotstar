@@ -45,8 +45,14 @@ class config_setting(object):
         new_json = json.loads(new_config)
         
         #撈出舊的config_json 並更新json data
-        _user_json = _sql.select_config(id)[0][2]
-        _json_data = json.loads(_user_json)
+        _user_json = _sql.select_config(id)
+        if _user_json == []:
+            self.create_config(id,user_name)
+            user_json = _sql.select_config(id)[0][2]         
+        else:
+            user_json = _user_json[0][2]
+        
+        _json_data = json.loads(user_json)
         _json_data['watermark'] = new_json['watermark']
         #return(_json_data)
 
