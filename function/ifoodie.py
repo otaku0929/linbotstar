@@ -11,21 +11,38 @@ import requests
 import random
 
 from linebot.models import *
-#from linebot.models.template import TemplateSendMessage
-#from linebot.models.template import CarouselTemplate
-#from linebot.models.template import CarouselColumn
-#from linebot.models.actions import (  # noqa
-#    Action,
-#    PostbackAction,
-#    MessageAction,
-#    URIAction,
-#    DatetimePickerAction,
-#    Action as TemplateAction,  # backward compatibility
-#    PostbackAction as PostbackTemplateAction,  # backward compatibility
-#    MessageAction as MessageTemplateAction,  # backward compatibility
-#    URIAction as URITemplateAction,  # backward compatibility
-#    DatetimePickerAction as DatetimePickerTemplateAction,  # backward compatibility
-#)
+
+def main():
+    messages = '查美食=台北南勢角永芳陳家祖傳美食'
+    #pattern = re.compile(r'(.+)查美食=(\D.)[市縣]*(.+)')
+    match = re.match('(.+)*查美食=(\D.)[市縣]*(.+)*',messages)
+    if match:
+        city = match.group(2)
+        res = match.group(3)
+        #city = match.group(1).replace('新北','台北') 
+        #print(city)
+        #res = match.group(2)
+        #print(res)
+        #print (res)
+#        content = ifoodie_get(city,res)
+#        if re.match(('^查詢位置暫無資料'),str(content)):
+#            print ("messages")
+#        else:
+#            print (content)
+        content = ifoodie(city,res)
+        list = []
+        for obj in content:
+#            thumbnail_image_url = obj['thumb']
+#            title = obj['restaurant']['name']
+#            if not obj['description']:
+#                test = 'None'
+#            
+#            text = obj['description'] 
+            print(obj)
+            print(obj['restaurant']['name'])
+            print(str(obj['description'])[0:51])
+
+        #(wt(res))   
 
 def ifoodie(city,res):
     
@@ -43,7 +60,7 @@ def ifoodie(city,res):
     
     max_i = 0
     new_list = []
-    for obj in food_list:
+    for obj in food_list:        
         if obj['restaurant']:
             new_list.append(obj)
         if not obj['restaurant']:
@@ -53,7 +70,8 @@ def ifoodie(city,res):
         max_i = max_i+1
         if max_i == 5:
             return new_list
-
+    
+    
     return new_list
     #id
     #description
@@ -61,7 +79,7 @@ def ifoodie(city,res):
     #['restaurant']['name']
     
 
-def ifoodie_line(city,res):
+def ifoodie_get(city,res):
         if res == None:
             res = "美食"
         ifoodie_content = ifoodie(city,res)
@@ -74,8 +92,8 @@ def ifoodie_line(city,res):
                     columns=[
                         CarouselColumn(
                             thumbnail_image_url=ifoodie_content[0]['thumb'],
-                            title=ifoodie_content[0]['restaurant']['name'],
-                            text=ifoodie_content[0]['description'][0:51]+'...',
+                            title=ifoodie_content[0]['restaurant']['name'],                            
+                            text=str(ifoodie_content[0]['description'])[0:51]+'...',
                             actions=[
                                 URITemplateAction(
                                     label='詳細內容',
@@ -95,7 +113,7 @@ def ifoodie_line(city,res):
                         CarouselColumn(
                             thumbnail_image_url=ifoodie_content[0]['thumb'],
                             title=ifoodie_content[0]['restaurant']['name'],
-                            text=ifoodie_content[0]['description'][0:51]+'...',
+                            text=str(ifoodie_content[0]['description'])[0:51]+'...',
                             actions=[
                                 URITemplateAction(
                                     label='詳細內容',
@@ -106,7 +124,7 @@ def ifoodie_line(city,res):
                         CarouselColumn(
                             thumbnail_image_url=ifoodie_content[1]['thumb'],
                             title=ifoodie_content[1]['restaurant']['name'],
-                            text=ifoodie_content[1]['description'][0:51]+'...',
+                            text=str(ifoodie_content[0]['description'])[0:51]+'...',
                             actions=[
                                 URITemplateAction(
                                     label='詳細內容',
@@ -126,7 +144,7 @@ def ifoodie_line(city,res):
                         CarouselColumn(
                             thumbnail_image_url=ifoodie_content[0]['thumb'],
                             title=ifoodie_content[0]['restaurant']['name'],
-                            text=ifoodie_content[0]['description'][0:51]+'...',
+                            text=str(ifoodie_content[0]['description'])[0:51]+'...',
                             actions=[
                                 URITemplateAction(
                                     label='詳細內容',
@@ -137,7 +155,7 @@ def ifoodie_line(city,res):
                         CarouselColumn(
                             thumbnail_image_url=ifoodie_content[1]['thumb'],
                             title=ifoodie_content[1]['restaurant']['name'],
-                            text=ifoodie_content[1]['description'][0:51]+'...',
+                            text=str(ifoodie_content[0]['description'])[0:51]+'...',
                             actions=[
                                 URITemplateAction(
                                     label='詳細內容',
@@ -148,7 +166,7 @@ def ifoodie_line(city,res):
                         CarouselColumn(
                             thumbnail_image_url=ifoodie_content[2]['thumb'],
                             title=ifoodie_content[2]['restaurant']['name'],
-                            text=ifoodie_content[2]['description'][0:51]+'...',
+                            text=str(ifoodie_content[0]['description'])[0:51]+'...',
                             actions=[
                                 URITemplateAction(
                                     label='詳細內容',
@@ -168,7 +186,7 @@ def ifoodie_line(city,res):
                         CarouselColumn(
                             thumbnail_image_url=ifoodie_content[0]['thumb'],
                             title=ifoodie_content[0]['restaurant']['name'],
-                            text=ifoodie_content[0]['description'][0:51]+'...',
+                            text=str(ifoodie_content[0]['description'])[0:51]+'...',
                             actions=[
                                 URITemplateAction(
                                     label='詳細內容',
@@ -179,7 +197,7 @@ def ifoodie_line(city,res):
                         CarouselColumn(
                             thumbnail_image_url=ifoodie_content[1]['thumb'],
                             title=ifoodie_content[1]['restaurant']['name'],
-                            text=ifoodie_content[1]['description'][0:51]+'...',
+                            text=str(ifoodie_content[0]['description'])[0:51]+'...',
                             actions=[
                                 URITemplateAction(
                                     label='詳細內容',
@@ -190,7 +208,7 @@ def ifoodie_line(city,res):
                         CarouselColumn(
                             thumbnail_image_url=ifoodie_content[2]['thumb'],
                             title=ifoodie_content[2]['restaurant']['name'],
-                            text=ifoodie_content[2]['description'][0:51]+'...',
+                            text=str(ifoodie_content[0]['description'])[0:51]+'...',
                             actions=[
                                 URITemplateAction(
                                     label='詳細內容',
@@ -201,7 +219,7 @@ def ifoodie_line(city,res):
                         CarouselColumn(
                             thumbnail_image_url=ifoodie_content[3]['thumb'],
                             title=ifoodie_content[3]['restaurant']['name'],
-                            text=ifoodie_content[3]['description'][0:51]+'...',
+                            text=str(ifoodie_content[0]['description'])[0:51]+'...',
                             actions=[
                                 URITemplateAction(
                                     label='詳細內容',
@@ -221,7 +239,7 @@ def ifoodie_line(city,res):
                         CarouselColumn(
                             thumbnail_image_url=ifoodie_content[0]['thumb'],
                             title=ifoodie_content[0]['restaurant']['name'],
-                            text=ifoodie_content[0]['description'][0:51]+'...',
+                            text=str(ifoodie_content[0]['description'])[0:51]+'...',
                             actions=[
                                 URITemplateAction(
                                     label='詳細內容',
@@ -232,7 +250,7 @@ def ifoodie_line(city,res):
                         CarouselColumn(
                             thumbnail_image_url=ifoodie_content[1]['thumb'],
                             title=ifoodie_content[1]['restaurant']['name'],
-                            text=ifoodie_content[1]['description'][0:51]+'...',
+                            text=str(ifoodie_content[0]['description'])[0:51]+'...',
                             actions=[
                                 URITemplateAction(
                                     label='詳細內容',
@@ -243,7 +261,7 @@ def ifoodie_line(city,res):
                         CarouselColumn(
                             thumbnail_image_url=ifoodie_content[2]['thumb'],
                             title=ifoodie_content[2]['restaurant']['name'],
-                            text=ifoodie_content[2]['description'][0:51]+'...',
+                            text=str(ifoodie_content[0]['description'])[0:51]+'...',
                             actions=[
                                 URITemplateAction(
                                     label='詳細內容',
@@ -254,7 +272,7 @@ def ifoodie_line(city,res):
                         CarouselColumn(
                             thumbnail_image_url=ifoodie_content[3]['thumb'],
                             title=ifoodie_content[3]['restaurant']['name'],
-                            text=ifoodie_content[3]['description'][0:51]+'...',
+                            text=str(ifoodie_content[0]['description'])[0:51]+'...',
                             actions=[
                                 URITemplateAction(
                                     label='詳細內容',
@@ -265,7 +283,7 @@ def ifoodie_line(city,res):
                         CarouselColumn(
                             thumbnail_image_url=ifoodie_content[4]['thumb'],
                             title=ifoodie_content[4]['restaurant']['name'],
-                            text=ifoodie_content[4]['description'][0:51]+'...',
+                            text=str(ifoodie_content[0]['description'])[0:51]+'...',
                             actions=[
                                 URITemplateAction(
                                     label='詳細內容',
@@ -282,14 +300,4 @@ def ifoodie_line(city,res):
         #return 0
 
 if __name__ == '__main__':
-    messages = '查美食=南京復興餐廳'
-    pattern = re.compile(r'查美食=(\D.)[市縣]*(.+)')
-    match = pattern.match(messages)
-    if match:
-        city = match.group(1).replace('新北','台北') 
-        #print(city)
-        res = match.group(2)
-        #print(res)
-        #print (res)
-        print(ifoodie_line(city,res))
-        #(wt(res))    
+    main() 

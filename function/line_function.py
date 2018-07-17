@@ -13,24 +13,27 @@ Created on Sun Jul 15 22:32:32 2018
 
 import requests
 import json
+import configparser
 
 
 
 def main():
-    api = linbotapi()
-    gid = 'C486996bc0cf57372409c1dc6d7a4f6f3'
-    uid = 'Ud0414e339e9c242b19a2dd22dd1f6189'
-    print(api.get_group_member_profile(gid,uid))
+    print('ok')
     
 class linbotapi(object):
     
+    
     DEFAULT_API_ENDPOINT = 'https://api.line.me'
+    
+    config = configparser.ConfigParser()
+    config.read("config.ini")
+    channel_access_token = config['line_bot']['Channel_Access_Token']
      
-    def __init__(self, endpoint=DEFAULT_API_ENDPOINT,
+    def __init__(self, endpoint=DEFAULT_API_ENDPOINT, token=channel_access_token,
                  timeout=5):
         
         self.__version__ = '1.7.1'
-        self.channel_access_token = 'EZcRgZVSqqzxzPO+PSuREAJxtAIMuKoHWkhH/Swj5xVe9Xvpv0eiBm3k8jDcwFMjEM0pmKx2Bb1vCGN45THZCEj9dLxpkAMrPiskCmgjXNZ8ivg6bzbEaWjst92+IMUSP+MklC/YkuGZ7GAyt/Uo8wdB04t89/1O/w1cDnyilFU='
+        self.channel_access_token = token
         self.endpoint = endpoint
         self.headers = {
             'Authorization': 'Bearer ' + self.channel_access_token,
@@ -62,7 +65,6 @@ class linbotapi(object):
             '/v2/bot/group/{group_id}/member/{user_id}'.format(group_id=group_id, user_id=user_id),
             timeout=timeout
         )
-        #print(response)
         #response.replace('b','')
         content = json.loads(response)
         return(content)
