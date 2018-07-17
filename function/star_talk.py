@@ -3,8 +3,11 @@ import random
 
 from .hsing import sing17
 
-import function.s17api
-get17 = function.s17api.hsing()
+import function.hsing
+_hsing = function.hsing.hsing()
+
+import function.sys_messages
+_sys_mg = function.sys_messages.sys_messages()
 
 from .function import shelp
 
