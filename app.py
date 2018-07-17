@@ -127,11 +127,21 @@ def handle_message(event):
         uid = event.source.user_id
         profile = line_bot_api.get_profile(event.source.user_id)
         user_name = profile.display_name
-        
+    #adminconfig_list
+    if event.message.text == '#adminconfig':
+        content = _sys_mg.m_admin_function()
+        line_bot_api.reply_message(event.reply_token,[TextSendMessage(text=str(event)),TextSendMessage(text=content)])
+        return 0
+    #getevent        
     if event.message.text == '#getevent':
         content = event.message.text
         line_bot_api.reply_message(event.reply_token,[TextSendMessage(text=str(event)),TextSendMessage(text=content)])
         return 0
+    #create_db
+    if event.message.text == '##createdb':
+        content = _sql.temp_create_table
+        line_bot_api.reply_message(event.reply_token,[TextSendMessage(text=str(event)),TextSendMessage(text=content)])
+        return 0       
     #取得設定檔
     if event.message.text == '#getinfo':
         if event.source.type == 'group':          
@@ -205,7 +215,7 @@ def handle_message(event):
                 content = _config.create_config(gid,'group')
                 line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
             else:
-                content = "%s 設定檔已存在" %user_name
+                content = "%s 設定檔已存在" %'group'
                 line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
     #刪除設定檔
@@ -247,8 +257,8 @@ def handle_message(event):
                 content = _config.function_config(uid,user_name,event.message.text)
                 line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         if event.source.type == 'group':
-            if _sql.select_config(uid) == []:
-                content = _sys_mg.m_noconfig(user_name)
+            if _sql.select_config(gid) == []:
+                content = _sys_mg.m_noconfig('group')
                 line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
             else:
                 content = _config.function_config(gid,'group',event.message.text)
@@ -563,15 +573,15 @@ def handle_message(event):
                 config_list = config[0]
                 json_data = json.loads(config_list[2])
                 if key in json_data['function_option']:
-                    if json_data['function_option'][key] == 'on':
+                    if json_data['function_option'][key] == 'off':
+                        if re.search('小星星(怎麼|為什麼)不(會)?[回講說]話了',event.message.text):
+                            content = random.choice(['%s 因為大家覺得我太吵，所以關掉了'%user_name,'%s 檢查一下設定吧'%user_name])
+                            line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+                        return 0
+                    else:
                         content = _star_talk.star_talk(event.message.text,user_name)
                         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
-                    return 0
-                else:
-                    if re.search('小星星(怎麼|為什麼)不(會)?[回講說]話了',event.message.text):
-                        content = random.choice(['%s 因為大家覺得我太吵，所以關掉了'%user_name,'%s 檢查一下設定吧'%user_name])
-                        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
-                    return 0
+                return 0
             else:
                 content = _star_talk.star_talk(event.message.text,user_name)    
                 line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
