@@ -35,7 +35,8 @@ class sys_messages(object):
  *pn=浮水印位置：以九宮格方式劃分'
 
     def m_admin_function(self):
-        admin_list = ['#getinfo',
+        admin_list = ['%getevent',
+                      '#getinfo',
                       '#getconfig',
                       '^##del_config=(.+)',
                       '^#oss=(.+)*',
@@ -58,7 +59,7 @@ class sys_messages(object):
                   '..#設定%功能名稱=off',
                   '例如關掉小星星講話',
                   '#設定%小星星=off',
-                  '..#查設定',
+                  '..#查小星星設定',
                   '',
                   '==抽圖類==',
                   '',
@@ -83,6 +84,7 @@ class sys_messages(object):
                   '..查證=***',
                   '..查天氣縣市 ex查天氣台北市',
                   '..查天氣=*** (查天氣松山機場',
+                  '..座標=***',
                   '..查空氣品質',
                   '..查颱風',  
                   '',
