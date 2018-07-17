@@ -9,7 +9,6 @@ _hsing = function.hsing.hsing()
 import function.sys_messages
 _sys_mg = function.sys_messages.sys_messages()
 
-from .function import shelp
 
 def main():
     res = '早安'
