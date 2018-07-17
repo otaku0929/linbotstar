@@ -109,8 +109,7 @@ def handle_message(event):
     #print("event",event)
     #print("event.groupID:",event.source)
     #print("event.reply_token:", event.reply_token)
-    print(event.source.type, "event.message.text:", event.message.text)
-    #print("event.message.text:", event.message.text)
+    print("event.message.text:", event.message.text)
     #content = event.message.text
     #line_bot_api.reply_message(event.reply_token,[TextSendMessage(text=str(event)),TextSendMessage(text=content)])
     ####功能區####
@@ -128,6 +127,8 @@ def handle_message(event):
         uid = event.source.user_id
         profile = line_bot_api.get_profile(event.source.user_id)
         user_name = profile.display_name
+        
+    print(event.source.type, "event.message.text:", event.message.text)
     #adminconfig_list
     if event.message.text == '#adminconfig':
         content = _sys_mg.m_admin_function()
@@ -617,7 +618,7 @@ def handle_image_message(event):
     if event.source.type == 'user':
         uid = event.source.user_id
         message_content = line_bot_api.get_message_content(event.message.id)
-        res = _photos.add_watermark(uid,message_content)
+        res = _photos.add_watermark(uid,user_name,message_content)
         if res == 'none':
             content = _sys_mg.m_addmark()
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text=content))
@@ -633,8 +634,8 @@ def handle_image_message(event):
             #gs_write('B30')
         return 0
     else:
-        content = _sys_mg.m_addmark()
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=content))  
+        #content = _sys_mg.m_addmark()
+        #line_bot_api.reply_message(event.reply_token, TextSendMessage(text=content))  
         return 0
     
                      
