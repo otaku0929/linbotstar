@@ -1,10 +1,9 @@
 import re
 import random
-
 from .hsing import sing17
-
-import function.hsing
-_hsing = function.hsing.hsing()
+import function.s17api
+ 
+get17 = function.s17api.hsing()
 
 import function.sys_messages
 _sys_mg = function.sys_messages.sys_messages()
@@ -204,7 +203,7 @@ class start_talk(object):
             if re.search("(唱|唱一｜換｜換一|來一)[歌首]",messages_talk):
                 content = self.talk_dict('sing',user_name)
                 if re.search("抽歡歌",content):
-                    res = _hsing.sing17()
+                    res = sing17()
                     if re.search("找不到歌",res):
                         return "我不知道要唱什麼耶"
                     else:
