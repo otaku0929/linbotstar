@@ -109,7 +109,7 @@ def handle_message(event):
     #print("event",event)
     #print("event.groupID:",event.source)
     #print("event.reply_token:", event.reply_token)
-    print("event.message.text:", event.message.text)
+    #print("event.message.text:", event.message.text)
     #content = event.message.text
     #line_bot_api.reply_message(event.reply_token,[TextSendMessage(text=str(event)),TextSendMessage(text=content)])
     ####功能區####
@@ -223,7 +223,7 @@ def handle_message(event):
     #刪除設定檔
     if re.match('^##del_config=(.+)',event.message.text):
         id = re.match('^##del_config=(.+)',event.message.text).group(1)
-        print(id)
+        #print(id)
         if _sql.select_config(id) == []:
             content = "%s 設定檔不存在" % id 
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
@@ -599,7 +599,7 @@ def handle_message(event):
 @handler.add(MessageEvent, message=ImageMessage)
 def handle_image_message(event):
     
-    print("event",event)
+    #print("event",event)
     
     if event.source.type == 'group':
         gid = event.source.group_id
