@@ -106,10 +106,11 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    print("event",event)
+    #print("event",event)
     #print("event.groupID:",event.source)
     #print("event.reply_token:", event.reply_token)
-    print("event.message.text:", event.message.text)
+    print(event.source.type, "event.message.text:", event.message.text)
+    #print("event.message.text:", event.message.text)
     #content = event.message.text
     #line_bot_api.reply_message(event.reply_token,[TextSendMessage(text=str(event)),TextSendMessage(text=content)])
     ####功能區####
