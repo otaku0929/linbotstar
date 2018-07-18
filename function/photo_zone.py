@@ -119,7 +119,9 @@ class photo_zone(object):
         else:
            config_json = user_config[0][2]
            config = json.loads(config_json)   
-            
+        
+   
+      
         if config['watermark'] == {}:
             return 'none'
         else:                                   
