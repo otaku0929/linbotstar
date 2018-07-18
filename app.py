@@ -179,7 +179,7 @@ def handle_message(event):
                 user_name = profile.display_name  
         except:
             user_name = ''
-        content = '%s %s'%(uid, user_name)
+        content = '%s %s'%(id, user_name)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
     #取得設定檔      
