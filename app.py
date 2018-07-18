@@ -144,16 +144,22 @@ def handle_message(event):
         return 0       
     #取得設定檔
     if event.message.text == '#getinfo':        
-        profile = line_bot_api.get_profile(event.source.user_id)
-        user_name = profile.display_name
+        try:
+            profile = line_bot_api.get_profile(event.source.user_id)
+            user_name = profile.display_name
+        except:
+            user_name = ''
         content = '%s %s'%(uid, user_name)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
     #取得USER資訊
     if re.match('^#getinfo=(.+)',event.message.text):
         uid = re.match('^#getinfo=(.+)',event.message.text).group(1)
-        profile = line_bot_api.get_profile(uid,5)
-        user_name = profile.display_name
+        try:
+            profile = line_bot_api.get_profile(uid,5)
+            user_name = profile.display_name
+        except:
+            user_name = ''
         content = '%s %s'%(uid, user_name)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
@@ -161,7 +167,11 @@ def handle_message(event):
     if event.message.text=='#getconfig':
         if event.source.type == 'user':
             if _sql.select_config(uid) == []:
-                content = _sys_mg.m_noconfig(user_name)
+                try:
+                    profile = line_bot_api.get_profile(event.source.user_id)
+                    user_name = profile.display_name
+                except:
+                    user_name = ''
                 #print(content)
                 line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
             else:        
@@ -234,8 +244,11 @@ def handle_message(event):
             return 0
     #建立空的設定檔
     if event.message.text == '#create_config':
-        profile = line_bot_api.get_profile(event.source.user_id)
-        user_name = profile.display_name
+        try:
+            profile = line_bot_api.get_profile(event.source.user_id)
+            user_name = profile.display_name
+        except:
+            user_name = ''
         if event.source.type == 'user':
             if _sql.select_config(uid) == []:
                 content = _config.create_config(uid,user_name)
@@ -621,8 +634,11 @@ def handle_message(event):
     words_list = "小星星|幹|操|fuck|三小|靠北|爆料|三字經|壞掉了|早安|早啊|晚安|睡囉|哈哈哈哈哈|(才|你|小星星)尿床|尿好了|有尿了"
     if re.search(words_list,event.message.text):
         key = '小星星'
-        profile = line_bot_api.get_profile(event.source.user_id)
-        user_name = profile.display_name
+        try:
+            profile = line_bot_api.get_profile(event.source.user_id)
+            user_name = profile.display_name
+        except:
+            user_name = ''
         if event.source.type == 'group': 
             config = _sql.select_config(gid)
             if config != []:
