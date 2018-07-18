@@ -114,17 +114,18 @@ def handle_message(event):
     #line_bot_api.reply_message(event.reply_token,[TextSendMessage(text=str(event)),TextSendMessage(text=content)])
     ####功能區####
     #取得event
+    uid = event.source.user_id
     if event.source.type == 'group':
         gid = event.source.group_id
-        #profile = line_bot_api.get_profile(uid)
-        #user_name = profile.display_name
+#        profile =  _lineapi.get_group_member_profile(gid,uid)
+#        user_name = profile['displayName']
     if event.source.type == 'room':
         rid = event.source.room_id
-        #profile = _lineapi.get_group_member_profile(rid,uid)
-        #user_name = profile['displayName']
-    uid = event.source.user_id
-        #profile = line_bot_api.get_profile(event.source.user_id)
-        #user_name = profile.display_name      
+#        profile = _lineapi.get_room_member_profile(rid,uid)
+#        user_name = profile['displayName']
+#    if event.source.type == 'user':
+#        profile = line_bot_api.get_profile(event.source.user_id)
+#        user_name = profile.display_name      
         
     print(event.source.type, "event.message.text:", event.message.text)
     #adminconfig_list
@@ -143,10 +144,19 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token,[TextSendMessage(text=str(event)),TextSendMessage(text=content)])
         return 0       
     #取得設定檔
-    if event.message.text == '#getinfo':        
+    if event.message.text == '#getinfo':  
         try:
-            profile = line_bot_api.get_profile(event.source.user_id)
-            user_name = profile.display_name
+            if event.source.type == 'group':
+                gid = event.source.group_id
+                profile =  _lineapi.get_group_member_profile(gid,uid)
+                user_name = profile['displayName']
+            elif event.source.type == 'room':
+                rid = event.source.room_id
+                profile = _lineapi.get_room_member_profile(rid,uid)
+                user_name = profile['displayName']
+            elif event.source.type == 'user':
+                profile = line_bot_api.get_profile(event.source.user_id)
+                user_name = profile.display_name  
         except:
             user_name = ''
         content = '%s %s'%(uid, user_name)
@@ -156,8 +166,17 @@ def handle_message(event):
     if re.match('^#getinfo=(.+)',event.message.text):
         uid = re.match('^#getinfo=(.+)',event.message.text).group(1)
         try:
-            profile = line_bot_api.get_profile(uid,5)
-            user_name = profile.display_name
+            if event.source.type == 'group':
+                gid = event.source.group_id
+                profile =  _lineapi.get_group_member_profile(gid,uid)
+                user_name = profile['displayName']
+            elif event.source.type == 'room':
+                rid = event.source.room_id
+                profile = _lineapi.get_room_member_profile(rid,uid)
+                user_name = profile['displayName']
+            elif event.source.type == 'user':
+                profile = line_bot_api.get_profile(event.source.user_id)
+                user_name = profile.display_name  
         except:
             user_name = ''
         content = '%s %s'%(uid, user_name)
@@ -207,8 +226,20 @@ def handle_message(event):
             return 0
      #user查設定檔
     if event.message.text=='#查小星星設定':
-        profile = line_bot_api.get_profile(event.source.user_id)
-        user_name = profile.display_name
+        try:
+            if event.source.type == 'group':
+                gid = event.source.group_id
+                profile =  _lineapi.get_group_member_profile(gid,uid)
+                user_name = profile['displayName']
+            elif event.source.type == 'room':
+                rid = event.source.room_id
+                profile = _lineapi.get_room_member_profile(rid,uid)
+                user_name = profile['displayName']
+            elif event.source.type == 'user':
+                profile = line_bot_api.get_profile(event.source.user_id)
+                user_name = profile.display_name  
+        except:
+            user_name = ''
         if event.source.type == 'user':
             if _sql.select_config(uid) == []:
                 content = _sys_mg.m_noconfig(user_name)
@@ -284,8 +315,20 @@ def handle_message(event):
         return 0
     #浮水印設定
     if re.match('^#浮水印%(.+)%f(\d+)%([t|e]\d)%(red|green|blue|white|black|pink|yellow|gold|#......)%al(\d+)%(p\d)',event.message.text):
-        profile = line_bot_api.get_profile(event.source.user_id)
-        user_name = profile.display_name
+        try:
+            if event.source.type == 'group':
+                gid = event.source.group_id
+                profile =  _lineapi.get_group_member_profile(gid,uid)
+                user_name = profile['displayName']
+            elif event.source.type == 'room':
+                rid = event.source.room_id
+                profile = _lineapi.get_room_member_profile(rid,uid)
+                user_name = profile['displayName']
+            elif event.source.type == 'user':
+                profile = line_bot_api.get_profile(event.source.user_id)
+                user_name = profile.display_name  
+        except:
+            user_name = ''
         if event.source.type == 'user':    
             content = _config.add_watermark(uid,user_name,event.message.text)        
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
@@ -300,8 +343,22 @@ def handle_message(event):
         return 0 
     #設定功能啟用
     if re.match('^#設定%(.+)=(on|off|開|關)',event.message.text):
-        profile = line_bot_api.get_profile(event.source.user_id)
-        user_name = profile.display_name
+#        profile = line_bot_api.get_profile(event.source.user_id)
+#        user_name = profile.display_name
+        try:
+            if event.source.type == 'group':
+                gid = event.source.group_id
+                profile =  _lineapi.get_group_member_profile(gid,uid)
+                user_name = profile['displayName']
+            elif event.source.type == 'room':
+                rid = event.source.room_id
+                profile = _lineapi.get_room_member_profile(rid,uid)
+                user_name = profile['displayName']
+            elif event.source.type == 'user':
+                profile = line_bot_api.get_profile(event.source.user_id)
+                user_name = profile.display_name  
+        except:
+            user_name = ''
         if re.match('^#設定%(.+)=(on|off|開|關)',event.message.text).group(1) !='小星星':
             content = '目前僅支援開關小星星對話功能'
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
@@ -635,8 +692,17 @@ def handle_message(event):
     if re.search(words_list,event.message.text):
         key = '小星星'
         try:
-            profile = line_bot_api.get_profile(event.source.user_id)
-            user_name = profile.display_name
+            if event.source.type == 'group':
+                gid = event.source.group_id
+                profile =  _lineapi.get_group_member_profile(gid,uid)
+                user_name = profile['displayName']
+            elif event.source.type == 'room':
+                rid = event.source.room_id
+                profile = _lineapi.get_room_member_profile(rid,uid)
+                user_name = profile['displayName']
+            elif event.source.type == 'user':
+                profile = line_bot_api.get_profile(event.source.user_id)
+                user_name = profile.display_name  
         except:
             user_name = ''
         if event.source.type == 'group': 
