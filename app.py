@@ -106,7 +106,7 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    print("event",event)
+    #print("event",event)
     #print("event.groupID:",event.source)
     #print("event.reply_token:", event.reply_token)
     #print("event.message.text:", event.message.text)
@@ -127,7 +127,7 @@ def handle_message(event):
 #        profile = line_bot_api.get_profile(event.source.user_id)
 #        user_name = profile.display_name      
         
-    print(event.source.type, "event.message.text:", event.message.text)
+    print(event.source.type, uid, "event.message.text:", event.message.text)
     #adminconfig_list
     if event.message.text == '#adminconfig':
         content = _sys_mg.m_admin_function()
@@ -164,18 +164,18 @@ def handle_message(event):
         return 0
     #取得USER資訊
     if re.match('^#getinfo=(.+)',event.message.text):
-        uid = re.match('^#getinfo=(.+)',event.message.text).group(1)
+        id = re.match('^#getinfo=(.+)',event.message.text).group(1)
         try:
             if event.source.type == 'group':
                 gid = event.source.group_id
-                profile =  _lineapi.get_group_member_profile(gid,uid)
+                profile =  _lineapi.get_group_member_profile(gid,id)
                 user_name = profile['displayName']
             elif event.source.type == 'room':
                 rid = event.source.room_id
-                profile = _lineapi.get_room_member_profile(rid,uid)
+                profile = _lineapi.get_room_member_profile(rid,id)
                 user_name = profile['displayName']
             elif event.source.type == 'user':
-                profile = line_bot_api.get_profile(event.source.user_id)
+                profile = line_bot_api.get_profile(id)
                 user_name = profile.display_name  
         except:
             user_name = ''
@@ -756,7 +756,7 @@ def handle_image_message(event):
 #        profile = line_bot_api.get_profile(event.source.user_id)
 #        user_name = profile.display_name
 
-    print(event.source.type, "event.message.image:", event)             
+    print(event.source.type, event.source.user_id, event.message.id, "event.message.image:", event)             
      
     if event.source.type == 'user':
         uid = event.source.user_id
