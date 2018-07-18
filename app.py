@@ -182,6 +182,26 @@ def handle_message(event):
         content = '%s %s'%(id, user_name)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
+    #取得USER資訊
+    if re.match('^#####(.+)',event.message.text):
+        id = re.match('^#####(.+)',event.message.text).group(1)
+        try:
+            if event.source.type == 'group':
+                gid = event.source.group_id
+                profile = line_bot_api.get_group_member_profile(gid,id)
+                user_name = profile['displayName']
+            elif event.source.type == 'room':
+                rid = event.source.room_id
+                profile = line_bot_api.get_room_member_profile(rid,id)
+                user_name = profile['displayName']
+            elif event.source.type == 'user':
+                profile = line_bot_api.get_profile(id)
+                user_name = profile.display_name  
+        except:
+            user_name = ''
+        content = '%s %s'%(id, user_name)
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        return 0
     #取得設定檔      
     if event.message.text=='#getconfig':
         if event.source.type == 'user':
