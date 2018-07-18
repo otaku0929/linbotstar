@@ -644,7 +644,7 @@ def handle_image_message(event):
     if event.source.type == 'group':
         gid = event.source.group_id
         uid = event.source.user_id
-        profile = line_bot_api.get_profile(event.source.user_id)
+        profile = line_bot_api.get_profile(uid)
         user_name = profile.display_name
     if event.source.type == 'room':
         rid = event.source.room_id
@@ -653,7 +653,7 @@ def handle_image_message(event):
         user_name = profile.display_name
     if event.source.type == 'user':
         uid = event.source.user_id
-        profile = line_bot_api.get_profile(event.source.user_id)
+        profile = line_bot_api.get_profile(uid)
         user_name = profile.display_name
 
     print(event.source.type, user_name, "event.message.image:", event)             
