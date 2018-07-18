@@ -110,7 +110,7 @@ class photo_zone(object):
         
         return ("deleted image")
 
-    def add_watermark(self,id,message_content):
+    def add_watermark(self,id,user_name,message_content):
         
         user_config = _sql.select_config(id)
         
