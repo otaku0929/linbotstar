@@ -120,16 +120,19 @@ def handle_message(event):
         uid = event.source.user_id
         #print(uid)
         #profile = line_bot_api.get_group_member_profile(gid,uid)
-        #profile = _lineapi.get_group_member_profile(gid,uid)
+        profile = _lineapi.get_group_member_profile(gid,uid)
         #print(profile)
-        #user_name = profile['displayName']
-        profile = line_bot_api.get_profile(uid)
-        user_name = profile.display_name
+        user_name = profile['displayName']
+        #profile = line_bot_api.get_profile(uid)
+        #user_name = profile.display_name
     if event.source.type == 'room':
         rid = event.source.room_id
         uid = event.source.user_id
-        profile = line_bot_api.get_profile(uid)
-        user_name = profile.display_name
+        #profile = line_bot_api.get_profile(uid)
+        #user_name = profile.display_name
+        profile = _lineapi.get_group_member_profile(rid,uid)
+        #print(profile)
+        user_name = profile['displayName']
     if event.source.type == 'user':
         uid = event.source.user_id
         profile = line_bot_api.get_profile(event.source.user_id)
@@ -637,29 +640,35 @@ def handle_message(event):
             return 0            
 
 @handler.add(MessageEvent, message=ImageMessage)
-def handle_image_message(event):    
-    #print("event",event)    
+def handle_image_message(event):
+    
+    #print("event",event)
+    
     if event.source.type == 'group':
         gid = event.source.group_id
         uid = event.source.user_id
-        profile = line_bot_api.get_profile(uid)
-        user_name = profile.display_name
+        profile = _lineapi.get_group_member_profile(gid,uid)
+        user_name = profile['displayName']
+#        profile = line_bot_api.get_profile(event.source.user_id)
+#        user_name = profile.display_name
     if event.source.type == 'room':
         rid = event.source.room_id
         uid = event.source.user_id
-        profile = line_bot_api.get_profile(uid)
-        user_name = profile.display_name
+#        profile = line_bot_api.get_profile(uid)
+#        user_name = profile.display_name
+        profile = _lineapi.get_group_member_profile(rid,uid)
+        user_name = profile['displayName']
     if event.source.type == 'user':
         uid = event.source.user_id
-        profile = line_bot_api.get_profile(uid)
+        profile = line_bot_api.get_profile(event.source.user_id)
         user_name = profile.display_name
 
-    print(event.source.type, user_name, "event.message.image:", event.message.id)             
+    print(event.source.type, user_name, "event.message.image:", event)             
      
     if event.source.type == 'user':
         uid = event.source.user_id
         message_content = line_bot_api.get_message_content(event.message.id)
-        res = _photos.add_watermark(uid, message_content)
+        res = _photos.add_watermark(uid,message_content)
         if res == 'none':
             content = _sys_mg.m_addmark()
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text=content))
