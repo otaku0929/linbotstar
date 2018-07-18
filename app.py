@@ -116,23 +116,15 @@ def handle_message(event):
     #取得event
     if event.source.type == 'group':
         gid = event.source.group_id
-        #print(gid)
-        #print(uid)
-        #profile = line_bot_api.get_group_member_profile(gid,uid)
-        #profile = _lineapi.get_group_member_profile(gid,uid)
-        #print(profile)
-        #user_name = profile['displayName']
         #profile = line_bot_api.get_profile(uid)
         #user_name = profile.display_name
     if event.source.type == 'room':
         rid = event.source.room_id
-        #profile = line_bot_api.get_profile(uid)
-        #user_name = profile.display_name
         #profile = _lineapi.get_group_member_profile(rid,uid)
         #user_name = profile['displayName']
     uid = event.source.user_id
         #profile = line_bot_api.get_profile(event.source.user_id)
-        #user_name = profile.display_name
+        #user_name = profile.display_name      
         
     print(event.source.type, "event.message.text:", event.message.text)
     #adminconfig_list
@@ -151,12 +143,21 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token,[TextSendMessage(text=str(event)),TextSendMessage(text=content)])
         return 0       
     #取得設定檔
-    if event.message.text == '#getinfo':
+    if event.message.text == '#getinfo':        
         profile = line_bot_api.get_profile(event.source.user_id)
         user_name = profile.display_name
         content = '%s %s'%(uid, user_name)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
-        return 0       
+        return 0
+    #取得USER資訊
+    if re.match('^#getinfo=(.+)',event.message.text):
+        uid = re.match('^#getinfo=(.+)',event.message.text).group(1)
+        profile = line_bot_api.get_profile(uid,5)
+        user_name = profile.display_name
+        content = '%s %s'%(uid, user_name)
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        return 0
+    #取得設定檔      
     if event.message.text=='#getconfig':
         if event.source.type == 'user':
             if _sql.select_config(uid) == []:
