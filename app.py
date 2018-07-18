@@ -661,7 +661,7 @@ def handle_image_message(event):
     if event.source.type == 'user':
         uid = event.source.user_id
         message_content = line_bot_api.get_message_content(event.message.id)
-        res = _photos.add_watermark(uid,message_content)
+        res = _photos.add_watermark(uid, message_content)
         if res == 'none':
             content = _sys_mg.m_addmark()
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text=content))
