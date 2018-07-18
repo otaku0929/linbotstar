@@ -211,7 +211,7 @@ class start_talk(object):
                     else:
                         return res
                 elif re.search("UID",content):
-                    if  _hsing.sing17(re.search("UID(\d+)",content).group(1)) == "查不到歌曲":
+                    if  _hsing.s17uidsong(re.search("UID(\d+)",content).group(1)) == "查不到歌曲":
                         return "突然不知道要唱什麼"
                     else:
                         #print(content)
