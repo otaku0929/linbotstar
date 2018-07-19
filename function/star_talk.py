@@ -1,14 +1,14 @@
 import re
 import random
 
-import function.hsing
-_hsing = function.hsing.hsing()
-
-import function.sys_messages
-_sys_mg = function.sys_messages.sys_messages()
+#import function.hsing
+#_hsing = function.hsing.hsing()
+#
+#import function.sys_messages
+#_sys_mg = function.sys_messages.sys_messages()
 
 def main():
-    res = '早安'
+    res = '小星星肉嗎'
     _star_talk = start_talk()
     print(_star_talk.star_talk(res))
     
@@ -45,6 +45,26 @@ class start_talk(object):
         if re.search("(才|你|小星星)尿床",messages_talk):
              return self.talk_dict('尿床',user_name)
         if re.search("小星星",messages_talk):
+            if re.search('(下(.+)?雨|陰(陰的|天)|有一點雨|毛毛雨',messages_talk):
+                return self.talk_dict('陰雨天',user_name)
+            if re.search('[大出](太陽)|好熱|熱死了',messages_talk):
+                return self.talk_dict('熱死了',user_name)
+            if re.search('晴天|涼爽|好天氣',messages_talk):
+                return self.talk_dict('晴天',user_name)
+            if re.search('涼涼的|有(一)?點(涼|冷)',messages_talk):
+                return self.talk_dict('涼涼的',user_name)
+            if re.search('好冷|冷死了|[下有飄]雪',messages_talk):
+                return self.talk_dict('好冷',user_name)
+            if re.search('賭[神聖俠]',messages_talk):
+                return self.talk_dict('賭神',user_name) 
+            if re.search('會胖',messages_talk):
+                return self.talk_dict('會胖',user_name)    
+            if re.search('被(.+)?句點',messages_talk):
+                return self.talk_dict('句點',user_name)
+            if re.search('句點王',messages_talk):
+                return self.talk_dict('句點王',user_name) 
+            if re.search('腎虧嗎',messages_talk):
+                return self.talk_dict('腎虧',user_name)            
             if re.search('[投客]訴',messages_talk):
                 return self.talk_dict('投訴',user_name)             
             if re.search('胖胖的',messages_talk):
@@ -176,10 +196,14 @@ class start_talk(object):
                 return self.talk_dict('sport',user_name)
             if re.search("吃(大便|屎|屁)",messages_talk):
                 return self.talk_dict('eatshit')
+            if re.search("吃虧",messages_talk):
+                return self.talk_dict('吃虧')
             if re.search("吃什麼|想吃|愛吃|要吃|餓|吃飯",messages_talk):
                 return self.talk_dict('eat',user_name)
             if re.search("吃飽了",messages_talk):
                 return self.talk_dict('eated',user_name)
+            if re.search("[吃喝](.+)好?嗎",messages_talk):
+                return self.talk_dict('吃?嗎',user_name)
             if re.search("喝酒",messages_talk):
                 return self.talk_dict('drink_酒',user_name)
             if re.search("[虧撩](妹|你|妳|我|咩|妹妹|姐姐)",messages_talk):
@@ -192,6 +216,10 @@ class start_talk(object):
                 return self.talk_dict('最醜',user_name)
             if re.search("誰最笨",messages_talk):
                 return self.talk_dict('最笨',user_name)
+            if re.search("誰最(強|厲害)",messages_talk):
+                return self.talk_dict('最強',user_name)
+            if re.search("誰最弱",messages_talk):
+                return self.talk_dict('最弱',user_name)
             if re.search("誰最[傻呆]",messages_talk):
                 return self.talk_dict('最呆',user_name)
             if re.search("誰最白[痴癡]",messages_talk):
@@ -231,6 +259,20 @@ class start_talk(object):
         if u ==None:
             u = ''
         dict={
+                '涼涼的':['那外套要搭一件哦','涼涼的也不錯啦~才不會流汗','那多喝點溫水','看看是不是要下雨了','要注意可能會下雨哦'],
+                '好冷':['讓星星來溫暖妳','來給妳暖暖包','衣服有多穿一點嗎?','別感冒了啊','毛帽、圍巾、手套、外套、都記得帶著哦',
+                      '疑冷男不在啊','是我剛剛講話太冷了嗎?'],
+                '晴天':['真棒~這樣很舒服耶','微微風湧起舊夢.......啊唱起歌來了','那出去玩玩吧~','讚讚讚讚讚'],
+                '熱死了':['要注意防曬哦','不喜歡太熱的天氣，會一直流汗','天氣熱要多喝點水','別忘了補充水份哦','我們去吃冰吧'],
+                '陰雨天':['那要記得帶傘哦','能搭車就別騎車吧','雨具記得帶著','到家先喝杯溫水哦','要晴天娃娃嗎?'],
+                '賭神':['我變不出三來啊','我是地獄倒楣鬼','我也想當那個賭......什麼的','在牌桌上永遠有你想不到的事','小賭怡情，大賭移平 還是不賭的好'],
+                '會胖':['我肥我驕傲','吃一點沒關係啦','減肥永遠是明天的事','沒關係還有%s'%u],
+                '句點':['明明就很會聊天','你才是句點王','臉黑加一條線就變，了','。。。。。。。','句點是為了講更多的話',
+                      '所以說標點符號很重要'],
+                '句點王':['句點王是什麼，能吃嗎?','。','我覺得吃肉王比較好','你也很會啊'],
+                '腎虧':['什麼你腎虧','我才沒有','我沒有~星爸也沒有','A片看太多了厚','腎虧~請打 控八控控，控九哩，控控控'],
+                '吃虧':['人太好就常吃虧啊','不~~~~要~~~~~','NO~~~~~~~','吃虧就是佔便宜，但吃太多會腎虧','我不喜歡吃虧的感覺','虧妹妹比較好啦'],
+                '吃?嗎':['%s 好啊'%u,'現在去吃嗎?','%s 那走吧~'%u,'%s 你人真好~等等你先開動'%u],
                 '投訴':['%s 什麼，再講一次'%u,'請打0800987987','別這樣啦~我會乖乖的','啦啦啦啦啦','上一個投訴我的人~草都長這麼高了'],
                 '胖胖的':['啊~我業障重~什麼都看不到了~~','假的~都是假的','%s 所以才要減肥啊'%u,'胖是一種驕傲'],
                 '小星星好色':['%s 才色'%u,'明明就在講正常的事','誰不色啊','色好啊~嘿~~~~'],
@@ -283,6 +325,8 @@ class start_talk(object):
                 '最白痴':['當然不是我','你啊~不然還有誰','這裡就我們二個~我不是~那你說呢?','什麼~為什麼這樣問','你知道問這個問題你媽為傷心嗎?','真的要我說出來?',
                        '白痴沒關係~別白吃就好~快去工作'],
                 '最色':['福哥~','當然是%s囉'%u,'你看看你抽到口水都流出來了','你你你~就是你~%s'%u,'誰不好色呢?','這問題我不好意思回答啦','子曰:食色性也~','色不打緊~不要太快射就好~'],
+                '最強':['超級賽亞人~孫悟空','一定不是你','強中自有強中手，我們做好自已就好','他強由他強，清風拂山岡。他橫任他橫，明月照大江。%s 學會了嗎?'%u],
+                '最弱':['來鏡子拿去照一照','%s 這問題還用答嗎?'%u,'弱沒關係，有你我們都很安心','克林雖然弱還是最強的地球人啊~~~~'],
                 '尿好了':['很好~那快去睡吧~晚安','那就不用包屁屁了','好棒~那來睡覺吧','那有沖水嗎?','還要刷牙洗臉哦'],
                 '尿床':['我早就不用包屁屁了','我很久沒尿床了','前天~~~~~~%s尿床了'%u],
                 'fuck':['喵喵~','汪汪~','咩~','啊嘶~','噓~好孩子不說這個','講~f~u~c~k~才有英特內訊NO','十十人一十','操你媽好嗎~幹我媽很好',
@@ -504,7 +548,7 @@ class start_talk(object):
                    '為什麼上次你不這麼說？','哇靠，你會變張三啊','%s 你會不會變張三啊','年輕人終究是年輕人～','投降輸一半',
                    '為什麼我老爸不是李嘉誠','登呢呢! 登呢呢~ 登呢呢! 登呢呢~ 登呢呢 登呢呢~','我要吃巧克力~~',
                    '我這不是來了嗎？','幹嘛一副苦瓜臉','香港3345678','同花打不打的過full huose？',
-                   '吃泡麵有什麼不好的啊，吃泡麵有很多樂趣..只不過是你不懂得技巧罷了',
+                   '吃泡麵有什麼不好的啊，吃泡麵有很多樂趣..只不過是你不懂得技巧罷了','標點符號很重要',
                    '電腦分析33%是5，34%是7，15%是K，18是J，數據不夠，暫時分析不到是什麼牌',
                    '喂？喂？喂？你是不是%s啊？喂～講話啊？喂？'%u,'想知道就問香蕉','你怕了嗎？',
                    '嘿嘿嘿嘿嘿～你想偷我的雞？','先生 您要喝什麼 ??','你以為你躲起來就找不到你了嗎',
