@@ -596,6 +596,8 @@ class start_talk(object):
         return random.choice(dict[res])
 
     def profile(self,u=None):
+        if u ==None:
+            u = ''
         dict ={'經典':['歡樂並不能教會我們什麼，真正能讓我們成長的，反而是痛苦',
                      '歡樂並不能教會我們什麼，真正能讓我們成長的，反而是痛苦',
                      '世界太快，總有一首歌，你忘不掉；人海茫茫，總有一个人，守候在角落，等你回首',
@@ -603,7 +605,7 @@ class start_talk(object):
                      '千萬不要因為害怕受傷，就放棄做自己的主人，永遠都要勇敢的去愛你所愛的，這樣的人生才叫精彩。',
                      '向前看！那邊有大海，有湖泊、有森林、還有極光，你看！這麼一個多采多姿的世界等著你。']}
         
-        return random.choice(dict[res])
+        return random.choice(dict['經典'])
 
 if __name__ == '__main__':
     main()
