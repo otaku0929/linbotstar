@@ -1,11 +1,11 @@
 import re
 import random
 
-#import function.hsing
-#_hsing = function.hsing.hsing()
-#
-#import function.sys_messages
-#_sys_mg = function.sys_messages.sys_messages()
+import function.hsing
+_hsing = function.hsing.hsing()
+
+import function.sys_messages
+_sys_mg = function.sys_messages.sys_messages()
 
 def main():
     res = '小星星肉嗎'
@@ -45,7 +45,7 @@ class start_talk(object):
         if re.search("(才|你|小星星)尿床",messages_talk):
              return self.talk_dict('尿床',user_name)
         if re.search("小星星",messages_talk):
-            if re.search('(下(.+)?雨|陰(陰的|天)|有一點雨|毛毛雨',messages_talk):
+            if re.search('下(.+)?雨|陰(陰的|天)|有一點雨|毛毛雨',messages_talk):
                 return self.talk_dict('陰雨天',user_name)
             if re.search('[大出](太陽)|好熱|熱死了',messages_talk):
                 return self.talk_dict('熱死了',user_name)
