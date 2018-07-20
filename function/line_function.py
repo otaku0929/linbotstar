@@ -8,13 +8,14 @@ Created on Sun Jul 15 22:32:32 2018
 
 import requests
 import json
+import re
 
 import function.photo_zone
 _photos = function.photo_zone.photo_zone()
 
 def main():
 
-    print('content')
+        print('None')
 
     
 class linebotapi(object):
@@ -29,6 +30,15 @@ class linebotapi(object):
         self.group_api_url = 'https://api.line.me/v2/bot/group/%s/member/%s'
         self.room_api_url = 'https://api.line.me/v2/bot/room/%s/member/%s'
         self.content_url = 'https://api.line.me/v2/bot/message/%s/content'
+        
+    def get_profile(self,channel_access_token,source,uid,gid=None):
+        
+        if source == 'g':
+            return self.get_group_user_profiles(channel_access_token,gid,uid)
+        if source == 'r':
+            return self.get_room_user_profiles(channel_access_token,gid,uid)
+        if source == 'u':
+            return self.gt_user_profiles(channel_access_token,uid)
         
     def get_user_name(self,channel_access_token,event):
         
