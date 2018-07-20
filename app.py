@@ -51,7 +51,7 @@ import function.star_talk
 _star_talk = function.star_talk.start_talk()
 
 import function.line_function
-_lineapi = function.line_function.linbotapi()
+_lineapi = function.line_function.linebotapi()
 
 import function.g_function
 _function =  function.g_function.function()
