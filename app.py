@@ -82,6 +82,7 @@ app = Flask(__name__)
 config = configparser.ConfigParser()
 config.read("config.ini")
 
+Channel_Access_Token = config['line_bot']['Channel_Access_Token']
 line_bot_api = LineBotApi(config['line_bot']['Channel_Access_Token'])
 handler = WebhookHandler(config['line_bot']['Channel_Secret'])
 
@@ -141,19 +142,8 @@ def handle_message(event):
     #取得設定檔
     if event.message.text == '#getinfo':  
         try:
-            profile = _lineapi.get_user_name(line_bot_api,event)
+            profile = _lineapi.get_user_name(Channel_Access_Token,event)
             user_name = profile['displayName']
-#            if event.source.type == 'group':
-#                gid = event.source.group_id
-#                profile = line_bot_api.get_group_member_profile(gid,id)
-#                user_name = profile['displayName']
-#            elif event.source.type == 'room':
-#                rid = event.source.room_id
-#                profile = line_bot_api.get_room_member_profile(rid,id)
-#                user_name = profile['displayName']
-#            elif event.source.type == 'user':
-#                profile = line_bot_api.get_profile(id)
-#                user_name = profile.display_name  
         except:
             user_name = ''
         content = '%s %s'%(uid, user_name)
@@ -165,7 +155,7 @@ def handle_message(event):
         source = re.match('^#####([gru])(.+)%(.+)?',event.message.text).group(1)
         uid = re.match('^#####([gru])(.+)%(.+)?',event.message.text).group(2)
         gid = re.match('^#####([gru])(.+)%(.+)?',event.message.text).group(3)
-        profile = _lineapi.get_profile(line_bot_api,source,uid,gid)
+        profile = _lineapi.get_profile(Channel_Access_Token,source,uid,gid)
         content = str(profile)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
@@ -213,7 +203,7 @@ def handle_message(event):
      #user查設定檔
     if event.message.text=='#查小星星設定':
         try:
-            profile = _lineapi.get_user_name(line_bot_api,event)
+            profile = _lineapi.get_user_name(Channel_Access_Token,event)
             user_name = profile['displayName']
         except:
             user_name = ''
@@ -293,7 +283,7 @@ def handle_message(event):
     #浮水印設定
     if re.match('^#浮水印%(.+)%f(\d+)%([t|e]\d)%(red|green|blue|white|black|pink|yellow|gold|#......)%al(\d+)%(p\d)',event.message.text):
         try:
-            profile = _lineapi.get_user_name(line_bot_api,event)
+            profile = _lineapi.get_user_name(Channel_Access_Token,event)
             user_name = profile['displayName'] 
         except:
             user_name = ''
@@ -314,7 +304,7 @@ def handle_message(event):
 #        profile = line_bot_api.get_profile(event.source.user_id)
 #        user_name = profile.display_name
         try:
-            profile = _lineapi.get_user_name(line_bot_api,event)
+            profile = _lineapi.get_user_name(Channel_Access_Token,event)
             user_name = profile['displayName']  
         except:
             user_name = ''
@@ -648,7 +638,7 @@ def handle_message(event):
     if re.search(words_list,event.message.text):
         key = '小星星'
         try:
-            profile = _lineapi.get_user_name(line_bot_api,event)
+            profile = _lineapi.get_user_name(Channel_Access_Token,event)
             user_name = profile['displayName']
         except:
             user_name = ''
