@@ -117,17 +117,12 @@ def handle_message(event):
     uid = event.source.user_id
     if event.source.type == 'group':
         gid = event.source.group_id
-#        profile =  _lineapi.get_group_member_profile(gid,uid)
-#        user_name = profile['displayName']
+        print(event.source.type, gid, uid, "event.message.text:", event.message.text)
     if event.source.type == 'room':
         rid = event.source.room_id
-#        profile = _lineapi.get_room_member_profile(rid,uid)
-#        user_name = profile['displayName']
-#    if event.source.type == 'user':
-#        profile = line_bot_api.get_profile(event.source.user_id)
-#        user_name = profile.display_name      
-        
-    print(event.source.type, uid, "event.message.text:", event.message.text)
+        print(event.source.type, rid, uid, "event.message.text:", event.message.text)
+    if event.source.type == 'user':       
+        print(event.source.type, uid, "event.message.text:", event.message.text)
     #adminconfig_list
     if event.message.text == '#adminconfig':
         content = _sys_mg.m_admin_function()
@@ -146,17 +141,19 @@ def handle_message(event):
     #取得設定檔
     if event.message.text == '#getinfo':  
         try:
-            if event.source.type == 'group':
-                gid = event.source.group_id
-                profile =  _lineapi.get_group_member_profile(gid,uid)
-                user_name = profile['displayName']
-            elif event.source.type == 'room':
-                rid = event.source.room_id
-                profile = _lineapi.get_room_member_profile(rid,uid)
-                user_name = profile['displayName']
-            elif event.source.type == 'user':
-                profile = line_bot_api.get_profile(event.source.user_id)
-                user_name = profile.display_name  
+            profile = _lineapi.get_user_name(line_bot_api,event)
+            user_name = profile['displayName']
+#            if event.source.type == 'group':
+#                gid = event.source.group_id
+#                profile = line_bot_api.get_group_member_profile(gid,id)
+#                user_name = profile['displayName']
+#            elif event.source.type == 'room':
+#                rid = event.source.room_id
+#                profile = line_bot_api.get_room_member_profile(rid,id)
+#                user_name = profile['displayName']
+#            elif event.source.type == 'user':
+#                profile = line_bot_api.get_profile(id)
+#                user_name = profile.display_name  
         except:
             user_name = ''
         content = '%s %s'%(uid, user_name)
@@ -166,17 +163,8 @@ def handle_message(event):
     if re.match('^#getinfo=(.+)',event.message.text):
         id = re.match('^#getinfo=(.+)',event.message.text).group(1)
         try:
-            if event.source.type == 'group':
-                gid = event.source.group_id
-                profile =  _lineapi.get_group_member_profile(gid,id)
-                user_name = profile['displayName']
-            elif event.source.type == 'room':
-                rid = event.source.room_id
-                profile = _lineapi.get_room_member_profile(rid,id)
-                user_name = profile['displayName']
-            elif event.source.type == 'user':
-                profile = line_bot_api.get_profile(id)
-                user_name = profile.display_name  
+            profile = _lineapi.get_user_name(line_bot_api,event)
+            user_name = profile['displayName']
         except:
             user_name = ''
         content = '%s %s'%(id, user_name)
@@ -186,17 +174,8 @@ def handle_message(event):
     if re.match('^#####(.+)',event.message.text):
         id = re.match('^#####(.+)',event.message.text).group(1)
         try:
-            if event.source.type == 'group':
-                gid = event.source.group_id
-                profile = line_bot_api.get_group_member_profile(gid,id)
-                user_name = profile['displayName']
-            elif event.source.type == 'room':
-                rid = event.source.room_id
-                profile = line_bot_api.get_room_member_profile(rid,id)
-                user_name = profile['displayName']
-            elif event.source.type == 'user':
-                profile = line_bot_api.get_profile(id)
-                user_name = profile.display_name  
+            profile = _lineapi.get_user_name(line_bot_api,event)
+            user_name = profile['displayName']
         except:
             user_name = ''
         content = '%s %s'%(id, user_name)
@@ -211,7 +190,6 @@ def handle_message(event):
                     user_name = profile.display_name
                 except:
                     user_name = ''
-                #print(content)
                 line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
             else:        
                 config = _sql.select_config(uid)
@@ -247,17 +225,8 @@ def handle_message(event):
      #user查設定檔
     if event.message.text=='#查小星星設定':
         try:
-            if event.source.type == 'group':
-                gid = event.source.group_id
-                profile =  _lineapi.get_group_member_profile(gid,uid)
-                user_name = profile['displayName']
-            elif event.source.type == 'room':
-                rid = event.source.room_id
-                profile = _lineapi.get_room_member_profile(rid,uid)
-                user_name = profile['displayName']
-            elif event.source.type == 'user':
-                profile = line_bot_api.get_profile(event.source.user_id)
-                user_name = profile.display_name  
+            profile = _lineapi.get_user_name(line_bot_api,event)
+            user_name = profile['displayName']
         except:
             user_name = ''
         if event.source.type == 'user':
@@ -336,17 +305,8 @@ def handle_message(event):
     #浮水印設定
     if re.match('^#浮水印%(.+)%f(\d+)%([t|e]\d)%(red|green|blue|white|black|pink|yellow|gold|#......)%al(\d+)%(p\d)',event.message.text):
         try:
-            if event.source.type == 'group':
-                gid = event.source.group_id
-                profile =  _lineapi.get_group_member_profile(gid,uid)
-                user_name = profile['displayName']
-            elif event.source.type == 'room':
-                rid = event.source.room_id
-                profile = _lineapi.get_room_member_profile(rid,uid)
-                user_name = profile['displayName']
-            elif event.source.type == 'user':
-                profile = line_bot_api.get_profile(event.source.user_id)
-                user_name = profile.display_name  
+            profile = _lineapi.get_user_name(line_bot_api,event)
+            user_name = profile['displayName'] 
         except:
             user_name = ''
         if event.source.type == 'user':    
@@ -366,17 +326,8 @@ def handle_message(event):
 #        profile = line_bot_api.get_profile(event.source.user_id)
 #        user_name = profile.display_name
         try:
-            if event.source.type == 'group':
-                gid = event.source.group_id
-                profile =  _lineapi.get_group_member_profile(gid,uid)
-                user_name = profile['displayName']
-            elif event.source.type == 'room':
-                rid = event.source.room_id
-                profile = _lineapi.get_room_member_profile(rid,uid)
-                user_name = profile['displayName']
-            elif event.source.type == 'user':
-                profile = line_bot_api.get_profile(event.source.user_id)
-                user_name = profile.display_name  
+            profile = _lineapi.get_user_name(line_bot_api,event)
+            user_name = profile['displayName']  
         except:
             user_name = ''
         if re.match('^#設定%(.+)=(on|off|開|關)',event.message.text).group(1) !='小星星':
@@ -424,14 +375,11 @@ def handle_message(event):
         content = _sys_mg.m_admin_function()
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
-#    if re.match('^#getimage=(.+)',event.message.text):
-#        message_id = re.match('^#getimage=(.+)',event.message.text).group(1)
-#        message_content = line_bot_api.get_message_content(message_id)
-#        for chunk in message_content.iter_content():
-#            content = str(chunk)
-#        #content = str(message_content.iter_content())
-#        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
-#        return 0               
+    if re.match('^#getimage=(.+)',event.message.text):
+        message_id = re.match('^#getimage=(.+)',event.message.text).group(1)
+        content = _lineapi.get_photo(line_bot_api,message_id)
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        return 0               
     ####抽圖區####
     if event.message.text == '抽':
         image_message = _photos.random()
@@ -712,17 +660,8 @@ def handle_message(event):
     if re.search(words_list,event.message.text):
         key = '小星星'
         try:
-            if event.source.type == 'group':
-                gid = event.source.group_id
-                profile =  _lineapi.get_group_member_profile(gid,uid)
-                user_name = profile['displayName']
-            elif event.source.type == 'room':
-                rid = event.source.room_id
-                profile = _lineapi.get_room_member_profile(rid,uid)
-                user_name = profile['displayName']
-            elif event.source.type == 'user':
-                profile = line_bot_api.get_profile(event.source.user_id)
-                user_name = profile.display_name  
+            profile = _lineapi.get_user_name(line_bot_api,event)
+            user_name = profile['displayName']
         except:
             user_name = ''
         if event.source.type == 'group': 
@@ -776,7 +715,7 @@ def handle_image_message(event):
 #        profile = line_bot_api.get_profile(event.source.user_id)
 #        user_name = profile.display_name
 
-    print(event.source.type, event.source.user_id, event.message.id, "event.message.image:", event)             
+    print("event.message.image:", event.source.type, event.source.user_id, event.message.id)             
      
     if event.source.type == 'user':
         uid = event.source.user_id
