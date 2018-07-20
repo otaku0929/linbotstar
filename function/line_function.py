@@ -40,8 +40,9 @@ class linebotapi(object):
         if source == 'u':
             return self.gt_user_profiles(channel_access_token,uid)
         
-    def get_user_name(self,channel_access_token,event):
+    def get_user_name(self,channel_access_token,event_source):
         
+        event = json.loads(event_source)
         source = event['source']['type']
         userId = event['source']['userId']
         #print(source, userId)
