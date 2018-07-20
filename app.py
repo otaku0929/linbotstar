@@ -160,25 +160,13 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
     #取得USER資訊
-    if re.match('^#getinfo=(.+)',event.message.text):
-        id = re.match('^#getinfo=(.+)',event.message.text).group(1)
-        try:
-            profile = _lineapi.get_user_name(line_bot_api,event)
-            user_name = profile['displayName']
-        except:
-            user_name = ''
-        content = '%s %s'%(id, user_name)
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
-        return 0
     #取得USER資訊
-    if re.match('^#####(.+)',event.message.text):
-        id = re.match('^#####(.+)',event.message.text).group(1)
-        try:
-            profile = _lineapi.get_user_name(line_bot_api,event)
-            user_name = profile['displayName']
-        except:
-            user_name = ''
-        content = '%s %s'%(id, user_name)
+    if re.match('^#####([gru])(.+)%(.+)?',event.message.text):
+        source = re.match('^#####([gru])(.+)%(.+)?',event.message.text).group(1)
+        uid = re.match('^#####([gru])(.+)%(.+)?',event.message.text).group(2)
+        gid = re.match('^#####([gru])(.+)%(.+)?',event.message.text).group(3)
+        profile = _lineapi.get_profile(line_bot_api,source,uid,gid)
+        content = str(profile)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
     #取得設定檔      
