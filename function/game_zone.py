@@ -88,7 +88,7 @@ class game_zone(object):
     def user_profile(self,uid,user_name,pictureUrl):
         
         time = str(datetime.datetime.now(pytz.timezone('Asia/Taipei')))[0:11]
-        time = '2018-07-21'
+        #time = '2018-07-21'
         config = _sql.select_config(uid)
         
         if config == []:
