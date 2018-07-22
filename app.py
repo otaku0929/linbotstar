@@ -124,7 +124,7 @@ def handle_message(event):
         print(event.source.type, rid, uid, "event.message.text:", event.message.text)
     if event.source.type == 'user':       
         print(event.source.type, uid, "event.message.text:", event.message.text)
-    #adminconfig_list
+    #adminconfig_list 
     if event.message.text == '#adminconfig':
         content = _sys_mg.m_admin_function()
         line_bot_api.reply_message(event.reply_token,[TextSendMessage(text=str(event)),TextSendMessage(text=content)])
@@ -168,6 +168,7 @@ def handle_message(event):
                     user_name = profile.display_name
                 except:
                     user_name = ''
+                content = _sys_mg.m_noconfig(user_name)
                 line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
             else:        
                 config = _sql.select_config(uid)
@@ -602,14 +603,22 @@ def handle_message(event):
             return 0    
     ####遊戲區####
     #18啦遊戲
-#    if re.match('18啦',event.message.text):        
-#        content = _games.r18()
-#        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
-#        return 0
     if re.match('^18啦',event.message.text):
-            content = _games.r18()
-            line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
-            return 0 
+        content = _games.r18()
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        return 0
+    if re.match('^[每今][日天](狀態|卡片|的我)',event.message.text):
+        profile = _lineapi.get_user_name(Channel_Access_Token,event)
+        user_name = profile['displayName']
+        pictureUrl = profile['pictureUrl']
+        content = _games.user_profile(uid,user_name,pictureUrl)
+        url = content['link']
+        image_message = ImageSendMessage(
+            original_content_url=url,
+            preview_image_url=url
+        )        
+        line_bot_api.reply_message(event.reply_token,image_message)
+        return 0       
     ####影音類####
     if re.match('^(聽歌|找到|youtube)=(.+)*',event.message.text):
         res = re.match('^(聽歌|找到|youtube)=(.+)*',event.message.text).group(2)
