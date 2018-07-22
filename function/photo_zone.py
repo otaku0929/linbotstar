@@ -9,7 +9,9 @@ import requests
 import random
 import json
 import os
+from shutil import copyfile
 from imgurpython import ImgurClient
+from PIL import Image, ImageFont, ImageDraw, ImageColor
 
 import function.sql
 _sql = function.sql.Sql()
@@ -148,46 +150,132 @@ class photo_zone(object):
             _function.add_watermark(text, int(fontsize), ttf, color, int(alpha), position, image_file, output_dir)
             res = self.upload_imgur('SZMo93Z',output_jpg)
             return res
-        #print(config_json)
         
-        #return str(config)
-#        watermark_json = '/app/json_file/watermark_{}.json'.format(uid)
-#        #print(watermark_json)
-#        message_content = line_bot_api.get_message_content(event.message.id)
-#        photo_name = event.message.id
-#        image_file = '/app/temp_jpg/'+photo_name+'.jpg'
-#        output_jpg = '/app/temp_jpg/wm_'+photo_name+'.jpg'
-#        output_dir = '/app/temp_jpg/'
-#        with open(image_file, 'wb') as fd:
-#            for chunk in message_content.iter_content():
-#                fd.write(chunk)
-#        if os.path.exists(watermark_json):
-#            #with open(watermar_json, encoding='CP950') as jsonfile:
-#            with open(watermark_json) as jsonfile:
-#                data = json.load(jsonfile)
-#                print(data)
-#                text = data['watermark']['text']
-#                fontsize = data['watermark']['fontsize']
-#                ttf = data['watermark']['ttf']
-#                color = data['watermark']['color']
-#                alpha = data['watermark']['alpha']
-#                position = data['watermark']['position']
-#            _function.add_watermark(text, int(fontsize), ttf, color, int(alpha), position, image_file, output_dir)
-#             #_function.add_watermark("小星星浮水印", 58, 't2','p9', image_file, output_dir)
-#            client = ImgurClient(imgur_client_id, imgur_client_secret, imgur_client_access_token, imgur_client_refresh_token)
-#            conf = {"album":'SZMo93Z'}
-#            res = client.upload_from_path(output_jpg,config=conf,anon=False)
-#            #print(res)
-#            url = res['link']
-#            img_id = res['id']
-#            del_messages = '下載完圖檔後，請輸入下面指令刪除圖檔 \ndimg={}'.format(img_id)
-#            image_message = ImageSendMessage(
-#                original_content_url=url,
-#                preview_image_url=url
-#            )         
-#            line_bot_api.reply_message(event.reply_token, [image_message, TextSendMessage(text=del_messages)]) 
-#           #gs_write('B30')
+    def get_ttf_path(self,ttf):
+        
+        ttf_path='font/'
+        #ttf_path='../font/'
+        
+        ttf
+        
+        ttf_dict={'t1':'wt014.ttf',
+                  't2':'wt028.ttf',
+                  't3':'wt040.ttf',
+                  't4':'wt064.ttf',
+                  't5':'wt071.ttf',
+                  't6':'c01W4.ttc',
+                  't7':'c02W3.ttc',
+                  'e1':'e1.ttf',
+                  'e2':'e2.ttf',
+                  'e3':'e3.ttf',
+                  'e4':'e4.ttf',
+                  }
+        
+        ttf_name = ttf_dict[ttf]
+        
+        return '%s%s'%(ttf_path,ttf_name)
+ 
+    
+    def user_daily_photo(self,id,message,pictureUrl):
+        
+        path = 'jpg/' 
+        #path = '../jpg/'
+        _card_template = '%scard_template.jpg'%path
+        card_template = '%scard_%s.jpg'%(path,id)
+        user_photo = '%sprofile_%s.jpg'%(path,id)
+        
+        with open(user_photo, 'wb') as handle:
+            user_pic = requests.get(pictureUrl, stream=True)
+            handle.write(user_pic.content)
+        
+        copyfile(_card_template,card_template)
 
+
+        template_img = Image.open(card_template)
+        i_width, i_height = template_img.size     
+                
+        #user_photo = '../jpg/SS.jpg'
+                
+        user_name = message[0]
+        hp = message[1]
+        mp = message[2]
+        lucky = message[3]
+        today = message[4]
+        line = '=============================='
+        keywords = message[5]
+        
+        new_keywords = []
+        n = 0
+        i = 18
+        check = 18
+        m=len(keywords)
+    
+        while i-m < check:
+            new_keywords.append(keywords[n:i])
+            n = i
+            i = i+check 
+        
+        fontname = self.get_ttf_path('t1')
+        
+        template_img = self.add_words(id,user_name,32,40,20,fontname,template_img)
+        template_img = self.add_photo(id,user_photo,40,64,template_img)
+        template_img = self.add_words(id,hp,20,40,326,fontname,template_img)
+        template_img = self.add_words(id,mp,20,40,356,fontname,template_img)
+        template_img = self.add_words(id,lucky,20,40,383,fontname,template_img)
+        template_img = self.add_words(id,today,20,40,410,fontname,template_img)
+        template_img = self.add_words(id,line,20,40,437,fontname,template_img)
+        l = 437
+        for obj in new_keywords:
+            l = l+27
+            template_img = self.add_words(id,obj,18,40,l,fontname,template_img)
+        
+        template_img.save(card_template)
+        del template_img
+        
+        res = self.upload_imgur('SZMo93Z',card_template)
+        
+        return res
+    
+    
+    def add_words(self,id,text,fontsize, px, py, fontname,template_img):
+
+        imagefile = template_img
+        r=255;g=255;b=255
+         
+        img0 = Image.new("RGBA", (1,1))
+        draw0 = ImageDraw.Draw(img0)
+        font = ImageFont.truetype(fontname, fontsize)
+        t_width, t_height = draw0.textsize(text, font=font)        
+        img = Image.new("RGBA", (t_width, t_height), (255,0,0,0))
+        draw = ImageDraw.Draw(img)
+        draw.text((0,0),text,font=font, fill=(r,g,b))
+        
+        i_width, i_height = template_img.size     
+    
+        imagefile.paste(img, (px, py), img)
+        del draw0, draw
+        del img0, img
+        
+        return imagefile
+ 
+    def add_photo(self,id,photo, px, py, template_img):
+
+        imagefile = template_img
+        
+        i_width, i_height = template_img.size
+        
+        img = Image.open(photo)
+        n_width, n_height = img.size
+        
+        height = 250
+        radio = float(height/n_height)
+        width = int(n_width*radio)
+        nimg = img.resize((width,height), Image.BILINEAR)   
+        imagefile.paste(nimg, (px, py))
+        del img, nimg
+        
+        return imagefile
+    
 
 
 if __name__ == '__main__':

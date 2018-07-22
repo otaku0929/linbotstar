@@ -15,7 +15,14 @@ _photos = function.photo_zone.photo_zone()
 
 def main():
 
-        print('None')
+    l = linebotapi()
+    Channel_Access_Token = 'EZcRgZVSqqzxzPO+PSuREAJxtAIMuKoHWkhH/Swj5xVe9Xvpv0eiBm3k8jDcwFMjEM0pmKx2Bb1vCGN45THZCEj9dLxpkAMrPiskCmgjXNZ8ivg6bzbEaWjst92+IMUSP+MklC/YkuGZ7GAyt/Uo8wdB04t89/1O/w1cDnyilFU='
+    event = '{"message": {"id": "8292540891445", "text": "#getevent", "type": "text"}, "replyToken": "3c906c12929b4af59cc95abdbb548d8d", "source": {"type": "user", "userId": "U9f2c61013256dfe556d70192388e4c7c"}, "timestamp": 1532076930183, "type": "message"}'
+    gid = 'C242d43576cc89e1499857f1006192860'
+    uid = 'U06de3af68c05061e744560da43c5dfcc'
+    #profile = l.get_group_user_profiles(Channel_Access_Token,gid,uid)
+    profile = l.get_user_name(Channel_Access_Token,event)
+    print(profile['displayName'])
 
     
 class linebotapi(object):
@@ -42,7 +49,8 @@ class linebotapi(object):
         
     def get_user_name(self,channel_access_token,event_source):
         
-        event = json.loads(event_source)
+        event = json.loads(str(event_source))
+        
         source = event['source']['type']
         userId = event['source']['userId']
         #print(source, userId)

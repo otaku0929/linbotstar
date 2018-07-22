@@ -6,9 +6,28 @@ Created on Fri Jul 13 11:46:41 2018
 """
 
 import random
+import json
+import datetime, pytz
+
+import function.star_talk
+_star_talk = function.star_talk.start_talk()
+
+import function.sql
+_sql = function.sql.Sql()
+
+import function.photo_zone
+_photos = function.photo_zone.photo_zone()
+
+import function.config_setting
+_config = function.config_setting.config_setting()
+
 
 def main():
-    print('ok')
+    _game = game_zone()
+
+    
+    content = _game.user_profile('Ud0414e339e9c242b19a2dd22dd1f6189','藍宇星✨victor✨','http://dl.profile.line-cdn.net/0hLkoyPlmqE0RSAD5u3DZsE25FHSklLhUMKmILJiUCRHQrZVRGPWZfJnJTTHJ5ZQESaWNUJn5VTics')
+    print(content)
 
     
 class game_zone(object):
@@ -64,7 +83,69 @@ class game_zone(object):
             return content
         if len(y)==2:         
            content = '18啦~~\n\n本次擲出結果為:{},{},{}.{}\n\n水哦  十八!!!!'.format(a,b,c,d,n)
-           return content    
+           return content
+       
+    def user_profile(self,uid,user_name,pictureUrl):
+        
+        time = str(datetime.datetime.now(pytz.timezone('Asia/Taipei')))[0:11]
+        time = '2018-07-21'
+        config = _sql.select_config(uid)
+        
+        if config == []:
+            _config.create_config(uid,user_name)
+            config = _sql.select_config(uid)
+        
+        config_json = json.loads(config[0][2])
+               
+        if 'profile_time' in config_json['profile']:
+            if config_json['profile']['profile_time'] == time:
+                return '%s 今天已經產生過了哦'%user_name 
+            else:
+                new_json = {'profile_time':time}
+                config_json['profile'].update(new_json)
+                config = json.dumps(config_json)
+                #_sql.update_config(uid,user_name,config) 
+                
+                message = self.profile_game_content(uid,user_name) 
+                
+                content = _photos.user_daily_photo(uid,message,pictureUrl)
+                
+                return (content)
+#                return self.profile_game_content(uid,user_name)               
+        else:
+            new_json = {'profile_time':time}
+            config_json['profile'].update(new_json)
+            config = json.dumps(config_json)
+            _sql.update_config(uid,user_name,config)         
+            
+            message= self.profile_game_content(uid,user_name)
+            
+            content = _photos.user_daily_photo(uid,message,pictureUrl)
+            
+            return (content)
+
+    def profile_game_content(self,uid,user_name):
+        
+        hp_all = random.randint(100,10000)
+        hp = random.randint(0,hp_all)
+        mp_all = random.randint(100,10000)
+        mp = random.randint(0,mp_all)
+        lucky = random.randint(0,random.randint(100,10000))
+        today = self.get_star((hp+mp+lucky/1000))
+        #today=self.get_star(random.randint(0,100)/10)
+        keywords = _star_talk.profile(user_name)
+        #content = '%s\n\nHP:%s/%s\nMP:%s/%s\n幸運值:%s\n今日運氣:%s\n\n==小星星叮嚀==\n%s'%(user_name,hp,hp_all,mp,mp_all,luncky,today,keywords)
+        content = [user_name,'HP：%s/%s'%(hp,hp_all),'MP：%s/%s'%(mp,mp_all),'幸運值：%s'%lucky,'今日運勢：%s'%today,keywords]
+        
+        return content
+            
+    def get_star(self,mum):
+
+        val = int(mum+0.5)
+        arr = ['☆','★','★☆','★☆','★★','★★☆','★★★','★★★☆','★★★★','★★★★☆','★★★★★']
+        
+        return arr[(val % 11)]
+
 
 
 if __name__ == '__main__':
