@@ -102,9 +102,9 @@ class game_zone(object):
                 return '%s 今天已經產生過了哦'%user_name 
             else:
                 new_json = {'profile_time':time}
-                config_json['profile'].update(new_json)
+                config_json['profile']['profile_time'] = new_json['profile_time']
                 config = json.dumps(config_json)
-                #_sql.update_config(uid,user_name,config) 
+                _sql.update_config(uid,user_name,config) 
                 
                 message = self.profile_game_content(uid,user_name) 
                 
