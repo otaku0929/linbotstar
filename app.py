@@ -612,13 +612,17 @@ def handle_message(event):
         user_name = profile['displayName']
         pictureUrl = profile['pictureUrl']
         content = _games.user_profile(uid,user_name,pictureUrl)
-        url = content['link']
-        image_message = ImageSendMessage(
-            original_content_url=url,
-            preview_image_url=url
-        )        
-        line_bot_api.reply_message(event.reply_token,image_message)
-        return 0       
+        if re.search('今天已經產生過了',content):
+            line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+            return 0
+        else:
+            url = content['link']
+            image_message = ImageSendMessage(
+                original_content_url=url,
+                preview_image_url=url
+            )        
+            line_bot_api.reply_message(event.reply_token,image_message)
+            return 0       
     ####影音類####
     if re.match('^(聽歌|找到|youtube)=(.+)*',event.message.text):
         res = re.match('^(聽歌|找到|youtube)=(.+)*',event.message.text).group(2)
