@@ -99,7 +99,7 @@ class game_zone(object):
                
         if 'profile_time' in config_json['profile']:
             if config_json['profile']['profile_time'] == time:
-                return '%s 今天已經產生過了哦'%user_name 
+                return '%s 今天已經產生過了，一天只能玩一次哦'%user_name 
             else:
                 new_json = {'profile_time':time}
                 config_json['profile']['profile_time'] = new_json['profile_time']
