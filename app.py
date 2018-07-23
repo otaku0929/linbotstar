@@ -612,7 +612,7 @@ def handle_message(event):
         user_name = profile['displayName']
         pictureUrl = profile['pictureUrl']
         content = _games.user_profile(uid,user_name,pictureUrl)
-        if re.search('今天已經產生過了',content):
+        if re.search('今天已經產生過了',str(content)):
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         else:
             url = content['link']
