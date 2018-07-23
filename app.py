@@ -416,8 +416,8 @@ def handle_message(event):
         return 0
     #hsing and oksing link to mp3
     if re.search('(17sing|oksing)',event.message.text):
-        res = event.message.text
-        content = _hsing.tomp3(res)
+        #res = event.message.text
+        content = _hsing.tomp3(event.message.text)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0 
     #changba link to mp3
