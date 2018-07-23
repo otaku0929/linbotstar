@@ -394,6 +394,12 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, image_message)
         return 0
     ####hsing####
+    #hsing and oksing link to mp3
+    if re.search('(17sing|oksing)',event.message.text):
+        #res = event.message.text
+        content = _hsing.tomp3(event.message.text)
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        return 0 
     if event.message.text == "抽歡歌":
         content = _hsing.sing17()
         line_bot_api.reply_message(
@@ -414,12 +420,6 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         #gs_write('B10')
         return 0
-    #hsing and oksing link to mp3
-    if re.search('(17sing|oksing)',event.message.text):
-        #res = event.message.text
-        content = _hsing.tomp3(event.message.text)
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
-        return 0 
     #changba link to mp3
     if re.search('changba',event.message.text):
         res = event.message.text
