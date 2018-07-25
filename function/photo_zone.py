@@ -165,6 +165,8 @@ class photo_zone(object):
                   't5':'wt071.ttf',
                   't6':'c01W4.ttc',
                   't7':'c02W3.ttc',
+                  't8':'t8.ttc',
+                  't9':'t9.ttf',
                   'e1':'e1.ttf',
                   'e2':'e2.ttf',
                   'e3':'e3.ttf',
@@ -192,42 +194,65 @@ class photo_zone(object):
 
 
         template_img = Image.open(card_template)
-        i_width, i_height = template_img.size     
+        i_width, i_height = template_img.size 
+        #print (i_width, i_height)
                 
         #user_photo = '../jpg/SS.jpg'
                 
         user_name = message[0]
-        hp = message[1]
-        mp = message[2]
-        lucky = message[3]
+        hp = str(message[1])
+        mp = str(message[2])
+        lucky = str(message[3])
         today = message[4]
-        line = '=============================='
+        ATK = str(message[7])
+        DEF = str(message[8])
+        WIZ = message[6]
+        #line = '=============================='
         keywords = message[5]
-        
-        new_keywords = []
-        n = 0
-        i = 18
-        check = 18
+ 
         m=len(keywords)
-    
-        while i-m < check:
-            new_keywords.append(keywords[n:i])
-            n = i
-            i = i+check 
+        if m >=46:
+            kttf = 20
+            new_keywords = []
+            n = 0
+            i = 16
+            check = 16
+            
+            while i-m < check:
+                new_keywords.append(keywords[n:i])
+                n = i
+                i = i+check
+        else:
+            kttf = 24
+            new_keywords = []
+            n = 0
+            i = 13
+            check = 13
+            
+            while i-m < check:
+                new_keywords.append(keywords[n:i])
+                n = i
+                i = i+check
         
-        fontname = self.get_ttf_path('t1')
+        wiz_font = self.get_ttf_path('t5')
+        fontname = self.get_ttf_path('t4')
         
-        template_img = self.add_words(id,user_name,32,40,20,fontname,template_img)
-        template_img = self.add_photo(id,user_photo,40,64,template_img)
-        template_img = self.add_words(id,hp,20,40,326,fontname,template_img)
-        template_img = self.add_words(id,mp,20,40,356,fontname,template_img)
-        template_img = self.add_words(id,lucky,20,40,383,fontname,template_img)
-        template_img = self.add_words(id,today,20,40,410,fontname,template_img)
-        template_img = self.add_words(id,line,20,40,437,fontname,template_img)
-        l = 437
+        #user_x = i_width-68
+        #print(len(user_name))
+        template_img = self.add_words(id,WIZ,72,38,28,wiz_font,template_img)
+        template_img = self.add_words(id,user_name,48,120,55,fontname,template_img,120)
+        template_img = self.add_photo(id,user_photo,template_img)
+        template_img = self.add_words(id,hp,15,294,530,fontname,template_img,146)
+        template_img = self.add_words(id,mp,15,294,530,fontname,template_img,211)
+        template_img = self.add_words(id,ATK,32,110,495,fontname,template_img)
+        template_img = self.add_words(id,DEF,32,110,545,fontname,template_img)
+        template_img = self.add_words(id,lucky,32,420,495,fontname,template_img)
+        template_img = self.add_words(id,today,24,420,550,fontname,template_img)
+        #template_img = self.add_words(id,line,20,40,437,fontname,template_img)
+        l = 633
         for obj in new_keywords:
             l = l+27
-            template_img = self.add_words(id,obj,18,40,l,fontname,template_img)
+            template_img = self.add_words(id,obj,kttf,133,l,fontname,template_img)
         
         template_img.save(card_template)
         del template_img
@@ -237,7 +262,7 @@ class photo_zone(object):
         return res
     
     
-    def add_words(self,id,text,fontsize, px, py, fontname,template_img):
+    def add_words(self,id,text,fontsize, px, py, fontname,template_img, pxx=None, pyy=None):
 
         imagefile = template_img
         r=255;g=255;b=255
@@ -250,7 +275,15 @@ class photo_zone(object):
         draw = ImageDraw.Draw(img)
         draw.text((0,0),text,font=font, fill=(r,g,b))
         
-        i_width, i_height = template_img.size     
+        i_width, i_height = template_img.size
+        
+        #print(i_width, t_width)
+        
+        if pxx != None:
+            px = int(pxx+(((i_width-pxx)-t_width)/2)/2)
+        
+        if pyy != None:
+            py = int(pyy+(((i_height-pyy)-t_height)/2)/2)   
     
         imagefile.paste(img, (px, py), img)
         del draw0, draw
@@ -258,7 +291,7 @@ class photo_zone(object):
         
         return imagefile
  
-    def add_photo(self,id,photo, px, py, template_img):
+    def add_photo(self,id,photo, template_img):
 
         imagefile = template_img
         
@@ -267,10 +300,16 @@ class photo_zone(object):
         img = Image.open(photo)
         n_width, n_height = img.size
         
-        height = 250
+        height = 320
         radio = float(height/n_height)
         width = int(n_width*radio)
-        nimg = img.resize((width,height), Image.BILINEAR)   
+        nimg = img.resize((width,height), Image.BILINEAR)
+        
+        t_width, t_height = nimg.size
+        
+        px = int((i_width-t_width)/2)
+        py = 140
+        
         imagefile.paste(nimg, (px, py))
         del img, nimg
         
