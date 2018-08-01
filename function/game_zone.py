@@ -128,7 +128,7 @@ class game_zone(object):
     def profile_game_content(self,uid,user_name):
         
         
-        WIZ = random.choice(['光','闇','金','木','水','火','土','雷','冰','風','聖','邪','日','月','星','毒','魂'])
+        WIZ = random.choice(['光','闇','金','木','水','火','土','雷','冰','風','聖','邪','日','月','星','毒','魂','萌','混','魅'])
 
         hp_all = random.randint(100,10000)
         hp = random.randint(0,hp_all)
