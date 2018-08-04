@@ -28,8 +28,8 @@ def main():
     
     #content = _game.get_user_profile('Ud0414e339e9c242b19a2dd22dd1f6189','藍宇星冷男星','http://dl.profile.line-cdn.net/0hLkoyPlmqE0RSAD5u3DZsE25FHSklLhUMKmILJiUCRHQrZVRGPWZfJnJTTHJ5ZQESaWNUJn5VTics')
     #content = _game.get_user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
-    #content = _game.card_pk('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','惠')
-    content = _game.get_atk_userlist()
+    content = _game.card_pk('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','Andersen')
+    #content = _game.get_atk_userlist()
     print(content)
 
     
@@ -368,7 +368,8 @@ class card_fight(object):
             def_value = random.randint(int(DEF*0.9),DEF)*def_key
         else:
             def_way = '防禦'
-            def_value = random.randint(1,DEF)
+            rounad_DEF = random.randint(1,DEF)
+            def_value = random.randint(rounad_DEF,DEF)
         
         return (DEF,def_value,def_way)
     
