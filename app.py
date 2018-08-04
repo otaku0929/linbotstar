@@ -622,7 +622,23 @@ def handle_message(event):
                 preview_image_url=url
             )        
             line_bot_api.reply_message(event.reply_token,image_message)
-        return 0       
+        return 0 
+    if re.match('^查今[日天]屬性',event.message.text):
+        content = _games.get_user_profile()
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        return 0        
+    if re.match('^查對戰列表',event.message.text):
+        content = _games.get_atk_userlist()
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        return 0
+    if re.match('^對戰=(.+)',event.message.text):
+        profile = _lineapi.get_user_name(Channel_Access_Token,event)
+        user_name = profile['displayName']
+        pk_user = re.match('^對戰=(.+)',event.message.text).group(1)
+        content = _games.card_pk(uid,user_name,pk_user)
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        return 0
+        
     ####影音類####
     if re.match('^(聽歌|找到|youtube)=(.+)*',event.message.text):
         res = re.match('^(聽歌|找到|youtube)=(.+)*',event.message.text).group(2)
