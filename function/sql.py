@@ -123,7 +123,7 @@ class Sql(object):
          
     def insert_config(self,uid,name,config):
 
-            command = "insert into user_config (user_id, user_name, config,update) values('%s','%s','%s','%s')" % (uid,name,config,self.time())
+            command = "insert into user_config (user_id, user_name, config,update) values('%s','%s','%s','%s')" % (uid,name,self.time(),config)
             conn = psycopg2.connect(database=self.database, user=self.user, password=self.password, host=self.host, port=self.port)
             cur=conn.cursor()
             
@@ -157,7 +157,7 @@ class Sql(object):
     def update_config(self,uid,name,config):
         
         
-        command = "update user_config set user_name = '%s',config = '%s', update = '%s' where user_id = '%s'" % (name,config,uid,self.time())
+        command = "update user_config set user_name = '%s',config = '%s', update = '%s' where user_id = '%s'" % (name,config,self.time(),uid)
         #print(command)
         conn = psycopg2.connect(database=self.database, user=self.user, password=self.password, host=self.host, port=self.port)
         cur=conn.cursor()
