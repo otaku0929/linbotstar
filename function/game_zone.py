@@ -27,8 +27,8 @@ def main():
 
     
     #content = _game.get_user_profile('Ud0414e339e9c242b19a2dd22dd1f6189','藍宇星冷男星','http://dl.profile.line-cdn.net/0hLkoyPlmqE0RSAD5u3DZsE25FHSklLhUMKmILJiUCRHQrZVRGPWZfJnJTTHJ5ZQESaWNUJn5VTics')
-    #content = _game.get_user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星')
-    content = _game.get_all_user()
+    #content = _game.get_user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
+    content = _game.card_pk('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','惠')
     print(content)
 
     
@@ -36,6 +36,9 @@ class game_zone(object):
     
     def __init__(self):
         self.class_name = 'game_zone'
+
+    def time(self):
+        return str(datetime.datetime.now(pytz.timezone('Asia/Taipei')))[0:10]
         
     def r18(self):
 
@@ -87,10 +90,9 @@ class game_zone(object):
            content = '18啦~~\n\n本次擲出結果為:{},{},{}.{}\n\n水哦  十八!!!!'.format(a,b,c,d,n)
            return content
     
-    def get_all_user(self):
+    def get_atk_userlist(self):
         
-        time = str(datetime.datetime.now(pytz.timezone('Asia/Taipei')))[0:10]
-        sql_command = "select user_name from user_config where update='%s'"%time
+        sql_command = "select user_name from user_config where update='%s'"%self.time()
         config = _sql.select(sql_command)
         i = 1
         for obj in config:
@@ -100,7 +102,8 @@ class game_zone(object):
             else:
                 content = '%s\n%s'%(content,name)
             i=i+1
-        return content
+        return '今日可對戰玩家：\n%s'%content
+
        
     def get_user_profile(self,uid,user_name):
         
@@ -120,9 +123,97 @@ class game_zone(object):
                 return content        
         else:
             content = {'link':'%s 今天還沒有產生卡片哦，可以輸入 "今日卡片" 來產生哦!'%user_name}
-            return content 
-             
-       
+            return content
+    
+    def card_pk(self,uid,user_name,pk_user):
+        
+        _card_game =  card_fight()
+        
+        sql_command = "select user_id from user_config where update='%s' and user_name='%s'"%(self.time(),pk_user)
+        config = _sql.select(sql_command)
+        if config == []:
+            return '%s 沒有對戰卡片哦'%pk_user
+        else:
+            pk_id = str(config)[3:len(config)-5]
+                       
+        jsonA= json.loads(_sql.select_config(uid)[0][2])
+        jsonB= json.loads(_sql.select_config(pk_id)[0][2])
+        
+        A = jsonA['profile']
+        B = jsonB['profile']
+        print(A,B)
+
+        profile_A = '%s (%s) hp:%s mp:%s atk:%s def:%s lucky:%s'%(A['user_name'],A['WIZ'],A['hp'],A['mp'],A['ATK'],A['DEF'],A['lucky'])
+        profile_B = '%s (%s) hp:%s mp:%s atk:%s def:%s lucky:%s'%(B['user_name'],B['WIZ'],B['hp'],B['mp'],B['ATK'],B['DEF'],B['lucky'])
+        
+        charA_HP = A['hp']
+        charB_HP = B['hp']
+        Wiz_value_list = _card_game.WizATK(A['WIZ'], B['WIZ'])
+        A_Wiz_value = Wiz_value_list[0]
+        B_Wiz_value = Wiz_value_list[1]
+        atk_list = {'fight_status':{},'atk_winner':{},'atk_fin':{}}
+        atk_round = 0
+        
+        while charA_HP >=0 or charB_HP >=0:
+            #判定誰攻誰防, 以幸運值亂數高者為攻
+            if random.randint(0,A['lucky'])>random.randint(0,B['lucky']):
+                #print('A')
+                A_ATK = _card_game.getATK(A['ATK'],A['lucky'],A_Wiz_value)
+                B_DEF = _card_game.getDEF(B['DEF'],B['lucky'])
+                ATK_value= A_ATK[1]-B_DEF[1]
+                if ATK_value <=0:
+                    ATK_value = 0
+                new_HP = B['hp'] - ATK_value
+                ATK_content = '%s 使用 %s (%s) 造成 %s %s 傷害(%s%s)'%(A['user_name'],A_ATK[2],A_ATK[1],B['user_name'],ATK_value,B_DEF[2],B_DEF[1])
+                Status_content = '%s HP %s => %s'%(B['user_name'],B['hp'],new_HP)
+                ATK_Status = '%s\n>>>%s'%(ATK_content,Status_content)
+                #print(ATK_Status)
+                if atk_list['fight_status'] == {}:
+                    atk_list['fight_status'] = ATK_Status
+                else:    
+                    atk_list['fight_status'] = '%s\n%s'%(atk_list['fight_status'],ATK_Status)
+                charA_HP = charA_HP
+                charB_HP = new_HP
+                if charA_HP<=0 or charB_HP<=0:
+                    atk_list['atk_winner'] = A['user_name']
+                    atk_list['atk_fin'] = '%s 戰勝了 %s'%(A['user_name'],B['user_name'])
+                    break
+                atk_round = atk_round+1
+                if atk_round >31:
+                    atk_list['atk_winner'] = '平手'
+                    atk_list['atk_fin'] = '打累了~ %s %s 吃飯去啦'%(A['user_name'],B['user_name'])
+                    break
+            else:
+                B_ATK = _card_game.getATK(B['ATK'],B['lucky'],B_Wiz_value)
+                A_DEF = _card_game.getDEF(A['DEF'],A['lucky'])
+                ATK_value= B_ATK[1]-A_DEF[1]
+                if ATK_value <=0:
+                    ATK_value = 0
+                new_HP = A['hp'] - ATK_value
+                ATK_content = '%s 使用 %s (%s) 造成 %s %s 傷害(%s%s)'%(B['user_name'],B_ATK[2],B_ATK[1],A['user_name'],ATK_value,A_DEF[2],A_DEF[1])
+                Status_content = '%s HP %s => %s'%(A['user_name'],A['hp'],new_HP)
+                ATK_Status = '%s\n>>>%s'%(ATK_content,Status_content)
+                #print(ATK_Status)
+                if atk_list['fight_status'] == {}:
+                    atk_list['fight_status'] = ATK_Status
+                else:    
+                    atk_list['fight_status'] = '%s\n%s'%(atk_list['fight_status'],ATK_Status)
+                #print(atk_list['fight_status'])
+                charA_HP = new_HP
+                charB_HP = charB_HP
+                if charA_HP<=0 or charB_HP<=0:
+                    atk_list['atk_winner'] = B['user_name']
+                    atk_list['atk_fin'] = '%s 戰勝了 %s'%(B['user_name'],A['user_name'])
+                    break
+                atk_round = atk_round+1
+                if atk_round >31:
+                    atk_list['atk_winner'] = '平手'
+                    atk_list['atk_fin'] = '打累了~ %s %s 吃飯去啦'%(A['user_name'],B['user_name'])
+                    break
+                
+        return ('----------\n%s\n%s\n----------\n%s \n戰鬥紀錄**********\n%s'%(profile_A,profile_B,atk_list['atk_fin'],atk_list['fight_status']))
+        
+                
     def user_profile(self,uid,user_name,pictureUrl):
         
         time = str(datetime.datetime.now(pytz.timezone('Asia/Taipei')))[0:10]
@@ -161,13 +252,13 @@ class game_zone(object):
                 config = json.dumps(config_json)
                 _sql.update_config(uid,user_name,config) 
                 
-                message = self.profile_game_content(uid,user_name) 
-                
                 content = _photos.user_daily_photo(uid,message,pictureUrl)
                 
                 return (content)
 #                return self.profile_game_content(uid,user_name)               
         else:
+            message= self.profile_game_content(uid,user_name)
+            
             new_json = {'profile':
                 {'profile_time':time,
                  'user_name':message[0],
@@ -185,8 +276,6 @@ class game_zone(object):
             config_json['profile'].update(new_json)
             config = json.dumps(config_json)
             _sql.update_config(uid,user_name,config)         
-            
-            message= self.profile_game_content(uid,user_name)
             
             content = _photos.user_daily_photo(uid,message,pictureUrl)
             
