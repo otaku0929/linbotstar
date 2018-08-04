@@ -102,8 +102,23 @@ class game_zone(object):
                 content = {'link':'%s 今天已經產生過了，一天只能玩一次哦'%user_name}
                 return content
             else:
-                new_json = {'profile_time':time}
-                config_json['profile']['profile_time'] = new_json['profile_time']
+
+                message = self.profile_game_content(uid,user_name)   
+                
+                new_json = {'profile':
+                    {'profile_time':time,
+                     'user_name':message[0],
+                     'hp':message[1],
+                     'mp':message[2],
+                     'lucky':message[3],
+                     'today':message[4],
+                     'keywords':message[5],
+                     'WIZ':message[6],
+                     'ATK':message[7],
+                     'DEF':message[8]
+                     }
+                }
+                config_json['profile'] = new_json['profile']
                 config = json.dumps(config_json)
                 _sql.update_config(uid,user_name,config) 
                 
@@ -134,15 +149,17 @@ class game_zone(object):
         hp = random.randint(0,hp_all)
         mp_all = random.randint(100,10000)
         mp = random.randint(0,mp_all)
-        lucky = random.randint(0,1000)
-        ATK = int(random.randint(1,hp)*(lucky/100))
-        DEF = int(random.randint(1,mp)*(lucky/100))
-        today = self.get_star((hp+mp+lucky/1000))
-        #today=self.get_star(random.randint(0,100)/10)
+        lucky = random.randint(1,1000)
+        ATK = int(random.randint(1,hp_all)*(lucky/100))
+        if ATK==0:
+            ATK=1
+        DEF = int(random.randint(1,mp_all)*(lucky/100))
+        if DEF==0:
+            DEF=1
+        today_value = int((hp+mp+lucky)/1000)
+        today=self.get_star(today_value)
         keywords = _star_talk.profile(user_name)
-        #content = '%s\n\nHP:%s/%s\nMP:%s/%s\n幸運值:%s\n今日運氣:%s\n\n==小星星叮嚀==\n%s'%(user_name,hp,hp_all,mp,mp_all,luncky,today,keywords)
-        #content = [user_name,'HP：%s/%s'%(hp,hp_all),'MP：%s/%s'%(mp,mp_all),'幸運值：%s'%lucky,'今日運勢：%s'%today,keywords]
-        content = [user_name,hp,mp,lucky,today,keywords,WIZ,ATK,DEF]
+        content = [user_name,hp,mp,lucky,today,keywords,WIZ,ATK,DEF,today_value]
         return content
             
     def get_star(self,mum):
@@ -151,7 +168,97 @@ class game_zone(object):
         arr = ['☆','★','★☆','★☆','★★','★★☆','★★★','★★★☆','★★★★','★★★★☆','★★★★★']
         
         return arr[(val % 11)]
+    
 
+class card_fight(object):
+    
+    def __init__(self):
+        self.class_name = 'card_fight' 
+
+    def getATK(self,atk, lucky, wiz_value):
+        
+        atk0 = ['失手','滑倒了','忘了攻擊']
+        atk1 = '普通攻擊'
+        atk2 = '屬性攻擊'
+        atk3 = '致命攻擊'
+        atk9 = ['讓對手拉肚子攻擊']
+        
+        atk_key = random.randint(0,100)
+        
+        if random.randint(0,lucky) > 995:
+            print(random.randint(0,lucky))
+            atk_way = random.choice(atk9)
+            atk_value = 999999999           
+        else:
+            if atk_key < 3:
+                atk_way = random.choice(atk0)
+                atk_value = 0
+            elif atk_key >=3 and atk_key < 71:
+                atk_way = atk1
+                atk_value = random.randint(1,atk)
+            elif atk_key >=71 and atk_key <91:
+                atk_way = atk2
+                atk_value = int(random.randint(1,atk)*wiz_value)
+            elif atk_key >=91:
+                atk_way = atk3
+                atk_value = int(random.randint(1,atk)*lucky/10)
+
+    
+        return (atk,atk_value,atk_way)
+    
+    def getDEF(self,DEF, lucky):
+        
+        def0 = ['我閃我閃我閃閃閃','你看不到我','你打不到我','究極防禦','聖盾術']
+        def1 = ['超級防禦','盾牆','冰牆']
+        
+        if int(lucky/10) == 0:
+            def_key = 1
+        else:
+            def_key = random.randint(1,int(lucky/10))
+        
+        if def_key >= 80 and def_key<95:
+            def_way = random.choice(def1)
+            def_value = random.randint(int(DEF*0.8),DEF)*10
+        elif def_key >= 95:
+            def_way = random.choice(def0)
+            def_value = random.randint(int(DEF*0.9),DEF)*def_key
+        else:
+            def_way = '防禦'
+            def_value = random.randint(1,DEF)
+        
+        return (DEF,def_value,def_way)
+    
+    
+    def WizATK(self,A_WIZ, B_WIZ):
+        
+        dict = {'混':{'聖':0.2,'光':0.2,'萌':0.5},
+                '聖':{'邪':0.5,'毒':0.2,'萌':0.5},
+                '邪':{'萌':0.5},
+                '闇':{'聖':0.2,'萌':0.5},
+                '光':{'闇':0.5,'萌':0.5},
+                '金':{'木':0.5,'萌':0.5},
+                '木':{'土':0.5,'萌':0.5},
+                '水':{'火':0.5,'萌':0.5},
+                '火':{'木':0.5,'冰':0.2,'萌':0.5},
+                '土':{'水':0.5,'風':0.2,'萌':0.5},
+                '雷':{'魅':0.8,'萌':0.5},
+                '冰':{'魅':0.8,'萌':0.5},
+                '風':{'魅':0.8,'萌':0.5},
+                '日':{'萌':0.5},
+                '月':{'萌':0.5},
+                '星':{'萌':0.5},
+                '毒':{'魅':0.8,'萌':0.5},
+                '魂':{'魅':0.8,'萌':0.5},
+                '魅':{'萌':0.2}
+        }
+        
+        Wiz_list = dict[A_WIZ]
+        #print(Wiz_list)
+        if B_WIZ in Wiz_list:
+            Wiz_ATK = Wiz_list[B_WIZ]
+            return(1+Wiz_ATK,1-Wiz_ATK)
+        else:
+            return ([1,1])
 
 
 if __name__ == '__main__':
