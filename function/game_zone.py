@@ -26,7 +26,9 @@ def main():
     _game = game_zone()
 
     
-    content = _game.user_profile('Ud0414e339e9c242b19a2dd22dd1f6189','藍宇星冷男星','http://dl.profile.line-cdn.net/0hLkoyPlmqE0RSAD5u3DZsE25FHSklLhUMKmILJiUCRHQrZVRGPWZfJnJTTHJ5ZQESaWNUJn5VTics')
+    #content = _game.get_user_profile('Ud0414e339e9c242b19a2dd22dd1f6189','藍宇星冷男星','http://dl.profile.line-cdn.net/0hLkoyPlmqE0RSAD5u3DZsE25FHSklLhUMKmILJiUCRHQrZVRGPWZfJnJTTHJ5ZQESaWNUJn5VTics')
+    #content = _game.get_user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星')
+    content = _game.get_all_user()
     print(content)
 
     
@@ -84,10 +86,46 @@ class game_zone(object):
         if len(y)==2:         
            content = '18啦~~\n\n本次擲出結果為:{},{},{}.{}\n\n水哦  十八!!!!'.format(a,b,c,d,n)
            return content
+    
+    def get_all_user(self):
+        
+        time = str(datetime.datetime.now(pytz.timezone('Asia/Taipei')))[0:10]
+        sql_command = "select user_name from user_config where update='%s'"%time
+        config = _sql.select(sql_command)
+        i = 1
+        for obj in config:
+            name = 'NO.%s %s'%(i,str(obj)[2:len(obj)-4])
+            if i==1:
+                content = name
+            else:
+                content = '%s\n%s'%(content,name)
+            i=i+1
+        return content
+       
+    def get_user_profile(self,uid,user_name):
+        
+        time = str(datetime.datetime.now(pytz.timezone('Asia/Taipei')))[0:10]
+        
+        config = _sql.select_config(uid)
+        if config == []:
+            _config.create_config(uid,user_name)
+        
+        config = _sql.select_config(uid)
+        config_json = json.loads(config[0][2])
+        
+        if 'profile_time' in config_json['profile']:
+            if config_json['profile']['profile_time'] == time:
+                A = config_json['profile']
+                content = '%s\n屬性:%s\n生命值(hp):%s\n魔法力(mp):%s\n攻擊力(atk):%s\n防禦力(def):%s \n幸運值(lucky):%s\n每日運勢:%s\n-----------\n%s'%(A['user_name'],A['WIZ'],A['hp'],A['mp'],A['ATK'],A['DEF'],A['lucky'],A['today'],A['keywords'])
+                return content        
+        else:
+            content = {'link':'%s 今天還沒有產生卡片哦，可以輸入 "今日卡片" 來產生哦!'%user_name}
+            return content 
+             
        
     def user_profile(self,uid,user_name,pictureUrl):
         
-        time = str(datetime.datetime.now(pytz.timezone('Asia/Taipei')))[0:11]
+        time = str(datetime.datetime.now(pytz.timezone('Asia/Taipei')))[0:10]
         #time = '2018-07-21'
         config = _sql.select_config(uid)
         
@@ -115,7 +153,8 @@ class game_zone(object):
                      'keywords':message[5],
                      'WIZ':message[6],
                      'ATK':message[7],
-                     'DEF':message[8]
+                     'DEF':message[8],
+                     'today_value':message[9]
                      }
                 }
                 config_json['profile'] = new_json['profile']
@@ -129,7 +168,20 @@ class game_zone(object):
                 return (content)
 #                return self.profile_game_content(uid,user_name)               
         else:
-            new_json = {'profile_time':time}
+            new_json = {'profile':
+                {'profile_time':time,
+                 'user_name':message[0],
+                 'hp':message[1],
+                 'mp':message[2],
+                 'lucky':message[3],
+                 'today':message[4],
+                 'keywords':message[5],
+                 'WIZ':message[6],
+                 'ATK':message[7],
+                 'DEF':message[8],
+                 'today_value':message[9]
+                 }
+            }
             config_json['profile'].update(new_json)
             config = json.dumps(config_json)
             _sql.update_config(uid,user_name,config)         
