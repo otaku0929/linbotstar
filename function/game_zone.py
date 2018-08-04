@@ -28,7 +28,8 @@ def main():
     
     #content = _game.get_user_profile('Ud0414e339e9c242b19a2dd22dd1f6189','藍宇星冷男星','http://dl.profile.line-cdn.net/0hLkoyPlmqE0RSAD5u3DZsE25FHSklLhUMKmILJiUCRHQrZVRGPWZfJnJTTHJ5ZQESaWNUJn5VTics')
     #content = _game.get_user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
-    content = _game.card_pk('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','惠')
+    #content = _game.card_pk('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','惠')
+    content = _game.get_atk_userlist()
     print(content)
 
     
@@ -94,6 +95,8 @@ class game_zone(object):
         
         sql_command = "select user_name from user_config where update='%s'"%self.time()
         config = _sql.select(sql_command)
+        if config == []:
+            return '今日還沒有人產生卡牌'
         i = 1
         for obj in config:
             name = 'NO.%s %s'%(i,str(obj)[2:len(obj)-4])
