@@ -607,7 +607,7 @@ def handle_message(event):
         content = _games.r18()
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
-    if re.match('^[每今][日天](狀態|卡片|的我)',event.message.text):
+    if re.match('^[每今][日天](狀態|卡[片牌]|的我)',event.message.text):
         profile = _lineapi.get_user_name(Channel_Access_Token,event)
         user_name = profile['displayName']
         pictureUrl = profile['pictureUrl']
@@ -623,15 +623,17 @@ def handle_message(event):
             )        
             line_bot_api.reply_message(event.reply_token,image_message)
         return 0 
-    if re.match('^查今[日天]屬性',event.message.text):
-        content = _games.get_user_profile()
+    if re.match('^查今[日天](屬性|卡牌)',event.message.text):
+        profile = _lineapi.get_user_name(Channel_Access_Token,event)
+        user_name = profile['displayName']
+        content = _games.get_user_profile(uid,user_name)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0        
     if re.match('^查對戰列表',event.message.text):
         content = _games.get_atk_userlist()
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
-    if re.match('^對戰=(.+)',event.message.text):
+    if re.match('^(對戰|攻擊)=(.+)',event.message.text):
         profile = _lineapi.get_user_name(Channel_Access_Token,event)
         user_name = profile['displayName']
         pk_user = re.match('^對戰=(.+)',event.message.text).group(1)
