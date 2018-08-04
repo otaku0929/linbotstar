@@ -144,7 +144,7 @@ class game_zone(object):
         
         A = jsonA['profile']
         B = jsonB['profile']
-        print(A,B)
+        #print(A,B)
 
         profile_A = '%s (%s) hp:%s mp:%s atk:%s def:%s lucky:%s'%(A['user_name'],A['WIZ'],A['hp'],A['mp'],A['ATK'],A['DEF'],A['lucky'])
         profile_B = '%s (%s) hp:%s mp:%s atk:%s def:%s lucky:%s'%(B['user_name'],B['WIZ'],B['hp'],B['mp'],B['ATK'],B['DEF'],B['lucky'])
@@ -330,7 +330,7 @@ class card_fight(object):
         atk_key = random.randint(0,100)
         
         if random.randint(0,lucky) > 995:
-            print(random.randint(0,lucky))
+            #print(random.randint(0,lucky))
             atk_way = random.choice(atk9)
             atk_value = 999999999           
         else:
