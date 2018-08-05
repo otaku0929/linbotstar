@@ -31,7 +31,7 @@ def main():
     #content = _game.get_user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
     #content = _game.card_pk('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','Andersen')
     #content = _game.get_atk_userlist()
-    messages = '對戰=@中國文化大學海青班烘焙科-廖心琪'
+    messages = '攻擊=@陳小馬（EK)'
     if re.match('^(對戰|攻擊)= ?@?(.+)',messages):
         uid = 'U9f2c61013256dfe556d70192388e4c7c'
         pkid = re.match('^(對戰|攻擊)= ?@?(.+)',messages).group(2).strip()
@@ -300,15 +300,15 @@ class game_zone(object):
         
         WIZ = random.choice(['光','闇','金','木','水','火','土','雷','冰','風','聖','邪','日','月','星','毒','魂','萌','混','魅'])
 
-        hp_all = random.randint(100,10000)
+        hp_all = random.randint(1000,10000)
         hp = random.randint(0,hp_all)
-        mp_all = random.randint(100,10000)
+        mp_all = random.randint(1000,10000)
         mp = random.randint(0,mp_all)
         lucky = random.randint(1,1000)
-        ATK = int(random.randint(1,hp_all)*(lucky/100))
+        ATK = int(random.randint(1,hp)*(lucky/100))
         if ATK==0:
             ATK=1
-        DEF = int(random.randint(1,mp_all)*(lucky/100))
+        DEF = int(random.randint(1,mp)*(lucky/100))
         if DEF==0:
             DEF=1
         today_value = int((hp+mp+lucky)/1000)
