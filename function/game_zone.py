@@ -354,13 +354,13 @@ class card_fight(object):
                 atk_value = random.randint(1,atk)
             elif atk_key >=51 and atk_key <71:
                 atk_way = atk2
-                atk_value = int(random.randint(1,atk)*1.5)
+                atk_value = int(random.randint(int(atk*0.3),atk)*1.5)
             elif atk_key >=71 and atk_key <91:
                 atk_way = atk3
-                atk_value = int(random.randint(1,atk)*(1+wiz_value))
+                atk_value = int(random.randint(int(atk*0.5),atk)*wiz_value)
             elif atk_key >=91:
                 atk_way = atk4
-                atk_value = int(random.randint(1,atk)*lucky/10)
+                atk_value = int(random.randint(int(atk*0.7),atk)*lucky/10)
 
     
         return (atk,atk_value,atk_way)
