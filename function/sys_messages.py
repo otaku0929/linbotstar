@@ -104,6 +104,9 @@ class sys_messages(object):
                   '==小遊戲==',
                   '',
                   '..18啦',
+                  '..今日卡片',
+                  '..對戰=ID',
+                  '..查今日屬性',
                   '',
                   '==歡歌類==',
                   '',
@@ -123,7 +126,8 @@ class sys_messages(object):
                   '',
                   '== 小星星粉專 ==',
                   '',
-                  ' http://pcse.pw/83A5Q '
+                  ' http://pcse.pw/83A5Q ',
+                  ' LINE ID @utx8872q'
                   ]
         content = ""
         for i in helplist:
