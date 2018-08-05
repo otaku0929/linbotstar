@@ -633,10 +633,10 @@ def handle_message(event):
         content = _games.get_atk_userlist()
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
-    if re.match('^(對戰|攻擊)=(.+( ?))',event.message.text):
+    if re.match('^(對戰|攻擊)=(.+)',event.message.text):
         profile = _lineapi.get_user_name(Channel_Access_Token,event)
         user_name = profile['displayName']
-        pk_user = re.match('^(對戰|攻擊)=(.+( ?))',event.message.text).group(2)
+        pk_user = re.match('^(對戰|攻擊)=(.+)',event.message.text).group(2).strip()
         content = _games.card_pk(uid,user_name,pk_user)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
