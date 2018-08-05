@@ -193,7 +193,7 @@ class game_zone(object):
                     atk_list['atk_fin'] = '%s 戰勝了 %s'%(A['user_name'],B['user_name'])
                     break
                 atk_round = atk_round+1
-                if atk_round >31:
+                if atk_round >20:
                     atk_list['atk_winner'] = '平手'
                     atk_list['atk_fin'] = '打累了~ %s %s 吃飯去啦'%(A['user_name'],B['user_name'])
                     break
@@ -220,7 +220,7 @@ class game_zone(object):
                     atk_list['atk_fin'] = '%s 戰勝了 %s'%(B['user_name'],A['user_name'])
                     break
                 atk_round = atk_round+1
-                if atk_round >31:
+                if atk_round >20:
                     atk_list['atk_winner'] = '平手'
                     atk_list['atk_fin'] = '打累了~ %s %s 吃飯去啦'%(A['user_name'],B['user_name'])
                     break
