@@ -31,9 +31,9 @@ def main():
     #content = _game.get_user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
     #content = _game.card_pk('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','Andersen')
     #content = _game.get_atk_userlist()
-    messages = '對戰=藍宇星✨victor✨'
+    messages = '對戰=G'
     if re.match('^(對戰|攻擊)=(.+)',messages):
-        uid = 'U86ba3f91e10636f361524d3d06cdb1ed'
+        uid = 'U9f2c61013256dfe556d70192388e4c7c'
         pkid = re.match('^(對戰|攻擊)=(.+)',messages).group(2).strip()
         #print(pkid)
         content = _game.card_pk(uid,'藍宇星冷男星',pkid)
@@ -169,7 +169,7 @@ class game_zone(object):
             #判定誰攻誰防, 以幸運值亂數高者為攻
             A_ATK_KEY=random.randint(0,100)+int(random.randint(0,A['lucky'])/10)
             B_ATK_KEY=random.randint(0,100)+int(random.randint(0,B['lucky'])/10)
-            print('回合:%s'%atk_round,A_ATK_KEY,B_ATK_KEY)
+            #print('回合:%s'%atk_round,A_ATK_KEY,B_ATK_KEY)
             if A_ATK_KEY>B_ATK_KEY:
                 #print('A')
                 A_ATK = _card_game.getATK(A['ATK'],A['lucky'],A_Wiz_value)
@@ -399,7 +399,7 @@ class card_fight(object):
                 '金':{'木':0.5,'萌':0.5},
                 '木':{'土':0.5,'萌':0.5},
                 '水':{'火':0.5,'萌':0.5},
-                '火':{'木':0.5,'冰':0.2,'萌':0.5},
+                '火':{'金':0.5,'冰':0.2,'萌':0.5},
                 '土':{'水':0.5,'風':0.2,'萌':0.5},
                 '雷':{'魅':0.8,'萌':0.5},
                 '冰':{'魅':0.8,'萌':0.5},
@@ -409,7 +409,8 @@ class card_fight(object):
                 '星':{'萌':0.5},
                 '毒':{'魅':0.8,'萌':0.5},
                 '魂':{'魅':0.8,'萌':0.5},
-                '魅':{'萌':0.2}
+                '魅':{'萌':0.2},
+                '萌':{}
         }
         
         Wiz_list = dict[A_WIZ]
