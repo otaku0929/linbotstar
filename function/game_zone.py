@@ -287,7 +287,7 @@ class game_zone(object):
                  'today_value':message[9]
                  }
             }
-            config_json['profile'].update(new_json)
+            config_json['profile'] = new_json['profile']
             config = json.dumps(config_json)
             _sql.update_config(uid,user_name,config)         
             
