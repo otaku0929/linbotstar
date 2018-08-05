@@ -5,6 +5,7 @@ Created on Fri Jul 13 11:46:41 2018
 @author: 宇星
 """
 
+import re
 import random
 import json
 import datetime, pytz
@@ -28,8 +29,15 @@ def main():
     
     #content = _game.get_user_profile('Ud0414e339e9c242b19a2dd22dd1f6189','藍宇星冷男星','http://dl.profile.line-cdn.net/0hLkoyPlmqE0RSAD5u3DZsE25FHSklLhUMKmILJiUCRHQrZVRGPWZfJnJTTHJ5ZQESaWNUJn5VTics')
     #content = _game.get_user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
-    content = _game.card_pk('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','Andersen')
+    #content = _game.card_pk('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','Andersen')
     #content = _game.get_atk_userlist()
+    messages = '對戰=藍宇星✨victor✨'
+    if re.match('^(對戰|攻擊)=(.+)',messages):
+        uid = 'U86ba3f91e10636f361524d3d06cdb1ed'
+        pkid = re.match('^(對戰|攻擊)=(.+)',messages).group(2).strip()
+        #print(pkid)
+        content = _game.card_pk(uid,'藍宇星冷男星',pkid)
+        #print (content)
     print(content)
 
     
@@ -159,7 +167,10 @@ class game_zone(object):
         
         while charA_HP >=0 or charB_HP >=0:
             #判定誰攻誰防, 以幸運值亂數高者為攻
-            if random.randint(0,A['lucky'])>random.randint(0,B['lucky']):
+            A_ATK_KEY=random.randint(0,100)+int(random.randint(0,A['lucky'])/10)
+            B_ATK_KEY=random.randint(0,100)+int(random.randint(0,B['lucky'])/10)
+            print('回合:%s'%atk_round,A_ATK_KEY,B_ATK_KEY)
+            if A_ATK_KEY>B_ATK_KEY:
                 #print('A')
                 A_ATK = _card_game.getATK(A['ATK'],A['lucky'],A_Wiz_value)
                 B_DEF = _card_game.getDEF(B['DEF'],B['lucky'])
@@ -323,8 +334,9 @@ class card_fight(object):
         
         atk0 = ['失手','滑倒了','忘了攻擊']
         atk1 = '普通攻擊'
-        atk2 = '屬性攻擊'
-        atk3 = '致命攻擊'
+        atk2 = '強力攻擊'
+        atk3 = '屬性攻擊'
+        atk4 = '致命一擊'
         atk9 = ['讓對手拉肚子攻擊']
         
         atk_key = random.randint(0,100)
@@ -337,14 +349,17 @@ class card_fight(object):
             if atk_key < 3:
                 atk_way = random.choice(atk0)
                 atk_value = 0
-            elif atk_key >=3 and atk_key < 71:
+            elif atk_key >=3 and atk_key < 51:
                 atk_way = atk1
                 atk_value = random.randint(1,atk)
-            elif atk_key >=71 and atk_key <91:
+            elif atk_key >=51 and atk_key <71:
                 atk_way = atk2
-                atk_value = int(random.randint(1,atk)*wiz_value)
-            elif atk_key >=91:
+                atk_value = int(random.randint(1,atk)*1.5)
+            elif atk_key >=71 and atk_key <91:
                 atk_way = atk3
+                atk_value = int(random.randint(1,atk)*(1+wiz_value))
+            elif atk_key >=91:
+                atk_way = atk4
                 atk_value = int(random.randint(1,atk)*lucky/10)
 
     
