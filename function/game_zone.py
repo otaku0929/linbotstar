@@ -31,7 +31,7 @@ def main():
     #content = _game.get_user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
     #content = _game.card_pk('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','Andersen')
     #content = _game.get_atk_userlist()
-    messages = '對戰=金兒'
+    messages = '對戰=@中國文化大學海青班烘焙科-廖心琪'
     if re.match('^(對戰|攻擊)= ?@?(.+)',messages):
         uid = 'U9f2c61013256dfe556d70192388e4c7c'
         pkid = re.match('^(對戰|攻擊)= ?@?(.+)',messages).group(2).strip()
@@ -351,13 +351,14 @@ class card_fight(object):
                 atk_value = 0
             elif atk_key >=3 and atk_key < 51:
                 atk_way = atk1
-                atk_value = random.randint(1,atk)
+                rounad_ATK = random.randint(1,atk)
+                atk_value = random.randint(rounad_ATK,atk)
             elif atk_key >=51 and atk_key <71:
                 atk_way = atk2
-                atk_value = int(random.randint(int(atk*0.3),atk)*1.5)
+                atk_value = int(random.randint(int(atk*0.4),atk)*3.5)
             elif atk_key >=71 and atk_key <91:
                 atk_way = atk3
-                atk_value = int(random.randint(int(atk*0.5),atk)*wiz_value)
+                atk_value = int(random.randint(int(atk*0.6),atk)*(3+wiz_value))
             elif atk_key >=91:
                 atk_way = atk4
                 atk_value = int(random.randint(int(atk*0.7),atk)*lucky/10)
@@ -374,6 +375,8 @@ class card_fight(object):
             def_key = 1
         else:
             def_key = random.randint(1,int(lucky/10))
+        
+        print(def_key)
         
         if def_key >= 80 and def_key<95:
             def_way = random.choice(def1)
