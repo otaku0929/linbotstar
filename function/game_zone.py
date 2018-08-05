@@ -225,7 +225,7 @@ class game_zone(object):
                     atk_list['atk_fin'] = '打累了~ %s %s 吃飯去啦'%(A['user_name'],B['user_name'])
                     break
                 
-        return ('----------\n%s\n%s\n----------\n%s \n戰鬥紀錄**********\n%s'%(profile_A,profile_B,atk_list['atk_fin'],atk_list['fight_status']))
+        return ('----------\n%s\n%s\n----------\n\n%s\n\n戰鬥紀錄**********\n%s'%(profile_A,profile_B,atk_list['atk_fin'],atk_list['fight_status']))
         
                 
     def user_profile(self,uid,user_name,pictureUrl):
@@ -370,15 +370,19 @@ class card_fight(object):
         
         def0 = ['我閃我閃我閃閃閃','你看不到我','你打不到我','究極防禦','聖盾術']
         def1 = ['超級防禦','盾牆','冰牆']
+        def2 = ['硬氣功','分身防禦','閃避']
         
         if int(lucky/10) == 0:
             def_key = 1
         else:
             def_key = random.randint(1,int(lucky/10))
         
-        print(def_key)
+        #print(def_key)
         
-        if def_key >= 80 and def_key<95:
+        if def_key >= 50 and def_key<81:
+            def_way = random.choice(def2)
+            def_value = random.randint(int(DEF*0.3),DEF)*2       
+        elif def_key >= 81 and def_key<95:
             def_way = random.choice(def1)
             def_value = random.randint(int(DEF*0.8),DEF)*10
         elif def_key >= 95:
