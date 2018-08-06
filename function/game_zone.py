@@ -359,16 +359,16 @@ class card_fight(object):
 
     def getATK(self,atk, lucky, wiz_value):
         
-        atk0 = ['失手','滑倒了','忘了攻擊']
-        atk1 = '普通攻擊'
-        atk2 = '強力攻擊'
-        atk3 = '屬性攻擊'
-        atk4 = '致命一擊'
-        atk9 = ['讓對手拉肚子攻擊']
+        atk0 = ['失手','滑倒了','忘了攻擊','zzzzz','被沉默了']
+        atk1 = ['普通攻擊','拿棒棒糖攻擊','丟石頭']
+        atk2 = ['強力攻擊','破壞拳','迴旋踢']
+        atk3 = ['屬性攻擊','龜派氣功','超級飛踢']
+        atk4 = ['致命一擊','必殺一擊']
+        atk9 = ['讓對手拉肚子攻擊','放屁臭死了對手','召喚了神龍，進行攻擊','卸妝攻擊','唱歌攻擊']
         
         atk_key = random.randint(0,100)
         
-        if random.randint(0,lucky) > 995:
+        if random.randint(0,lucky) > 996:
             #print(random.randint(0,lucky))
             atk_way = random.choice(atk9)
             atk_value = 999999999           
@@ -377,18 +377,19 @@ class card_fight(object):
                 atk_way = random.choice(atk0)
                 atk_value = 0
             elif atk_key >=3 and atk_key < 51:
-                atk_way = atk1
+                atk_way = random.choice(atk1)
                 rounad_ATK = random.randint(1,atk)
                 atk_value = random.randint(rounad_ATK,atk)
-            elif atk_key >=51 and atk_key <71:
-                atk_way = atk2
-                atk_value = int(random.randint(int(atk*0.4),atk)*3.5)
-            elif atk_key >=71 and atk_key <91:
-                atk_way = atk3
-                atk_value = int(random.randint(int(atk*0.6),atk)*(3+wiz_value))
-            elif atk_key >=91:
-                atk_way = atk4
+            elif atk_key >=51 and atk_key <81:
+                atk_way = random.choice(atk2)
+                atk_value = int(random.randint(int(atk*0.4),atk)*2)
+            elif atk_key >=81 and atk_key <96:
+                atk_way = random.choice(atk3)
+                atk_value = int(random.randint(int(atk*0.6),atk)*(2+wiz_value))
+            elif atk_key >=96:
+                atk_way = random.choice(atk4)
                 atk_value = int(random.randint(int(atk*0.7),atk)*lucky/10)
+
 
     
         return (atk,atk_value,atk_way)
@@ -397,7 +398,7 @@ class card_fight(object):
         
         def0 = ['我閃我閃我閃閃閃','你看不到我','你打不到我','究極防禦','聖盾術']
         def1 = ['超級防禦','盾牆','冰牆']
-        def2 = ['硬氣功','分身防禦','閃避']
+        def2 = ['硬氣功','分身防禦','閃避','丟香蕉讓對方滑倒']
         
         if int(lucky/10) == 0:
             def_key = 1
