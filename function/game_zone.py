@@ -359,11 +359,11 @@ class card_fight(object):
 
     def getATK(self,atk, lucky, wiz_value):
         
-        atk0 = ['失手','滑倒了','忘了攻擊','zzzzz','被沉默了']
-        atk1 = ['普通攻擊','拿棒棒糖攻擊','丟石頭']
-        atk2 = ['強力攻擊','破壞拳','迴旋踢']
+        atk0 = ['失手','滑倒了','忘了攻擊','zzzzz','被沉默了','吐口水','傻笑']
+        atk1 = ['普通攻擊','拿棒棒糖攻擊','丟石頭','戳一下','丟樸克牌']
+        atk2 = ['強力攻擊','破壞拳','迴旋踢','關門放狗']
         atk3 = ['屬性攻擊','龜派氣功','超級飛踢']
-        atk4 = ['致命一擊','必殺一擊']
+        atk4 = ['致命一擊','必殺一擊','元氣彈','跪鍵盤密術']
         atk9 = ['讓對手拉肚子攻擊','放屁臭死了對手','召喚了神龍，進行攻擊','卸妝攻擊','唱歌攻擊']
         
         atk_key = random.randint(0,100)
@@ -396,9 +396,10 @@ class card_fight(object):
     
     def getDEF(self,DEF, lucky):
         
-        def0 = ['我閃我閃我閃閃閃','你看不到我','你打不到我','究極防禦','聖盾術']
-        def1 = ['超級防禦','盾牆','冰牆']
-        def2 = ['硬氣功','分身防禦','閃避','丟香蕉讓對方滑倒']
+        def0 = ['防禦','扮鬼臉','盾牌防禦','太極一式','講笑話']
+        def1 = ['硬氣功','分身防禦','閃避','丟香蕉讓對方滑倒','拿CRT螢幕擋住']
+        def2 = ['超級防禦','盾牆','冰牆','催眠術','變張3讓對方傻住']
+        def9 = ['我閃我閃我閃閃閃','你看不到我','你打不到我','究極防禦','聖盾術']
         
         if int(lucky/10) == 0:
             def_key = 1
@@ -408,16 +409,16 @@ class card_fight(object):
         #print(def_key)
         
         if def_key >= 50 and def_key<81:
-            def_way = random.choice(def2)
+            def_way = random.choice(def1)
             def_value = random.randint(int(DEF*0.3),DEF)*2       
         elif def_key >= 81 and def_key<95:
-            def_way = random.choice(def1)
+            def_way = random.choice(def2)
             def_value = random.randint(int(DEF*0.8),DEF)*10
         elif def_key >= 95:
-            def_way = random.choice(def0)
+            def_way = random.choice(def9)
             def_value = random.randint(int(DEF*0.9),DEF)*def_key
         else:
-            def_way = '防禦'
+            def_way = random.choice(def0)
             rounad_DEF = random.randint(1,DEF)
             def_value = random.randint(rounad_DEF,DEF)
         
