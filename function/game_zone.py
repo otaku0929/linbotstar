@@ -299,22 +299,49 @@ class game_zone(object):
         
         
         WIZ = random.choice(['光','闇','金','木','水','火','土','雷','冰','風','聖','邪','日','月','星','毒','魂','萌','混','魅'])
+        
+        ##STR 力量 VIT 體值 INT 智力 AGI 敏捷 DEX 命中 LUK 幸運值
+        STR = random.randint(1,1000)
+        VIT = random.randint(1,1000)
+        INT = random.randint(1,1000)
+        AGI = random.randint(1,1000)
+        DEX = random.randint(1,1000)
+        LUK = random.randint(1,1000)
+        _LUK_RATE = int(LUK/100)
+        #print('STR:%s'%STR, 'DEX:%s'%DEX, 'LUK:%s'%LUK, 'LUK_RATE:%s'%_LUK_RATE)
+        #print('VIT:%s'%VIT, 'AGI:%s'%AGI, 'LUK:%s'%LUK, 'LUK_RATE:%s'%_LUK_RATE)
+    
+        #hp_all = random.randint(1000,10000)
+        hp = random.randint(VIT*_LUK_RATE,10000)
+        #mp_all = random.randint(1000,10000)
+        mp = random.randint(INT*_LUK_RATE,10000)
 
-        hp_all = random.randint(1000,10000)
-        hp = random.randint(0,hp_all)
-        mp_all = random.randint(1000,10000)
-        mp = random.randint(0,mp_all)
-        lucky = random.randint(1,1000)
-        ATK = int(random.randint(1,hp)*(lucky/100))
-        if ATK==0:
-            ATK=1
-        DEF = int(random.randint(1,mp)*(lucky/100))
-        if DEF==0:
-            DEF=1
-        today_value = int((hp+mp+lucky)/1000)
+        #基礎ATK, DEF計算
+        if LUK == 1:
+            _ATK_RATE=1
+            _DEF_RATE=1
+        else:
+            _ATK_RATE = (STR+DEX)*(1+_LUK_RATE)
+            _DEF_RATE = (VIT+AGI)*(1+_LUK_RATE)
+            
+        #print('_ATK_RATE',_ATK_RATE, '_DEF_RATE',_DEF_RATE )
+        
+        #ATK, DEF計算
+        RATE_POINT = 1000
+        _STR_RATE= 1+random.randint(1,STR)/RATE_POINT
+        #print('_STR_RATE',_STR_RATE)
+        _DEX_RATE = 1+random.randint(1,DEX)/RATE_POINT
+        #print('_DEX_RATE',_DEX_RATE)
+        _VIT_RATE= 1+random.randint(1,VIT)/RATE_POINT
+        _AGI_RATE= 1+random.randint(1,AGI)/RATE_POINT
+        
+        ATK = int(_ATK_RATE*_STR_RATE*_DEX_RATE)
+        DEF = int(_DEF_RATE*_VIT_RATE*_AGI_RATE)        
+             
+        today_value = int((hp+mp+LUK)/1000)
         today=self.get_star(today_value)
         keywords = _star_talk.profile(user_name)
-        content = [user_name,hp,mp,lucky,today,keywords,WIZ,ATK,DEF,today_value]
+        content = [user_name,hp,mp,LUK,today,keywords,WIZ,ATK,DEF,today_value]
         return content
             
     def get_star(self,mum):
@@ -398,24 +425,24 @@ class card_fight(object):
     
     def WizATK(self,A_WIZ, B_WIZ):
         
-        dict = {'混':{'聖':0.2,'光':0.2,'萌':0.2},
-                '聖':{'邪':0.5,'毒':0.2,'萌':-0.5},
-                '邪':{'萌':-0.5},
-                '闇':{'聖':0.2,'萌':-0.5},
-                '光':{'闇':0.5,'萌':-0.5},
-                '金':{'木':0.5,'萌':-0.5},
-                '木':{'土':0.5,'萌':-0.5},
-                '水':{'火':0.5,'萌':0.5},
-                '火':{'金':0.5,'冰':0.2,'萌':-0.5},
-                '土':{'水':0.5,'風':0.2,'萌':-0.5},
-                '雷':{'魅':0.8,'萌':-0.5},
-                '冰':{'魅':0.8,'萌':-0.5},
-                '風':{'魅':0.8,'萌':0.5},
-                '日':{'萌':-0.5},
-                '月':{'萌':-0.5},
-                '星':{'萌':-0.5},
-                '毒':{'魅':0.8,'萌':-0.5},
-                '魂':{'魅':0.8,'萌':-0.5},
+        dict = {'混':{'聖':0.2,'光':0.2,'萌':0.5},
+                '聖':{'邪':0.5,'毒':0.2,'萌':-2},
+                '邪':{'萌':-2},
+                '闇':{'聖':0.2,'萌':-2},
+                '光':{'闇':0.5,'萌':-2},
+                '金':{'木':0.5,'萌':-2},
+                '木':{'土':0.5,'萌':-2},
+                '水':{'火':0.5,'萌':2},
+                '火':{'金':0.5,'冰':0.2,'萌':-2},
+                '土':{'水':0.5,'風':0.2,'萌':-2},
+                '雷':{'魅':0.8,'萌':-2},
+                '冰':{'魅':0.8,'萌':-2},
+                '風':{'魅':0.8,'萌':2},
+                '日':{'萌':-2},
+                '月':{'萌':-2},
+                '星':{'萌':-2},
+                '毒':{'魅':0.8,'萌':-2},
+                '魂':{'魅':0.8,'萌':-2},
                 '魅':{'萌':0.2},
                 '萌':{}
         }
