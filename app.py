@@ -634,10 +634,13 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
     if re.match('^(對戰|攻擊)= ?@?(.+)',event.message.text):
+        pk_user = re.match('^(對戰|攻擊)= ?@?(.+)',event.message.text).group(2).strip()
         profile = _lineapi.get_user_name(Channel_Access_Token,event)
         user_name = profile['displayName']
-        pk_user = re.match('^(對戰|攻擊)= ?@?(.+)',event.message.text).group(2).strip()
-        content = _games.card_pk(uid,user_name,pk_user)
+        if re.match(' ?@?小星星',pk_user):
+            content = '小星星 使出 一閃一閃亮晶晶 攻擊 %s 造成99999999999的傷害 贏了這場比賽'%user_name
+        else:       
+            content = _games.card_pk(uid,user_name,pk_user)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
         
