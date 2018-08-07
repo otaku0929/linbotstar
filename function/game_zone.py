@@ -169,6 +169,17 @@ class game_zone(object):
             #判定誰攻誰防, 以幸運值亂數高者為攻
             A_ATK_KEY=random.randint(0,100)+int(random.randint(0,A['lucky'])/10)
             B_ATK_KEY=random.randint(0,100)+int(random.randint(0,B['lucky'])/10)
+       
+            if len(A['user_name'])>8:              
+                A_Name = '%s..'%(A['user_name'][0:7])
+            else:
+                A_Name = A['user_name']
+            
+            if len(B['user_name'])>8:
+                B_Name = '%s..'%(B['user_name'][0:7])
+            else:
+                B_Name = B['user_name']
+                
             #print('回合:%s'%atk_round,A_ATK_KEY,B_ATK_KEY)
             if A_ATK_KEY>B_ATK_KEY:
                 #print('A')
@@ -178,7 +189,7 @@ class game_zone(object):
                 if ATK_value <=0:
                     ATK_value = 0
                 new_HP = B['hp'] - ATK_value
-                ATK_content = '%s 使用 %s (%s) 造成 %s %s 傷害 (%s 防禦 %s)'%(A['user_name'],A_ATK[2],A_ATK[1],B['user_name'],ATK_value,B_DEF[2],B_DEF[1])
+                ATK_content = '%s 使用 %s (%s) 造成 %s %s 傷害 (%s 防禦 %s)'%(A_Name,A_ATK[2],A_ATK[1],B_Name,ATK_value,B_DEF[2],B_DEF[1])
                 Status_content = '%s HP %s => %s'%(B['user_name'],B['hp'],new_HP)
                 ATK_Status = '%s\n___%s'%(ATK_content,Status_content)
                 #print(ATK_Status)
@@ -204,7 +215,7 @@ class game_zone(object):
                 if ATK_value <=0:
                     ATK_value = 0
                 new_HP = A['hp'] - ATK_value
-                ATK_content = '%s 使用 %s (%s) 造成 %s %s 傷害 (%s 防禦 %s)'%(B['user_name'],B_ATK[2],B_ATK[1],A['user_name'],ATK_value,A_DEF[2],A_DEF[1])
+                ATK_content = '%s 使用 %s (%s) 造成 %s %s 傷害 (%s 防禦 %s)'%(B_Name,B_ATK[2],B_ATK[1],A_Name,ATK_value,A_DEF[2],A_DEF[1])
                 Status_content = '%s HP %s => %s'%(A['user_name'],A['hp'],new_HP)
                 ATK_Status = '%s\n>>>%s'%(ATK_content,Status_content)
                 #print(ATK_Status)
