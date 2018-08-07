@@ -178,9 +178,9 @@ class game_zone(object):
                 if ATK_value <=0:
                     ATK_value = 0
                 new_HP = B['hp'] - ATK_value
-                ATK_content = '%s 使用 %s (%s) 造成 %s %s 傷害(%s%s)'%(A['user_name'],A_ATK[2],A_ATK[1],B['user_name'],ATK_value,B_DEF[2],B_DEF[1])
+                ATK_content = '%s 使用 %s (%s) 造成 %s %s 傷害 (%s 防禦 %s)'%(A['user_name'],A_ATK[2],A_ATK[1],B['user_name'],ATK_value,B_DEF[2],B_DEF[1])
                 Status_content = '%s HP %s => %s'%(B['user_name'],B['hp'],new_HP)
-                ATK_Status = '%s\n>>>%s'%(ATK_content,Status_content)
+                ATK_Status = '%s\n___%s'%(ATK_content,Status_content)
                 #print(ATK_Status)
                 if atk_list['fight_status'] == {}:
                     atk_list['fight_status'] = ATK_Status
@@ -204,7 +204,7 @@ class game_zone(object):
                 if ATK_value <=0:
                     ATK_value = 0
                 new_HP = A['hp'] - ATK_value
-                ATK_content = '%s 使用 %s (%s) 造成 %s %s 傷害(%s%s)'%(B['user_name'],B_ATK[2],B_ATK[1],A['user_name'],ATK_value,A_DEF[2],A_DEF[1])
+                ATK_content = '%s 使用 %s (%s) 造成 %s %s 傷害 (%s 防禦 %s)'%(B['user_name'],B_ATK[2],B_ATK[1],A['user_name'],ATK_value,A_DEF[2],A_DEF[1])
                 Status_content = '%s HP %s => %s'%(A['user_name'],A['hp'],new_HP)
                 ATK_Status = '%s\n>>>%s'%(ATK_content,Status_content)
                 #print(ATK_Status)
@@ -307,22 +307,23 @@ class game_zone(object):
         AGI = random.randint(1,1000)
         DEX = random.randint(1,1000)
         LUK = random.randint(1,1000)
-        _LUK_RATE = int(LUK/100)
+        
+        #_LUK_RATE = int(LUK/100)
         #print('STR:%s'%STR, 'DEX:%s'%DEX, 'LUK:%s'%LUK, 'LUK_RATE:%s'%_LUK_RATE)
         #print('VIT:%s'%VIT, 'AGI:%s'%AGI, 'LUK:%s'%LUK, 'LUK_RATE:%s'%_LUK_RATE)
     
         #hp_all = random.randint(1000,10000)
-        hp = random.randint(VIT*_LUK_RATE,10000)
+        hp = random.randint(VIT*random.randint(1,10),10000)
         #mp_all = random.randint(1000,10000)
-        mp = random.randint(INT*_LUK_RATE,10000)
+        mp = random.randint(INT*random.randint(1,10),10000)
 
         #基礎ATK, DEF計算
         if LUK == 1:
             _ATK_RATE=1
             _DEF_RATE=1
         else:
-            _ATK_RATE = (STR+DEX)*(1+_LUK_RATE)
-            _DEF_RATE = (VIT+AGI)*(1+_LUK_RATE)
+            _ATK_RATE = (STR+DEX)*(random.randint(1,10))
+            _DEF_RATE = (VIT+AGI)*(random.randint(1,10))
             
         #print('_ATK_RATE',_ATK_RATE, '_DEF_RATE',_DEF_RATE )
         
@@ -359,12 +360,12 @@ class card_fight(object):
 
     def getATK(self,atk, lucky, wiz_value):
         
-        atk0 = ['失手','滑倒了','忘了攻擊','zzzzz','被沉默了','吐口水','傻笑']
-        atk1 = ['普通攻擊','拿棒棒糖攻擊','丟石頭','戳一下','丟樸克牌']
-        atk2 = ['強力攻擊','破壞拳','迴旋踢','關門放狗']
-        atk3 = ['屬性攻擊','龜派氣功','超級飛踢']
-        atk4 = ['致命一擊','必殺一擊','元氣彈','跪鍵盤密術']
-        atk9 = ['讓對手拉肚子攻擊','放屁臭死了對手','召喚了神龍，進行攻擊','卸妝攻擊','唱歌攻擊']
+        atk0 = ['失手','滑倒了','忘了攻擊','zzzzz','被沉默了','吐口水','傻笑','哇哈哈哈哈']
+        atk1 = ['普通攻擊','拿棒棒糖攻擊','丟石頭','戳一下','丟樸克牌','丟RAM攻擊']
+        atk2 = ['強力攻擊','破壞拳','迴旋踢','關門放狗','伸長吧~~拳頭','奧客精神','RAP碎碎唸']
+        atk3 = ['屬性攻擊','龜派氣功','超級飛踢','三刀流~鬼斬','三寶上路']
+        atk4 = ['致命一擊','必殺一擊','元氣彈','跪鍵盤密術','三檔','九九重陽功','唱歌攻擊']
+        atk9 = ['讓對手拉肚子攻擊','放屁臭死了對手','召喚了神龍，進行攻擊','卸妝攻擊']
         
         atk_key = random.randint(0,100)
         
@@ -396,9 +397,11 @@ class card_fight(object):
     
     def getDEF(self,DEF, lucky):
         
-        def0 = ['防禦','扮鬼臉','盾牌防禦','太極一式','講笑話']
-        def1 = ['硬氣功','分身防禦','閃避','丟香蕉讓對方滑倒','拿CRT螢幕擋住']
-        def2 = ['超級防禦','盾牆','冰牆','催眠術','變張3讓對方傻住']
+        def0 = ['扮鬼臉嚇人','盾檔','太極一式','講笑話','岩壁','灑豆子趕人','格檔','招架','我是香菇']
+        def1 = ['硬氣功','分身防禦','閃避','丟香蕉讓對方滑倒','拿CRT螢幕擋住','用滑鼠綁住敵人','呼叫館長',
+                '丟枕頭給敵人','你有freestyle嗎','閃現','拿美食餵養'
+                ]
+        def2 = ['超級防禦','盾牆','冰牆','催眠術','變張3讓對方傻住','混元一氣功','拿鏡子給敵人']
         def9 = ['我閃我閃我閃閃閃','你看不到我','你打不到我','究極防禦','聖盾術']
         
         if int(lucky/10) == 0:
