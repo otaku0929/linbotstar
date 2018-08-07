@@ -188,9 +188,9 @@ class game_zone(object):
                 ATK_value= A_ATK[1]-B_DEF[1]
                 if ATK_value <=0:
                     ATK_value = 0
-                new_HP = B['hp'] - ATK_value
+                new_HP = charB_HP - ATK_value
                 ATK_content = '%s 使用 %s (%s) 造成 %s %s 傷害 (%s 防禦 %s)'%(A_Name,A_ATK[2],A_ATK[1],B_Name,ATK_value,B_DEF[2],B_DEF[1])
-                Status_content = '%s HP %s => %s'%(B['user_name'],B['hp'],new_HP)
+                Status_content = '%s HP %s => %s'%(B['user_name'],charB_HP,new_HP)
                 ATK_Status = '%s\n___%s'%(ATK_content,Status_content)
                 #print(ATK_Status)
                 if atk_list['fight_status'] == {}:
@@ -214,9 +214,9 @@ class game_zone(object):
                 ATK_value= B_ATK[1]-A_DEF[1]
                 if ATK_value <=0:
                     ATK_value = 0
-                new_HP = A['hp'] - ATK_value
+                new_HP = charA_HP - ATK_value
                 ATK_content = '%s 使用 %s (%s) 造成 %s %s 傷害 (%s 防禦 %s)'%(B_Name,B_ATK[2],B_ATK[1],A_Name,ATK_value,A_DEF[2],A_DEF[1])
-                Status_content = '%s HP %s => %s'%(A['user_name'],A['hp'],new_HP)
+                Status_content = '%s HP %s => %s'%(A['user_name'],charA_HP,new_HP)
                 ATK_Status = '%s\n>>>%s'%(ATK_content,Status_content)
                 #print(ATK_Status)
                 if atk_list['fight_status'] == {}:
