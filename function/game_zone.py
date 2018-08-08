@@ -204,7 +204,7 @@ class game_zone(object):
                     atk_list['atk_fin'] = '%s 戰勝了 %s'%(A['user_name'],B['user_name'])
                     break
                 atk_round = atk_round+1
-                if atk_round >18:
+                if atk_round >16:
                     atk_list['atk_winner'] = '平手'
                     atk_list['atk_fin'] = '打累了~ %s %s 吃飯去啦'%(A['user_name'],B['user_name'])
                     break
@@ -231,13 +231,24 @@ class game_zone(object):
                     atk_list['atk_fin'] = '%s 戰勝了 %s'%(B['user_name'],A['user_name'])
                     break
                 atk_round = atk_round+1
-                if atk_round >18:
+                if atk_round >16:
                     atk_list['atk_winner'] = '平手'
-                    atk_list['atk_fin'] = '打累了~ %s %s 吃飯去啦'%(A['user_name'],B['user_name'])
+                    atk_list['atk_fin'] = self.get_peace(A['user_name'],B['user_name'])
                     break
                 
         return ('----------\n%s\n%s\n----------\n\n%s\n\n戰鬥紀錄**********\n%s'%(profile_A,profile_B,atk_list['atk_fin'],atk_list['fight_status']))
+    
+    def get_peace(self,a_name, b_name):
         
+        peace = [
+                '打累了~ %s %s 吃飯去啦'%(a_name, b_name),
+                '不打了不打了，%s走喝一杯去'%b_name,
+                '%s %s 打累~蹲下來休息了~'%(a_name, b_name),
+                '%s：突然想到~我還有事要忙，%s 等我回來再打'%(a_name, b_name),
+                '%s：%s這次就饒了你~下次見到我一定打死你'%(a_name, b_name)
+                ]
+        
+        return random.choice(peace)
                 
     def user_profile(self,uid,user_name,pictureUrl):
         
