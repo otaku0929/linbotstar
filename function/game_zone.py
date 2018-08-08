@@ -204,7 +204,7 @@ class game_zone(object):
                     atk_list['atk_fin'] = '%s 戰勝了 %s'%(A['user_name'],B['user_name'])
                     break
                 atk_round = atk_round+1
-                if atk_round >20:
+                if atk_round >18:
                     atk_list['atk_winner'] = '平手'
                     atk_list['atk_fin'] = '打累了~ %s %s 吃飯去啦'%(A['user_name'],B['user_name'])
                     break
@@ -231,7 +231,7 @@ class game_zone(object):
                     atk_list['atk_fin'] = '%s 戰勝了 %s'%(B['user_name'],A['user_name'])
                     break
                 atk_round = atk_round+1
-                if atk_round >20:
+                if atk_round >18:
                     atk_list['atk_winner'] = '平手'
                     atk_list['atk_fin'] = '打累了~ %s %s 吃飯去啦'%(A['user_name'],B['user_name'])
                     break
@@ -402,10 +402,10 @@ class card_fight(object):
             elif atk_key >=3 and atk_key < 51:
                 atk_way = random.choice(atk1)
                 rounad_ATK = random.randint(1,atk)
-                atk_value = random.randint(rounad_ATK,atk)
+                atk_value = random.randint(rounad_ATK,atk)*1.5
             elif atk_key >=51 and atk_key <81:
                 atk_way = random.choice(atk2)
-                atk_value = int(random.randint(int(atk*0.4),atk)*3+wiz_value)
+                atk_value = int(random.randint(int(atk*0.4),atk)*(3+wiz_value))
             elif atk_key >=81 and atk_key <96:
                 atk_way = random.choice(atk3)
                 atk_value = int(random.randint(int(atk*0.6),atk)*(4+wiz_value))
@@ -447,10 +447,10 @@ class card_fight(object):
         
         if def_key >= 50 and def_key<81:
             def_way = random.choice(def1)
-            def_value = random.randint(int(DEF*0.3),DEF)*2       
+            def_value = random.randint(int(DEF*0.3),DEF)*1.5       
         elif def_key >= 81 and def_key<95:
             def_way = random.choice(def2)
-            def_value = random.randint(int(DEF*0.6),DEF)*4
+            def_value = random.randint(int(DEF*0.6),DEF)*2.5
         elif def_key >= 95:
             def_way = random.choice(def9)
             def_value = random.randint(int(DEF*0.9),DEF)*5*def_key
