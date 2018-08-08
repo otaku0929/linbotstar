@@ -413,7 +413,7 @@ class card_fight(object):
             elif atk_key >=3 and atk_key < 51:
                 atk_way = random.choice(atk1)
                 rounad_ATK = random.randint(1,atk)
-                atk_value = random.randint(rounad_ATK,atk)*1.5
+                atk_value = int(random.randint(rounad_ATK,atk)*1.5)
             elif atk_key >=51 and atk_key <81:
                 atk_way = random.choice(atk2)
                 atk_value = int(random.randint(int(atk*0.4),atk)*(3+wiz_value))
@@ -459,13 +459,13 @@ class card_fight(object):
         
         if def_key >= 50 and def_key<81:
             def_way = random.choice(def1)
-            def_value = random.randint(int(DEF*0.3),DEF)*1.5       
+            def_value = int(random.randint(int(DEF*0.3),DEF)*1.5)       
         elif def_key >= 81 and def_key<95:
             def_way = random.choice(def2)
-            def_value = random.randint(int(DEF*0.6),DEF)*2.5
+            def_value = int(random.randint(int(DEF*0.6),DEF)*2.5)
         elif def_key >= 95:
             def_way = random.choice(def9)
-            def_value = random.randint(int(DEF*0.9),DEF)*5*def_key
+            def_value = int(random.randint(int(DEF*0.9),DEF)*5*def_key)
         else:
             def_way = random.choice(def0)
             rounad_DEF = random.randint(1,DEF)
