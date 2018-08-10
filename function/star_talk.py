@@ -20,8 +20,6 @@ class start_talk(object):
     def star_talk(self, messages_talk, user_name=None):
         if re.match("^幹|fuck|操",messages_talk):
              return self.talk_dict('fuck',user_name)
-        if re.search("幹|fuck|操$",messages_talk):
-             return self.talk_dict('fuck',user_name)
         if re.search('(操|幹|fuck)[你|他](娘|媽|老師|you)',messages_talk):
             return self.talk_dict('fuck',user_name)
         if re.search("^三小",messages_talk):
@@ -902,6 +900,7 @@ class start_talk(object):
                      '你是唯一個說我還不夠好的人，但我永遠都不會承認',
                      '這世上只有兩種人，騙人的和被騙的',
                      '真相是一種美麗又可怕的東西，需要格外謹慎地對待',
+                     '左手是石頭、右手是布，剪刀~石頭~布~~~~~',
                      '燃燒吧!!!我的小宇宙~~~~~奧義!!!天馬流星拳 =======O)',
                      ]}
         
