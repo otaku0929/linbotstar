@@ -623,6 +623,12 @@ def handle_message(event):
             )        
             line_bot_api.reply_message(event.reply_token,image_message)
         return 0 
+    if re.match('^領取小星星代幣',event.message.text):
+        profile = _lineapi.get_user_name(Channel_Access_Token,event)
+        user_name = profile['displayName']
+        content = _games.get_starcoin(uid,user_name)
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        return 0
     if re.match('^查今[日天](屬性|卡牌)',event.message.text):
         profile = _lineapi.get_user_name(Channel_Access_Token,event)
         user_name = profile['displayName']
