@@ -132,7 +132,7 @@ class game_zone(object):
             if config_json['profile']['profile_time'] == time: 
                 if 'equipment' in config_json['profile']:
                     A = config_json['profile']  
-                    profile1 = '力量(STR):%s\n智力(INT):%s\n敏捷(AGI):%s\n命中(DEX):%s\n體值(VIT):%s\n幸運(LUK):%s'\
+                    profile1 = '力量(STR):%s  智力(INT):%s\n敏捷(AGI):%s 命中(DEX):%s\n體值(VIT):%s 幸運(LUK):%s'\
                     %(A['STR'],A['INT'],A['VIT'],A['AGI'],A['DEX'],A['lucky'])
                     profile2 = '生命值(HP):%s\n魔法力(MP):%s\n攻擊力(ATK):%s\n防禦力(DEF):%s'\
                     %(A['hp'],A['mp'],A['ATK'],A['DEF'])
@@ -143,7 +143,7 @@ class game_zone(object):
                     return content
                 else:
                     A = config_json['profile']  
-                    profile1 = '力量(STR):%s\n智力(INT):%s\n敏捷(AGI):%s\n命中(DEX):%s\n體值(VIT):%s\n幸運(LUK):%s'\
+                    profile1 = '力量(STR):%s 智力(INT):%s\n敏捷(AGI):%s 命中(DEX):%s\n體值(VIT):%s 幸運(LUK):%s'\
                     %('_','_','_','_','_',A['lucky'])
                     profile2 = '生命值(HP):%s\n魔法力(MP):%s\n攻擊力(ATK):%s\n防禦力(DEF):%s'\
                     %(A['hp'],A['mp'],A['ATK'],A['DEF'])
