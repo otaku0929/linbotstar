@@ -361,7 +361,7 @@ class game_zone(object):
                     p['DEX']=message[14]
                     p['starcoin_time']=0
                     
-                     config = json.dumps(config_json)
+                    config = json.dumps(config_json)
                     _sql.update_config(uid,user_name,config) 
                     
                     content = _photos.user_daily_photo(uid,message,pictureUrl)
