@@ -27,18 +27,18 @@ def main():
     _game = game_zone()
 
     
-    content = _game.user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','http://dl.profile.line-cdn.net/0hLkoyPlmqE0RSAD5u3DZsE25FHSklLhUMKmILJiUCRHQrZVRGPWZfJnJTTHJ5ZQESaWNUJn5VTics')
+    #content = _game.user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','http://dl.profile.line-cdn.net/0hLkoyPlmqE0RSAD5u3DZsE25FHSklLhUMKmILJiUCRHQrZVRGPWZfJnJTTHJ5ZQESaWNUJn5VTics')
     #content = _game.get_user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
     #content = _game.get_starcoin('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
     #content = _game.card_pk('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','Andersen')
     #content = _game.get_atk_userlist()
-#    messages = '攻擊=@陳小馬（EK)'
-#    if re.match('^(對戰|攻擊)= ?@?(.+)',messages):
-#        uid = 'U9f2c61013256dfe556d70192388e4c7c'
-#        pkid = re.match('^(對戰|攻擊)= ?@?(.+)',messages).group(2).strip()
-#        #print(pkid)
-#        content = _game.card_pk(uid,'藍宇星冷男星',pkid)
-#        #print (content)
+    messages = '攻擊=@陳小馬（EK)'
+    if re.match('^(對戰|攻擊)= ?@?(.+)',messages):
+        uid = 'U9f2c61013256dfe556d70192388e4c7c'
+        pkid = re.match('^(對戰|攻擊)= ?@?(.+)',messages).group(2).strip()
+        #print(pkid)
+        content = _game.card_pk(uid,'藍宇星冷男星',pkid)
+        #print (content)
     print(content)
 
     
@@ -197,7 +197,7 @@ class game_zone(object):
         else:
             pk_id = str(config)[3:len(config)-5]
 
-        sql_command = "select user_id from user_config where update='%s' and user_name='%s'"%(self.time(),user_name)
+        sql_command = "select user_id from user_config where update='%s' and user_id='%s'"%(self.time(),uid)
         config = _sql.select(sql_command)
         if config == []:
             return '%s 沒有對戰卡片哦'%user_name
@@ -242,6 +242,7 @@ class game_zone(object):
                 #print('A')
                 A_ATK = _card_game.getATK(A['ATK'],A['lucky'],A_Wiz_value)
                 B_DEF = _card_game.getDEF(B['DEF'],B['lucky'])
+                mp_atk = 0
                 if charA_MP >=0:
                     mp_time = random.randint(1,100)
                     if mp_time >= 85:
@@ -274,6 +275,7 @@ class game_zone(object):
             else:
                 B_ATK = _card_game.getATK(B['ATK'],B['lucky'],B_Wiz_value)
                 A_DEF = _card_game.getDEF(A['DEF'],A['lucky'])
+                mp_atk = 0
                 if charB_MP >=0:
                     mp_time = random.randint(1,100)
                     if mp_time >= 85:
@@ -460,7 +462,7 @@ class game_zone(object):
         arr = ['☆','★','★☆','★☆','★★','★★☆','★★★','★★★☆','★★★★','★★★★☆','★★★★★']
         
         return arr[(val % 11)]
-    
+      
 
 class card_fight(object):
     
@@ -636,6 +638,19 @@ class card_fight(object):
             return(1+Wiz_ATK,1-Wiz_ATK)
         else:
             return ([1,1])
+        
+    def lucky_time(self,uid,user_name):
+        
+        config = _sql.select_config(uid)
+        if config == []:
+            _config.create_config(uid,user_name)
+            return '尚未建立人物卡片及領取代幣'
+        
+        config = _sql.select_config(uid)
+        config_json = json.loads(config[0][2])
+        
+        profile = config_json['profile']        
+        
 
 
 if __name__ == '__main__':
