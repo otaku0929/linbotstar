@@ -28,16 +28,16 @@ def main():
 
     
     #content = _game.get_user_profile('Ud0414e339e9c242b19a2dd22dd1f6189','藍宇星冷男星','http://dl.profile.line-cdn.net/0hLkoyPlmqE0RSAD5u3DZsE25FHSklLhUMKmILJiUCRHQrZVRGPWZfJnJTTHJ5ZQESaWNUJn5VTics')
-    #content = _game.get_user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
+    content = _game.get_user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
     #content = _game.card_pk('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','Andersen')
     #content = _game.get_atk_userlist()
-    messages = '攻擊=@陳小馬（EK)'
-    if re.match('^(對戰|攻擊)= ?@?(.+)',messages):
-        uid = 'U9f2c61013256dfe556d70192388e4c7c'
-        pkid = re.match('^(對戰|攻擊)= ?@?(.+)',messages).group(2).strip()
-        #print(pkid)
-        content = _game.card_pk(uid,'藍宇星冷男星',pkid)
-        #print (content)
+#    messages = '攻擊=@陳小馬（EK)'
+#    if re.match('^(對戰|攻擊)= ?@?(.+)',messages):
+#        uid = 'U9f2c61013256dfe556d70192388e4c7c'
+#        pkid = re.match('^(對戰|攻擊)= ?@?(.+)',messages).group(2).strip()
+#        #print(pkid)
+#        content = _game.card_pk(uid,'藍宇星冷男星',pkid)
+#        #print (content)
     print(content)
 
     
@@ -45,6 +45,7 @@ class game_zone(object):
     
     def __init__(self):
         self.class_name = 'game_zone'
+        self.sline = '------------'
 
     def time(self):
         return str(datetime.datetime.now(pytz.timezone('Asia/Taipei')))[0:10]
@@ -119,7 +120,7 @@ class game_zone(object):
     def get_user_profile(self,uid,user_name):
         
         time = str(datetime.datetime.now(pytz.timezone('Asia/Taipei')))[0:10]
-        
+       
         config = _sql.select_config(uid)
         if config == []:
             _config.create_config(uid,user_name)
@@ -128,10 +129,32 @@ class game_zone(object):
         config_json = json.loads(config[0][2])
         
         if 'profile_time' in config_json['profile']:
-            if config_json['profile']['profile_time'] == time:
-                A = config_json['profile']
-                content = '%s\n屬性:%s\n生命值(hp):%s\n魔法力(mp):%s\n攻擊力(atk):%s\n防禦力(def):%s \n幸運值(lucky):%s\n每日運勢:%s\n-----------\n%s'%(A['user_name'],A['WIZ'],A['hp'],A['mp'],A['ATK'],A['DEF'],A['lucky'],A['today'],A['keywords'])
-                return content        
+            if config_json['profile']['profile_time'] == time: 
+                if 'equipment' in config_json['profile']:
+                    A = config_json['profile']  
+                    profile1 = '力量(STR):%s  智力(INT):%s\n敏捷(AGI):%s  命中(DEX):%s\n體值(VIT):%s  幸運(LUK):%s'\
+                    %(A['STR'],A['INT'],A['VIT'],A['AGI'],A['DEX'],A['lucky'])
+                    profile2 = '生命值(HP):%s\n魔法力(MP):%s\n攻擊力(ATK):%s\n防禦力(DEF):%s'\
+                    %(A['hp'],A['mp'],A['ATK'],A['DEF'])
+                    equipment_content = '武器:%s\n防具:%s\n道具欄:%s\n道具欄:%s'\
+                    %(A['equipment']['arms'],A['equipment']['armor'],A['equipment']['item1'],A['equipment']['item2'])
+                    content = '%s\n屬性:%s\n每日運勢:%s\n%s\n%s\n\n%s\n\n%s\n%s\n%s'\
+                    %(A['user_name'],A['WIZ'],A['today'],self.sline,profile1,profile2,equipment_content,self.sline,A['keywords'])
+                    return content
+                else:
+                    A = config_json['profile']  
+                    profile1 = '力量(STR):%s  智力(INT):%s\n敏捷(AGI):%s  命中(DEX):%s\n體值(VIT):%s  幸運(LUK):%s'\
+                    %('_','_','_','_','_',A['lucky'])
+                    profile2 = '生命值(HP):%s\n魔法力(MP):%s\n攻擊力(ATK):%s\n防禦力(DEF):%s'\
+                    %(A['hp'],A['mp'],A['ATK'],A['DEF'])
+                    equipment_content = '武器:%s\n防具:%s\n道具欄:%s\n道具欄:%s'\
+                    %('_','_','_','_')
+                    content = '%s\n屬性:%s\n每日運勢:%s\n%s\n%s\n\n%s\n\n%s\n%s\n%s'\
+                    %(A['user_name'],A['WIZ'],A['today'],self.sline,profile1,profile2,equipment_content,self.sline,A['keywords'])
+                    return content                  
+            else:
+                content = {'link':'%s 今天還沒有產生卡片哦，可以輸入 "今日卡片" 來產生哦!'%user_name}
+                return content                
         else:
             content = {'link':'%s 今天還沒有產生卡片哦，可以輸入 "今日卡片" 來產生哦!'%user_name}
             return content
@@ -287,7 +310,19 @@ class game_zone(object):
                      'WIZ':message[6],
                      'ATK':message[7],
                      'DEF':message[8],
-                     'today_value':message[9]
+                     'today_value':message[9],
+                     'STR':message[10],
+                     'VIT':message[11],
+                     'INT':message[12],
+                     'AGI':message[13],
+                     'DEX':message[14],
+                    'equipment':
+                        {
+                        'arms':'',
+                        'armor':'',
+                        'item1':'',
+                        'item2':''
+                        }
                      }
                 }
                 config_json['profile'] = new_json['profile']
@@ -312,7 +347,19 @@ class game_zone(object):
                  'WIZ':message[6],
                  'ATK':message[7],
                  'DEF':message[8],
-                 'today_value':message[9]
+                 'today_value':message[9],
+                 'STR':message[10],
+                 'VIT':message[11],
+                 'INT':message[12],
+                 'AGI':message[13],
+                 'DEX':message[14],
+                'equipment':
+                    {
+                    'arms':'',
+                    'armor':'',
+                    'item1':'',
+                    'item2':''
+                    }
                  }
             }
             config_json['profile'] = new_json['profile']
@@ -370,7 +417,7 @@ class game_zone(object):
         today_value = int((hp+mp+LUK)/1000)
         today=self.get_star(today_value)
         keywords = _star_talk.profile(user_name)
-        content = [user_name,hp,mp,LUK,today,keywords,WIZ,ATK,DEF,today_value]
+        content = [user_name,hp,mp,LUK,today,keywords,WIZ,ATK,DEF,today_value,STR,VIT,INT,AGI,DEX]
         return content
             
     def get_star(self,mum):
@@ -402,7 +449,7 @@ class card_fight(object):
                 '珍珠奶茶不要奶','先王御賜尚方寶劍','來一罐丫比吧','餵食含笑半步顛','深夜的貓叫春','喵喵肉球拳','野球拳',
                 '新鮮的毒蘋果','畫了地圖的棉被','吃不完的羊乳片','三叔~~~~~叔叔叔叔叔','餵綺夢吃龍蝦','送你一枝番丫火',
                 '提摩必需死','草叢倫的旋風斬','天下掉下來的烏屎','射出紙飛機','龍抓手','抽血500CC','沒有糖漿的可樂機',
-                '閉店前進來的客人','捷運車廂裡的老鼠'
+                '閉店前進來的客人','捷運車廂裡的老鼠','流星蝴蝶劍','點燃的水鴛鴦','剝皮辣椒','丟芭樂，是真的芭樂'
                 ]
         atk2 = ['強力攻擊','破壞拳','迴旋踢','關門放狗','伸長吧~~拳頭','奧客精神','RAP碎碎唸','恐龍攻擊',
                 '百裂拳','天帝之眼','紅蓮爆炎刃','丟大便','天翔龍閃','唸經','竹筍炒肉絲','宅男的右手','氣圓斬',
@@ -412,16 +459,16 @@ class card_fight(object):
                 '夜來巴掌聲','烈炎紅唇','無敵風火輪','拂拂拂拂拂拂…機','無敵整蠱箱','把你變個大字','少林十八銅人','千年殺',
                 'LV100初心者的普攻','恨天高飛踢','烏索布的長鼻子','丟出壞掉的解碼器','純情少男的玫瑰花','高梁酒豬肉香腸',
                 '小李飛刀他爸','雙持的烤玉米','屁股向後平沙落雁式','香腸攤的金骰子','金貝貝的奶瓶','妹妹背的洋娃娃',
-                '喂~博愛座讓讓','黑暗料理','保夾的超強抓力']
-        atk3 = ['龜派氣功波','超級飛踢','三刀流~鬼斬','三寶上路','卍解','霸王龍之吻','昇龍拳','剪刀腳',
+                '喂~博愛座讓讓','黑暗料理','保夾的超強抓力','發出好人卡']
+        atk3 = ['龜派氣功波','超級飛踢','三刀流~鬼斬','三寶上路','卍解','霸王龍之吻','昇龍拳','奪命剪刀腳',
                 '人妖拳法','召喚苦力帕','飛天蟑螂','超級凍結冰箭','火龍的碎牙','天輪‧循環之劍','色誘術-女女術',
                 '猴子偷桃','超濃古龍水','整形前的照片','佛山無影腳','亂開E-MAIL','驗孕棒的二條線','起床氣',
                 '改不完的設計稿','胖虎演唱會門票','壓歲錢我幫你保管','聽司馬中原談中元','查水錶','三輪車上的老太太',
-                '超重行李箱','旺才的最後一口氣']
+                '超重行李箱','旺才的最後一口氣','姦夫淫婦劍','郎情妾意劍','TAMAMA嘴砲','推倒快完成的骨牌']
         atk4 = ['致命一擊','必殺一擊','元氣彈','跪鍵盤密術','三檔 骨氣球','九九重陽功','唱歌攻擊','召喚殺很大',
                 '鬼氣九刀流','加班加到死','等五年還沒洗好澡','丫宅的怨念','媽媽的咆哮','色誘術-逆後宮之術',
                 '順手拿的折凳','只剩一頁的死亡筆記本','海底自摸十三么','卸妝攻擊','路邊撿到的雷神槌','鐵杵磨成鏽花針',
-                '神鳥鳳凰']
+                '飛吧神鳥鳳凰','Looooong龍']
         atk9 = ['讓對手拉肚子攻擊','放屁臭死了對手','召喚了神龍，進行攻擊']
         
         atk_key = random.randint(0,100)
@@ -471,7 +518,8 @@ class card_fight(object):
                 '超強LED車頭燈','便秘的痛苦','剩1元的存款薄','貼在牆上的股票','沒有蜜蜂的蜂窩','檳榔攤的結冰水',
                 '掉地上的冰淇淋','面試官是前前女友','空的紅白袋','說好不打臉的','香噴噴的桶仔雞','躱進垃圾筒',
                 '爺爺泡的茶','圓圓的圓圓的大餅臉','高裝檢','丫土伯的斗笠','綁在娃娃椅吃飯','泥娃娃軍團','車停站一下',
-                '西瓜太郎的兜檔布','唐寅詩集','噹噹噹噹噹','掉色的千元鈔','路痴眼裡的地圖','畫地自陷'
+                '西瓜太郎的兜檔布','唐寅詩集','噹噹噹噹噹','掉色的千元鈔','路痴眼裡的地圖','畫地自陷',
+                '小狗汪汪叫'
                 ]
         def1 = ['硬氣功','分身防禦','閃避','丟香蕉讓對方滑倒','拿CRT螢幕擋住','用滑鼠綁住敵人','呼叫館長',
                 '丟枕頭給敵人','你有freestyle嗎','閃現','拿美食餵養','召喚龍騎士','丟煙霧蛋','空間移動',
@@ -486,12 +534,13 @@ class card_fight(object):
                 '穿上蜘蛛人的緊身衣','想不出梗的苦惱','合體七矮人','蛇魔女的飛眸','爸爸私藏的影片','從臉上拿下來的粉底',
                 '友藏的俳句','強力磁鐵','單身狗的生日會','不誠實的魔鏡','蓬萊仙山歌舞秀','警察叔叔就是這個人',
                 '流浪漢的紙箱','垃圾筒裡的可樂罐','出門踩到的狗屎','驗蛔蟲的貼紙','過期的大還丹','你看牆上有個洞',
-                '飄走的游褲','鬼屋裡的F罩杯女鬼','拉下鐵門','蓋布袋','被遺忘的點餐單','石榴姐的自畫像','今天不賣酒'
+                '飄走的游褲','鬼屋裡的F罩杯女鬼','拉下鐵門','蓋布袋','被遺忘的點餐單','石榴姐的自畫像','今天不賣酒',
+                '金童玉女劍','一箱好人卡','裝上好自在飛翔','寒冰烈火掌','海棠的頭髮','賭神的照片','黒橘的無法登入'
                 ]
         def2 = ['超級防禦','盾牆','冰牆','催眠術','變張3讓對方傻住','混元一氣功','拿鏡子給敵人','灑鈔票','隔壁老王',
                 '瞬間移動','海市蜃樓','和睦相處','水遁．泡膜壁','穿上隱形斗篷','不滅金身','tea or coffe or me?','吸星大法',
                 '秘室裡的屁味','鑽石鑽石亮晶晶','你看我的項鍊','纏在一起的耳機線','滿滿的香菜','恰吉的OVER MY BADY',
-                '咬鳳梨的神豬','重播877次的周星馳']
+                '咬鳳梨的神豬','重播877次的周星馳','凌波微步']
         def9 = ['我閃我閃我閃閃閃','你看不到我','你打不到我','究極防禦','聖盾術']
         
         if int(lucky/10) == 0:
