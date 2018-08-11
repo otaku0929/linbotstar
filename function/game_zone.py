@@ -27,8 +27,9 @@ def main():
     _game = game_zone()
 
     
-    #content = _game.get_user_profile('Ud0414e339e9c242b19a2dd22dd1f6189','藍宇星冷男星','http://dl.profile.line-cdn.net/0hLkoyPlmqE0RSAD5u3DZsE25FHSklLhUMKmILJiUCRHQrZVRGPWZfJnJTTHJ5ZQESaWNUJn5VTics')
-    content = _game.get_user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
+    content = _game.user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','http://dl.profile.line-cdn.net/0hLkoyPlmqE0RSAD5u3DZsE25FHSklLhUMKmILJiUCRHQrZVRGPWZfJnJTTHJ5ZQESaWNUJn5VTics')
+    #content = _game.get_user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
+    #content = _game.get_starcoin('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
     #content = _game.card_pk('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','Andersen')
     #content = _game.get_atk_userlist()
 #    messages = '攻擊=@陳小馬（EK)'
@@ -99,6 +100,32 @@ class game_zone(object):
         if len(y)==2:         
            content = '18啦~~\n\n本次擲出結果為:{},{},{}.{}\n\n水哦  十八!!!!'.format(a,b,c,d,n)
            return content
+       
+    def get_starcoin(self,uid,user_name):
+        config = _sql.select_config(uid)
+        if config == []:
+            _config.create_config(uid,user_name)
+        
+        config = _sql.select_config(uid)
+        config_json = json.loads(config[0][2])
+        
+        profile = config_json['profile']
+        
+        if 'starcoin' in profile:
+            if profile['starcoin_time'] == 0:
+                profile['starcoin'] = profile['starcoin']+1
+                profile['starcoin_time'] = 1
+            else:
+                return '今日已領取過代幣'
+        else:
+            newitem = {'starcoin':1,'starcoin_time':1}
+            profile.update(newitem)            
+        
+        new_startcoin = profile['starcoin']
+        config = json.dumps(config_json)
+        _sql.update_config(uid,user_name,config)
+        
+        return '%s領取小星星代幣成功 目前代幣共有:%s'%(user_name,new_startcoin)       
     
     def get_atk_userlist(self):
         
@@ -137,9 +164,9 @@ class game_zone(object):
                     profile2 = '生命值(HP):%s\n魔法力(MP):%s\n攻擊力(ATK):%s\n防禦力(DEF):%s'\
                     %(A['hp'],A['mp'],A['ATK'],A['DEF'])
                     equipment_content = '武器:%s\n防具:%s\n道具欄:%s\n道具欄:%s'\
-                    %(A['equipment']['arms'],A['equipment']['armor'],A['equipment']['item1'],A['equipment']['item2'])
-                    content = '%s\n屬性:%s\n每日運勢:%s\n%s\n%s\n\n%s\n\n%s\n%s\n%s'\
-                    %(A['user_name'],A['WIZ'],A['today'],self.sline,profile1,profile2,equipment_content,self.sline,A['keywords'])
+                    %(A['arms'],A['armor'],A['item1'],A['item2'])
+                    content = '%s\n屬性:%s\n每日運勢:%s\n小星星代幣:%s\n%s\n%s\n\n%s\n\n%s\n%s\n%s'\
+                    %(A['user_name'],A['WIZ'],A['today'],A['starcoin'],self.sline,profile1,profile2,equipment_content,self.sline,A['keywords'])
                     return content
                 else:
                     A = config_json['profile']  
@@ -149,8 +176,8 @@ class game_zone(object):
                     %(A['hp'],A['mp'],A['ATK'],A['DEF'])
                     equipment_content = '武器:%s\n防具:%s\n道具欄:%s\n道具欄:%s'\
                     %('_','_','_','_')
-                    content = '%s\n屬性:%s\n每日運勢:%s\n%s\n%s\n\n%s\n\n%s\n%s\n%s'\
-                    %(A['user_name'],A['WIZ'],A['today'],self.sline,profile1,profile2,equipment_content,self.sline,A['keywords'])
+                    content = '%s\n屬性:%s\n每日運勢:%s\n小星星代幣:%s\n%s\n%s\n\n%s\n\n%s\n%s\n%s'\
+                    %(A['user_name'],A['WIZ'],A['today'],'_',self.sline,profile1,profile2,equipment_content,self.sline,A['keywords'])
                     return content                  
             else:
                 content = {'link':'%s 今天還沒有產生卡片哦，可以輸入 "今日卡片" 來產生哦!'%user_name}
@@ -187,6 +214,8 @@ class game_zone(object):
         
         charA_HP = A['hp']
         charB_HP = B['hp']
+        charA_MP = A['mp']
+        charB_MP = B['mp']
         Wiz_value_list = _card_game.WizATK(A['WIZ'], B['WIZ'])
         A_Wiz_value = Wiz_value_list[0]
         B_Wiz_value = Wiz_value_list[1]
@@ -213,7 +242,11 @@ class game_zone(object):
                 #print('A')
                 A_ATK = _card_game.getATK(A['ATK'],A['lucky'],A_Wiz_value)
                 B_DEF = _card_game.getDEF(B['DEF'],B['lucky'])
-                ATK_value= A_ATK[1]-B_DEF[1]
+                if charA_MP >=0:
+                    mp_time = random.randint(1,100)
+                    if mp_time >= 85:
+                        mp_atk = random.randint(0,charA_MP)
+                ATK_value= A_ATK[1]+mp_atk-B_DEF[1]
                 if ATK_value <=0:
                     ATK_value = 0
                 new_HP = charB_HP - ATK_value
@@ -227,6 +260,8 @@ class game_zone(object):
                     atk_list['fight_status'] = '%s\n%s'%(atk_list['fight_status'],ATK_Status)
                 charA_HP = charA_HP
                 charB_HP = new_HP
+                charA_MP = charA_MP-mp_atk
+                charB_MP = charB_MP
                 if charA_HP<=0 or charB_HP<=0:
                     atk_list['atk_winner'] = A['user_name']
                     atk_list['atk_fin'] = '%s 戰勝了 %s'%(A['user_name'],B['user_name'])
@@ -239,7 +274,11 @@ class game_zone(object):
             else:
                 B_ATK = _card_game.getATK(B['ATK'],B['lucky'],B_Wiz_value)
                 A_DEF = _card_game.getDEF(A['DEF'],A['lucky'])
-                ATK_value= B_ATK[1]-A_DEF[1]
+                if charB_MP >=0:
+                    mp_time = random.randint(1,100)
+                    if mp_time >= 85:
+                        mp_atk = random.randint(0,charB_MP)
+                ATK_value= B_ATK[1]+mp_atk-A_DEF[1]
                 if ATK_value <=0:
                     ATK_value = 0
                 new_HP = charA_HP - ATK_value
@@ -254,6 +293,8 @@ class game_zone(object):
                 #print(atk_list['fight_status'])
                 charA_HP = new_HP
                 charB_HP = charB_HP
+                charA_MP = charA_MP
+                charB_MP = charB_MP-mp_atk             
                 if charA_HP<=0 or charB_HP<=0:
                     atk_list['atk_winner'] = B['user_name']
                     atk_list['atk_fin'] = '%s 戰勝了 %s'%(B['user_name'],A['user_name'])
@@ -299,33 +340,26 @@ class game_zone(object):
 
                 message = self.profile_game_content(uid,user_name)   
                 
-                new_json = {'profile':
-                    {'profile_time':time,
-                     'user_name':message[0],
-                     'hp':message[1],
-                     'mp':message[2],
-                     'lucky':message[3],
-                     'today':message[4],
-                     'keywords':message[5],
-                     'WIZ':message[6],
-                     'ATK':message[7],
-                     'DEF':message[8],
-                     'today_value':message[9],
-                     'STR':message[10],
-                     'VIT':message[11],
-                     'INT':message[12],
-                     'AGI':message[13],
-                     'DEX':message[14],
-                    'equipment':
-                        {
-                        'arms':'',
-                        'armor':'',
-                        'item1':'',
-                        'item2':''
-                        }
-                     }
-                }
-                config_json['profile'] = new_json['profile']
+                p = config_json['profile']
+                
+                p['profile_time']=time
+                p['user_name']=message[0]
+                p['hp']=message[1]
+                p['mp']=message[2]
+                p['lucky']=message[3]
+                p['today']=message[4]
+                p['keywords']=message[5]
+                p['WIZ']=message[6]
+                p['ATK']=message[7]
+                p['DEF']=message[8]
+                p['today_value']=message[9]
+                p['STR']=message[10]
+                p['VIT']=message[11]
+                p['INT']=message[12]
+                p['AGI']=message[13]
+                p['DEX']=message[14]
+                p['starcoin_time']=0
+                
                 config = json.dumps(config_json)
                 _sql.update_config(uid,user_name,config) 
                 
@@ -353,13 +387,13 @@ class game_zone(object):
                  'INT':message[12],
                  'AGI':message[13],
                  'DEX':message[14],
-                'equipment':
-                    {
-                    'arms':'',
-                    'armor':'',
-                    'item1':'',
-                    'item2':''
-                    }
+                 'arms':'',
+                 'armor':'',
+                 'item1':'',
+                 'item2':'',
+                 'equipment':{},
+                 'starcoin':0,
+                 'starcoin_time':0
                  }
             }
             config_json['profile'] = new_json['profile']
@@ -517,7 +551,7 @@ class card_fight(object):
                 '沒有玉米的玉米濃湯','不然你打我啊','跳進來又跳出去','署長的和平之槍','秋本麗子的泳裝照','打扮成木村倒頭哉',
                 '小星星的美女圖片庫','志玲姐姐的飛吻','猛男的胸肌','吃葉綠素補腦?','綺夢找你吃飯','九姑娘的擁抱',
                 '超強LED車頭燈','便秘的痛苦','剩1元的存款薄','貼在牆上的股票','沒有蜜蜂的蜂窩','檳榔攤的結冰水',
-                '掉地上的冰淇淋','面試官是前前女友','空的紅白袋','說好不打臉的','香噴噴的桶仔雞','躱進垃圾筒',
+                '掉地上的冰淇淋','面試官是前前女友','空的紅包袋','說好不打臉的','香噴噴的桶仔雞','躱進垃圾筒',
                 '爺爺泡的茶','圓圓的圓圓的大餅臉','高裝檢','丫土伯的斗笠','綁在娃娃椅吃飯','泥娃娃軍團','車停站一下',
                 '西瓜太郎的兜檔布','唐寅詩集','噹噹噹噹噹','掉色的千元鈔','路痴眼裡的地圖','畫地自陷',
                 '小狗汪汪叫','遲頓光線','三隻雨傘標'
@@ -543,7 +577,8 @@ class card_fight(object):
         def2 = ['超級防禦','盾牆','冰牆','催眠術','變張3讓對方傻住','混元一氣功','拿鏡子給敵人','灑鈔票','隔壁老王',
                 '瞬間移動','海市蜃樓','和睦相處','水遁．泡膜壁','穿上隱形斗篷','不滅金身','tea or coffe or me?','吸星大法',
                 '秘室裡的屁味','鑽石鑽石亮晶晶','你看我的項鍊','纏在一起的耳機線','滿滿的香菜','恰吉的OVER MY BADY',
-                '咬鳳梨的神豬','重播877次的周星馳','凌波微步','比邊緣人還沒存在感','化整為零大法','全身脫光光']
+                '咬鳳梨的神豬','重播877次的周星馳','凌波微步','比邊緣人還沒存在感','化整為零大法','全身脫光光',
+                '兩津勘吉的幹細胞']
         def9 = ['我閃我閃我閃閃閃','你看不到我','嘿嘿~你打不到我','究極防禦','聖盾術']
         
         if int(lucky/10) == 0:
