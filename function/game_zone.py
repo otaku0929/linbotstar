@@ -165,7 +165,7 @@ class game_zone(object):
                     %(A['hp'],A['mp'],A['ATK'],A['DEF'])
                     equipment_content = '武器:%s\n防具:%s\n道具欄:%s\n道具欄:%s'\
                     %(A['arms'],A['armor'],A['item1'],A['item2'])
-                    content = '%s\n屬性:%s\n每日運勢:%s\n小星星代幣:%s\n%s\n%s\n\n%s\n\n%s\n%s\n%s'\
+                    content = '%s\n\n屬性:%s\n每日運勢:%s\n小星星代幣:%s\n%s\n%s\n\n%s\n\n%s\n%s\n%s'\
                     %(A['user_name'],A['WIZ'],A['today'],A['starcoin'],self.sline,profile1,profile2,equipment_content,self.sline,A['keywords'])
                     return content
                 else:
@@ -176,7 +176,7 @@ class game_zone(object):
                     %(A['hp'],A['mp'],A['ATK'],A['DEF'])
                     equipment_content = '武器:%s\n防具:%s\n道具欄:%s\n道具欄:%s'\
                     %('_','_','_','_')
-                    content = '%s\n屬性:%s\n每日運勢:%s\n小星星代幣:%s\n%s\n%s\n\n%s\n\n%s\n%s\n%s'\
+                    content = '%s\n\n屬性:%s\n每日運勢:%s\n小星星代幣:%s\n%s\n%s\n\n%s\n\n%s\n%s\n%s'\
                     %(A['user_name'],A['WIZ'],A['today'],'_',self.sline,profile1,profile2,equipment_content,self.sline,A['keywords'])
                     return content                  
             else:
@@ -339,35 +339,70 @@ class game_zone(object):
                 content = {'link':'%s 今天已經產生過了，一天只能玩一次哦'%user_name}
                 return content
             else:
-
-                message = self.profile_game_content(uid,user_name)   
-                
+                message = self.profile_game_content(uid,user_name)  
                 p = config_json['profile']
                 
-                p['profile_time']=time
-                p['user_name']=message[0]
-                p['hp']=message[1]
-                p['mp']=message[2]
-                p['lucky']=message[3]
-                p['today']=message[4]
-                p['keywords']=message[5]
-                p['WIZ']=message[6]
-                p['ATK']=message[7]
-                p['DEF']=message[8]
-                p['today_value']=message[9]
-                p['STR']=message[10]
-                p['VIT']=message[11]
-                p['INT']=message[12]
-                p['AGI']=message[13]
-                p['DEX']=message[14]
-                p['starcoin_time']=0
-                
-                config = json.dumps(config_json)
-                _sql.update_config(uid,user_name,config) 
-                
-                content = _photos.user_daily_photo(uid,message,pictureUrl)
-                
-                return (content)
+                if 'equipment' in  p:     
+                    p['profile_time']=time
+                    p['user_name']=message[0]
+                    p['hp']=message[1]
+                    p['mp']=message[2]
+                    p['lucky']=message[3]
+                    p['today']=message[4]
+                    p['keywords']=message[5]
+                    p['WIZ']=message[6]
+                    p['ATK']=message[7]
+                    p['DEF']=message[8]
+                    p['today_value']=message[9]
+                    p['STR']=message[10]
+                    p['VIT']=message[11]
+                    p['INT']=message[12]
+                    p['AGI']=message[13]
+                    p['DEX']=message[14]
+                    p['starcoin_time']=0
+                    
+                     config = json.dumps(config_json)
+                    _sql.update_config(uid,user_name,config) 
+                    
+                    content = _photos.user_daily_photo(uid,message,pictureUrl)
+                    
+                    return (content)
+                  
+                else:
+                    new_json = {'profile':
+                        {'profile_time':time,
+                         'user_name':message[0],
+                         'hp':message[1],
+                         'mp':message[2],
+                         'lucky':message[3],
+                         'today':message[4],
+                         'keywords':message[5],
+                         'WIZ':message[6],
+                         'ATK':message[7],
+                         'DEF':message[8],
+                         'today_value':message[9],
+                         'STR':message[10],
+                         'VIT':message[11],
+                         'INT':message[12],
+                         'AGI':message[13],
+                         'DEX':message[14],
+                         'arms':'',
+                         'armor':'',
+                         'item1':'',
+                         'item2':'',
+                         'equipment':{},
+                         'starcoin':0,
+                         'starcoin_time':0
+                         }
+                    }                
+                    config_json['profile'] = new_json['profile']
+                           
+                    config = json.dumps(config_json)
+                    _sql.update_config(uid,user_name,config) 
+                    
+                    content = _photos.user_daily_photo(uid,message,pictureUrl)
+                    
+                    return (content)
 #                return self.profile_game_content(uid,user_name)               
         else:
             message= self.profile_game_content(uid,user_name)
@@ -486,7 +521,7 @@ class card_fight(object):
                 '新鮮的毒蘋果','畫了地圖的棉被','吃不完的羊乳片','三叔~~~~~叔叔叔叔叔','餵綺夢吃龍蝦','送你一枝番丫火',
                 '提摩必需死','草叢倫的旋風斬','天下掉下來的烏屎','射出紙飛機','龍抓手','抽血500CC','沒有糖漿的可樂機',
                 '閉店前進來的客人','捷運車廂裡的老鼠','流星蝴蝶劍','點燃的水鴛鴦','剝皮辣椒','丟芭樂，是真的芭樂',
-                '冥醫的根管治療','雷恩的七星刀','倫家吃不完','一隻雨傘'
+                '冥醫的根管治療','雷恩的七星刀','倫家吃不完','一隻雨傘','灑石灰','拜請天兵天將'
                 ]
         atk2 = ['強力攻擊','破壞拳','迴旋踢','關門放狗','伸長吧~~拳頭','奧客精神','RAP碎碎唸','恐龍攻擊',
                 '百裂拳','天帝之眼','紅蓮爆炎刃','丟大便','天翔龍閃','唸經','竹筍炒肉絲','宅男的右手','氣圓斬',
@@ -639,17 +674,17 @@ class card_fight(object):
         else:
             return ([1,1])
         
-    def lucky_time(self,uid,user_name):
-        
-        config = _sql.select_config(uid)
-        if config == []:
-            _config.create_config(uid,user_name)
-            return '尚未建立人物卡片及領取代幣'
-        
-        config = _sql.select_config(uid)
-        config_json = json.loads(config[0][2])
-        
-        profile = config_json['profile']        
+#    def lucky_time(self,uid,user_name):
+#        
+#        config = _sql.select_config(uid)
+#        if config == []:
+#            _config.create_config(uid,user_name)
+#            return '尚未建立人物卡片及領取代幣'
+#        
+#        config = _sql.select_config(uid)
+#        config_json = json.loads(config[0][2])
+#        
+#        profile = config_json['profile']        
         
 
 
