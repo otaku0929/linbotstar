@@ -32,9 +32,9 @@ def main():
     
     #content = _game.user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','http://dl.profile.line-cdn.net/0hLkoyPlmqE0RSAD5u3DZsE25FHSklLhUMKmILJiUCRHQrZVRGPWZfJnJTTHJ5ZQESaWNUJn5VTics')
     #content = _game.get_user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
-    content = _game.get_starcoin('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
+    #content = _game.get_starcoin('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
     #content = _game.card_pk('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','Andersen')
-    #content = _game_card.get_user_items('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星')
+    content = _game_card.get_user_items('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星')
     #content = _game_card.lucky_time('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星')
     #content = _game_card.get_item_detail('紅藥水')
     #content = _game.to_starcoin('U9f2c61013256dfe556d70192388e4c7c',10)
@@ -716,12 +716,18 @@ class card_fight(object):
         
         if 'equipment' in profile:
              equ_list = profile['equipment']
+             show_list = None
              if equ_list == {}:
                  return '%s 目前沒有任何道具'%user_name
              else:
                  c = Counter(equ_list)
-             return c
-                
+                 for obj in c.keys():
+                     if show_list == None:
+                         show_list = '%s：%s'%(obj,c.get(obj))
+                     else:
+                         object_content = '%s：%s'%(obj,c.get(obj))
+                         show_list = '%s\n%s'%(show_list,object_content)
+                 return '%s 擁有的道具列表：\n%s\n%s'%(user_name,self.sline,show_list) 
         else:
             return '%s 目前沒有任何道具'%user_name
         
