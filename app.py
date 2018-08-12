@@ -631,7 +631,12 @@ def handle_message(event):
         coin = re.match('^#金幣=(.+)%(.+)',event.message.text).group(2)
         content = _games.to_starcoin(uid,coin)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
-        return 0         
+        return 0   
+    if re.match('^查人物道具',event.message.text):
+        profile = _lineapi.get_user_name(Channel_Access_Token,event)
+        user_name = profile['displayName']
+        content = _games_card.get_user_items(uid,user_name)
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))      
     if re.match('^查道具=(.+)',event.message.text):
         item_name = re.match('^查道具=(.+)',event.message.text).group(1)
         content = _games_card.get_item_detail(item_name)
