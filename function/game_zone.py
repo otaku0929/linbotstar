@@ -805,6 +805,7 @@ class card_fight(object):
                     equ_list = []
                 #print(equ_list)
                 items = None
+                status = None
                                
                 lucky_poin = random.randint(1,1000)
                 if lucky_poin >=999:
@@ -885,7 +886,7 @@ class card_fight(object):
         if res !='0':
             return [getitem,random.choice(dict_s)%getitem]
         else:        
-            return[getitem
+            return getitem
     
     def get_item_detail(self,val):
         
