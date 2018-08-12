@@ -809,28 +809,36 @@ class card_fight(object):
                 lucky_poin = random.randint(1,1000)
                 if lucky_poin >=999:
                     res = '99'
-                    items = self.lucky_time_items(user_name,res)
+                    get_item = self.lucky_time_items(user_name,res)
+                    item = get_item[0]
+                    status = get_item[1]
                     #print(items)
                     equ_list.append(items)
                     profile['equipment'] = equ_list
                     #result['99'] = result['99']+1
                 elif lucky_poin >=300 and lucky_poin <550:
                     res = '1'
-                    items = self.lucky_time_items(user_name,res)
+                    get_item = self.lucky_time_items(user_name,res)
+                    item = get_item[0]
+                    status = get_item[1]
                     #print(items)
                     equ_list.append(items)
                     profile['equipment'] = equ_list
                     #result['1'] = result['1']+1
                 elif lucky_poin >=550 and lucky_poin <700:
                     res = '2'
-                    items = self.lucky_time_items(user_name,res)
+                    get_item = self.lucky_time_items(user_name,res)
+                    item = get_item[0]
+                    status = get_item[1]
                     #print(items)
                     equ_list.append(items)
                     profile['equipment'] = equ_list
                     #result['2'] = result['2']+1
                 elif lucky_poin >=700 and lucky_poin <750:
                     res = '3'
-                    items = self.lucky_time_items(user_name,res)
+                    get_item = self.lucky_time_items(user_name,res)
+                    item = get_item[0]
+                    status = get_item[1]
                     #print(items)
                     equ_list.append(items)
                     profile['equipment'] = equ_list
@@ -847,7 +855,7 @@ class card_fight(object):
                 config = json.dumps(config_json)
                 _sql.update_config(uid,user_name,config)
                 
-                return '%s \n%s\n%s\n%s\n剩餘小星星代幣:%s'%(user_name,self.sline,items,self.sline,new_coin)  
+                return '%s \n%s\n%s\n%s\n剩餘小星星代幣:%s'%(user_name,self.sline,status,self.sline,new_coin)  
                 
     def lucky_time_items(self,ser_name,res):
         
@@ -875,9 +883,9 @@ class card_fight(object):
 
         getitem = random.choice(dict[res])
         if res !='0':
-            return random.choice(dict_s)%getitem
+            return [getitem,random.choice(dict_s)%getitem]
         else:        
-            return getitem
+            return[getitem
     
     def get_item_detail(self,val):
         
