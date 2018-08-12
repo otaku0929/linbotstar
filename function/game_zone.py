@@ -351,6 +351,38 @@ class game_zone(object):
                 ]
         
         return random.choice(peace)
+    
+    def re_user_profile(self,uid,user_name):
+        
+        time = str(datetime.datetime.now(pytz.timezone('Asia/Taipei')))[0:10]
+        config = _sql.select_config(uid)
+        config_json = json.loads(config[0][2])
+        message = self.profile_game_content(uid,user_name)  
+        p = config_json['profile']
+        
+        p['profile_time']=time
+        p['user_name']=message[0]
+        p['hp']=message[1]
+        p['mp']=message[2]
+        p['lucky']=message[3]
+        p['today']=message[4]
+        p['keywords']=message[5]
+        p['WIZ']=message[6]
+        p['ATK']=message[7]
+        p['DEF']=message[8]
+        p['today_value']=message[9]
+        p['STR']=message[10]
+        p['VIT']=message[11]
+        p['INT']=message[12]
+        p['AGI']=message[13]
+        p['DEX']=message[14]
+        
+        config = json.dumps(config_json)
+        _sql.update_config(uid,user_name,config) 
+        
+        content = self.get_user_profile(uid,user_name)
+        
+        return (content)
                 
     def user_profile(self,uid,user_name,pictureUrl):
         
@@ -389,7 +421,6 @@ class game_zone(object):
                     p['INT']=message[12]
                     p['AGI']=message[13]
                     p['DEX']=message[14]
-                    p['starcoin_time']=time
                     
                     config = json.dumps(config_json)
                     _sql.update_config(uid,user_name,config) 
@@ -422,7 +453,7 @@ class game_zone(object):
                          'item2':'',
                          'equipment':{},
                          'starcoin':0,
-                         'starcoin_time':time
+                         'starcoin_time':None
                          }
                     }                
                     config_json['profile'] = new_json['profile']
@@ -460,7 +491,7 @@ class game_zone(object):
                  'item2':'',
                  'equipment':{},
                  'starcoin':0,
-                 'starcoin_time':time
+                 'starcoin_time':None
                  }
             }
             config_json['profile'] = new_json['profile']
@@ -509,6 +540,7 @@ class card_fight(object):
     
     def __init__(self):
         self.class_name = 'card_fight'
+        self.game = game_zone()
         self.sline = '------------'
 
     def getATK(self,atk, lucky, wiz_value):
@@ -741,8 +773,10 @@ class card_fight(object):
                 profile[index] = new_index_values
                 new_status = '%s => %s'% (old_index_values,profile[index])
                 config = json.dumps(config_json)
-                _sql.update_config(uid,user_name,config)               
-            return '%s 已使用 %s %s\n%s'%(user_name,del_item,item_detail['detail'],new_status)
+                _sql.update_config(uid,user_name,config)
+                return '%s 已使用 %s %s\n%s'%(user_name,del_item,item_detail['detail'],new_status)
+            elif index == '角色重置卡':
+                return self.game.re_user_profile(uid,user_name)
         else:
             return '%s 的背包裡並沒有 %s 這件物品，請確認輸入物品名稱是否正確'%(user_name,del_item)       
         
@@ -817,7 +851,7 @@ class card_fight(object):
         
         dict = {
                 '0':['銘謝惠顧','再接再勵，下一次會更好','唉呀~沒抽中','憑你也想抽中','離中獎，還差的遠呢?',
-                     '我覺得你不行，下次再抽吧'
+                     '我覺得你不行，下次再抽吧','挖了滿地的坑，但什麼都沒有','被漢堡神偷偷走了寶物'
                      ],
                 '1':['紅色藥水','藍色藥水'],
                 '2':['紅色藥水','藍色藥水','橙色藥水','攻擊增加藥水I','防禦增加藥水I'],
