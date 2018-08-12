@@ -142,7 +142,7 @@ class game_zone(object):
         
         if 'starcoin' in profile:
             if profile['starcoin_time'] == 0 or profile['starcoin_time'] != time:
-                profile['starcoin'] = profile['starcoin']+1
+                profile['starcoin'] = profile['starcoin']+5
                 profile['starcoin_time'] = time
             else:
                 return '今日已領取過代幣'
