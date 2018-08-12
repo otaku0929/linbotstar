@@ -34,7 +34,8 @@ def main():
     #content = _game.get_user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
     #content = _game.get_starcoin('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
     #content = _game.card_pk('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','Andersen')
-    content = _game_card.get_user_items('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星')
+    #content = _game_card.get_user_items('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星')
+    content = _game_card.use_items('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','紅藥水(中)')
     #content = _game_card.lucky_time('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星')
     #content = _game_card.get_item_detail('紅藥水')
     #content = _game.to_starcoin('U9f2c61013256dfe556d70192388e4c7c',10)
@@ -482,37 +483,13 @@ class game_zone(object):
         AGI = random.randint(1,1000)
         DEX = random.randint(1,1000)
         LUK = random.randint(1,1000)
-        
-        #_LUK_RATE = int(LUK/100)
-        #print('STR:%s'%STR, 'DEX:%s'%DEX, 'LUK:%s'%LUK, 'LUK_RATE:%s'%_LUK_RATE)
-        #print('VIT:%s'%VIT, 'AGI:%s'%AGI, 'LUK:%s'%LUK, 'LUK_RATE:%s'%_LUK_RATE)
+        LV = LV = random.randint(1,99)
     
-        #hp_all = random.randint(1000,10000)
-        hp = random.randint(VIT*random.randint(1,10),10000)
-        #mp_all = random.randint(1000,10000)
-        mp = random.randint(INT*random.randint(1,10),10000)
+        hp = VIT*5+random.randint(LV*5,5000)
+        mp = INT*5+random.randint(LV*5,5000)
 
-        #基礎ATK, DEF計算
-        if LUK == 1:
-            _ATK_RATE=1
-            _DEF_RATE=1
-        else:
-            _ATK_RATE = (STR+DEX)*(random.randint(1,10))
-            _DEF_RATE = (VIT+AGI)*(random.randint(1,10))
-            
-        #print('_ATK_RATE',_ATK_RATE, '_DEF_RATE',_DEF_RATE )
-        
-        #ATK, DEF計算
-        RATE_POINT = 1000
-        _STR_RATE= 1+random.randint(1,STR)/RATE_POINT
-        #print('_STR_RATE',_STR_RATE)
-        _DEX_RATE = 1+random.randint(1,DEX)/RATE_POINT
-        #print('_DEX_RATE',_DEX_RATE)
-        _VIT_RATE= 1+random.randint(1,VIT)/RATE_POINT
-        _AGI_RATE= 1+random.randint(1,AGI)/RATE_POINT
-        
-        ATK = int(_ATK_RATE*_STR_RATE*_DEX_RATE)
-        DEF = int(_DEF_RATE*_VIT_RATE*_AGI_RATE)        
+        ATK = STR*5+int(AGI*2.5)+random.randint(0,LV*200)
+        DEF = VIT*5+int(DEX*2.5)+random.randint(0,LV*200)       
              
         today_value = int((hp+mp+LUK)/1000)
         today=self.get_star(today_value)
@@ -731,8 +708,43 @@ class card_fight(object):
         else:
             return '%s 目前沒有任何道具'%user_name
         
-    def use_items(self,uid,user_name):
-        return '功能開發中'
+    def use_items(self,uid,user_name,del_item):
+
+        config = _sql.select_config(uid)
+        if config == []:
+            _config.create_config(uid,user_name)
+            return '尚未建立人物卡片及領取代幣'
+        
+        config = _sql.select_config(uid)
+        config_json = json.loads(config[0][2])
+        
+        profile = config_json['profile']
+        equ_list = profile['equipment']
+        if del_item in equ_list:
+            equ_list.remove(del_item)
+            new_status = None
+            item_detail = self.item_detail(del_item)
+            #print(del_item)
+            index = item_detail['index']
+            if index in profile:
+                old_index_values = profile[index]
+                new_index_values = profile[index]+item_detail['value']
+                if index in ['hp','mp']:
+                    if new_index_values > 9999:
+                        new_index_values = 9999
+                if index in ['STR','INT','DEX','AGI','VIT','LUK']:
+                    if new_index_values > 999:
+                        new_index_values = 999 
+                if index in ['ATK','DEF']:
+                    if new_index_values >100000:
+                        new_index_values = 100000
+                profile[index] = new_index_values
+                new_status = '%s => %s'% (old_index_values,profile[index])
+                config = json.dumps(config_json)
+                _sql.update_config(uid,user_name,config)               
+            return '%s 已使用 %s %s\n%s'%(user_name,del_item,item_detail['detail'],new_status)
+        else:
+            return '%s 的背包裡並沒有 %s 這件物品，請確認輸入物品名稱是否正確'%(user_name,del_item)       
         
     def lucky_time(self,uid,user_name):
         
@@ -807,8 +819,8 @@ class card_fight(object):
                 '0':['銘謝惠顧','再接再勵，下一次會更好','唉呀~沒抽中','憑你也想抽中','離中獎，還差的遠呢?',
                      '我覺得你不行，下次再抽吧'
                      ],
-                '1':['紅藥水','藍藥水'],
-                '2':['紅藥水','藍藥水','橙色藥水','攻擊增加藥水I','防禦增加藥水I'],
+                '1':['紅色藥水','藍色藥水'],
+                '2':['紅色藥水','藍色藥水','橙色藥水','攻擊增加藥水I','防禦增加藥水I'],
                 '3':['白色藥水','濃縮藍色藥水''攻擊增加藥水II','防禦增加藥水II'],
                 '99':['角色重置卡']
                 }
@@ -824,15 +836,18 @@ class card_fight(object):
     def item_detail(self,val):
         
         dict = {
-                '紅藥水':{'val':500,'detail':'恢復生命值500點'},
-                '橙色藥水':{'val':1000,'detail':'恢復生命值1000點'},
-                '白色藥水':{'val':2000,'detail':'恢復生命值2000點'},
-                '藍藥水':{'val':1000,'detail':'恢復魔力值1000點'},
-                '攻擊增力藥水I':{'val':1000,'detail':'增加攻擊力1000點'},
-                '攻擊增力藥水II':{'val':2000,'detail':'增加攻擊力2000點'},
-                '防禦增力藥水I':{'val':1000,'detail':'增加防禦1000點'},
-                '防禦力藥水II':{'val':2000,'detail':'增加防禦2000點'},
-                '角色重置卡':{'val':0,'detail':'重置人物屬性，但是魔王還是變沙包呢? 爻杯吧'}
+                '紅藥水(小)':{'index':'hp','value':500,'detail':'恢復生命值500點'},
+                '紅藥水(中)':{'index':'hp','value':500,'detail':'恢復生命值500點'},
+                '紅藥水':{'index':'hp','value':500,'detail':'恢復生命值500點'},
+                '紅色藥水':{'index':'hp','value':500,'index':'hp','detail':'恢復生命值500點'},
+                '橙色藥水':{'index':'hp','value':1000,'index':'hp','detail':'恢復生命值1000點'},
+                '白色藥水':{'index':'hp','value':2000,'index':'hp','detail':'恢復生命值2000點'},
+                '藍色藥水':{'index':'mp','value':1000,'index':'mp','detail':'恢復魔力值1000點'},
+                '攻擊增力藥水I':{'index':'ATK','value':1000,'detail':'增加攻擊力1000點'},
+                '攻擊增力藥水II':{'index':'ATK','value':2000,'detail':'增加攻擊力2000點'},
+                '防禦增力藥水I':{'index':'DEF','value':1000,'detail':'增加防禦1000點'},
+                '防禦力藥水II':{'index':'DEF','value':2000,'detail':'增加防禦2000點'},
+                '角色重置卡':{'index':'reset','value':0,'detail':'重置人物屬性，但是魔王還是變沙包呢? 爻杯吧'}
                 }
         
         return dict[val]
