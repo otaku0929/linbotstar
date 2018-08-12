@@ -626,12 +626,6 @@ def handle_message(event):
             )        
             line_bot_api.reply_message(event.reply_token,image_message)
         return 0
-    if re.match('^#金幣=(.+)%(.+)',event.message.text):
-        uid = re.match('^#金幣=(.+)%(.+)',event.message.text).group(1)
-        coin = re.match('^#金幣=(.+)%(.+)',event.message.text).group(2)
-        content = _games.to_starcoin(uid,coin)
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
-        return 0   
     if re.match('^查人物道具',event.message.text):
         profile = _lineapi.get_user_name(Channel_Access_Token,event)
         user_name = profile['displayName']
@@ -687,7 +681,12 @@ def handle_message(event):
             content = _games.card_pk(uid,user_name,pk_user)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
-        
+     if re.match('^#金幣=(.+)%(.+)',event.message.text):
+        uid = re.match('^#金幣=(.+)%(.+)',event.message.text).group(1)
+        coin = re.match('^#金幣=(.+)%(.+)',event.message.text).group(2)
+        content = _games.to_starcoin(uid,coin)
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        return 0          
     ####影音類####
     if re.match('^(聽歌|找到|youtube)=(.+)*',event.message.text):
         res = re.match('^(聽歌|找到|youtube)=(.+)*',event.message.text).group(2)
