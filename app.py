@@ -17,6 +17,9 @@ from function.ifoodie import ifoodie_get
 import function.game_zone
 _games = function.game_zone.game_zone()
 
+import function.game_zone
+_card_games = function.game_zone.card_fight()
+
 import function.sql
 _sql = function.sql.Sql()
 
@@ -622,7 +625,24 @@ def handle_message(event):
                 preview_image_url=url
             )        
             line_bot_api.reply_message(event.reply_token,image_message)
+        return 0
+    if re.match('^#金幣=(.+)%(.+)',event.messages.text):
+        uid = re.match('^#金幣=(.+)%(.+)',event.messages.text).group(1)
+        coin = re.match('^#金幣=(.+)%(.+)',event.messages.text).group(2)
+        content = _games.to_starcoin(uid,coin)
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        return 0         
+    if re.match('^查道具=(.+)',event.message.text):
+        item_name = re.match('^查道具=(.+)',event.message.text).group(1)
+        content = _card_games.get_item_detail(item_name)
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0 
+    if re.match('^每日探險',event.message.text):
+        profile = _lineapi.get_user_name(Channel_Access_Token,event)
+        user_name = profile['displayName']
+        content = _card_games.lucky_time(uid,user_name)
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        return 0        
     if re.match('^領取小星星代幣',event.message.text):
         profile = _lineapi.get_user_name(Channel_Access_Token,event)
         user_name = profile['displayName']
