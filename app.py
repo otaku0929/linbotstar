@@ -285,8 +285,8 @@ def handle_message(event):
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
     if re.match('^##金幣=(.+)#(.+)',event.message.text):
-        uid = re.match('^#金幣=(.+)#(.+)',event.message.text).group(1)
-        coin = re.match('^#金幣=(.+)#(.+)',event.message.text).group(2)
+        uid = re.match('^##金幣=(.+)#(.+)',event.message.text).group(1)
+        coin = re.match('^##金幣=(.+)#(.+)',event.message.text).group(2)
         content = _games.to_starcoin(uid,coin)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
