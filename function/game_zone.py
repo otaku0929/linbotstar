@@ -25,19 +25,24 @@ _config = function.config_setting.config_setting()
 
 def main():
     _game = game_zone()
+    _game_card = card_fight()
 
     
     #content = _game.user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','http://dl.profile.line-cdn.net/0hLkoyPlmqE0RSAD5u3DZsE25FHSklLhUMKmILJiUCRHQrZVRGPWZfJnJTTHJ5ZQESaWNUJn5VTics')
     #content = _game.get_user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
     #content = _game.get_starcoin('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
     #content = _game.card_pk('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','Andersen')
+    #content = _game.get_user_items('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星')
+    #content = _game_card.lucky_time('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星')
+    content = _game_card.get_item_detail('紅藥水')
+    #content = _game.to_starcoin('U9f2c61013256dfe556d70192388e4c7c',10)
     #content = _game.get_atk_userlist()
-    messages = '攻擊=@陳小馬（EK)'
-    if re.match('^(對戰|攻擊)= ?@?(.+)',messages):
-        uid = 'U9f2c61013256dfe556d70192388e4c7c'
-        pkid = re.match('^(對戰|攻擊)= ?@?(.+)',messages).group(2).strip()
-        #print(pkid)
-        content = _game.card_pk(uid,'藍宇星冷男星',pkid)
+#    messages = '攻擊=@陳小馬（EK)'
+#    if re.match('^(對戰|攻擊)= ?@?(.+)',messages):
+#        uid = 'U9f2c61013256dfe556d70192388e4c7c'
+#        pkid = re.match('^(對戰|攻擊)= ?@?(.+)',messages).group(2).strip()
+#        #print(pkid)
+#        content = _game.card_pk(uid,'藍宇星冷男星',pkid)
         #print (content)
     print(content)
 
@@ -101,7 +106,28 @@ class game_zone(object):
            content = '18啦~~\n\n本次擲出結果為:{},{},{}.{}\n\n水哦  十八!!!!'.format(a,b,c,d,n)
            return content
        
+    def to_starcoin(self,uid,num):
+        time = str(datetime.datetime.now(pytz.timezone('Asia/Taipei')))[0:10]
+        
+        config = _sql.select_config(uid)
+        config_json = json.loads(config[0][2])
+        profile = config_json['profile']
+        profile['starcoin'] = profile['starcoin']+int(num)
+        profile['starcoin_time'] = time
+        
+        new_startcoin = profile['starcoin']
+        config = json.dumps(config_json)
+        
+        command = "update user_config set config = '%s', update = '%s' where user_id = '%s'" % (config,self.time(),uid)
+        _sql.run(command)
+        
+        return '配發給%s小星星代幣成功 目前代幣共有:%s'%(uid,new_startcoin)        
+        
+       
     def get_starcoin(self,uid,user_name):
+        
+        time = str(datetime.datetime.now(pytz.timezone('Asia/Taipei')))[0:10]
+        
         config = _sql.select_config(uid)
         if config == []:
             _config.create_config(uid,user_name)
@@ -112,20 +138,40 @@ class game_zone(object):
         profile = config_json['profile']
         
         if 'starcoin' in profile:
-            if profile['starcoin_time'] == 0:
+            if profile['starcoin_time'] == 0 or profile['starcoin_time'] == time:
                 profile['starcoin'] = profile['starcoin']+1
-                profile['starcoin_time'] = 1
+                profile['starcoin_time'] = time
             else:
                 return '今日已領取過代幣'
         else:
-            newitem = {'starcoin':1,'starcoin_time':1}
+            newitem = {'starcoin':1,'starcoin_time':time}
             profile.update(newitem)            
         
         new_startcoin = profile['starcoin']
         config = json.dumps(config_json)
         _sql.update_config(uid,user_name,config)
         
-        return '%s領取小星星代幣成功 目前代幣共有:%s'%(user_name,new_startcoin)       
+        return '%s領取小星星代幣成功 目前代幣共有:%s'%(user_name,new_startcoin)
+
+    def get_user_items(self,uid,user_name):
+        config = _sql.select_config(uid)
+        if config == []:
+            _config.create_config(uid,user_name)
+        
+        config = _sql.select_config(uid)
+        config_json = json.loads(config[0][2])
+        
+        profile = config_json['profile']
+        
+        if 'equipment' in profile:
+             equ_list = profile['equipment']
+             if equ_list == {}:
+                 return '%s 目前沒有任何道具'%user_name
+             else:
+                 return '%s 目前沒有任何道具_UI'%user_name
+        else:
+            return '%s 目前沒有任何道具'%user_name
+                
     
     def get_atk_userlist(self):
         
@@ -359,7 +405,7 @@ class game_zone(object):
                     p['INT']=message[12]
                     p['AGI']=message[13]
                     p['DEX']=message[14]
-                    p['starcoin_time']=0
+                    p['starcoin_time']=time
                     
                     config = json.dumps(config_json)
                     _sql.update_config(uid,user_name,config) 
@@ -392,7 +438,7 @@ class game_zone(object):
                          'item2':'',
                          'equipment':{},
                          'starcoin':0,
-                         'starcoin_time':0
+                         'starcoin_time':time
                          }
                     }                
                     config_json['profile'] = new_json['profile']
@@ -430,7 +476,7 @@ class game_zone(object):
                  'item2':'',
                  'equipment':{},
                  'starcoin':0,
-                 'starcoin_time':0
+                 'starcoin_time':time
                  }
             }
             config_json['profile'] = new_json['profile']
@@ -502,7 +548,8 @@ class game_zone(object):
 class card_fight(object):
     
     def __init__(self):
-        self.class_name = 'card_fight' 
+        self.class_name = 'card_fight'
+        self.sline = '------------'
 
     def getATK(self,atk, lucky, wiz_value):
         
@@ -674,19 +721,111 @@ class card_fight(object):
         else:
             return ([1,1])
         
-#    def lucky_time(self,uid,user_name):
-#        
-#        config = _sql.select_config(uid)
-#        if config == []:
-#            _config.create_config(uid,user_name)
-#            return '尚未建立人物卡片及領取代幣'
-#        
-#        config = _sql.select_config(uid)
-#        config_json = json.loads(config[0][2])
-#        
-#        profile = config_json['profile']        
+    def use_items(self,uid,user_name):
+        return '功能開發中'
         
+    def lucky_time(self,uid,user_name):
+        
+        config = _sql.select_config(uid)
+        if config == []:
+            _config.create_config(uid,user_name)
+            return '尚未建立人物卡片及領取代幣'
+        
+        config = _sql.select_config(uid)
+        config_json = json.loads(config[0][2])
+        
+        profile = config_json['profile']
+        
+        if 'starcoin' not in profile:
+            return '%s 請更新卡片並領取代幣後再進行尋寶功能'%user_name
+        else:
+            if profile['starcoin'] ==0:
+                return '%s 已沒有代幣可以進行尋寶唷'%user_name
+            else:
+                equ_list = profile['equipment']
+                if equ_list == {}:
+                    equ_list = []
+                #print(equ_list)
+                items = None
+                               
+                lucky_poin = random.randint(1,1000)
+                if lucky_poin >=999:
+                    res = '99'
+                    items = self.lucky_time_items(user_name,res)
+                    print(items)
+                    equ_list.append(items)
+                    profile['equipment'] = equ_list
+                    #result['99'] = result['99']+1
+                elif lucky_poin >=300 and lucky_poin <550:
+                    res = '1'
+                    items = self.lucky_time_items(user_name,res)
+                    print(items)
+                    equ_list.append(items)
+                    profile['equipment'] = equ_list
+                    #result['1'] = result['1']+1
+                elif lucky_poin >=550 and lucky_poin <700:
+                    res = '2'
+                    items = self.lucky_time_items(user_name,res)
+                    print(items)
+                    equ_list.append(items)
+                    profile['equipment'] = equ_list
+                    #result['2'] = result['2']+1
+                elif lucky_poin >=700 and lucky_poin <750:
+                    res = '3'
+                    items = self.lucky_time_items(user_name,res)
+                    print(items)
+                    equ_list.append(items)
+                    profile['equipment'] = equ_list
+                    #result['3'] = result['3']+1
+                else:
+                    res = '0'
+                    #result['0'] = result['0']+1
+                    items = self.lucky_time_items(user_name,res)
+                    print(items)
+                
+                profile['starcoin']=profile['starcoin']-1
+                new_coin = profile['starcoin']
+                
+                config = json.dumps(config_json)
+                _sql.update_config(uid,user_name,config)
+                
+                return '%s 在本次的探險中獲得\n%s\n%s\n%s\n剩餘小星星代幣:%s'%(user_name,self.sline,items,self.sline,new_coin)  
+                
+    def lucky_time_items(self,ser_name,res):
+        
+        dict = {
+                '0':['銘謝惠顧','再接再勵，下一次會更好','唉呀~沒抽中','憑你也想抽中','離中獎，還差的遠呢?',
+                     '我覺得你不行，下次再抽吧'
+                     ],
+                '1':['紅藥水','藍藥水'],
+                '2':['紅藥水','藍藥水','橙色藥水','攻擊增加藥水I','防禦增加藥水I'],
+                '3':['白色藥水','濃縮藍色藥水''攻擊增加藥水II','防禦增加藥水II'],
+                '99':['角色重置卡']
+                }
+                
+        return random.choice(dict[res])
+    
+    def get_item_detail(self,val):
+        
+        item_detail = self.item_detail(val)
+        
+        return '%s：%s'%(val,item_detail['detail'])
 
-
+    def item_detail(self,val):
+        
+        dict = {
+                '紅藥水':{'val':500,'detail':'恢復生命值500點'},
+                '橙色藥水':{'val':1000,'detail':'恢復生命值1000點'},
+                '白色藥水':{'val':2000,'detail':'恢復生命值2000點'},
+                '藍藥水':{'val':1000,'detail':'恢復魔力值1000點'},
+                '攻擊增力藥水I':{'val':1000,'detail':'增加攻擊力1000點'},
+                '攻擊增力藥水II':{'val':2000,'detail':'增加攻擊力2000點'},
+                '防禦增力藥水I':{'val':1000,'detail':'增加防禦1000點'},
+                '防禦力藥水II':{'val':2000,'detail':'增加防禦2000點'},
+                '角色重置卡':{'val':0,'detail':'重置人物屬性，但是魔王還是變沙包呢? 爻杯吧'}
+                }
+        
+        return dict[val]
+        
 if __name__ == '__main__':
     main()
