@@ -641,6 +641,13 @@ def handle_message(event):
         item_name = re.match('^查道具=(.+)',event.message.text).group(1)
         content = _games_card.get_item_detail(item_name)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        return 0
+    if re.match('^使用道具=(.+)',event.message.text):
+        item_name = re.match('^使用道具=(.+)',event.message.text).group(1)
+        profile = _lineapi.get_user_name(Channel_Access_Token,event)
+        user_name = profile['displayName']
+        content = _games_card.use_items(uid,user_name,item_name)
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0 
     if re.match('^每日探險',event.message.text):
         profile = _lineapi.get_user_name(Channel_Access_Token,event)
