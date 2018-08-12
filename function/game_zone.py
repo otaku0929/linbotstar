@@ -811,7 +811,7 @@ class card_fight(object):
                 if lucky_poin >=999:
                     res = '99'
                     get_item = self.lucky_time_items(user_name,res)
-                    item = get_item[0]
+                    items = get_item[0]
                     status = get_item[1]
                     #print(items)
                     equ_list.append(items)
@@ -820,7 +820,7 @@ class card_fight(object):
                 elif lucky_poin >=300 and lucky_poin <550:
                     res = '1'
                     get_item = self.lucky_time_items(user_name,res)
-                    item = get_item[0]
+                    items = get_item[0]
                     status = get_item[1]
                     #print(items)
                     equ_list.append(items)
@@ -829,7 +829,7 @@ class card_fight(object):
                 elif lucky_poin >=550 and lucky_poin <700:
                     res = '2'
                     get_item = self.lucky_time_items(user_name,res)
-                    item = get_item[0]
+                    items = get_item[0]
                     status = get_item[1]
                     #print(items)
                     equ_list.append(items)
@@ -838,7 +838,7 @@ class card_fight(object):
                 elif lucky_poin >=700 and lucky_poin <750:
                     res = '3'
                     get_item = self.lucky_time_items(user_name,res)
-                    item = get_item[0]
+                    items = get_item[0]
                     status = get_item[1]
                     #print(items)
                     equ_list.append(items)
