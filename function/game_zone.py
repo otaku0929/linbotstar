@@ -848,6 +848,7 @@ class card_fight(object):
                     res = '0'
                     #result['0'] = result['0']+1
                     items = self.lucky_time_items(user_name,res)
+                    status = items
                     #print(items)
                 
                 profile['starcoin']=profile['starcoin']-1
