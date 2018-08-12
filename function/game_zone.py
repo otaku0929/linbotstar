@@ -870,7 +870,7 @@ class card_fight(object):
                 ]
 
         getitem = random.choice(dict[res])
-        if res !=0:
+        if res !='0':
             return random.choice(dict_s)%getitem
         else:        
             return getitem
