@@ -284,6 +284,12 @@ def handle_message(event):
             content = _config.delete_config(id)
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
+    if re.match('^##金幣=(.+)#(.+)',event.message.text):
+        uid = re.match('^#金幣=(.+)#(.+)',event.message.text).group(1)
+        coin = re.match('^#金幣=(.+)#(.+)',event.message.text).group(2)
+        content = _games.to_starcoin(uid,coin)
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        return 0
     #浮水印設定
     if re.match('^#浮水印%(.+)%f(\d+)%([t|e]\d)%(red|green|blue|white|black|pink|yellow|gold|#......)%al(\d+)%(p\d)',event.message.text):
         try:
@@ -679,12 +685,6 @@ def handle_message(event):
             content = '小星星 使出 一閃一閃亮晶晶 攻擊 %s 造成99999999999的傷害 贏了這場比賽'%user_name
         else:       
             content = _games.card_pk(uid,user_name,pk_user)
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
-        return 0
-    if re.match('^#金幣=(.+)%(.+)',event.message.text):
-        uid = re.match('^#金幣=(.+)%(.+)',event.message.text).group(1)
-        coin = re.match('^#金幣=(.+)%(.+)',event.message.text).group(2)
-        content = _games.to_starcoin(uid,coin)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0          
     ####影音類####
