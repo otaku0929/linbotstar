@@ -35,10 +35,10 @@ def main():
     #content = _game.get_starcoin('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
     #content = _game.card_pk('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','Andersen')
     #content = _game_card.get_user_items('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星')
-    content = _game_card.use_items('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','紅藥水(中)')
-    #content = _game_card.lucky_time('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星')
+    #content = _game_card.use_items('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','紅藥水(中)')
+    content = _game_card.lucky_time('U59e79d6500b2f9cad5ed780c1a1f9f8a','謙²')
     #content = _game_card.get_item_detail('紅藥水')
-    #content = _game.to_starcoin('U9f2c61013256dfe556d70192388e4c7c',10)
+    #content = _game.to_starcoin('U59e79d6500b2f9cad5ed780c1a1f9f8a',6)
     #content = _game.get_atk_userlist()
 #    messages = '攻擊=@陳小馬（EK)'
 #    if re.match('^(對戰|攻擊)= ?@?(.+)',messages):
@@ -808,28 +808,28 @@ class card_fight(object):
                 if lucky_poin >=999:
                     res = '99'
                     items = self.lucky_time_items(user_name,res)
-                    print(items)
+                    #print(items)
                     equ_list.append(items)
                     profile['equipment'] = equ_list
                     #result['99'] = result['99']+1
                 elif lucky_poin >=300 and lucky_poin <550:
                     res = '1'
                     items = self.lucky_time_items(user_name,res)
-                    print(items)
+                    #print(items)
                     equ_list.append(items)
                     profile['equipment'] = equ_list
                     #result['1'] = result['1']+1
                 elif lucky_poin >=550 and lucky_poin <700:
                     res = '2'
                     items = self.lucky_time_items(user_name,res)
-                    print(items)
+                    #print(items)
                     equ_list.append(items)
                     profile['equipment'] = equ_list
                     #result['2'] = result['2']+1
                 elif lucky_poin >=700 and lucky_poin <750:
                     res = '3'
                     items = self.lucky_time_items(user_name,res)
-                    print(items)
+                    #print(items)
                     equ_list.append(items)
                     profile['equipment'] = equ_list
                     #result['3'] = result['3']+1
@@ -837,7 +837,7 @@ class card_fight(object):
                     res = '0'
                     #result['0'] = result['0']+1
                     items = self.lucky_time_items(user_name,res)
-                    print(items)
+                    #print(items)
                 
                 profile['starcoin']=profile['starcoin']-1
                 new_coin = profile['starcoin']
@@ -851,15 +851,29 @@ class card_fight(object):
         
         dict = {
                 '0':['銘謝惠顧','再接再勵，下一次會更好','唉呀~沒抽中','憑你也想抽中','離中獎，還差的遠呢?',
-                     '我覺得你不行，下次再抽吧','挖了滿地的坑，但什麼都沒有','被漢堡神偷偷走了寶物'
+                     '我覺得你不行，下次再抽吧','挖了滿地的坑，但什麼都沒有','被漢堡神偷偷走了寶物',
+                     '回到家時發現褲子破洞，寶物都掉光了','多扶奶奶過馬路，應該會中大獎',
+                     '迷路找不到山洞只好回家了','出門被車撞到，回家休養'
                      ],
                 '1':['紅色藥水','藍色藥水'],
                 '2':['紅色藥水','藍色藥水','橙色藥水','攻擊增加藥水I','防禦增加藥水I'],
                 '3':['白色藥水','濃縮藍色藥水''攻擊增加藥水II','防禦增加藥水II'],
                 '99':['角色重置卡']
                 }
-                
-        return random.choice(dict[res])
+        
+        dict_s = [
+                '本來要放棄了，結果在路口跌倒撿到 %s ',
+                '在探險的山洞中，找到了 %s',
+                '東挖挖、西找找，被你找到了 %s',
+                '皇天不負苦心人，在山洞口的狗屎堆中發現 %s',
+                '是尋寶大王，發現了 %s'
+                ]
+
+        getitem = random.choice(dict[res])
+        if res !=0:
+            return random.choice(dict_s)%getitem
+        else:        
+            return getitem
     
     def get_item_detail(self,val):
         
