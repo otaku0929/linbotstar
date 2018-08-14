@@ -189,7 +189,7 @@ class game_zone(object):
             if config_json['profile']['profile_time'] == time: 
                 if 'equipment' in config_json['profile']:
                     A = config_json['profile']  
-                    profile1 = '力量(STR):%s  智力(INT):%s\n敏捷(AGI):%s 命中(DEX):%s\n體值(VIT):%s 幸運(LUK):%s'\
+                    profile1 = '力量(STR):%s  智力(INT):%s\n速度(AGI):%s 敏捷(DEX):%s\n體值(VIT):%s 幸運(LUK):%s'\
                     %(A['STR'],A['INT'],A['VIT'],A['AGI'],A['DEX'],A['lucky'])
                     profile2 = '生命值(HP):%s\n魔法力(MP):%s\n攻擊力(ATK):%s\n防禦力(DEF):%s'\
                     %(A['hp'],A['mp'],A['ATK'],A['DEF'])
@@ -200,7 +200,7 @@ class game_zone(object):
                     return content
                 else:
                     A = config_json['profile']  
-                    profile1 = '力量(STR):%s 智力(INT):%s\n敏捷(AGI):%s 命中(DEX):%s\n體值(VIT):%s 幸運(LUK):%s'\
+                    profile1 = '力量(STR):%s 智力(INT):%s\n速度(AGI):%s 敏捷(DEX):%s\n體值(VIT):%s 幸運(LUK):%s'\
                     %('_','_','_','_','_',A['lucky'])
                     profile2 = '生命值(HP):%s\n魔法力(MP):%s\n攻擊力(ATK):%s\n防禦力(DEF):%s'\
                     %(A['hp'],A['mp'],A['ATK'],A['DEF'])
@@ -774,12 +774,30 @@ class card_fight(object):
                     new_index_values = profile[index]+item_detail['value']
                     if new_index_values > 9999:
                         new_index_values = 9999
-                if index in ['STR','INT','VIT']:
-                    new_index_values = profile[index]+item_detail['value']*5
+                if index in ['STR']:
+                    new_index_values = profile[index]+item_detail['value']
+                    profile['ATK']= profile['ATK']+int(item_detail['value']*5)
                     if new_index_values > 999:
                         new_index_values = 999
-                if index in ['DEX','AGI']:
-                    new_index_values = profile[index]+int(item_detail['value']*2.5)
+                if index in ['INT']:
+                    new_index_values = profile[index]+item_detail['value']
+                    profile['mp']= profile['mp']+int(item_detail['value']*5)
+                    if new_index_values > 999:
+                        new_index_values = 999
+                if index in ['VIT']:
+                    new_index_values = profile[index]+item_detail['value']
+                    profile['hp']= profile['hp']+int(item_detail['value']*5)
+                    profile['DEF']= profile['DEF']+int(item_detail['value']*5)
+                    if new_index_values > 999:
+                        new_index_values = 999
+                if index in ['DEX']:
+                    new_index_values = profile[index]+item_detail['value']
+                    profile['DEF']= profile['DEF']+int(item_detail['value']*2.5)
+                    if new_index_values > 999:
+                        new_index_values = 999
+                if index in ['AGI']:
+                    new_index_values = profile[index]+item_detail['value']
+                    profile['ATK']= profile['ATK']+int(item_detail['value']*2.5)
                     if new_index_values > 999:
                         new_index_values = 999
                 if index in ['LUK']:
@@ -933,7 +951,7 @@ class card_fight(object):
                 '打敗了史萊姆，獲得 %s',
                 '在森林裡的寶箱中，找到了 %s',
                 '偷跑去看電影，還在路邊撿到 %s',
-                '在地底地監打死蟹人，獲得 %s',
+                '在海底地監打死蟹人，獲得 %s',
                 '在遠古洞穴打死骷髏弓箭手，獲得 %s',
                 '在海神島釣魚，釣到了 %s',
                 '在太魯閣號的廁所裡撿到 %s',
@@ -956,35 +974,35 @@ class card_fight(object):
     def item_detail(self,val):
         
         dict = {
-                '紅色藥水':{'index':'hp','value':500,'index':'hp','detail':'恢復生命值500點'},
-                '橙色藥水':{'index':'hp','value':1000,'index':'hp','detail':'恢復生命值1000點'},
-                '白色藥水':{'index':'hp','value':2000,'index':'hp','detail':'恢復生命值2000點'},
-                '小魚乾':{'index':'hp','value':1500,'index':'hp','detail':'恢復生命值1500點'},
-                '戰狼肉':{'index':'hp','value':2500,'index':'hp','detail':'恢復生命值2500點'},                
-                '藍色藥水':{'index':'mp','value':1000,'index':'mp','detail':'恢復魔力值1000點'},
-                '濃縮藍色藥水':{'index':'mp','value':2000,'index':'mp','detail':'恢復魔力值2000點'},
-                '鼠兒果':{'index':'mp','value':1500,'index':'mp','detail':'恢復魔力值1500點'},
-                '攻擊增加藥水':{'index':'ATK','value':1000,'detail':'增加攻擊力1000點'},
-                '地獄辣椒':{'index':'ATK','value':1500,'detail':'增加攻擊力1500點'},
-                '大瓶裝攻擊增加藥水':{'index':'ATK','value':2000,'detail':'增加攻擊力2000點'},
-                '激進藥劑':{'index':'ATK','value':3000,'detail':'增加攻擊力3000點'},
-                '防禦增加藥水':{'index':'DEF','value':1000,'detail':'增加防禦1000點'},
-                '白馬乎你夯':{'index':'DEF','value':1500,'detail':'增加防禦1500點'},
-                '龜甲萬醬油':{'index':'DEF','value':2500,'detail':'增加防禦1500點'},
-                '大瓶裝防禦加藥水':{'index':'DEF','value':2000,'detail':'增加防禦2000點'},
-                '堅韌藥劑':{'index':'DEF','value':3000,'detail':'增加防禦3000點'},
-                '綠色藥水':{'index':'DEX','value':100,'detail':'增加敏捷100點'},
-                '勇敢藥水':{'index':'STR','value':100,'detail':'增加力量100點'},
-                '妖精餅乾':{'index':'AGI','value':100,'detail':'增加命中100點'},
-                '慎重藥水':{'index':'INT','value':100,'detail':'增加智力100點'},
-                '活力藥水':{'index':'VIT','value':100,'detail':'增加體力100點'},
-                '幸運餅乾':{'index':'LUK','value':100,'detail':'增加幸運100點'},
-                '疾走藥水':{'index':'DEX','value':200,'detail':'增加敏捷200點'},
-                '龍之珍珠':{'index':'STR','value':200,'detail':'增加力量200點'},
-                '惡魔之血':{'index':'AGI','value':200,'detail':'增加命中200點'},
-                '伊娃的祝福':{'index':'INT','value':200,'detail':'增加智力200點'},
-                '生命樹果實':{'index':'VIT','value':200,'detail':'增加體力200點'},
-                '無敵星星':{'index':'LUK','value':200,'detail':'增加幸運200點'},
+                '紅色藥水':{'index':'hp','value':500,'index':'hp','detail':'恢復生命值(HP)500點'},
+                '橙色藥水':{'index':'hp','value':1000,'index':'hp','detail':'恢復生命值(HP)1000點'},
+                '白色藥水':{'index':'hp','value':2000,'index':'hp','detail':'恢復生命值(HP)2000點'},
+                '小魚乾':{'index':'hp','value':1500,'index':'hp','detail':'恢復生命值(HP)1500點'},
+                '戰狼肉':{'index':'hp','value':2500,'index':'hp','detail':'恢復生命值(HP)2500點'},                
+                '藍色藥水':{'index':'mp','value':1000,'index':'mp','detail':'恢復魔力值(MP)1000點'},
+                '濃縮藍色藥水':{'index':'mp','value':2000,'index':'mp','detail':'恢復魔力值(MP)2000點'},
+                '鼠兒果':{'index':'mp','value':1500,'index':'mp','detail':'恢復魔力值(MP)1500點'},
+                '攻擊增加藥水':{'index':'ATK','value':1000,'detail':'增加攻擊力(ATK)1000點'},
+                '地獄辣椒':{'index':'ATK','value':1500,'detail':'增加攻擊力(ATK)1500點'},
+                '大瓶裝攻擊增加藥水':{'index':'ATK','value':2000,'detail':'增加攻擊力(ATK)2000點'},
+                '激進藥劑':{'index':'ATK','value':3000,'detail':'增加攻擊力(ATK)3000點'},
+                '防禦增加藥水':{'index':'DEF','value':1000,'detail':'增加防禦(DEF)1000點'},
+                '白馬乎你夯':{'index':'DEF','value':1500,'detail':'增加防禦(DEF)1500點'},
+                '龜甲萬醬油':{'index':'DEF','value':2500,'detail':'增加防禦(DEF)1500點'},
+                '大瓶裝防禦加藥水':{'index':'DEF','value':2000,'detail':'增加防禦(DEF)2000點'},
+                '堅韌藥劑':{'index':'DEF','value':3000,'detail':'增加防禦(DEF)3000點'},
+                '綠色藥水':{'index':'AGI','value':100,'detail':'增加速度(AGI)100點，可增加攻擊力'},
+                '勇敢藥水':{'index':'STR','value':100,'detail':'增加力量(STR)100點，可增加攻擊力'},
+                '妖精餅乾':{'index':'DEX','value':100,'detail':'增加敏捷(DEX)100點，可增加防禦力'},
+                '慎重藥水':{'index':'INT','value':100,'detail':'增加智力(INT)100點，可增加MP'},
+                '活力藥水':{'index':'VIT','value':100,'detail':'增加體力(VIT)100點，可增加防禦力'},
+                '幸運餅乾':{'index':'LUK','value':100,'detail':'增加幸運(LUK)100點，幸運會影響出手機率及絕招的施放'},
+                '疾走藥水':{'index':'AGI','value':200,'detail':'增加速度(AGI)200點，可增加攻擊力'},
+                '龍之珍珠':{'index':'STR','value':200,'detail':'增加力量(STR)200點，可增加攻擊力'},
+                '惡魔之血':{'index':'DEX','value':200,'detail':'增加敏捷(DEX)200點，可增加防禦力'},
+                '伊娃的祝福':{'index':'INT','value':200,'detail':'增加智力(INT)200點，可增加MP'},
+                '生命樹果實':{'index':'VIT','value':200,'detail':'增加體力(VIT)200點，可增加防禦力'},
+                '無敵星星':{'index':'LUK','value':200,'detail':'增加幸運(LUK)200點，幸運會影響出手機率及絕招的施放'},
                 '角色重置卡':{'index':'reset','value':0,'detail':'重置人物屬性，但是魔王還是變沙包呢? 爻杯吧'}
                 }
         
