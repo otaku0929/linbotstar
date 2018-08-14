@@ -872,7 +872,7 @@ class card_fight(object):
                     profile['equipment'] = equ_list
                     #result['4'] = result['4']+1
                 elif lucky_poin >=800 and lucky_poin <830:
-                    res = '4'
+                    res = '5'
                     get_item = self.lucky_time_items(user_name,res)
                     items = get_item[0]
                     status = get_item[1]
@@ -881,7 +881,7 @@ class card_fight(object):
                     profile['equipment'] = equ_list
                     #result['4'] = result['4']+1
                 elif lucky_poin >=830 and lucky_poin <860:
-                    res = '4'
+                    res = '6'
                     get_item = self.lucky_time_items(user_name,res)
                     items = get_item[0]
                     status = get_item[1]
