@@ -720,15 +720,15 @@ def handle_message(event):
         content = _games_card.get_user_equ(uid,user_name)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0    
-    if re.match('^使用裝備=(eq.+)',event.message.text):
-        item = re.match('^使用裝備=(eq.+)',event.message.text).group(1)
+    if re.match('^使用裝備=(.+)',event.message.text):
+        item = re.match('^使用裝備=(.+)',event.message.text).group(1)
         profile = _lineapi.get_user_name(Channel_Access_Token,event)
         user_name = profile['displayName']        
         content = _games_card.use_eq(uid,user_name,item)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
-    if re.match('^移除裝備=(eq.+)',event.message.text):
-        item = re.match('^移除裝備=(eq.+)',event.message.text).group(1)
+    if re.match('^移除裝備=(.+)',event.message.text):
+        item = re.match('^移除裝備=(.+)',event.message.text).group(1)
         profile = _lineapi.get_user_name(Channel_Access_Token,event)
         user_name = profile['displayName']        
         content = _games_card.unuse_eq(uid,user_name,item)
