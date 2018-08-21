@@ -444,7 +444,8 @@ def handle_message(event):
     #查伴奏-伴唱聯盟
     if re.search('^查伴奏=(.+)',event.message.text):
         res = re.search('^查伴奏=(.+)',event.message.text).group(1)
-        content = _hsing.songsearch17(res)
+        content = "此功能維護中"
+        ##content = _hsing.songsearch17(res)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
     ####占卜#####
@@ -632,7 +633,7 @@ def handle_message(event):
             )        
             line_bot_api.reply_message(event.reply_token,image_message)
         return 0
-    if re.match('^查人物道具',event.message.text):
+    if re.match('查(詢)?人物道具',event.message.text):
         profile = _lineapi.get_user_name(Channel_Access_Token,event)
         user_name = profile['displayName']
         content = _games_card.get_user_items(uid,user_name)
@@ -649,13 +650,13 @@ def handle_message(event):
         content = _games_card.use_items(uid,user_name,item_name)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0 
-    if re.match('^每日探險',event.message.text):
+    if event.message.text == '每日探險':
         profile = _lineapi.get_user_name(Channel_Access_Token,event)
         user_name = profile['displayName']
         content = _games_card.lucky_time(uid,user_name)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0        
-    if re.match('^領取小星星代幣',event.message.text):
+    if event.message.text == '領取小星星代幣':
         profile = _lineapi.get_user_name(Channel_Access_Token,event)
         user_name = profile['displayName']
         content = _games.get_starcoin(uid,user_name)
@@ -673,7 +674,7 @@ def handle_message(event):
         content = _games.get_user_profile(uid,user_name)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0         
-    if re.match('^查對戰列表',event.message.text):
+    if event.message.text == '查對戰列表':
         content = _games.get_atk_userlist()
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
@@ -686,7 +687,53 @@ def handle_message(event):
         else:       
             content = _games.card_pk(uid,user_name,pk_user)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
-        return 0          
+        return 0
+    if re.match('^查([看詢])?武器商店',event.message.text):
+        content = _games_card.arms_detail()
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        return 0
+    if re.match('^查([看詢])?防具商店',event.message.text):
+        content = _games_card.armor_store_detail()
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        return 0
+    if re.match('^查([看詢])?道具商店',event.message.text):
+        content = '目前道具商店尚未開張'
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        return 0
+    if re.match('^購買(裝備|道具)=(.+)',event.message.text):
+        item = re.match('^購買(裝備|道具)=(.+)',event.message.text).gorup(2)
+        profile = _lineapi.get_user_name(Channel_Access_Token,event)
+        user_name = profile['displayName']        
+        content = _games_card.buy_item(uid,user_name,item)
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        return 0
+    if re.match('^販售(裝備|道具)=(.+)',event.message.text):
+        item = re.match('^販售(裝備|道具)=(.+)',event.message.text).gorup(2)
+        profile = _lineapi.get_user_name(Channel_Access_Token,event)
+        user_name = profile['displayName']        
+        content = _games_card.sell_item(uid,user_name,item)
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        return 0
+    if re.match('^查人物裝備',event.message.text):
+        profile = _lineapi.get_user_name(Channel_Access_Token,event)
+        user_name = profile['displayName']        
+        content = _games_card.get_user_equ(uid,user_name)
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        return 0    
+    if re.match('^使用裝備=(eq.+)',event.message.text):
+        item = re.match('^使用裝備=(eq.+)',event.message.text).gorup(1)
+        profile = _lineapi.get_user_name(Channel_Access_Token,event)
+        user_name = profile['displayName']        
+        content = _games_card.use_eq(uid,user_name,item)
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        return 0
+    if re.match('^移除裝備=(eq.+)',event.message.text):
+        item = re.match('^移除裝備=(eq.+)',event.message.text).gorup(1)
+        profile = _lineapi.get_user_name(Channel_Access_Token,event)
+        user_name = profile['displayName']        
+        content = _games_card.unuse_eq(uid,user_name,item)
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        return 0           
     ####影音類####
     if re.match('^(聽歌|找到|youtube)=(.+)*',event.message.text):
         res = re.match('^(聽歌|找到|youtube)=(.+)*',event.message.text).group(2)
