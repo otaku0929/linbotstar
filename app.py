@@ -700,15 +700,15 @@ def handle_message(event):
         content = '目前道具商店尚未開張'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
-    if re.match('^購買(裝備|道具)=(.+)',event.message.text):
-        item = re.match('^購買(裝備|道具)=(.+)',event.message.text).group(2)
+    if re.match('^買(裝備|道具)=(.+)',event.message.text):
+        item = re.match('^買(裝備|道具)=(.+)',event.message.text).group(2)
         profile = _lineapi.get_user_name(Channel_Access_Token,event)
         user_name = profile['displayName']        
         content = _games_card.buy_item(uid,user_name,item)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
-    if re.match('^販售(裝備|道具)=(.+)',event.message.text):
-        item = re.match('^販售(裝備|道具)=(.+)',event.message.text).group(2)
+    if re.match('^賣(裝備|道具)=(.+)',event.message.text):
+        item = re.match('^賣(裝備|道具)=(.+)',event.message.text).group(2)
         profile = _lineapi.get_user_name(Channel_Access_Token,event)
         user_name = profile['displayName']        
         content = _games_card.sell_item(uid,user_name,item)
