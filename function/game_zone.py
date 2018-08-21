@@ -33,13 +33,20 @@ def main():
     #content = _game.user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','http://dl.profile.line-cdn.net/0hLkoyPlmqE0RSAD5u3DZsE25FHSklLhUMKmILJiUCRHQrZVRGPWZfJnJTTHJ5ZQESaWNUJn5VTics')
     #content = _game.get_user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
     #content = _game.get_starcoin('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
-    #content = _game.card_pk('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','Andersen')
+    #content = _game.card_pk('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','PeggyBlue')
     #content = _game_card.get_user_items('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星')
+    content = _game_card.get_user_equ('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
+    #content = _game_card.buy_item('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','阿嬤之杖')
+    #content = _game_card.sell_item('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','紅色藥水')    
+    #content = _game_card.use_eq('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','eq2')
+    #content = _game_card.unuse_eq('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','阿嬤之杖')
     #content = _game_card.use_items('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','紅藥水(中)')
+    #content = _game_card.armor_store_detail()
     #content = _game_card.lucky_time('U59e79d6500b2f9cad5ed780c1a1f9f8a','謙²')
-    #content = _game_card.get_item_detail('紅藥水')
-    content = _game.to_starcoin('U86ba3f91e10636f361524d3d06cdb1ed',5)
+    #content = _game_card.get_item_detail('紅色藥水')
+    #content = _game.to_starcoin('U9f2c61013256dfe556d70192388e4c7c',25)
     #content = _game.get_atk_userlist()
+    #content = _game_card.armor_store_detail()
 #    messages = '攻擊=@陳小馬（EK)'
 #    if re.match('^(對戰|攻擊)= ?@?(.+)',messages):
 #        uid = 'U9f2c61013256dfe556d70192388e4c7c'
@@ -55,6 +62,7 @@ class game_zone(object):
     def __init__(self):
         self.class_name = 'game_zone'
         self.sline = '------------'
+        self._game_card = card_fight()
 
     def time(self):
         return str(datetime.datetime.now(pytz.timezone('Asia/Taipei')))[0:10]
@@ -193,8 +201,25 @@ class game_zone(object):
                     %(A['STR'],A['INT'],A['VIT'],A['AGI'],A['DEX'],A['lucky'])
                     profile2 = '生命值(HP):%s\n魔法力(MP):%s\n攻擊力(ATK):%s\n防禦力(DEF):%s'\
                     %(A['hp'],A['mp'],A['ATK'],A['DEF'])
-                    equipment_content = '武器:%s\n防具:%s\n道具欄:%s\n道具欄:%s'\
-                    %(A['arms'],A['armor'],A['item1'],A['item2'])
+                    
+                    if A['arms'] =='':
+                        arms_item = A['arms']
+                    else:
+                        for obj in A['arms']:
+                            arms_item = obj
+                            arms_index = A['arms'][obj][0]
+                            arms_ed = A['equ_list'][arms_index][obj]['ed'] 
+
+                    if A['armor'] =='':
+                        arms_item = A['armor']
+                    else:
+                        for obj in A['armor']:
+                            armor_item = obj
+                            armor_index = A['armor'][obj][0]
+                            armor_ed = A['equ_list'][armor_index][obj]['ed']
+                            
+                    equipment_content = '武器:{} ({}%)\n防具:{} ({}%)\n道具欄:{}\n道具欄:{}'\
+                    .format(arms_item,arms_ed,armor_item,armor_ed,A['item1'],A['item2'])
                     content = '%s\n\n屬性:%s\n每日運勢:%s\n小星星代幣:%s\n%s\n%s\n\n%s\n\n%s\n%s\n%s'\
                     %(A['user_name'],A['WIZ'],A['today'],A['starcoin'],self.sline,profile1,profile2,equipment_content,self.sline,A['keywords'])
                     return content
@@ -215,6 +240,20 @@ class game_zone(object):
         else:
             content = {'link':'%s 今天還沒有產生卡片哦，可以輸入 "今日卡片" 來產生哦!'%user_name}
             return content
+        
+    def use_item_ed(self,uid,config):
+        
+        profile = config['profile']
+        
+        if profile['arms'] != '':
+            for obj in profile['arms']:
+                index = profile['arms'][obj][0]
+                ed = profile['equ_list'][index][obj]['ed']
+                profile['equ_list'][index][obj]['ed'] = ed-1
+        
+#        config = json.dumps(config_json)
+#        _sql.update_config(uid,user_name,config)
+        return (profile)
     
     def card_pk(self,uid,user_name,pk_user):
         
@@ -231,21 +270,55 @@ class game_zone(object):
         config = _sql.select(sql_command)
         if config == []:
             return '%s 沒有對戰卡片哦'%user_name
-                       
-        jsonA= json.loads(_sql.select_config(uid)[0][2])
-        jsonB= json.loads(_sql.select_config(pk_id)[0][2])
+        
+        config_A = _sql.select_config(uid)[0][2]    
+        config_B = _sql.select_config(pk_id)[0][2]        
+        jsonA= json.loads(config_A)
+        jsonB= json.loads(config_B)
         
         A = jsonA['profile']
         B = jsonB['profile']
-        #print(A,B)
+        #print(A,B)        
+        
+        #取得角色裝備
+        if A['arms'] == '':
+            charA_arms = ''
+        else:
+            for obj in A['arms']:
+#                index = profile['arms'][obj][0]
+#                ed = profile['equ_list'][index][obj]['ed']
+#                if ed == 0:                   
+                charA_arms = obj
+            
+        if A['armor'] == '':
+            charA_armor = ''
+        else:
+            for obj in A['armor']:
+                charA_armor = obj
+            
+        
+        if B['arms'] == '':
+            charB_arms = ''
+        else:
+            for obj in B['arms']:
+                charB_arms = obj
+                
+        if B['armor'] == '':
+            charB_armor = ''
+        else:
+            for obj in A['armor']:
+                charB_armor = obj
+                
+        
 
-        profile_A = '%s (%s) hp:%s mp:%s atk:%s def:%s lucky:%s'%(A['user_name'],A['WIZ'],A['hp'],A['mp'],A['ATK'],A['DEF'],A['lucky'])
-        profile_B = '%s (%s) hp:%s mp:%s atk:%s def:%s lucky:%s'%(B['user_name'],B['WIZ'],B['hp'],B['mp'],B['ATK'],B['DEF'],B['lucky'])
+        profile_A = '%s (%s) hp:%s mp:%s atk:%s def:%s lucky:%s\n武器:%s 防具:%s'%(A['user_name'],A['WIZ'],A['hp'],A['mp'],A['ATK'],A['DEF'],A['lucky'],charA_arms,charA_armor)
+        profile_B = '%s (%s) hp:%s mp:%s atk:%s def:%s lucky:%s\n武器:%s 防具:%s'%(B['user_name'],B['WIZ'],B['hp'],B['mp'],B['ATK'],B['DEF'],B['lucky'],charB_arms,charB_armor)
         
         charA_HP = A['hp']
         charB_HP = B['hp']
         charA_MP = A['mp']
         charB_MP = B['mp']
+        
         Wiz_value_list = _card_game.WizATK(A['WIZ'], B['WIZ'])
         A_Wiz_value = Wiz_value_list[0]
         B_Wiz_value = Wiz_value_list[1]
@@ -254,8 +327,8 @@ class game_zone(object):
         
         while charA_HP >=0 or charB_HP >=0:
             #判定誰攻誰防, 以幸運值亂數高者為攻
-            A_ATK_KEY=random.randint(0,100)+int(random.randint(0,A['lucky'])/10)
-            B_ATK_KEY=random.randint(0,100)+int(random.randint(0,B['lucky'])/10)
+            A_ATK_KEY=random.randint(0,100)+int(random.randint(0,A['DEX'])/10)
+            B_ATK_KEY=random.randint(0,100)+int(random.randint(0,B['DEX'])/10)
        
             if len(A['user_name'])>8:              
                 A_Name = '%s..'%(A['user_name'][0:7])
@@ -336,6 +409,8 @@ class game_zone(object):
                     atk_list['atk_winner'] = '平手'
                     atk_list['atk_fin'] = self.get_peace(A['user_name'],B['user_name'])
                     break
+        
+        #print (self.use_item_ed(uid,jsonA))
                 
         return ('----------\n%s\n%s\n----------\n\n%s\n\n戰鬥紀錄**********\n%s'%(profile_A,profile_B,atk_list['atk_fin'],atk_list['fight_status']))
     
@@ -452,6 +527,7 @@ class game_zone(object):
                          'item1':'',
                          'item2':'',
                          'equipment':{},
+                         'equ_list':{},
                          'starcoin':0,
                          'starcoin_time':None
                          }
@@ -490,6 +566,7 @@ class game_zone(object):
                  'item1':'',
                  'item2':'',
                  'equipment':{},
+                 'equ_list':{},
                  'starcoin':0,
                  'starcoin_time':None
                  }
@@ -514,13 +591,15 @@ class game_zone(object):
         AGI = random.randint(1,1000)
         DEX = random.randint(1,1000)
         LUK = random.randint(1,1000)
-        LV = LV = random.randint(1,99)
+        LV = random.randint(1,99)
+        ATK_LV = random.randint(1,99)
+        DEF_LV = random.randint(1,99)
     
         hp = VIT*5+random.randint(LV*5,5000)
         mp = INT*5+random.randint(LV*5,5000)
 
-        ATK = STR*5+INT*2+int(AGI*2.5)+int(DEX*1.5)+random.randint(0,LV*100)
-        DEF = VIT*5+STR*2+int(DEX*2.5)+int(AGI*1.5)+random.randint(0,LV*100)       
+        ATK = STR*5+INT*2+int(AGI*2.5)+int(DEX*1.5)+random.randint(0,ATK_LV*100)
+        DEF = VIT*5+STR*2+int(DEX*2.5)+int(AGI*1.5)+random.randint(0,DEF_LV*100)       
              
         today_value = int((hp+mp+LUK)/1000)
         today=self.get_star(today_value)
@@ -563,7 +642,7 @@ class card_fight(object):
                 '冥醫的根管治療','雷恩的七星刀','倫家吃不完','一隻雨傘','灑石灰','拜請天兵天將','丟進曼陀珠的可樂',
                 '音浪不晃','中國古拳法','櫻木花道式灌籃','最後一塊頂級燒肉','假日飛刀手','大力鷹爪功','黑虎掏心',
                 '白鶴亮翅','馬雅人弓箭手戰術','流浪的紅舞鞋','修羅旋風拳','凍僵的手','武松打貓拳','感冒病毒',
-                '花痴大蘿蔔','累積十年的膽結石'
+                '花痴大蘿蔔','累積十年的膽結石','來人，請公子吃餅','6呎日光燈管'
                 ]
         atk2 = ['強力攻擊','破壞拳','迴旋踢','關門放狗','伸長吧~~拳頭','奧客精神','RAP碎碎唸','恐龍攻擊',
                 '百裂拳','天帝之眼','紅蓮爆炎刃','丟大便','天翔龍閃','唸經','竹筍炒肉絲','宅男的右手','氣圓斬',
@@ -576,7 +655,7 @@ class card_fight(object):
                 '喂~博愛座讓讓','黑暗料理','保夾的超強抓力','發出好人卡','昇龍餃子拳','每隔五分的鬧鐘','小雞吃米拳',
                 '火車上的拍肩掌','胖小孩的雙下巴','飛天鹹豬手','蓋亞能量炮','Tmama衝擊波','超大衝天炮','傳說中的肥螳螂拳',
                 '小狗快攻','一錠官銀','一斤砒霜','保特瓶飛彈','阿彌陀丸！附身合體！','老闆娘鐵拳','神所傳授的拳法',
-                '凸額頭','濃密的毛髮']
+                '凸額頭','濃密的毛髮','二代炸彈嘴','胖龍出海','KITTY逗貓棒']
         atk3 = ['龜派氣功波','超級飛踢','三刀流~鬼斬','三寶上路','卍解','霸王龍之吻','昇龍拳','奪命剪刀腳',
                 '人妖拳法','召喚苦力帕','飛天蟑螂','超級凍結冰箭','火龍的碎牙','天輪‧循環之劍','色誘術-女女術',
                 '猴子偷桃','超濃古龍水','整形前的照片','佛山無影腳','亂開E-MAIL','驗孕棒的二條線','起床氣',
@@ -584,7 +663,7 @@ class card_fight(object):
                 '超重行李箱','旺才的最後一口氣','姦夫淫婦劍','郎情妾意劍','Keroro嘴砲','推倒快完成的骨牌',
                 '連續開會12小時','眼角的魚尾紋','焰之球','天上飛來的靴子','Tamama嫉妒玉','巧克力男孩到你家',
                 '亞美蝶催眠粉','中華傲訣','羿射九日','芙蓉金針','葵花點穴手','三吋不爛之舌','洲際導彈腿','降乩。三太子附體',
-                '毛利蘭的角']
+                '毛利蘭的角','雷動九天']
         atk4 = ['致命一擊','必殺一擊','元氣彈','跪鍵盤密術','三檔 骨氣球','九九重陽功','唱歌攻擊','召喚殺很大',
                 '鬼氣九刀流','加班加到死','等五年還沒洗好澡','丫宅的怨念','媽媽的咆哮','色誘術-逆後宮之術',
                 '順手拿的折凳','只剩一頁的死亡筆記本','海底自摸十三么','卸妝攻擊','路邊撿到的雷神槌','鐵杵磨成鏽花針',
@@ -662,7 +741,7 @@ class card_fight(object):
                 '皇上該翻牌子了','買貴退差價','內馬爾滾','拓也哥的深吼嚨','風乾橘子皮','草泥馬吐口水','蘭花拂穴手',
                 '蛤蟆功','慾女心經','好高明的內功','無盡的挖礦工人','山西布政的五千兩','楊秀珍的圈圈','召喚乞丐中的霸主',
                 '豬一般的隊友','大笨鍾鐵絲網','澳洲大紅岩','巫力無效化','馬可波羅的大餅','打破的砂鍋','變身瘋狂假面',
-                '帽子戲法','消失的頭髮','地中海反射鏡','超音波碎石機'
+                '帽子戲法','消失的頭髮','地中海反射鏡','超音波碎石機','烏雲蔽日','阿嬤的腳皮','槓上自摸詐糊'
                 ]
         def2 = ['超級防禦','盾牆','冰牆','催眠術','變張3讓對方傻住','混元一氣功','拿鏡子給敵人','灑鈔票','隔壁老王',
                 '瞬間移動','海市蜃樓','和睦相處','水遁．泡膜壁','穿上隱形斗篷','不滅金身','tea or coffe or me?','吸星大法',
@@ -751,6 +830,46 @@ class card_fight(object):
                          object_content = '%s：%s'%(obj,c.get(obj))
                          show_list = '%s\n%s'%(show_list,object_content)
                  return '%s 擁有的道具列表：\n%s\n%s'%(user_name,self.sline,show_list) 
+        else:
+            return '%s 目前沒有任何道具'%user_name
+        
+    def get_user_equ(self,uid,user_name):
+        config = _sql.select_config(uid)
+        if config == []:
+            _config.create_config(uid,user_name)
+        
+        config = _sql.select_config(uid)
+        config_json = json.loads(config[0][2])
+        
+        profile = config_json['profile']
+        
+        if 'equ_list' in profile:
+             equ_list = profile['equ_list']
+             show_list = None
+             if equ_list == {}:
+                 return '%s 目前沒有擁有任何裝備'%user_name
+             else:
+                 for _obj in profile['equ_list']:
+                     _eq_obj = profile['equ_list'][_obj]
+                     for obj in _eq_obj:
+                         eq_obj = _eq_obj[obj]
+                         name = obj
+                         val = eq_obj['val']
+                         ed = eq_obj['ed']
+                         _used = eq_obj['used']
+                         if _used > 0:
+                             used = '(裝備中)'
+                         else:
+                             used = ''
+                         if self.item_detail(name)['index'] == 'arms':
+                             obj_content = '%s：%s %s\n攻擊力增加:%s  物品耐久度:%s'%(_obj,name,used,val,ed)
+                         if self.item_detail(name)['index'] == 'armor':
+                             obj_content = '%s：%s %s\n防禦力增加:%s  物品耐久度:%s'%(_obj,name,used,val,ed)                        
+                         if show_list == None:
+                             show_list = obj_content
+                         else:
+                             show_list = '%s\n__\n%s'%(show_list,obj_content)
+                 return '%s 擁有的裝備列表：\n%s\n%s'%(user_name,self.sline,show_list)
         else:
             return '%s 目前沒有任何道具'%user_name
         
@@ -965,7 +1084,11 @@ class card_fight(object):
                 '在海神島釣魚，釣到了 %s',
                 '在太魯閣號的廁所裡撿到 %s',
                 '在迷霧森林中，打開了寶箱，獲得 %s',
-                '跑到三仙台看日出，不小心撿到 %s'
+                '跑到三仙台看日出，不小心撿到 %s',
+                '在仙古的遺跡中，發現了 %s',
+                '玩迷室逃脫時，在角落發現 %s',
+                '在龍之谷外圍殺死巨蠍，獲得了 %s',
+                '在遠古戰場打死了食死鬼，獲得了 %s'
                 ]
 
         getitem = random.choice(dict[res])
@@ -976,43 +1099,380 @@ class card_fight(object):
     
     def get_item_detail(self,val):
         
-        item_detail = self.item_detail(val)
+        try:        
+            item_detail = self.item_detail(val)   
+            
+            _index = item_detail['index']
+            _val = item_detail['value']
+            _detail = item_detail['detail']
+            _coin = item_detail['coin']
+            if _coin <0:
+                _recoin = '此商品目前無法出售'
+            else:
+                _recoin = int(_coin/3)
+                if _recoin == 0:
+                    _recoin = 1
+            
+            if _index == 'arms':
+                return ('%s\n類別:武器\n數值:增加攻擊力 %s 點\n販售: %s 代幣\n說明:%s'%(val,_val,_recoin,_detail))
+            elif _index == 'armor':
+                return ('%s\n類別:武器\n數值:增加防禦力 %s 點\n販售: %s 代幣\n說明:%s'%(val,_val,_recoin,_detail))
+            else:
+                 return ('%s\n類別:武器\n數值: %s 點\n販售: %s 代幣\n說明:%s'%(val,_val,_recoin,_detail))
+        except:
+            return '查不到此物品的說明，請確認輸入是否正確'
+    
+    def buy_item(self,uid,user_name,item):
+        try:
+            item_detail = self.item_detail(item)
+            item_index = item_detail['index']
+            item_coin = item_detail['coin']
+            item_value = item_detail['value']
+            
+            if item_coin < 0:
+                return '%s 此道具無法購買'%item 
+            
+            config = _sql.select_config(uid)
+            if config == []:
+                _config.create_config(uid,user_name)
+                return '尚未建立人物卡片及領取代幣'
+            
+            config = _sql.select_config(uid)
+            config_json = json.loads(config[0][2])
+            
+            profile = config_json['profile']
+                     
+            user_coin = profile['starcoin']
+            
+            if item_coin > user_coin:
+                return '角色代幣剩餘 %s 不夠，無法購買 %s(%s)'%(user_coin, item,item_coin)
+            i=1
+            while i<20:
+                index = 'eq%s'%i
+                if index in profile['equ_list']:
+                    i=i+1
+                    if i >21:
+                        return '每個角色最多只能持有21件裝備'
+                else:                 
+                    if item_index in ['arms','armor']:         
+                        new_coin = user_coin-item_coin
+                        profile['starcoin'] = new_coin
+                        new_equ = {index:{item:{'val':item_value,'ed':100,'used':0}}}
+                        profile['equ_list'].update(new_equ)
+                        
+                        config = json.dumps(config_json)
+                        _sql.update_config(uid,user_name,config)
+                        #print(profile)
+                        
+                        return '%s 已獲得 %s，剩餘代幣 %s'%(user_name, item, new_coin)
+                    else:
+                        return '道具商店目前尚未開放，所以無法採購 %s'%item           
+        except:
+            return '查不到此物品的說明，請確認輸入是否正確'
         
-        return '%s：%s'%(val,item_detail['detail'])
+    def sell_item(self,uid,user_name,item):
+        
+        config = _sql.select_config(uid)
+        if config == []:
+            _config.create_config(uid,user_name)
+            return '尚未建立人物卡片及領取代幣'
+        
+        config = _sql.select_config(uid)
+        config_json = json.loads(config[0][2])
+        
+        profile = config_json['profile']
+        
+        if re.match('eq(.+)',item):
+            if item in profile['equ_list']:
+                eq_json = profile['equ_list'][item]
+                for obj in eq_json:
+                    if eq_json[obj]['used'] == 1:
+                        return '< %s:%s > 為使用中的裝備，無法販售'%(item,obj)
+                    else:
+                        sell_coin = int(self.item_detail(obj)['coin']/3)
+                        old_coin = profile['starcoin']
+                        new_coin = old_coin+sell_coin
+                        profile['starcoin'] = new_coin
+                        del profile['equ_list'][item]
+                        config = json.dumps(config_json) 
+                        _sql.update_config(uid,user_name,config)
+                        return '%s 販售< %s > 獲得 %s 代幣，人物代幣 %s >> %s'%(user_name,obj,sell_coin,old_coin,new_coin)
+            else:
+                return '%s 裝備背包裡沒有代碼為 %s 的裝備'%(user_name,item)
+        else:
+            try:
+                index = self.item_detail(item)['index']
+            except:
+                return '查不到此物品的說明，請確認輸入是否正確'
+            
+            if index in ['arms','armor']:
+                return '< %s >為裝備，請使用裝備代碼販售'%item
+            
+            item_coin = self.item_detail(item)['coin']
+            if item_coin == -1:
+                return '道具< %s >無法販售'%item
+            else:
+                sell_coin = int(item_coin/3)
+                if sell_coin == 0:
+                    sell_coin = 1
+                old_coin = profile['starcoin']
+                new_coin = old_coin+sell_coin
+                profile['starcoin'] = new_coin
+                profile['equipment'].remove(item)
+                config = json.dumps(config_json) 
+                _sql.update_config(uid,user_name,config)
+                return '%s 販售< %s > 獲得 %s 代幣，人物代幣 %s >> %s'%(user_name,item,sell_coin,old_coin,new_coin)
+
+    def use_eq(self,uid,user_name,item):
+        
+        config = _sql.select_config(uid)
+        if config == []:
+            _config.create_config(uid,user_name)
+            return '尚未建立人物卡片及領取代幣'
+        
+        config = _sql.select_config(uid)
+        config_json = json.loads(config[0][2])
+        
+        profile = config_json['profile']
+        
+        if item in profile['equ_list']:
+            item_json = profile['equ_list'][item]
+            for obj in item_json:
+                item_name = obj
+                if self.item_detail(item_name)['index'] == 'arms':
+                    if profile['arms'] == '':
+                        #裝備道具
+                        profile['arms'] = {item_name:[item,item_name]}
+                        profile['equ_list'][item][obj]['used']=1
+                        ed = profile['equ_list'][item][obj]['ed']
+                        #更新角色數值
+                        item_value = profile['equ_list'][item][obj]['val']
+                        old_atk= profile['ATK']
+                        new_atk = profile['ATK']+item_value
+                        profile['ATK']=new_atk
+                        config = json.dumps(config_json) 
+                        _sql.update_config(uid,user_name,config) 
+                        return '{} 已裝備< {} >物品耐久度剩餘 {}%，角色ATK {} >> {}'.format(user_name,item_name,ed,old_atk,new_atk)
+                    else:
+                        #取得舊的裝備
+                        old_eq = profile['arms']
+                        for oeq in old_eq:
+                            old_eq_index = old_eq[oeq][0]
+                            old_eq_name = old_eq[oeq][1]
+                            old_eq_value = profile['equ_list'][old_eq_index][old_eq_name]['val']
+                            oed = profile['equ_list'][old_eq_index][old_eq_name]['ed']                       
+                        #更新裝備
+                        profile['equ_list'][old_eq_index][old_eq_name]['used']=0
+                        profile['arms'] = {item_name:[item,item_name]}
+                        profile['equ_list'][item][obj]['used']=1                
+                        ed = profile['equ_list'][item][obj]['ed']
+                        item_value = profile['equ_list'][item][obj]['val']
+                        #更新角色數值
+                        old_atk= profile['ATK']
+                        new_atk = old_atk-old_eq_value+item_value
+                        profile['ATK']=new_atk
+                        config = json.dumps(config_json)                   
+                        _sql.update_config(uid,user_name,config)
+                        return '{} 已卸下{}({}) 換上裝備< {} >物品耐久度剩餘 {}%，角色ATK {} >> {}'.format(user_name,old_eq_name,oed,item_name,ed,old_atk,new_atk)
+                if self.item_detail(item_name)['index'] == 'armor':
+                     if profile['armor'] == '':
+                         #裝備道具
+                        profile['armor'] = {item_name:[item,item_name]}
+                        profile['equ_list'][item][obj]['used']=1
+                        ed = profile['equ_list'][item][obj]['ed']
+                        #更新角色數值
+                        item_value = profile['equ_list'][item][obj]['val']
+                        old_def= profile['DEF']
+                        new_def = profile['DEF']+item_value
+                        profile['DEF']=new_def                        
+                        config = json.dumps(config_json)                   
+                        _sql.update_config(uid,user_name,config)
+                        #print (profile)
+                        return '{} 已裝備< {} >物品耐久度剩餘 {}%，角色DEF {} >> {}'.format(user_name,item_name,ed,old_def,new_def)
+                     else:
+                         #取得舊的裝備
+                        old_eq = profile['armor']
+                        for oeq in old_eq:
+                            old_eq_index = old_eq[oeq][0]
+                            old_eq_name = old_eq[oeq][1]
+                            old_eq_value = profile['equ_list'][old_eq_index][old_eq_name]['val']
+                            oed = profile['equ_list'][old_eq_index][old_eq_name]['ed']
+                        #更新裝備    
+                        profile['equ_list'][old_eq_index][old_eq_name]['used']=0
+                        profile['armor'] = {item_name:[item,item_name]}
+                        profile['equ_list'][item][obj]['used']=1                        
+                        ed = profile['equ_list'][item][obj]['ed']
+                        item_value = profile['equ_list'][item][obj]['val']
+                        #更新角色數值
+                        old_def= profile['DEF']
+                        new_def = old_def-old_eq_value+item_value
+                        profile['DEF']=new_def
+                        config = json.dumps(config_json)                   
+                        _sql.update_config(uid,user_name,config) 
+                        return '{} 已卸下{}({}) 換上裝備< {} >物品耐久度剩餘 {}%，角色DEF {} >> {}'.format(user_name,old_eq_name,oed,item_name,ed,old_def,new_def)
+        else:
+            return '人物沒有擁有< %s >，請使用裝備代碼來裝備'%item
+        
+    def unuse_eq(self,uid,user_name,item):
+        
+        config = _sql.select_config(uid)
+        if config == []:
+            _config.create_config(uid,user_name)
+            return '尚未建立人物卡片及領取代幣'
+        
+        config = _sql.select_config(uid)
+        config_json = json.loads(config[0][2])
+        
+        profile = config_json['profile']
+      
+        try:
+            index = self.item_detail(item)['index']
+        except:
+            return '查詢不到< %s >，請重新輸入'%item
+        
+        
+        if index == 'arms':
+            if profile['arms'] == '':
+                return '人物沒有裝備< %s >這項裝備'%item
+            else:
+                for obj in profile['arms']:
+                    item_name = obj
+                    item_index = profile['arms'][obj][0]
+                    profile['arms'] = ''
+                    profile['equ_list'][item_index][item_name]['used']=0
+                    ed = profile['equ_list'][item_index][item_name]['ed']
+                    item_val = profile['equ_list'][item_index][item_name]['val']
+                    old_atk = profile['ATK']
+                    new_atk = old_atk-item_val
+                    profile['ATK'] = new_atk
+                    config = json.dumps(config_json)
+                    _sql.update_config(uid,user_name,config)
+                    return '{} 已卸除< {} >物品耐久度剩餘 {}%，角色ATK {} >> {}'.format(user_name,item,ed,old_atk,new_atk)
+        if index == 'armor':
+            if profile['armor'] == '':
+                return '人物沒有裝備< %s >這項裝備'%item 
+            else:
+                for obj in profile['armor']:
+                    item_name = obj
+                    item_index = profile['armor'][obj][0]
+                    profile['armor'] = ''
+                    profile['equ_list'][item_index][item_name]['used']=0
+                    ed = profile['equ_list'][item_index][item_name]['ed']
+                    item_val = profile['equ_list'][item_index][item_name]['val']
+                    old_def = profile['DEF']
+                    new_def = old_atk-item_val
+                    profile['DEF'] = new_def
+                    config = json.dumps(config_json)
+                    _sql.update_config(uid,user_name,config)
+                    return '{} 已卸除< {} >物品耐久度剩餘 {}%，角色DEF {} >> {}'.format(user_name,item,ed,old_def,new_def)
+        else:
+            return '< %s >不是裝備，無法裝備'%item
+        
+        
+    
+    def arms_store_detail(self):
+        
+        list = ['初心者報紙','阿嬤之杖','哈比菜刀','暗影之刃','要你命三千']
+
+        store_title = '小星星卡牌武器商店'
+        obj_content = ''
+        for obj in list:
+            obj_dict = self.item_detail(obj)
+            name = obj         
+            price = obj_dict['coin']
+            re_price = int(obj_dict['coin']/3)
+            val = obj_dict['value']
+            detail = obj_dict['detail']
+            content = '%s\n價格: %s 代幣\n回收: %s 代幣\n數值:增加攻擊力 %s 點\n說明:%s'%(name,price,re_price,val,detail)
+            if obj_content == '':
+                obj_content = content
+            else:
+                obj_content = '%s\n--\n%s'%(obj_content,content)
+        
+        res_content = '%s\n%s\n%s'%(store_title,self.sline,obj_content)
+        
+        return res_content  
+
+    def armor_store_detail(self):
+        
+        list = ['紙箱盔甲','南瓜盾牌','骷髏骨甲','守護者之盾','媽媽的炒菜鍋']
+
+        store_title = '小星星卡牌防具商店'
+        obj_content = ''
+        for obj in list:
+            obj_dict = self.item_detail(obj)
+            name = obj         
+            price = obj_dict['coin']
+            re_price = int(obj_dict['coin']/3)
+            val = obj_dict['value']
+            detail = obj_dict['detail']
+            content = '%s\n價格: %s 代幣\n回收: %s 代幣\n數值:增加防禦力 %s 點\n說明:%s'%(name,price,re_price,val,detail)
+            if obj_content == '':
+                obj_content = content
+            else:
+                obj_content = '%s\n--\n%s'%(obj_content,content)
+        
+        res_content = '%s\n%s\n%s'%(store_title,self.sline,obj_content)
+        
+        return res_content  
+    
+    def item_store_detail(self,val):
+        
+        dict = {
+                '紅色藥水':{'id':'01','name':'紅藥水','coin':2},
+                '橙色藥水':{'id':'02','name':'橙色藥水','coin':4},
+                '白色藥水':{'id':'03','name':'白色藥水','coin':6},
+                '藍色藥水':{'id':'04','name':'藍色藥水','coin':3},
+                '濃縮藍色藥水':{'id':'05','name':'濃縮藍色藥水','coin':6}
+                }
+                
+        return dict
 
     def item_detail(self,val):
         
         dict = {
-                '紅色藥水':{'index':'hp','value':500,'index':'hp','detail':'恢復生命值(HP)500點'},
-                '橙色藥水':{'index':'hp','value':1000,'index':'hp','detail':'恢復生命值(HP)1000點'},
-                '白色藥水':{'index':'hp','value':2000,'index':'hp','detail':'恢復生命值(HP)2000點'},
-                '小魚乾':{'index':'hp','value':1500,'index':'hp','detail':'恢復生命值(HP)1500點'},
-                '戰狼肉':{'index':'hp','value':2500,'index':'hp','detail':'恢復生命值(HP)2500點'},                
-                '藍色藥水':{'index':'mp','value':1000,'index':'mp','detail':'恢復魔力值(MP)1000點'},
-                '濃縮藍色藥水':{'index':'mp','value':2000,'index':'mp','detail':'恢復魔力值(MP)2000點'},
-                '鼠兒果':{'index':'mp','value':1500,'index':'mp','detail':'恢復魔力值(MP)1500點'},
-                '攻擊增加藥水':{'index':'ATK','value':1000,'detail':'增加攻擊力(ATK)1000點'},
-                '地獄辣椒':{'index':'ATK','value':1500,'detail':'增加攻擊力(ATK)1500點'},
-                '大瓶裝攻擊增加藥水':{'index':'ATK','value':2000,'detail':'增加攻擊力(ATK)2000點'},
-                '激進藥劑':{'index':'ATK','value':3000,'detail':'增加攻擊力(ATK)3000點'},
-                '防禦增加藥水':{'index':'DEF','value':1000,'detail':'增加防禦(DEF)1000點'},
-                '白馬乎你夯':{'index':'DEF','value':1500,'detail':'增加防禦(DEF)1500點'},
-                '龜甲萬醬油':{'index':'DEF','value':2500,'detail':'增加防禦(DEF)1500點'},
-                '大瓶裝防禦加藥水':{'index':'DEF','value':2000,'detail':'增加防禦(DEF)2000點'},
-                '堅韌藥劑':{'index':'DEF','value':3000,'detail':'增加防禦(DEF)3000點'},
-                '綠色藥水':{'index':'AGI','value':100,'detail':'增加速度(AGI)100點，可增加攻擊力及防禦力'},
-                '勇敢藥水':{'index':'STR','value':100,'detail':'增加力量(STR)100點，可增加攻擊力及防禦力'},
-                '妖精餅乾':{'index':'DEX','value':100,'detail':'增加敏捷(DEX)100點，可增加攻擊力及防禦力'},
-                '慎重藥水':{'index':'INT','value':100,'detail':'增加智力(INT)100點，可增加MP及攻擊力'},
-                '活力藥水':{'index':'VIT','value':100,'detail':'增加體力(VIT)100點，可增加防禦力'},
-                '幸運餅乾':{'index':'LUK','value':100,'detail':'增加幸運(LUK)100點，幸運會影響出手機率及絕招的施放'},
-                '疾走藥水':{'index':'AGI','value':200,'detail':'增加速度(AGI)200點，可增加攻擊力及防禦力'},
-                '龍之珍珠':{'index':'STR','value':200,'detail':'增加力量(STR)200點，可增加攻擊力及防禦力'},
-                '惡魔之血':{'index':'DEX','value':200,'detail':'增加敏捷(DEX)200點，可增加攻擊力及防禦力'},
-                '伊娃的祝福':{'index':'INT','value':200,'detail':'增加智力(INT)200點，可增加MP及攻擊力'},
-                '生命樹果實':{'index':'VIT','value':200,'detail':'增加體力(VIT)200點，可增加防禦力'},
-                '無敵星星':{'index':'LUK','value':200,'detail':'增加幸運(LUK)200點，幸運會影響出手機率及絕招的施放'},
-                '角色重置卡':{'index':'reset','value':0,'detail':'重置人物屬性，但是魔王還是變沙包呢? 爻杯吧'}
+                '紅色藥水':{'index':'hp','name':'紅色藥水','value':500,'detail':'恢復生命值(HP)500點','coin':2},
+                '橙色藥水':{'index':'hp','name':'橙色藥水','value':1000,'detail':'恢復生命值(HP)1000點','coin':4},
+                '白色藥水':{'index':'hp','name':'白色藥水','value':2000,'detail':'恢復生命值(HP)2000點','coin':6},
+                '小魚乾':{'index':'hp','name':'小魚乾','value':1500,'detail':'恢復生命值(HP)1500點','coin':-1},
+                '戰狼肉':{'index':'hp','name':'戰狼肉','value':2500,'detail':'恢復生命值(HP)2500點','coin':-1},                
+                '藍色藥水':{'index':'mp','name':'藍色藥水','value':1000,'detail':'恢復魔力值(MP)1000點','coin':-1},
+                '濃縮藍色藥水':{'index':'mp','name':'濃縮藍色藥水','value':2000,'detail':'恢復魔力值(MP)2000點','coin':-1},
+                '鼠兒果':{'index':'mp','name':'鼠兒果','value':1500,'detail':'恢復魔力值(MP)1500點','coin':-1},
+                '攻擊增加藥水':{'index':'ATK','name':'攻擊增加藥水','value':1000,'detail':'增加攻擊力(ATK)1000點','coin':-1},
+                '地獄辣椒':{'index':'ATK','name':'地獄辣椒','value':1500,'detail':'增加攻擊力(ATK)1500點','coin':-1},
+                '大瓶裝攻擊增加藥水':{'index':'ATK','name':'大瓶裝攻擊增加藥水','value':2000,'detail':'增加攻擊力(ATK)2000點','coin':-1},
+                '激進藥劑':{'index':'ATK','name':'激進藥劑','value':3000,'detail':'增加攻擊力(ATK)3000點','coin':-1},
+                '防禦增加藥水':{'index':'DEF','name':'防禦增加藥水','value':1000,'detail':'增加防禦(DEF)1000點','coin':-1},
+                '白馬乎你夯':{'index':'DEF','name':'白馬乎你夯','value':1500,'detail':'增加防禦(DEF)1500點','coin':-1},
+                '龜甲萬醬油':{'index':'DEF','name':'龜甲萬醬油','value':2500,'detail':'增加防禦(DEF)1500點','coin':-1},
+                '大瓶裝防禦加藥水':{'index':'DEF','name':'大瓶裝防禦加藥水','value':2000,'detail':'增加防禦(DEF)2000點','coin':-1},
+                '堅韌藥劑':{'index':'DEF','name':'堅韌藥劑','value':3000,'detail':'增加防禦(DEF)3000點','coin':-1},
+                '綠色藥水':{'index':'AGI','name':'綠色藥水','value':100,'detail':'增加速度(AGI)100點，可增加攻擊力及防禦力','coin':-1},
+                '勇敢藥水':{'index':'STR','name':'勇敢藥水','value':100,'detail':'增加力量(STR)100點，可增加攻擊力及防禦力','coin':-1},
+                '妖精餅乾':{'index':'DEX','name':'妖精餅乾','value':100,'detail':'增加敏捷(DEX)100點，可增加攻擊力及防禦力','coin':-1},
+                '慎重藥水':{'index':'INT','name':'慎重藥水','value':100,'detail':'增加智力(INT)100點，可增加MP及攻擊力','coin':-1},
+                '活力藥水':{'index':'VIT','name':'活力藥水','value':100,'detail':'增加體力(VIT)100點，可增加防禦力','coin':-1},
+                '幸運餅乾':{'index':'LUK','name':'幸運餅乾','value':100,'detail':'增加幸運(LUK)100點，幸運會影響出手機率及絕招的施放','coin':-1},
+                '疾走藥水':{'index':'AGI','name':'疾走藥水','value':200,'detail':'增加速度(AGI)200點，可增加攻擊力及防禦力','coin':-1},
+                '龍之珍珠':{'index':'STR','name':'龍之珍珠','value':200,'detail':'增加力量(STR)200點，可增加攻擊力及防禦力','coin':-1},
+                '惡魔之血':{'index':'DEX','name':'惡魔之血','value':200,'detail':'增加敏捷(DEX)200點，可增加攻擊力及防禦力','coin':-1},
+                '伊娃的祝福':{'index':'INT','name':'伊娃的祝福','value':200,'detail':'增加智力(INT)200點，可增加MP及攻擊力','coin':-1},
+                '生命樹果實':{'index':'VIT','name':'生命樹果實','value':200,'detail':'增加體力(VIT)200點，可增加防禦力','coin':-1},
+                '無敵星星':{'index':'LUK','name':'無敵星星','value':200,'detail':'增加幸運(LUK)200點，幸運會影響出手機率及絕招的施放','coin':-1},
+                '角色重置卡':{'index':'reset','name':'角色重置卡','value':0,'detail':'重置人物屬性，但是魔王還是變沙包呢? 爻杯吧','coin':-1},
+                '--amrs--':(),
+                '初心者報紙':{'index':'arms','name':'初心者報紙','value':1000,'coin':10,'detail':'蒐集了各家報紙捲成的報紙劍，非常的厚實，無聊時還能看看上面的新聞。'},
+                '阿嬤之杖':{'index':'arms','name':'阿嬤之杖','value':2000,'coin':20,'detail':'魔法阿嬤留下來的法杖，上面還銘刻了許多奇妙的咒語，其中隱約寫著猴死囝仔夠又偷吃菜...'},
+                '哈比菜刀':{'index':'arms','name':'哈比菜刀','value':3000,'coin':40,'detail':'哈比兔料理紅蘿蔔用的菜刀，只不過這種紅蘿蔔跟你想像中的不太一樣，似乎會說話...'},
+                '暗影之刃':{'index':'arms','name':'暗影之刃','value':4000,'coin':60,'detail':'傳說中的暗殺者所持有的匕首，可以吸收周圍的暗影來強化你的武器，並轉化為暗影傷害。'},
+                '要你命三千':{'index':'arms','name':'要你命三千','value':10000,'coin':200,'detail':'這可是達聞西嘔心瀝血之作，一共結合了十種致命的武器，每一種武器皆可獨當一面，可說是威力驚人的殺人利器。'},
+                '--armor--':{},
+                '紙箱盔甲':{'index':'armor','name':'紙箱盔甲','value':1000,'coin':10,'detail':'雖然是用紙箱做成的盔甲，但仍有一定的防禦能力，而且天冷時還可以可以擋擋風，可是不要碰到水哦!'},
+                '南瓜盾牌':{'index':'armor','name':'南瓜盾牌','value':2000,'coin':20,'detail':'用南瓜舞者的身體製成的盾牌，再拿個南瓜燈籠就可以出發要糖果了。'},
+                '骷髏骨甲':{'index':'armor','name':'骷髏骨甲','value':3000,'coin':40,'detail':'用骷髏做成的盔甲，雖然有可怕，但防禦效果挺不錯的，不過要小心路邊的小黃小白和小黑。'},
+                '守護者之盾':{'index':'armor','name':'守護者之盾','value':4000,'coin':60,'detail':'傳說中的英靈所持有的盾牌，可以吸收光的元素來強化防禦並阻擋黑暗'},
+                '媽媽的炒菜鍋':{'index':'armor','name':'媽媽的炒菜鍋','value':10000,'coin':200,'detail':'這不止是一個炒菜鍋，放在頭上可以當頭盔，綁在胸前可以當盔甲，沒有武器時還能拿來敲人，而且還有媽媽的味道，可說是超全面性的裝備。'}
                 }
         
         return dict[val]
