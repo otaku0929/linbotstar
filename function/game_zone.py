@@ -33,9 +33,9 @@ def main():
     #content = _game.user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','http://dl.profile.line-cdn.net/0hLkoyPlmqE0RSAD5u3DZsE25FHSklLhUMKmILJiUCRHQrZVRGPWZfJnJTTHJ5ZQESaWNUJn5VTics')
     #content = _game.get_user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
     #content = _game.get_starcoin('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
-    #content = _game.card_pk('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','PeggyBlue')
+    content = _game.card_pk('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','PeggyBlue')
     #content = _game_card.get_user_items('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星')
-    content = _game_card.get_user_equ('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
+    #content = _game_card.get_user_equ('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
     #content = _game_card.buy_item('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','阿嬤之杖')
     #content = _game_card.sell_item('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','紅色藥水')    
     #content = _game_card.use_eq('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','eq2')
@@ -44,7 +44,7 @@ def main():
     #content = _game_card.armor_store_detail()
     #content = _game_card.lucky_time('U59e79d6500b2f9cad5ed780c1a1f9f8a','謙²')
     #content = _game_card.get_item_detail('紅色藥水')
-    #content = _game.to_starcoin('U9f2c61013256dfe556d70192388e4c7c',25)
+    #content = _game.to_starcoin('U9f2c61013256dfe556d70192388e4c7c',50)
     #content = _game.get_atk_userlist()
     #content = _game_card.armor_store_detail()
 #    messages = '攻擊=@陳小馬（EK)'
@@ -204,21 +204,23 @@ class game_zone(object):
                     
                     if A['arms'] =='':
                         arms_item = A['arms']
+                        arms_ed = ''
                     else:
                         for obj in A['arms']:
                             arms_item = obj
                             arms_index = A['arms'][obj][0]
-                            arms_ed = A['equ_list'][arms_index][obj]['ed'] 
+                            arms_ed = '({}%)'.format(A['equ_list'][arms_index][obj]['ed'])
 
                     if A['armor'] =='':
-                        arms_item = A['armor']
+                        armor_item = A['armor']
+                        armor_ed = ''
                     else:
                         for obj in A['armor']:
                             armor_item = obj
                             armor_index = A['armor'][obj][0]
-                            armor_ed = A['equ_list'][armor_index][obj]['ed']
+                            armor_ed = '({}%)'.format(A['equ_list'][armor_index][obj]['ed'])
                             
-                    equipment_content = '武器:{} ({}%)\n防具:{} ({}%)\n道具欄:{}\n道具欄:{}'\
+                    equipment_content = '武器:{} {}\n防具:{} {}\n道具欄:{}\n道具欄:{}'\
                     .format(arms_item,arms_ed,armor_item,armor_ed,A['item1'],A['item2'])
                     content = '%s\n\n屬性:%s\n每日運勢:%s\n小星星代幣:%s\n%s\n%s\n\n%s\n\n%s\n%s\n%s'\
                     %(A['user_name'],A['WIZ'],A['today'],A['starcoin'],self.sline,profile1,profile2,equipment_content,self.sline,A['keywords'])
@@ -241,19 +243,6 @@ class game_zone(object):
             content = {'link':'%s 今天還沒有產生卡片哦，可以輸入 "今日卡片" 來產生哦!'%user_name}
             return content
         
-    def use_item_ed(self,uid,config):
-        
-        profile = config['profile']
-        
-        if profile['arms'] != '':
-            for obj in profile['arms']:
-                index = profile['arms'][obj][0]
-                ed = profile['equ_list'][index][obj]['ed']
-                profile['equ_list'][index][obj]['ed'] = ed-1
-        
-#        config = json.dumps(config_json)
-#        _sql.update_config(uid,user_name,config)
-        return (profile)
     
     def card_pk(self,uid,user_name,pk_user):
         
@@ -285,16 +274,27 @@ class game_zone(object):
             charA_arms = ''
         else:
             for obj in A['arms']:
-#                index = profile['arms'][obj][0]
-#                ed = profile['equ_list'][index][obj]['ed']
-#                if ed == 0:                   
                 charA_arms = obj
+                index = A['arms'][obj][0]
+                ed = A['equ_list'][index][obj]['ed']
+                new_ed = ed-1
+                A['equ_list'][index][obj]['ed'] = new_ed
+                if new_ed == 0:
+                    jsonA['profile']['arms']=''
+                    del jsonA['profile']['equ_list'][index]                   
             
         if A['armor'] == '':
             charA_armor = ''
         else:
             for obj in A['armor']:
                 charA_armor = obj
+                index = A['armor'][obj][0]
+                ed = A['equ_list'][index][obj]['ed']
+                new_ed = ed-1
+                A['equ_list'][index][obj]['ed'] = new_ed
+                if new_ed == 0:
+                    A['armor']=''
+                    del A['equ_list'][index]
             
         
         if B['arms'] == '':
@@ -409,8 +409,11 @@ class game_zone(object):
                     atk_list['atk_winner'] = '平手'
                     atk_list['atk_fin'] = self.get_peace(A['user_name'],B['user_name'])
                     break
-        
-        #print (self.use_item_ed(uid,jsonA))
+
+        #將耐久度寫入DB
+        config = json.dumps(jsonA)
+        _sql.update_config(uid,user_name,config)
+        #print(jsonA)
                 
         return ('----------\n%s\n%s\n----------\n\n%s\n\n戰鬥紀錄**********\n%s'%(profile_A,profile_B,atk_list['atk_fin'],atk_list['fight_status']))
     
