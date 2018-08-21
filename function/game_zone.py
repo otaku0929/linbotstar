@@ -33,7 +33,7 @@ def main():
     #content = _game.user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','http://dl.profile.line-cdn.net/0hLkoyPlmqE0RSAD5u3DZsE25FHSklLhUMKmILJiUCRHQrZVRGPWZfJnJTTHJ5ZQESaWNUJn5VTics')
     #content = _game.get_user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
     #content = _game.get_starcoin('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
-    content = _game.card_pk('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','PeggyBlue')
+    content = _game.card_pk('U59e79d6500b2f9cad5ed780c1a1f9f8a','謙²','藍宇星✨victor✨')
     #content = _game_card.get_user_items('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星')
     #content = _game_card.get_user_equ('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
     #content = _game_card.buy_item('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','阿嬤之杖')
@@ -306,7 +306,7 @@ class game_zone(object):
         if B['armor'] == '':
             charB_armor = ''
         else:
-            for obj in A['armor']:
+            for obj in B['armor']:
                 charB_armor = obj
                 
         
