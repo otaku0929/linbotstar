@@ -62,7 +62,7 @@ class game_zone(object):
     def __init__(self):
         self.class_name = 'game_zone'
         self.sline = '------------'
-        self._game_card = card_fight()
+        #self._game_card = card_fight()
 
     def time(self):
         return str(datetime.datetime.now(pytz.timezone('Asia/Taipei')))[0:10]
