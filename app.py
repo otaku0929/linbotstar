@@ -689,7 +689,7 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
     if re.match('^查([看詢])?武器商店',event.message.text):
-        content = _games_card.arms_detail()
+        content = _games_card.arms_store_detail()
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
     if re.match('^查([看詢])?防具商店',event.message.text):
