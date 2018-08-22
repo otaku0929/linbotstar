@@ -305,15 +305,17 @@ class start_talk(object):
             if re.search('會游游',messages_talk):
                 return self.talk_dict('會游游',user_name)
             if re.search('[要該]怎辦',messages_talk):
-                return self.talk_dict('[要]該怎辦',user_name)
+                return self.talk_dict('該怎辦',user_name)
             if re.search('[要該]怎麼做',messages_talk):
-                return self.talk_dict('[要該]怎麼做',user_name)
+                return self.talk_dict('怎麼做',user_name)
             if re.search('有問了',messages_talk):
                 return self.talk_dict('有問了',user_name)
             if re.search('[還沒]有問',messages_talk):
-                return self.talk_dict('[還沒]有問',user_name)
+                return self.talk_dict('沒有問',user_name)
             if re.search('進群組？',messages_talk):
-                return self.talk_dict('進群組',user_name)           
+                return self.talk_dict('進群組',user_name)
+            if re.search('[是大好]變態',messages_talk):
+                return self.talk_dict('變態',user_name)
             else:
                 return self.talk_dict('random',user_name) 
             
@@ -321,6 +323,7 @@ class start_talk(object):
         if u ==None:
             u = ''
         dict={
+                '變態':['變態是一種昆蟲進化的過程','你才戀態咧，我只是好奇好嗎','嘿嘿嘿~~~','不要過來我要叫囉'],
                 '進群組':['把我邀進去群組就可以了，但一個群只能有一個機器人哦','如果群組裡有別的機器人，我就進去不唷'],
                 '沒有問':['問一下吧，有些時候先低頭不代表輸啊','不問怎知道結果?'],
                 '有問了':['那他怎麼說?','說了些什麼?'],
@@ -452,11 +455,12 @@ class start_talk(object):
                 '多大':['爸說不可以講','這是個秘密','%s 先說說你幾歲'%u,'嘿嘿嘿...','佛曰不可說','1~2~3~4~.....','我1歲'],
                 'birthday':['1015 要送我禮物嗎?'],
                 '早安':['%s早安'%u,'熬早','牛沒奶','Good Morning','早安~祝你有美好的一天','記得吃早餐哦','%s早安~來杯咖啡嗎?'%u,'起來動一動吧~','%s 別滾床了'%u,
-                      '早安~今天一定會有好事發生的','早上好啊','早安~昨天有睡飽飽嗎?','早~祝你有愉快的一天','早起的蟲兒被鳥吃'],
+                      '早安~今天一定會有好事發生的','早上好啊','早安~昨天有睡飽飽嗎?','早~祝你有愉快的一天','早起的蟲兒被鳥吃','早~快去刷刷牙洗洗臉吧',
+                      '歐嗨唷，今天也要元氣滿滿哦','早，早上喝杯溫開水對身體很好哦','起床了啊~快來一起，one more tow more tree more...'],
                 '午安':['午安','吃飽了嗎?','午餐要吃什麼呢?','今天天氣如何呢?','加油~別忘記喝水哦','午~要喝咖啡嗎?','下午再加油一下'],
                 '晚安':['晚安','晚安 %s'%u,'嗯~我也要睡了','乖乖睡哦','噓~快睡吧','zzzzzz','噓~~~~','記得睡前先尿尿哦','%s 別尿床了哦~'%u,'記得刷牙哦~','%s 刷牙了嗎?'%u,'關燈睡覺',
                       '拍拍拍~','祝你有個美夢','啊~~我也累了~晚安囉','睡覺不要踢被被哦','早睡早起身體好','真的要睡了嗎?閉上眼就看不見星星了耶',
-                      '我也要一起窩被被','%s 一起睡吧'%u],
+                      '我也要一起窩被被','%s 一起睡吧'%u,'乖被被蓋好，閉閉囉','床暖好了，快來吧','night ninght~~ZZZZ'],
                 '再見':['bye-bye-','下次見','要想我哦','快走快走~走了就別回來了','別太想我','我會想妳的','別走~~~~','嗚~~~~~怎辦我開始想妳了'],
                 'hi':['hi','hello','%s 你好啊'%u,'今天天氣如何?','%s 要抽一張嗎?'%u,'安安啊~','有什麼事嗎?','找我嗎?','嗨嗨~'],
                 'you':['找我有什麼事嗎?','想聊天嗎?','要做什麼呢?','沒事別叫我'],
