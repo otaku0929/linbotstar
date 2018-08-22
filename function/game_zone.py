@@ -465,6 +465,8 @@ class game_zone(object):
                 
     def user_profile(self,uid,user_name,pictureUrl):
         
+        _game_card =  card_fight()
+        
         time = str(datetime.datetime.now(pytz.timezone('Asia/Taipei')))[0:10]
         #time = '2018-07-21'
         config = _sql.select_config(uid)
@@ -483,7 +485,20 @@ class game_zone(object):
                 message = self.profile_game_content(uid,user_name)  
                 p = config_json['profile']
                 
-                if 'equipment' in  p:     
+                if 'equipment' in  p:
+                    
+                    if p['arms'] == '':
+                        arms_values = 0
+                    else:
+                        for obj in p['arms']:
+                            arms_values = _game_card.get_item_detail[obj]['value']
+
+                    if p['armor'] == '':
+                        armor_values = 0
+                    else:
+                        for obj in p['armor']:
+                            armor_values = _game_card.get_item_detail[obj]['value']
+                    
                     p['profile_time']=time
                     p['user_name']=message[0]
                     p['hp']=message[1]
@@ -492,8 +507,8 @@ class game_zone(object):
                     p['today']=message[4]
                     p['keywords']=message[5]
                     p['WIZ']=message[6]
-                    p['ATK']=message[7]
-                    p['DEF']=message[8]
+                    p['ATK']=message[7]+arms_values
+                    p['DEF']=message[8]+armor_values
                     p['today_value']=message[9]
                     p['STR']=message[10]
                     p['VIT']=message[11]
