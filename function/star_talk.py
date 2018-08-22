@@ -316,6 +316,10 @@ class start_talk(object):
                 return self.talk_dict('進群組',user_name)
             if re.search('[是大好]變態',messages_talk):
                 return self.talk_dict('變態',user_name)
+            if re.search('給(我)?(錢|代幣)',messages_talk):
+                return self.talk_dict('給錢',user_name)
+            if re.search('只[會有]一招',messages_talk):
+                return self.talk_dict('一招',user_name)
             else:
                 return self.talk_dict('random',user_name) 
             
@@ -323,6 +327,8 @@ class start_talk(object):
         if u ==None:
             u = ''
         dict={
+                '一招':['一招就夠了','小星星一出天下無敵','嘿~~GM只要一招就夠了啦'],
+                '給錢':['口袋空空，錢都在星爸那裡','人肉鹹鹹，小星星涼涼，要錢沒有，要命也不給','自已去打怪賺錢啊','打我會掉錢哦'],
                 '變態':['變態是一種昆蟲進化的過程','你才戀態咧，我只是好奇好嗎','嘿嘿嘿~~~','不要過來我要叫囉'],
                 '進群組':['把我邀進去群組就可以了，但一個群只能有一個機器人哦','如果群組裡有別的機器人，我就進去不唷'],
                 '沒有問':['問一下吧，有些時候先低頭不代表輸啊','不問怎知道結果?'],
