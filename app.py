@@ -129,8 +129,9 @@ def handle_message(event):
     if event.source.type == 'user':       
         print(event.source.type, uid, "event.message.text:", event.message.text)
     #adminconfig_list
-    if event.message.text == '#gettoken':
-        content = urlparse.urlparse(os.environ['HSING_TOKEN'])
+    if re.match('^#getosconfig=(.+)',event.message.text):
+        key = re.match('^#getosconfig=(.+)',event.message.text).group(1)
+        content = str(urlparse.urlparse(os.environ[key]))    
         line_bot_api.reply_message(event.reply_token,[TextSendMessage(text=str(event)),TextSendMessage(text=content)])
         return 0
     if event.message.text == '#adminconfig':
