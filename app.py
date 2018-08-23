@@ -132,7 +132,7 @@ def handle_message(event):
     if re.match('^#getosconfig=(.+)',event.message.text):
         key = re.match('^#getosconfig=(.+)',event.message.text).group(1)
         res = urlparse.urlparse(os.environ[key])
-        content = res.path[1:] 
+        content = res.path[0:] 
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
     if event.message.text == '#adminconfig':
