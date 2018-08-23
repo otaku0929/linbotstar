@@ -131,8 +131,9 @@ def handle_message(event):
     #adminconfig_list
     if re.match('^#getosconfig=(.+)',event.message.text):
         key = re.match('^#getosconfig=(.+)',event.message.text).group(1)
-        content = str(urlparse.urlparse(os.environ[key]))    
-        line_bot_api.reply_message(event.reply_token,[TextSendMessage(text=str(event)),TextSendMessage(text=content)])
+        res = urlparse.urlparse(os.environ[key])
+        content = res.path[1:] 
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
     if event.message.text == '#adminconfig':
         content = _sys_mg.m_admin_function()
