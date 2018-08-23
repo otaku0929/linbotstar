@@ -13,6 +13,7 @@ import os
 from flask import Flask, request, abort
 #from imgurpython import ImgurClient
 from function.ifoodie import ifoodie_get
+import urllib.parse as urlparse
 
 import function.game_zone
 _games = function.game_zone.game_zone()
@@ -127,7 +128,11 @@ def handle_message(event):
         print(event.source.type, rid, uid, "event.message.text:", event.message.text)
     if event.source.type == 'user':       
         print(event.source.type, uid, "event.message.text:", event.message.text)
-    #adminconfig_list 
+    #adminconfig_list
+    if event.message.text == '#gettoken':
+        content = urlparse.urlparse(os.environ['HSING_TOKEN'])
+        line_bot_api.reply_message(event.reply_token,[TextSendMessage(text=str(event)),TextSendMessage(text=content)])
+        return 0
     if event.message.text == '#adminconfig':
         content = _sys_mg.m_admin_function()
         line_bot_api.reply_message(event.reply_token,[TextSendMessage(text=str(event)),TextSendMessage(text=content)])
