@@ -431,10 +431,8 @@ class game_zone(object):
         #將耐久度寫入DB
         config = json.dumps(jsonA)
         _sql.update_config(uid,user_name,config)
-        print(jsonA)
-        
-        
-                
+        #print(jsonA)
+                   
         return ('----------\n%s\n%s\n----------\n%s\n獲得戰利品:%s\n----------'%(profile_A,profile_B,atk_list['atk_fin'],win_item),
                 '戰鬥紀錄**********\n%s'%atk_list['fight_status'])
  
