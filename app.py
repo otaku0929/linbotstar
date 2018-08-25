@@ -292,10 +292,13 @@ def handle_message(event):
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
     if re.match('^##金幣=(.+)#(.+)',event.message.text):
-        uid = re.match('^##金幣=(.+)#(.+)',event.message.text).group(1)
-        coin = re.match('^##金幣=(.+)#(.+)',event.message.text).group(2)
-        content = _games.to_starcoin(uid,coin)
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        if uid == 'U9f2c61013256dfe556d70192388e4c7c':
+            user = re.match('^##金幣=(.+)#(.+)',event.message.text).group(1)
+            coin = re.match('^##金幣=(.+)#(.+)',event.message.text).group(2)
+            content = _games.to_starcoin(user,coin)
+            line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        else:
+            return '此功能只有星爸可以用'
         return 0
     #浮水印設定
     if re.match('^#浮水印%(.+)%f(\d+)%([t|e]\d)%(red|green|blue|white|black|pink|yellow|gold|#......)%al(\d+)%(p\d)',event.message.text):
@@ -657,7 +660,7 @@ def handle_message(event):
         content = _games_card.use_items(uid,user_name,item_name)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0 
-    if event.message.text == '每日探險':
+    if re.match('^[每今]日[探冒]險',event.message.text):
         profile = _lineapi.get_user_name(Channel_Access_Token,event)
         user_name = profile['displayName']
         content = _games_card.lucky_time(uid,user_name)
@@ -740,7 +743,21 @@ def handle_message(event):
         user_name = profile['displayName']        
         content = _games_card.unuse_eq(uid,user_name,item)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
-        return 0           
+        return 0
+    if re.match('^查修裝=(.+)',event.message.text):
+        item = re.match('^查修裝=(.+)',event.message.text).group(1)
+        profile = _lineapi.get_user_name(Channel_Access_Token,event)
+        user_name = profile['displayName']        
+        content = _games_card.check_fix_eq(uid,user_name,item)
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        return 0
+    if re.match('^修理裝備=(.+)',event.message.text):
+        item = re.match('^修理裝備=(.+)',event.message.text).group(1)
+        profile = _lineapi.get_user_name(Channel_Access_Token,event)
+        user_name = profile['displayName']        
+        content = _games_card.fix_eq(uid,user_name,item)
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        return 0            
     ####影音類####
     if re.match('^(聽歌|找到|youtube)=(.+)*',event.message.text):
         res = re.match('^(聽歌|找到|youtube)=(.+)*',event.message.text).group(2)
