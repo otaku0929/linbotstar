@@ -184,7 +184,7 @@ class start_talk(object):
                 return self.talk_dict('birthday',user_name)
             if re.search("住那|住哪|家在哪|家在那",messages_talk):
                 return self.talk_dict('住那',user_name)
-            if re.search("有什麼功能|功能表",messages_talk):
+            if re.search("有什麼功能|功能表|指令",messages_talk):
                 return _sys_mg.m_function()
             if re.search("哈|哈哈|哈哈哈",messages_talk):
                 return self.talk_dict('哈',user_name)
@@ -208,7 +208,7 @@ class start_talk(object):
                 return self.talk_dict('吃虧')
             if re.search("吃什麼|想吃|愛吃|要吃|餓|吃飯",messages_talk):
                 return self.talk_dict('eat',user_name)
-            if re.search("吃飽了",messages_talk):
+            if re.search("吃飽了嗎",messages_talk):
                 return self.talk_dict('eated',user_name)
             if re.search("[吃喝](.+)好?嗎",messages_talk):
                 return self.talk_dict('吃?嗎',user_name)
@@ -320,6 +320,12 @@ class start_talk(object):
                 return self.talk_dict('給錢',user_name)
             if re.search('只[會有]一招',messages_talk):
                 return self.talk_dict('一招',user_name)
+            if re.search('(有|有什麼)好事',messages_talk):
+                return self.talk_dict('有什麼好事',user_name)
+            if re.search('我好無聊',messages_talk):
+                return self.talk_dict('我好無聊',user_name)
+            if re.search('我吃飽了',messages_talk):
+                return self.talk_dict('我吃飽了',user_name)
             else:
                 return self.talk_dict('random',user_name) 
             
@@ -327,6 +333,9 @@ class start_talk(object):
         if u ==None:
             u = ''
         dict={
+                '我吃飽了':['那很好啊','吃了什麼呢?','嗚~~~我都還沒吃','你沒有帶我一起去吃','吃飽飽休息一下吧'],
+                '我好無聊':['無聊啊，那來聊天吧','那要唱歌嗎?','聽聽歌好了'],
+                '有什麼好事':['踩到狗屎吧','中樂透','喜歡的人跟你對眼','發現新大陸','都抽到美女','我想想哦~~~'],
                 '一招':['一招就夠了','小星星一出天下無敵','嘿~~GM只要一招就夠了啦'],
                 '給錢':['口袋空空，錢都在星爸那裡','人肉鹹鹹，小星星涼涼，要錢沒有，要命也不給','自已去打怪賺錢啊','打我會掉錢哦'],
                 '變態':['變態是一種昆蟲進化的過程','你才戀態咧，我只是好奇好嗎','嘿嘿嘿~~~','不要過來我要叫囉'],
