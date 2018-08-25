@@ -33,7 +33,7 @@ def main():
     #content = _game.user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','http://dl.profile.line-cdn.net/0hLkoyPlmqE0RSAD5u3DZsE25FHSklLhUMKmILJiUCRHQrZVRGPWZfJnJTTHJ5ZQESaWNUJn5VTics')
     #content = _game.get_user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星')
     #content = _game.get_starcoin('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
-    content = _game.card_pk('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','Jacky Yang楊榮昌')
+    #content = _game.card_pk('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','Jacky Yang楊榮昌')
     #content = _game_card.fix_eq('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','eq1')
     #content = _game_card.get_user_items('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星')
     #content = _game_card.get_user_equ('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
@@ -44,7 +44,7 @@ def main():
     #content = _game_card.use_items('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','紅藥水(中)')
     #content = _game_card.armor_store_detail()
     #content = _game_card.lucky_time('U59e79d6500b2f9cad5ed780c1a1f9f8a','謙²')
-    #content = _game_card.get_item_detail('紅色藥水')
+    content = _game_card.get_item_detail('爛木頭')
     #content = _game.to_starcoin('藍宇星✨victor✨',50)
     #content = _game.get_atk_userlist()
     #content = _game_card.armor_store_detail()
@@ -433,8 +433,7 @@ class game_zone(object):
         _sql.update_config(uid,user_name,config)
         #print(jsonA)
                    
-        return ('----------\n%s\n%s\n----------\n%s\n獲得戰利品:%s\n----------'%(profile_A,profile_B,atk_list['atk_fin'],win_item),
-                '戰鬥紀錄**********\n%s'%atk_list['fight_status'])
+        return ('----------\n%s\n%s\n----------\n%s\n獲得戰利品:%s\n----------'%(profile_A,profile_B,atk_list['atk_fin'],win_item),'戰鬥紀錄**********\n%s'%atk_list['fight_status'])
  
     
     def get_peace(self,a_name, b_name):
@@ -1159,9 +1158,9 @@ class card_fight(object):
             if _index == 'arms':
                 return ('%s\n類別:武器\n數值:增加攻擊力 %s 點\n販售: %s 代幣\n說明:%s'%(val,_val,_recoin,_detail))
             if _index == 'armor':
-                return ('%s\n類別:武器\n數值:增加防禦力 %s 點\n販售: %s 代幣\n說明:%s'%(val,_val,_recoin,_detail))
+                return ('%s\n類別:防具\n數值:增加防禦力 %s 點\n販售: %s 代幣\n說明:%s'%(val,_val,_recoin,_detail))
             else:
-                return ('%s\n類別:武器\n數值: %s 點\n販售: %s 代幣\n說明:%s'%(val,_val,_recoin,_detail))
+                return ('%s\n類別:%s道具\n數值: %s 點\n販售: %s 代幣\n說明:%s'%(val,_index,_val,_recoin,_detail))
         except:
             return '查不到此物品的說明，請確認輸入是否正確'
     
