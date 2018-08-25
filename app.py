@@ -695,8 +695,7 @@ def handle_message(event):
         if re.match(' ?@?小星星',pk_user):
             content = '小星星 使出 一閃一閃亮晶晶 攻擊 %s 造成99999999999的傷害 贏了這場比賽'%user_name
         else:       
-            content_ = _games.card_pk(uid,user_name,pk_user)
-            
+            content = _games.card_pk(uid,user_name,pk_user)          
         line_bot_api.reply_message(event.reply_token,[TextSendMessage(text=content[0]),TextSendMessage(text=content[1])])
         return 0
     if re.match('^查([看詢])?武器商店',event.message.text):
