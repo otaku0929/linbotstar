@@ -33,7 +33,7 @@ def main():
     #content = _game.user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','http://dl.profile.line-cdn.net/0hLkoyPlmqE0RSAD5u3DZsE25FHSklLhUMKmILJiUCRHQrZVRGPWZfJnJTTHJ5ZQESaWNUJn5VTics')
     #content = _game.get_user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星')
     #content = _game.get_starcoin('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
-    content = _game.card_pk('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','阿貴')
+    content = _game.card_pk('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','惠  (苾惠)')
     #content = _game_card.fix_eq('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','eq1')
     #content = _game_card.get_user_items('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星')
     #content = _game_card.get_user_equ('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
@@ -55,7 +55,11 @@ def main():
 #        #print(pkid)
 #        content = _game.card_pk(uid,'藍宇星冷男星',pkid)
         #print (content)
-    print(content[0],content[1])
+    #print(content[1])
+    if content[1] == '':
+        print(content[0],'NONE')
+    else:
+        print(content[0],content[1])
     #print(content)
     
 class game_zone(object):
@@ -264,13 +268,13 @@ class game_zone(object):
         sql_command = "select * from user_config where update='%s' and user_id='%s'"%(self.time(),uid)
         a_config = _sql.select(sql_command)
         if a_config == []:
-            return '%s 沒有對戰卡片哦'%user_name       
+            return ('%s 沒有對戰卡片哦'%user_name,'')    
         
         sql_command = "select * from user_config where update='%s' and user_name='%s'"%(self.time(),pk_user)
         b_config = _sql.select(sql_command)
         #print(b_config)
         if b_config == []:
-            return '%s 沒有對戰卡片哦'%pk_user
+            return ('%s 沒有對戰卡片哦'%pk_user,'')
         
         config_A = a_config[0][2]    
         config_B = b_config[0][2]
