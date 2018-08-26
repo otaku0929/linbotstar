@@ -33,18 +33,18 @@ def main():
     #content = _game.user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','http://dl.profile.line-cdn.net/0hLkoyPlmqE0RSAD5u3DZsE25FHSklLhUMKmILJiUCRHQrZVRGPWZfJnJTTHJ5ZQESaWNUJn5VTics')
     #content = _game.get_user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星')
     #content = _game.get_starcoin('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
-    #content = _game.card_pk('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','Jacky Yang楊榮昌')
+    #content = _game.card_pk('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','阿貴')
     #content = _game_card.fix_eq('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','eq1')
     #content = _game_card.get_user_items('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星')
     #content = _game_card.get_user_equ('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
     #content = _game_card.buy_item('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','阿嬤之杖')
-    #content = _game_card.sell_item('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','紅色藥水')    
+    content = _game_card.sell_item('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','面紙')    
     #content = _game_card.use_eq('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','eq2')
     #content = _game_card.unuse_eq('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','阿嬤之杖')
     #content = _game_card.use_items('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','紅藥水(中)')
     #content = _game_card.armor_store_detail()
     #content = _game_card.lucky_time('U59e79d6500b2f9cad5ed780c1a1f9f8a','謙²')
-    content = _game_card.get_item_detail('爛木頭')
+    #content = _game_card.get_item_detail('爛木頭')
     #content = _game.to_starcoin('藍宇星✨victor✨',50)
     #content = _game.get_atk_userlist()
     #content = _game_card.armor_store_detail()
@@ -55,8 +55,8 @@ def main():
 #        #print(pkid)
 #        content = _game.card_pk(uid,'藍宇星冷男星',pkid)
         #print (content)
-    print(content[0],content[1])
-
+    #print(content[0],content[1])
+    print(content)
     
 class game_zone(object):
     
@@ -383,11 +383,12 @@ class game_zone(object):
                     atk_list['atk_winner'] = A['user_name']
                     atk_list['atk_fin'] = '%s 戰勝了 %s'%(A['user_name'],B['user_name'])
                     win_item = _card_game.fight_win_item()
-                    equ_list = A['equipment']
-                    if equ_list == {}:
-                        equ_list = []
-                    equ_list.append(win_item)
-                    A['equipment'] = equ_list
+                    if win_item != '':
+                        equ_list = A['equipment']
+                        if equ_list == {}:
+                            equ_list = []
+                        equ_list.append(win_item)
+                        A['equipment'] = equ_list
                     break
                 atk_round = atk_round+1
                 if atk_round >16:
@@ -435,7 +436,7 @@ class game_zone(object):
         _sql.update_config(uid,user_name,config)
         #print(jsonA)
                    
-        return ('----------\n%s\n%s\n----------\n%s\n獲得戰利品:%s\n----------'%(profile_A,profile_B,atk_list['atk_fin'],win_item),'戰鬥紀錄**********\n%s'%atk_list['fight_status'])
+        return ('----------\n%s\n%s\n----------\n%s\n獲得戰利品:%s\n----------'%(profile_A,profile_B,atk_list['atk_fin'],win_item),'戰鬥紀錄>>\n\n%s'%atk_list['fight_status'])
  
     
     def get_peace(self,a_name, b_name):
@@ -1243,7 +1244,7 @@ class card_fight(object):
                         _sql.update_config(uid,user_name,config)
                         return '%s 販售< %s > 獲得 %s 代幣，人物代幣 %s >> %s'%(user_name,obj,sell_coin,old_coin,new_coin)
             else:
-                return '%s 裝備背包裡沒有代碼為 %s 的裝備'%(user_name,item)
+                return '%s 裝備背包裡沒有代碼為< %s >的裝備'%(user_name,item)
         else:
             try:
                 index = self.item_detail(item)['index']
@@ -1253,20 +1254,23 @@ class card_fight(object):
             if index in ['arms','armor']:
                 return '< %s >為裝備，請使用裝備代碼販售'%item
             
-            item_coin = self.item_detail(item)['coin']
-            if item_coin == -1:
-                return '道具< %s >無法販售'%item
+            if item in profile['equipment']:            
+                item_coin = self.item_detail(item)['coin']
+                if item_coin == -1:
+                    return '道具< %s >無法販售'%item
+                else:
+                    sell_coin = int(item_coin/3)
+                    if sell_coin == 0:
+                        sell_coin = 1
+                    old_coin = profile['starcoin']
+                    new_coin = old_coin+sell_coin
+                    profile['starcoin'] = new_coin
+                    profile['equipment'].remove(item)
+                    config = json.dumps(config_json) 
+                    _sql.update_config(uid,user_name,config)
+                    return '%s 販售< %s > 獲得 %s 代幣，人物代幣 %s >> %s'%(user_name,item,sell_coin,old_coin,new_coin)
             else:
-                sell_coin = int(item_coin/3)
-                if sell_coin == 0:
-                    sell_coin = 1
-                old_coin = profile['starcoin']
-                new_coin = old_coin+sell_coin
-                profile['starcoin'] = new_coin
-                profile['equipment'].remove(item)
-                config = json.dumps(config_json) 
-                _sql.update_config(uid,user_name,config)
-                return '%s 販售< %s > 獲得 %s 代幣，人物代幣 %s >> %s'%(user_name,item,sell_coin,old_coin,new_coin)
+                return '%s 道具背包裡沒有< %s >這樣物品'%(user_name,item)
             
     def check_fix_eq(self,uid,user_name,item):
         
@@ -1597,7 +1601,7 @@ class card_fight(object):
                 '壞掉的神奇寶貝球':{'index':'other','name':'壞掉的神奇寶貝球','value':0,'coin':1,'detail':'已經壞掉的神奇寶貝球，上面還寫著小智'},
                 '爛木頭':{'index':'other','name':'爛木頭','value':0,'coin':1,'detail':'一塊爛掉的木頭，似乎稍微用力就會碎掉'},
                 '面紙':{'index':'other','name':'面紙','value':0,'coin':1,'detail':'一包沒有用過的面紙，包裝上寫著五月春風'}, 
-                '電影票':{'index':'other','name':'面紙','value':0,'coin':1,'detail':'美麗華IMAX的電影票，但仔細一看已經過期了'}
+                '電影票':{'index':'other','name':'電影票','value':0,'coin':1,'detail':'美麗華IMAX的電影票，但仔細一看已經過期了'}
                 }
         
         return dict[val]
