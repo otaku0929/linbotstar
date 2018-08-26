@@ -326,6 +326,12 @@ class start_talk(object):
                 return self.talk_dict('我好無聊',user_name)
             if re.search('我吃飽了',messages_talk):
                 return self.talk_dict('我吃飽了',user_name)
+            if re.search('(怎麼|要)買裝備',messages_talk):
+                return self.talk_dict('買裝備',user_name)
+            if re.search('(怎麼|要)修裝',messages_talk):
+                return self.talk_dict('修裝',user_name)
+            if re.search('(怎麼|要)賣(裝備|道具|東西)',messages_talk):
+                return self.talk_dict('賣裝備',user_name)
             else:
                 return self.talk_dict('random',user_name) 
             
@@ -333,6 +339,9 @@ class start_talk(object):
         if u ==None:
             u = ''
         dict={
+                '賣裝備':['範例: 賣道具=eq1 或 賣道具=紅色藥水  ， 賣武器及防具要用裝備代碼來賣哦'],
+                '修裝':['範例: 修理裝備=eq1  裝備代碼請使用< 查人物裝備 >來確認，另外修裝費是依據攻擊力及耗損度來計算哦' ],
+                '買裝備':['範例: 買裝備=阿嬤之杖  ， 可以先查看武器商店有什麼東西可以買哦'],
                 '我吃飽了':['那很好啊','吃了什麼呢?','嗚~~~我都還沒吃','你沒有帶我一起去吃','吃飽飽休息一下吧'],
                 '我好無聊':['無聊啊，那來聊天吧','那要唱歌嗎?','聽聽歌好了'],
                 '有什麼好事':['踩到狗屎吧','中樂透','喜歡的人跟你對眼','發現新大陸','都抽到美女','我想想哦~~~'],
