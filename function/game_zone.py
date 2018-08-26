@@ -33,12 +33,12 @@ def main():
     #content = _game.user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','http://dl.profile.line-cdn.net/0hLkoyPlmqE0RSAD5u3DZsE25FHSklLhUMKmILJiUCRHQrZVRGPWZfJnJTTHJ5ZQESaWNUJn5VTics')
     #content = _game.get_user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星')
     #content = _game.get_starcoin('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
-    #content = _game.card_pk('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','阿貴')
+    content = _game.card_pk('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','阿貴')
     #content = _game_card.fix_eq('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','eq1')
     #content = _game_card.get_user_items('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星')
     #content = _game_card.get_user_equ('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
     #content = _game_card.buy_item('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','阿嬤之杖')
-    content = _game_card.sell_item('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','面紙')    
+    #content = _game_card.sell_item('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','面紙')    
     #content = _game_card.use_eq('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','eq2')
     #content = _game_card.unuse_eq('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','阿嬤之杖')
     #content = _game_card.use_items('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','紅藥水(中)')
@@ -55,8 +55,8 @@ def main():
 #        #print(pkid)
 #        content = _game.card_pk(uid,'藍宇星冷男星',pkid)
         #print (content)
-    #print(content[0],content[1])
-    print(content)
+    print(content[0],content[1])
+    #print(content)
     
 class game_zone(object):
     
@@ -308,7 +308,11 @@ class game_zone(object):
                 if new_ed == 0:
                     A['armor']=''
                     del A['equ_list'][index]
-            
+
+        if charA_arms =='' or  charA_armor =='':
+            weap_check = 0
+        else:
+            weap_check = 1
         
         if B['arms'] == '':
             charB_arms = ''
@@ -323,7 +327,7 @@ class game_zone(object):
                 charB_armor = obj
                 
         
-
+        
         profile_A = '%s (%s) hp:%s mp:%s atk:%s def:%s lucky:%s\n武器:%s 防具:%s'%(A['user_name'],A['WIZ'],A['hp'],A['mp'],A['ATK'],A['DEF'],A['lucky'],charA_arms,charA_armor)
         profile_B = '%s (%s) hp:%s mp:%s atk:%s def:%s lucky:%s\n武器:%s 防具:%s'%(B['user_name'],B['WIZ'],B['hp'],B['mp'],B['ATK'],B['DEF'],B['lucky'],charB_arms,charB_armor)
         
@@ -382,7 +386,7 @@ class game_zone(object):
                 if charA_HP<=0 or charB_HP<=0:
                     atk_list['atk_winner'] = A['user_name']
                     atk_list['atk_fin'] = '%s 戰勝了 %s'%(A['user_name'],B['user_name'])
-                    win_item = _card_game.fight_win_item()
+                    win_item = _card_game.fight_win_item(weap_check)
                     if win_item != '':
                         equ_list = A['equipment']
                         if equ_list == {}:
@@ -1605,17 +1609,29 @@ class card_fight(object):
                 }
         
         return dict[val]
-    
-    def fight_win_item(self):
+
+
+    def fight_win_item(self,val):
         
+        #判斷是否有裝備
+        if val == 0:
         #物品機率
-        i1=75
-        i2=50
-        i3=25
-        i4=15
-        i5=10
-        i99=3
-        i0=1000-(i1+i2+i3+i4+i99)
+            i1=10
+            i2=10
+            i3=7
+            i4=7
+            i5=3
+            i99=1
+            i0=1000-(i1+i2+i3+i4+i99)
+        else:
+            i1=75
+            i2=50
+            i3=15
+            i4=15
+            i5=7
+            i99=3
+            i0=1000-(i1+i2+i3+i4+i99)
+            
         #產生數列
         g0 = [0]*i0
         g1 = [1]*i1
