@@ -1609,12 +1609,12 @@ class card_fight(object):
     def fight_win_item(self):
         
         #物品機率
-        i1=150
-        i2=75
-        i3=50
-        i4=25
-        i5=15
-        i99=5
+        i1=75
+        i2=50
+        i3=25
+        i4=15
+        i5=10
+        i99=3
         i0=1000-(i1+i2+i3+i4+i99)
         #產生數列
         g0 = [0]*i0
@@ -1654,5 +1654,7 @@ class card_fight(object):
         if res == 99:
             content = random.randint(1,10)
             return content
+        
+              
 if __name__ == '__main__':
     main()
