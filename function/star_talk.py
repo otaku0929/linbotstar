@@ -332,6 +332,10 @@ class start_talk(object):
                 return self.talk_dict('修裝',user_name)
             if re.search('(怎麼|要)賣(裝備|道具|東西)',messages_talk):
                 return self.talk_dict('賣裝備',user_name)
+            if re.search('沒睡飽',messages_talk):
+                return self.talk_dict('沒睡飽',user_name)
+            if re.search('有雞油',messages_talk):
+                return self.talk_dict('有雞油',user_name)
             else:
                 return self.talk_dict('random',user_name) 
             
@@ -339,6 +343,8 @@ class start_talk(object):
         if u ==None:
             u = ''
         dict={
+                '有雞油':['機油一瓶350','雞油比較清，但豬油卡香啦','不然吃吃魚肝油如何?','還是要上一點牛油呢'],
+                '沒睡飽':['那來一杯拿鐵吧!!醒醒腦','我敲一敲就醒了','嘿嘿嘿，晚上做賊去了嗎?','可憐的小孩，撐著吧'],
                 '賣裝備':['範例: 賣道具=eq1 或 賣道具=紅色藥水  ， 賣武器及防具要用裝備代碼來賣哦'],
                 '修裝':['範例: 修理裝備=eq1  裝備代碼請使用< 查人物裝備 >來確認，另外修裝費是依據攻擊力及耗損度來計算哦' ],
                 '買裝備':['範例: 買裝備=阿嬤之杖  ， 可以先查看武器商店有什麼東西可以買哦'],
