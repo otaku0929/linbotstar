@@ -18,6 +18,8 @@ class start_talk(object):
         self.class_name = 'start_talk'
 
     def star_talk(self, messages_talk, user_name=None):
+        if re.match('為什麼沒有卡片|不會產生卡片|不給我卡片',message_talk):
+            return self.talk_dict('為什麼沒有卡片',user_name)
         if re.match("^幹|fuck|操",messages_talk):
              return self.talk_dict('fuck',user_name)
         if re.search('(操|幹|fuck)[你|他](娘|媽|老師|you)',messages_talk):
@@ -345,6 +347,7 @@ class start_talk(object):
         if u ==None:
             u = ''
         dict={
+                '為什麼沒有卡片':['請加小星星好友再產生一次看看，如果還是有問題請到小星星的首頁或粉絲團回報一下'],
                 '愛我嗎':['當然是~~不愛都不行囉','看著我的眼，有看到愛心嗎?','愛妳愛妳愛妳好愛妳','照照鏡子吧','我想睡了，晚安',
                        '這問題答案就在你心裡','愛不是用嘴巴講講的'],
                 '有雞油':['機油一瓶350','雞油比較清，但豬油卡香啦','不然吃吃魚肝油如何?','還是要上一點牛油呢'],
