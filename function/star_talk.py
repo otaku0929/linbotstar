@@ -18,7 +18,7 @@ class start_talk(object):
         self.class_name = 'start_talk'
 
     def star_talk(self, messages_talk, user_name=None):
-        if re.match('為什麼沒有卡片|不會產生卡片|不給我卡片',message_talk):
+        if re.match('為什麼沒有卡片|不會產生卡片|不給我卡片',messages_talk):
             return self.talk_dict('為什麼沒有卡片',user_name)
         if re.match("^幹|fuck|操",messages_talk):
              return self.talk_dict('fuck',user_name)
