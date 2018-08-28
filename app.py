@@ -298,7 +298,8 @@ def handle_message(event):
             content = _games.to_starcoin(user,coin)
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         else:
-            return '此功能只有星爸可以用'
+            content = '此功能只有星爸可以用'
+            line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))          
         return 0
     #浮水印設定
     if re.match('^#浮水印%(.+)%f(\d+)%([t|e]\d)%(red|green|blue|white|black|pink|yellow|gold|#......)%al(\d+)%(p\d)',event.message.text):
