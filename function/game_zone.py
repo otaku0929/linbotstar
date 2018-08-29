@@ -1584,28 +1584,28 @@ class card_fight(object):
     def item_detail(self,val):
         
         dict = {
-                '紅色藥水':{'index':'hp','name':'紅色藥水','value':500,'detail':'恢復生命值(HP)500點','coin':2},
+                '紅色藥水':{'index':'hp','name':'紅色藥水','value':500,'detail':'恢復生命值(HP)500點','coin':3},
                 '橙色藥水':{'index':'hp','name':'橙色藥水','value':1000,'detail':'恢復生命值(HP)1000點','coin':4},
                 '白色藥水':{'index':'hp','name':'白色藥水','value':2000,'detail':'恢復生命值(HP)2000點','coin':6},
                 '小魚乾':{'index':'hp','name':'小魚乾','value':1500,'detail':'恢復生命值(HP)1500點','coin':-1},
                 '戰狼肉':{'index':'hp','name':'戰狼肉','value':2500,'detail':'恢復生命值(HP)2500點','coin':-1},                
-                '藍色藥水':{'index':'mp','name':'藍色藥水','value':1000,'detail':'恢復魔力值(MP)1000點','coin':4},
+                '藍色藥水':{'index':'mp','name':'藍色藥水','value':1000,'detail':'恢復魔力值(MP)1000點','coin':3},
                 '濃縮藍色藥水':{'index':'mp','name':'濃縮藍色藥水','value':2000,'detail':'恢復魔力值(MP)2000點','coin':-1},
                 '鼠兒果':{'index':'mp','name':'鼠兒果','value':1500,'detail':'恢復魔力值(MP)1500點','coin':6},
-                '攻擊增加藥水':{'index':'ATK','name':'攻擊增加藥水','value':1000,'detail':'增加攻擊力(ATK)1000點','coin':4},
+                '攻擊增加藥水':{'index':'ATK','name':'攻擊增加藥水','value':1000,'detail':'增加攻擊力(ATK)1000點','coin':6},
                 '地獄辣椒':{'index':'ATK','name':'地獄辣椒','value':1500,'detail':'增加攻擊力(ATK)1500點','coin':-1},
                 '大瓶裝攻擊增加藥水':{'index':'ATK','name':'大瓶裝攻擊增加藥水','value':2000,'detail':'增加攻擊力(ATK)2000點','coin':-1},
                 '激進藥劑':{'index':'ATK','name':'激進藥劑','value':3000,'detail':'增加攻擊力(ATK)3000點','coin':-1},
-                '防禦增加藥水':{'index':'DEF','name':'防禦增加藥水','value':1000,'detail':'增加防禦(DEF)1000點','coin':4},
-                '白馬乎你夯':{'index':'DEF','name':'白馬乎你夯','value':1500,'detail':'增加防禦(DEF)1500點','coin':-1},
+                '防禦增加藥水':{'index':'DEF','name':'防禦增加藥水','value':1000,'detail':'增加防禦(DEF)1000點','coin':6},
+                '白馬乎你夯':{'index':'DEF','name':'白馬乎你夯','value':1500,'detail':'增加防禦(DEF)1500點','coin':6},
                 '龜甲萬醬油':{'index':'DEF','name':'龜甲萬醬油','value':2500,'detail':'增加防禦(DEF)1500點','coin':-1},
                 '大瓶裝防禦加藥水':{'index':'DEF','name':'大瓶裝防禦加藥水','value':2000,'detail':'增加防禦(DEF)2000點','coin':-1},
                 '堅韌藥劑':{'index':'DEF','name':'堅韌藥劑','value':3000,'detail':'增加防禦(DEF)3000點','coin':-1},
-                '綠色藥水':{'index':'AGI','name':'綠色藥水','value':100,'detail':'增加速度(AGI)100點，可增加攻擊力及防禦力','coin':4},
-                '勇敢藥水':{'index':'STR','name':'勇敢藥水','value':100,'detail':'增加力量(STR)100點，可增加攻擊力及防禦力','coin':4},
-                '妖精餅乾':{'index':'DEX','name':'妖精餅乾','value':100,'detail':'增加敏捷(DEX)100點，可增加攻擊力及防禦力','coin':4},
-                '慎重藥水':{'index':'INT','name':'慎重藥水','value':100,'detail':'增加智力(INT)100點，可增加MP及攻擊力','coin':4},
-                '活力藥水':{'index':'VIT','name':'活力藥水','value':100,'detail':'增加體力(VIT)100點，可增加防禦力','coin':4},
+                '綠色藥水':{'index':'AGI','name':'綠色藥水','value':100,'detail':'增加速度(AGI)100點，可增加攻擊力及防禦力','coin':6},
+                '勇敢藥水':{'index':'STR','name':'勇敢藥水','value':100,'detail':'增加力量(STR)100點，可增加攻擊力及防禦力','coin':6},
+                '妖精餅乾':{'index':'DEX','name':'妖精餅乾','value':100,'detail':'增加敏捷(DEX)100點，可增加攻擊力及防禦力','coin':6},
+                '慎重藥水':{'index':'INT','name':'慎重藥水','value':100,'detail':'增加智力(INT)100點，可增加MP及攻擊力','coin':6},
+                '活力藥水':{'index':'VIT','name':'活力藥水','value':100,'detail':'增加體力(VIT)100點，可增加防禦力','coin':6},
                 '幸運餅乾':{'index':'LUK','name':'幸運餅乾','value':100,'detail':'增加幸運(LUK)100點，幸運會影響出手機率及絕招的施放','coin':4},
                 '疾走藥水':{'index':'AGI','name':'疾走藥水','value':200,'detail':'增加速度(AGI)200點，可增加攻擊力及防禦力','coin':-1},
                 '龍之珍珠':{'index':'STR','name':'龍之珍珠','value':200,'detail':'增加力量(STR)200點，可增加攻擊力及防禦力','coin':-1},
@@ -1656,9 +1656,9 @@ class card_fight(object):
             i99=1
             i0=1000-(i1+i2+i3+i4+i99)
         else:
-            i1=250
+            i1=300
             i2=100
-            i3=20
+            i3=50
             i4=20
             i5=10
             i99=5
@@ -1684,15 +1684,15 @@ class card_fight(object):
             content = random.choice(dict)
             return content
         if res == 2:
-            dict = ['紅色藥水','藍色藥水','小星星照片','皮鞭']
+            dict = ['紅色藥水','藍色藥水','橙色藥水','皮鞭']
             content = random.choice(dict)
             return content
         if res == 3:
-            dict = ['紅色藥水','藍色藥水','防禦增加藥水','攻擊增加藥水','小星星照片','皮鞭']
+            dict = ['防禦增加藥水','攻擊增加藥水','小星星照片','皮鞭']
             content = random.choice(dict)
             return content
         if res == 4:
-            dict = ['橙色藥水','攻擊增加藥水','防禦增加藥水','小星星照片','皮鞭']
+            dict = ['橙色藥水','攻擊增加藥水','防禦增加藥水','小星星照片','皮鞭','白馬乎你夯']
             content = random.choice(dict)
             return content
         if res == 5:
