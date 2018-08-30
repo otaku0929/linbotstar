@@ -1636,8 +1636,8 @@ class card_fight(object):
                 '牙齒':{'index':'other','name':'牙齒','value':0,'coin':3,'detail':'重擊敵人後獲得的牙齒，保養的不錯沒有黃黃臭臭的'},
                 '壞掉的神奇寶貝球':{'index':'other','name':'壞掉的神奇寶貝球','value':0,'coin':3,'detail':'已經壞掉的神奇寶貝球，上面還寫著小智'},
                 '爛木頭':{'index':'other','name':'爛木頭','value':0,'coin':3,'detail':'一塊爛掉的木頭，似乎稍微用力就會碎掉'},
-                '面紙':{'index':'other','name':'面紙','value':0,'coin':3,'detail':'一包沒有用過的面紙，包裝上寫著五月春風'}, 
-                '電影票':{'index':'other','name':'電影票','value':0,'coin':3,'detail':'美麗華IMAX的電影票，但仔細一看已經過期了'},
+                '面紙':{'index':'other','name':'面紙','value':0,'coin':6,'detail':'一包沒有用過的面紙，包裝上寫著五月春風'}, 
+                '電影票':{'index':'other','name':'電影票','value':0,'coin':6,'detail':'美麗華IMAX的電影票，但仔細一看已經過期了'},
                 '鳳凰羽毛':{'index':'other','name':'鳳凰羽毛','value':0,'coin':6,'detail':'一根神奇的羽毛，但仔細一看好像跟公雞的差不多啊'},
                 '阿兩公仔':{'index':'other','name':'阿兩公仔','value':0,'coin':6,'detail':'葛飾區龜有公園前派出所兩津勘吉1:4大小公仔'},
                 '打火機':{'index':'other','name':'打火機','value':0,'coin':6,'detail':'檳榔攤販賣的十元打火機，上面還有清涼美女照片'},
@@ -1669,7 +1669,7 @@ class card_fight(object):
             i3=50
             i4=20
             i5=10
-            i98=50
+            i98=200
             i99=5
             i0=1000-(i1+i2+i3+i4+i98+i99)
             
@@ -1694,11 +1694,11 @@ class card_fight(object):
             content = random.choice(dict)
             return ('other',content)
         if res == 2:
-            dict = ['紅色藥水','藍色藥水','橙色藥水','皮鞭']
+            dict = ['紅色藥水','藍色藥水','橙色藥水','皮鞭','面紙','電影票','打火機']
             content = random.choice(dict)
             return ('other',content)
         if res == 3:
-            dict = ['防禦增加藥水','攻擊增加藥水','小星星照片','皮鞭']
+            dict = ['防禦增加藥水','攻擊增加藥水','小星星照片','皮鞭','面紙','電影票','打火機']
             content = random.choice(dict)
             return ('other',content)
         if res == 4:
