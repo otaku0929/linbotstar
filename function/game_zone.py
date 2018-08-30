@@ -348,6 +348,7 @@ class game_zone(object):
         B_Wiz_value = Wiz_value_list[1]
         atk_list = {'fight_status':{},'atk_winner':{},'atk_fin':{}}
         atk_round = 0
+        winitem_content = ''
         
         while charA_HP >=0 or charB_HP >=0:
             #判定誰攻誰防, 以幸運值亂數高者為攻
@@ -394,8 +395,7 @@ class game_zone(object):
                     atk_list['atk_winner'] = A['user_name']
                     atk_list['atk_fin'] = '%s 戰勝了 %s'%(A['user_name'],B['user_name'])
                     win_item = _card_game.fight_win_item(weap_check)
-                    #print(win_item)
-                    winitem_content = ''
+                    print(win_item)
                     if win_item[0] == 'other':
                         equ_list = A['equipment']
                         if equ_list == {}:
