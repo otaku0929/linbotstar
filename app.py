@@ -123,6 +123,9 @@ def handle_message(event):
     if event.source.type == 'group':
         gid = event.source.group_id
         print(event.source.type, gid, uid, "event.message.text:", event.message.text)
+        if gid in ['C9788a00f972283234fd4640eda608194','C7d4d06dbf5b5cf873b05600c97252466']:
+            print ('twstar say goodbye %s'%gid)
+            return 0
     if event.source.type == 'room':
         rid = event.source.room_id
         print(event.source.type, rid, uid, "event.message.text:", event.message.text)
