@@ -33,7 +33,7 @@ def main():
     #content = _game.user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','http://dl.profile.line-cdn.net/0hLkoyPlmqE0RSAD5u3DZsE25FHSklLhUMKmILJiUCRHQrZVRGPWZfJnJTTHJ5ZQESaWNUJn5VTics')
     #content = _game.get_user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星')
     #content = _game.get_starcoin('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
-    #content = _game.card_pk('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','阿貴')
+    content = _game.card_pk('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','阿貴')
     #content = _game_card.fix_eq('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','eq1')
     #content = _game_card.get_user_items('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星')
     #content = _game_card.get_user_equ('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
@@ -56,11 +56,11 @@ def main():
 #        content = _game.card_pk(uid,'藍宇星冷男星',pkid)
         #print (content)
     #print(content[1])
-#    if content[1] == '':
-#        print(content[0],'NONE')
-#    else:
-#        print(content[0],content[1])
-    print(content)
+    if content[1] == '':
+        print(content[0],'NONE')
+    else:
+        print(content[0],content[1])
+    #print(content)
     
 class game_zone(object):
     
@@ -316,7 +316,7 @@ class game_zone(object):
                     A['armor']=''
                     del A['equ_list'][index]
 
-        if charA_arms =='' or  charA_armor =='':
+        if charA_arms =='' and charA_armor =='':
             weap_check = 0
         else:
             weap_check = 1
@@ -394,12 +394,18 @@ class game_zone(object):
                     atk_list['atk_winner'] = A['user_name']
                     atk_list['atk_fin'] = '%s 戰勝了 %s'%(A['user_name'],B['user_name'])
                     win_item = _card_game.fight_win_item(weap_check)
-                    if win_item != '':
+                    #print(win_item)
+                    winitem_content = ''
+                    if win_item[0] == 'other':
                         equ_list = A['equipment']
                         if equ_list == {}:
                             equ_list = []
-                        equ_list.append(win_item)
+                        equ_list.append(win_item[1])
                         A['equipment'] = equ_list
+                        winitem_content = win_item[1]
+                    if win_item[0] == 'coin':
+                        A['starcoin'] = A['starcoin']+win_item[1]
+                        winitem_content = '%s 代幣'%(win_item[1])
                     break
                 atk_round = atk_round+1
                 if atk_round >16:
@@ -448,7 +454,7 @@ class game_zone(object):
         #print(jsonA)
                    
         #return ('----------\n%s\n%s\n----------\n%s\n獲得戰利品:%s\n----------'%(profile_A,profile_B,atk_list['atk_fin'],win_item),'戰鬥紀錄>>\n\n%s'%atk_list['fight_status'])
-        return ('%s\n獲得戰利品:%s'%(atk_list['atk_fin'],win_item),'----------\n%s\n%s\n----------\n戰鬥紀錄>>\n\n%s'%(profile_A,profile_B,atk_list['fight_status']))
+        return ('%s\n獲得戰利品:%s'%(atk_list['atk_fin'],winitem_content),'----------\n%s\n%s\n----------\n戰鬥紀錄>>\n\n%s'%(profile_A,profile_B,atk_list['fight_status']))
  
     
     def get_peace(self,a_name, b_name):
@@ -784,7 +790,7 @@ class card_fight(object):
                 '西瓜太郎的兜檔布','唐寅詩集','噹噹噹噹噹','掉色的千元鈔','路痴眼裡的地圖','畫地自陷',
                 '小狗汪汪叫','遲頓光線','三隻雨傘標','一個人看電影的寂寞','圓豬滾球','滾動的摩天輪','多爾滾',
                 '帶上西瓜皮','此地無銀二佰伍','殺蟲劑','天蠶結繭','十八摸','陰森購物台','爛命一條','女孩的紅鞋',
-                '桃太郎丸子','縮小燈','變身相撲力士','烏鴨嘴的詛咒','愛X無限大','佛祖給你加持','床榻下的四賊客',
+                '桃太郎丸子','縮小燈','變身相撲力士','烏鴨嘴的詛咒','愛X無限大','佛祖給你加持','床榻下的四賤客',
                 '小小兵合唱團','鐵骨乳液','安全保護袋','說謊的鏡子','烏賊車噴射','連續啦叭聲','反擊屏障','秘術。相親術',
                 '下班時的雷陣雨','大叔的愛','唐詩三百首','蜜桃成熟時'
                 ]
@@ -1637,7 +1643,8 @@ class card_fight(object):
                 '打火機':{'index':'other','name':'打火機','value':0,'coin':6,'detail':'檳榔攤販賣的十元打火機，上面還有清涼美女照片'},
                 '小星星照片':{'index':'other','name':'小星星照片','value':0,'coin':9,'detail':'小星星可愛的照片一張，上面還有簽名TWStar'},
                 '皮鞭':{'index':'other','name':'皮鞭','value':0,'coin':9,'detail':'不知道是誰的皮鞭，握把上面還寫著暗夜女王，握把底部還有一個大大的紅唇印'},
-                '星爸照片':{'index':'other','name':'星爸照片','value':0,'coin':30,'detail':'星爸帥氣的照片一張，貼在牆上可以驅魔避邪保平安'}
+                '星爸照片':{'index':'other','name':'星爸照片','value':0,'coin':30,'detail':'星爸帥氣的照片一張，貼在牆上可以驅魔避邪保平安'},
+                '黃金寶箱':{'index':'other','name':'黃金寶箱','value':0,'coin':3,'detail':'可以輸入使用道具=黃金寶箱看看這次尋到了什麼寶藏哦!!!'},
                 }
         
         return dict[val]
@@ -1653,16 +1660,18 @@ class card_fight(object):
             i3=7
             i4=7
             i5=3
+            i98=5
             i99=1
-            i0=1000-(i1+i2+i3+i4+i99)
+            i0=1000-(i1+i2+i3+i4+i98+i99)
         else:
-            i1=300
+            i1=200
             i2=100
             i3=50
             i4=20
             i5=10
+            i98=50
             i99=5
-            i0=1000-(i1+i2+i3+i4+i99)
+            i0=1000-(i1+i2+i3+i4+i98+i99)
             
         #產生數列
         g0 = [0]*i0
@@ -1671,37 +1680,41 @@ class card_fight(object):
         g3 = [3]*i3
         g4 = [4]*i4
         g5 = [5]*i5
-        g99 = ['coin']*i99
-        gift_list = g0+g1+g2+g3+g4+g5+g99
+        g98 = [98]*i98
+        g99 = [99]*i99
+        gift_list = g0+g1+g2+g3+g4+g5+g98+g99
         random.shuffle(gift_list)
         #get_result
         res = gift_list[0]
         #return_item
         if res == 0:
-            return ''
+            return ('none','')
         if res == 1:
             dict = ['牙齒','壞掉的神奇寶貝球','爛木頭','面紙','電影票','打火機','阿兩公仔','鳳凰羽毛']
             content = random.choice(dict)
-            return content
+            return ('other',content)
         if res == 2:
             dict = ['紅色藥水','藍色藥水','橙色藥水','皮鞭']
             content = random.choice(dict)
-            return content
+            return ('other',content)
         if res == 3:
             dict = ['防禦增加藥水','攻擊增加藥水','小星星照片','皮鞭']
             content = random.choice(dict)
-            return content
+            return ('other',content)
         if res == 4:
             dict = ['橙色藥水','攻擊增加藥水','防禦增加藥水','小星星照片','皮鞭','白馬乎你夯']
             content = random.choice(dict)
-            return content
+            return ('other',content)
         if res == 5:
             dict = ['鼠兒果','堅韌藥劑','綠色藥水','勇敢藥水','妖精餅乾','幸運餅乾','星爸照片']
             content = random.choice(dict)
-            return content
+            return ('other',content)
+        if res == 98:
+            content = random.randint(1,5)
+            return ('coin',content)
         if res == 99:
-            content = random.randint(1,10)
-            return content
+            ##content = random.randint(1,10)
+            return ('other','黃金寶箱')
         
               
 if __name__ == '__main__':
