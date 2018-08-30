@@ -1363,8 +1363,8 @@ class card_fight(object):
                        val = _item['val']
                        red = _item['ed']
                        _fix_coin = int(val/1000)
-                       _fix_rate = [5,4,3,2,1,0]
-                       _fix_ed = _fix_rate[red%6]
+                       #_fix_rate = [5,4,3,2,1,0]
+                       _fix_ed = 5-int(red/20) #_fix_rate[red%6]
                        fix_coin = _fix_ed*_fix_coin
                 
                 user_coin = profile['starcoin']
