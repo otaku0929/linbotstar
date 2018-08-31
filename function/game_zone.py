@@ -41,7 +41,7 @@ def main():
     #content = _game_card.sell_item('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','面紙')    
     #content = _game_card.use_eq('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','eq2')
     #content = _game_card.unuse_eq('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','eq1')
-    content = _game_card.use_items('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','紅藥水(中)')
+    content = _game_card.use_items('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','無敵星星')
     #content = _game_card.armor_store_detail()
     #content = _game_card.lucky_time('U59e79d6500b2f9cad5ed780c1a1f9f8a','謙²')
     #content = _game_card.get_item_detail('爛木頭')
@@ -56,11 +56,12 @@ def main():
 #        content = _game.card_pk(uid,'藍宇星冷男星',pkid)
         #print (content)
     #print(content[1])
-    if content[1] == '':
-        print(content[0],'NONE')
-    else:
-        print(content[0],content[1])
-    #print(content)
+    #if content[1] == '':
+    #    print(content[0],'NONE')
+    #else:
+    #    print(content[0],content[1])
+    #print(content.count())
+    print(content)
     
 class game_zone(object):
     
@@ -395,7 +396,7 @@ class game_zone(object):
                     atk_list['atk_winner'] = A['user_name']
                     atk_list['atk_fin'] = '%s 戰勝了 %s'%(A['user_name'],B['user_name'])
                     win_item = _card_game.fight_win_item(weap_check)
-                    print(win_item)
+                    #print(win_item)
                     if win_item[0] == 'other':
                         equ_list = A['equipment']
                         if equ_list == {}:
@@ -963,12 +964,17 @@ class card_fight(object):
         
         profile = config_json['profile']
         equ_list = profile['equipment']
+        #a = '無敵星星'
+        #equ_list.append(a)
+        #print(equ_list)
         if del_item in equ_list:
             equ_list.remove(del_item)
             new_status = None
             item_detail = self.item_detail(del_item)
             #print(del_item)
             index = item_detail['index']
+            if index == 'LUK':
+                index = 'lucky'
             if index in profile:
                 old_index_values = profile[index]
                 new_index_values = 0
@@ -976,62 +982,46 @@ class card_fight(object):
                     new_index_values = profile[index]+item_detail['value']
                     if new_index_values > 99999:
                         new_index_values = 99999
-                    profile[index] = new_index_values
-                    new_status = '%s => %s'% (old_index_values,profile[index])
                 if index in ['STR']:
                     new_index_values = profile[index]+item_detail['value']
                     profile['ATK']= profile['ATK']+int(item_detail['value']*5)
                     profile['DEF']= profile['DEF']+int(item_detail['value']*2)
                     if new_index_values > 999:
                         new_index_values = 999
-                    profile[index] = new_index_values
-                    new_status = '%s => %s'% (old_index_values,profile[index])
                 if index in ['INT']:
                     new_index_values = profile[index]+item_detail['value']
                     profile['mp']= profile['mp']+int(item_detail['value']*5)
                     profile['ATK']= profile['ATK']+int(item_detail['value']*2)
                     if new_index_values > 999:
                         new_index_values = 999
-                    profile[index] = new_index_values
-                    new_status = '%s => %s'% (old_index_values,profile[index])
                 if index in ['VIT']:
                     new_index_values = profile[index]+item_detail['value']
                     profile['hp']= profile['hp']+int(item_detail['value']*5)
                     profile['DEF']= profile['DEF']+int(item_detail['value']*5)
                     if new_index_values > 999:
                         new_index_values = 999
-                    profile[index] = new_index_values
-                    new_status = '%s => %s'% (old_index_values,profile[index])
                 if index in ['DEX']:
                     new_index_values = profile[index]+item_detail['value']
                     profile['DEF']= profile['DEF']+int(item_detail['value']*2.5)
                     profile['ATK']= profile['ATK']+int(item_detail['value']*1.5)
                     if new_index_values > 999:
                         new_index_values = 999
-                    profile[index] = new_index_values
-                    new_status = '%s => %s'% (old_index_values,profile[index])
                 if index in ['AGI']:
                     new_index_values = profile[index]+item_detail['value']
                     profile['ATK']= profile['ATK']+int(item_detail['value']*2.5)
                     profile['DEF']= profile['DEF']+int(item_detail['value']*1.5)
                     if new_index_values > 999:
                         new_index_values = 999
-                    profile[index] = new_index_values
-                    new_status = '%s => %s'% (old_index_values,profile[index])
-                if index in ['LUK']:
-                    new_index_values = profile['lucky']+item_detail['value']
+                if index in ['lucky']:
+                    new_index_values = profile[index]+item_detail['value']
                     if new_index_values > 999:
                         new_index_values = 999 
-                    profile['lucky'] = new_index_values
-                    new_status = '%s => %s'% (old_index_values,profile['lucky'])
                 if index in ['ATK','DEF']:
                     new_index_values = profile[index]+item_detail['value']
                     if new_index_values >100000:
                         new_index_values = 100000
-                    profile[index] = new_index_values
-                    new_status = '%s => %s'% (old_index_values,profile[index])
-                #profile[index] = new_index_values
-                #new_status = '%s => %s'% (old_index_values,profile[index])
+                profile[index] = new_index_values
+                new_status = '%s => %s'% (old_index_values,profile[index])
                 config = json.dumps(config_json)
                 _sql.update_config(uid,user_name,config)
                 return '%s 已使用 %s %s\n%s'%(user_name,del_item,item_detail['detail'],new_status)
@@ -1635,7 +1625,7 @@ class card_fight(object):
                 '伊娃的祝福':{'index':'INT','name':'伊娃的祝福','value':200,'detail':'增加智力(INT)200點，可增加MP及攻擊力','coin':-1},
                 '生命樹果實':{'index':'VIT','name':'生命樹果實','value':200,'detail':'增加體力(VIT)200點，可增加防禦力','coin':-1},
                 '無敵星星':{'index':'LUK','name':'無敵星星','value':200,'detail':'增加幸運(LUK)200點，額外影響絕招的施放機率','coin':-1},
-                '角色重置卡':{'index':'reset','name':'角色重置卡','value':0,'detail':'重置人物屬性，但是魔王還是變沙包呢? 爻杯吧','coin':200},
+                '角色重置卡':{'index':'reset','name':'角色重置卡','value':0,'detail':'重置人物屬性，但是魔王還是變沙包呢? 爻杯吧','coin':200},        
                 '--amrs--':(),
                 '初心者報紙':{'index':'arms','name':'初心者報紙','value':1000,'coin':10,'detail':'蒐集了各家報紙捲成的報紙劍，非常的厚實，無聊時還能看看上面的新聞。'},
                 '阿嬤之杖':{'index':'arms','name':'阿嬤之杖','value':2000,'coin':20,'detail':'魔法阿嬤留下來的法杖，上面還銘刻了許多奇妙的咒語，其中隱約寫著猴死囝仔夠又偷吃菜...'},
