@@ -30,7 +30,7 @@ def main():
     _game_card = card_fight()
     content = _game_card.fight_win_item(1)
     
-    #content = _game.user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','http://dl.profile.line-cdn.net/0hLkoyPlmqE0RSAD5u3DZsE25FHSklLhUMKmILJiUCRHQrZVRGPWZfJnJTTHJ5ZQESaWNUJn5VTics')
+    content = _game.user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','http://dl.profile.line-cdn.net/0hLkoyPlmqE0RSAD5u3DZsE25FHSklLhUMKmILJiUCRHQrZVRGPWZfJnJTTHJ5ZQESaWNUJn5VTics')
     #content = _game.get_user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星')
     #content = _game.get_starcoin('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
     #content = _game.card_pk('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','阿貴')
@@ -41,7 +41,7 @@ def main():
     #content = _game_card.sell_item('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','面紙')    
     #content = _game_card.use_eq('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','eq2')
     #content = _game_card.unuse_eq('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','eq1')
-    content = _game_card.use_items('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','無敵星星')
+    #content = _game_card.use_items('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','無敵星星')
     #content = _game_card.armor_store_detail()
     #content = _game_card.lucky_time('U59e79d6500b2f9cad5ed780c1a1f9f8a','謙²')
     #content = _game_card.get_item_detail('爛木頭')
@@ -519,7 +519,7 @@ class game_zone(object):
                
         if 'profile_time' in config_json['profile']:
             if config_json['profile']['profile_time'] == time:
-                content = '%s 今天已經產生過了，一天只能玩一次哦'%user_name
+                content = '%s 今天已經產生過了，一天只產生一次哦'%user_name
                 return ('0',content)
             else:
                 message = self.profile_game_content(uid,user_name)  
@@ -1596,14 +1596,14 @@ class card_fight(object):
     def item_detail(self,val):
         
         dict = {
-                '紅色藥水':{'index':'hp','name':'紅色藥水','value':500,'detail':'恢復生命值(HP)500點','coin':3},
-                '橙色藥水':{'index':'hp','name':'橙色藥水','value':1000,'detail':'恢復生命值(HP)1000點','coin':4},
-                '白色藥水':{'index':'hp','name':'白色藥水','value':2000,'detail':'恢復生命值(HP)2000點','coin':6},
-                '小魚乾':{'index':'hp','name':'小魚乾','value':1500,'detail':'恢復生命值(HP)1500點','coin':-1},
-                '戰狼肉':{'index':'hp','name':'戰狼肉','value':2500,'detail':'恢復生命值(HP)2500點','coin':-1},                
-                '藍色藥水':{'index':'mp','name':'藍色藥水','value':1000,'detail':'恢復魔力值(MP)1000點','coin':3},
-                '濃縮藍色藥水':{'index':'mp','name':'濃縮藍色藥水','value':2000,'detail':'恢復魔力值(MP)2000點','coin':-1},
-                '鼠兒果':{'index':'mp','name':'鼠兒果','value':1500,'detail':'恢復魔力值(MP)1500點','coin':6},
+                '紅色藥水':{'index':'hp','name':'紅色藥水','value':500,'detail':'增加生命值(HP)500點','coin':3},
+                '橙色藥水':{'index':'hp','name':'橙色藥水','value':1000,'detail':'增加生命值(HP)1000點','coin':4},
+                '白色藥水':{'index':'hp','name':'白色藥水','value':2000,'detail':'增加生命值(HP)2000點','coin':6},
+                '小魚乾':{'index':'hp','name':'小魚乾','value':1500,'detail':'增加生命值(HP)1500點','coin':-1},
+                '戰狼肉':{'index':'hp','name':'戰狼肉','value':2500,'detail':'增加生命值(HP)2500點','coin':-1},                
+                '藍色藥水':{'index':'mp','name':'藍色藥水','value':1000,'detail':'增加魔力值(MP)1000點','coin':3},
+                '濃縮藍色藥水':{'index':'mp','name':'濃縮藍色藥水','value':2000,'detail':'增加魔力值(MP)2000點','coin':-1},
+                '鼠兒果':{'index':'mp','name':'鼠兒果','value':1500,'detail':'增加魔力值(MP)1500點','coin':6},
                 '攻擊增加藥水':{'index':'ATK','name':'攻擊增加藥水','value':1000,'detail':'增加攻擊力(ATK)1000點','coin':6},
                 '地獄辣椒':{'index':'ATK','name':'地獄辣椒','value':1500,'detail':'增加攻擊力(ATK)1500點','coin':-1},
                 '大瓶裝攻擊增加藥水':{'index':'ATK','name':'大瓶裝攻擊增加藥水','value':2000,'detail':'增加攻擊力(ATK)2000點','coin':-1},
