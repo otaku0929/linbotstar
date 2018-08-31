@@ -636,11 +636,11 @@ def handle_message(event):
         user_name = profile['displayName']
         pictureUrl = profile['pictureUrl']
         content = _games.user_profile(uid,user_name,pictureUrl)
-        if re.search('今天已經產生過了',content['link']):
-            url = content['link']
+        if content[0] == 0:
+            url = content[1]
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=url))
         else:
-            url = content['link']
+            url = content[1]['link']
             image_message = ImageSendMessage(
                 original_content_url=url,
                 preview_image_url=url
