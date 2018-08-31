@@ -28,7 +28,8 @@ def main():
     #return 'ok'
     _photos = photo_zone()
     uid = 'Ud0414e339e9c242b19a2dd22dd1f6189'
-    content = _photos.add_watermark(uid)
+    #content = _photos.add_watermark(uid)
+    content = _photos.imgur_album_images_delete('SZMo93Z')
     print (content)
 
 class photo_zone(object):
@@ -41,6 +42,12 @@ class photo_zone(object):
         self.imgur_client_refresh_token = '797c2292b2600815f93cc73bec6eb7c8bdbcd67e'       
         self.API_Get_Image = 'https://otakujpbweb.herokuapp.com/api/image/random/'
         self.client = ImgurClient(self.imgur_client_id, self.imgur_client_secret, self.imgur_client_access_token, self.imgur_client_refresh_token)
+        self.imgur_client_id2 = '33ed33e765afedc'
+        self.imgur_client_secret2 = '04f0d5531b1d0978ff97fd990554c899e9e7e1f5'
+        self.imgur_client_access_token2 = '85b737858a3ca32f1517bd9b8e2f5d2c5c97a647'
+        self.imgur_client_refresh_token2 = '797c2292b2600815f93cc73bec6eb7c8bdbcd67e'       
+        self.API_Get_Image2 = 'https://otakujpbweb.herokuapp.com/api/image/random/'
+        self.client2 = ImgurClient(self.imgur_client_id, self.imgur_client_secret, self.imgur_client_access_token, self.imgur_client_refresh_token)
         
     def random(self):
         b=self.imgur_boys
@@ -180,86 +187,99 @@ class photo_zone(object):
     
     def user_daily_photo(self,id,message,pictureUrl):
         
-        path = 'jpg/' 
-        #path = '../jpg/'
-        _card_template = '%scard_template.jpg'%path
-        card_template = '%scard_%s.jpg'%(path,id)
-        user_photo = '%sprofile_%s.jpg'%(path,id)
-        
-        with open(user_photo, 'wb') as handle:
-            user_pic = requests.get(pictureUrl, stream=True)
-            handle.write(user_pic.content)
-        
-        copyfile(_card_template,card_template)
-
-
-        template_img = Image.open(card_template)
-        i_width, i_height = template_img.size 
-        #print (i_width, i_height)
-                
-        #user_photo = '../jpg/SS.jpg'
-                
-        user_name = message[0]
-        hp = str(message[1])
-        mp = str(message[2])
-        lucky = str(message[3])
-        today = message[4]
-        ATK = str(message[7])
-        DEF = str(message[8])
-        WIZ = message[6]
-        #line = '=============================='
-        keywords = message[5]
- 
-        m=len(keywords)
-        if m >=46:
-            kttf = 20
-            new_keywords = []
-            n = 0
-            i = 16
-            check = 16
+        try:
+            path = 'jpg/' 
+            #path = '../jpg/'
+            _card_template = '%scard_template.jpg'%path
+            card_template = '%scard_%s.jpg'%(path,id)
+            user_photo = '%sprofile_%s.jpg'%(path,id)
             
-            while i-m < check:
-                new_keywords.append(keywords[n:i])
-                n = i
-                i = i+check
-        else:
-            kttf = 24
-            new_keywords = []
-            n = 0
-            i = 13
-            check = 13
+            with open(user_photo, 'wb') as handle:
+                user_pic = requests.get(pictureUrl, stream=True)
+                handle.write(user_pic.content)
             
-            while i-m < check:
-                new_keywords.append(keywords[n:i])
-                n = i
-                i = i+check
-        
-        wiz_font = self.get_ttf_path('t5')
-        fontname = self.get_ttf_path('t4')
-        
-        #user_x = i_width-68
-        #print(len(user_name))
-        template_img = self.add_words(id,WIZ,72,38,28,wiz_font,template_img)
-        template_img = self.add_words(id,user_name,48,120,55,fontname,template_img,120)
-        template_img = self.add_photo(id,user_photo,template_img)
-        template_img = self.add_words(id,hp,15,294,530,fontname,template_img,146)
-        template_img = self.add_words(id,mp,15,294,530,fontname,template_img,211)
-        template_img = self.add_words(id,ATK,32,110,495,fontname,template_img)
-        template_img = self.add_words(id,DEF,32,110,545,fontname,template_img)
-        template_img = self.add_words(id,lucky,32,420,495,fontname,template_img)
-        template_img = self.add_words(id,today,24,420,550,fontname,template_img)
-        #template_img = self.add_words(id,line,20,40,437,fontname,template_img)
-        l = 633
-        for obj in new_keywords:
-            l = l+27
-            template_img = self.add_words(id,obj,kttf,133,l,fontname,template_img)
-        
-        template_img.save(card_template)
-        del template_img
-        
-        res = self.upload_imgur('SZMo93Z',card_template)
-        
-        return res
+            copyfile(_card_template,card_template)
+    
+    
+            template_img = Image.open(card_template)
+            i_width, i_height = template_img.size 
+            #print (i_width, i_height)
+                    
+            #user_photo = '../jpg/SS.jpg'
+                    
+            user_name = message[0]
+            
+            if len(user_name) >8:
+                ttf_name = 60
+            else:
+                ttf_name = 72
+                
+            
+            hp = str(message[1])
+            mp = str(message[2])
+            lucky = str(message[3])
+            today = message[4]
+            ATK = str(message[7])
+            DEF = str(message[8])
+            WIZ = message[6]
+            #line = '=============================='
+            keywords = message[5]
+     
+            m=len(keywords)
+            if m >=46:
+                kttf = 20
+                new_keywords = []
+                n = 0
+                i = 16
+                check = 16
+                
+                while i-m < check:
+                    new_keywords.append(keywords[n:i])
+                    n = i
+                    i = i+check
+            else:
+                kttf = 24
+                new_keywords = []
+                n = 0
+                i = 13
+                check = 13
+                
+                while i-m < check:
+                    new_keywords.append(keywords[n:i])
+                    n = i
+                    i = i+check
+            
+            wiz_font = self.get_ttf_path('t5')
+            fontname = self.get_ttf_path('t4')
+            
+            #user_x = i_width-68
+            #print(len(user_name))
+            
+            
+            
+            template_img = self.add_words(id,WIZ,ttf_name,38,28,wiz_font,template_img)
+            template_img = self.add_words(id,user_name,48,120,55,fontname,template_img,120)
+            template_img = self.add_photo(id,user_photo,template_img)
+            template_img = self.add_words(id,hp,15,294,530,fontname,template_img,146)
+            template_img = self.add_words(id,mp,15,294,530,fontname,template_img,211)
+            template_img = self.add_words(id,ATK,32,110,495,fontname,template_img)
+            template_img = self.add_words(id,DEF,32,110,545,fontname,template_img)
+            template_img = self.add_words(id,lucky,32,420,495,fontname,template_img)
+            template_img = self.add_words(id,today,24,420,550,fontname,template_img)
+            #template_img = self.add_words(id,line,20,40,437,fontname,template_img)
+            l = 633
+            for obj in new_keywords:
+                l = l+27
+                template_img = self.add_words(id,obj,kttf,133,l,fontname,template_img)
+            
+            template_img.save(card_template)
+            del template_img
+            
+            res = self.upload_imgur('SZMo93Z',card_template)
+            
+            return ('1',res)      
+        except:
+            return ('0','卡片產生失敗，重新印制卡片功能開發中，請先用查詢人物屬性查看今天的屬性，並進行對戰')
     
     
     def add_words(self,id,text,fontsize, px, py, fontname,template_img, pxx=None, pyy=None):
