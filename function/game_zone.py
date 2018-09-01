@@ -30,9 +30,9 @@ def main():
     _game_card = card_fight()
     content = _game_card.fight_win_item(1)
     
-    content = _game_card.goldbox('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
+    #content = _game_card.goldbox('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
     #content = _game.user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','http://dl.profile.line-cdn.net/0hLkoyPlmqE0RSAD5u3DZsE25FHSklLhUMKmILJiUCRHQrZVRGPWZfJnJTTHJ5ZQESaWNUJn5VTics')
-    #content = _game.get_user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星')
+    #content = _game.get_user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
     #content = _game.get_starcoin('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
     #content = _game.card_pk('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','阿貴')
     #content = _game_card.fix_eq('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','eq1')
@@ -42,7 +42,7 @@ def main():
     #content = _game_card.sell_item('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','面紙')    
     #content = _game_card.use_eq('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','eq2')
     #content = _game_card.unuse_eq('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','eq1')
-    #content = _game_card.use_items('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','無敵星星')
+    content = _game_card.use_items('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','黃金寶箱')
     #content = _game_card.armor_store_detail()
     #content = _game_card.lucky_time('U59e79d6500b2f9cad5ed780c1a1f9f8a','謙²')
     #content = _game_card.get_item_detail('爛木頭')
@@ -497,9 +497,11 @@ class game_zone(object):
         p['AGI']=message[13]
         p['DEX']=message[14]
         
+        #print(config)
+        
         config = json.dumps(config_json)
         _sql.update_config(uid,user_name,config) 
-        
+                    
         content = self.get_user_profile(uid,user_name)
         
         return (content)
@@ -955,6 +957,8 @@ class card_fight(object):
         
     def use_items(self,uid,user_name,del_item):
 
+        #game = game_zone()
+        
         config = _sql.select_config(uid)
         if config == []:
             _config.create_config(uid,user_name)
@@ -965,9 +969,9 @@ class card_fight(object):
         
         profile = config_json['profile']
         equ_list = profile['equipment']
-        #a = '無敵星星'
-        #equ_list.append(a)
-        #print(equ_list)
+#        a = '黃金寶箱'
+#        equ_list.append(a)
+#        print(equ_list)
         if del_item in equ_list:
             equ_list.remove(del_item)
             new_status = None
@@ -1026,8 +1030,10 @@ class card_fight(object):
                 config = json.dumps(config_json)
                 _sql.update_config(uid,user_name,config)
                 return '%s 已使用 %s %s\n%s'%(user_name,del_item,item_detail['detail'],new_status)
-            elif index == '角色重置卡':
+            if del_item == '角色重置卡':              
                 return self.game.re_user_profile(uid,user_name)
+            if del_item == '黃金寶箱':
+                return self.goldbox(uid,user_name)
         else:
             return '%s 的背包裡並沒有 %s 這件物品，請確認輸入物品名稱是否正確'%(user_name,del_item)       
         
