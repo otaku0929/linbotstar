@@ -1030,9 +1030,13 @@ class card_fight(object):
                 config = json.dumps(config_json)
                 _sql.update_config(uid,user_name,config)
                 return '%s 已使用 %s %s\n%s'%(user_name,del_item,item_detail['detail'],new_status)
-            if del_item == '角色重置卡':              
+            if del_item == '角色重置卡': 
+                config = json.dumps(config_json)
+                _sql.update_config(uid,user_name,config)
                 return self.game.re_user_profile(uid,user_name)
             if del_item == '黃金寶箱':
+                config = json.dumps(config_json)
+                _sql.update_config(uid,user_name,config)
                 return self.goldbox(uid,user_name)
         else:
             return '%s 的背包裡並沒有 %s 這件物品，請確認輸入物品名稱是否正確'%(user_name,del_item)       
