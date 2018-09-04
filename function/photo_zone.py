@@ -42,12 +42,11 @@ class photo_zone(object):
         self.imgur_client_refresh_token = '797c2292b2600815f93cc73bec6eb7c8bdbcd67e'       
         self.API_Get_Image = 'https://otakujpbweb.herokuapp.com/api/image/random/'
         self.client = ImgurClient(self.imgur_client_id, self.imgur_client_secret, self.imgur_client_access_token, self.imgur_client_refresh_token)
-        self.imgur_client_id2 = '33ed33e765afedc'
-        self.imgur_client_secret2 = '04f0d5531b1d0978ff97fd990554c899e9e7e1f5'
-        self.imgur_client_access_token2 = '85b737858a3ca32f1517bd9b8e2f5d2c5c97a647'
-        self.imgur_client_refresh_token2 = '797c2292b2600815f93cc73bec6eb7c8bdbcd67e'       
-        self.API_Get_Image2 = 'https://otakujpbweb.herokuapp.com/api/image/random/'
-        self.client2 = ImgurClient(self.imgur_client_id, self.imgur_client_secret, self.imgur_client_access_token, self.imgur_client_refresh_token)
+        self.imgur_client_id_twstar = '01b89e6403895f6'
+        self.imgur_client_secret_twstar = '423c3f12bf3e45076b6f31f973ab57bc98a1b8df'
+        self.imgur_client_access_token_twstar = 'be57cec8bf14f5a76b4cf2548f54ac2075c69bf4'
+        self.imgur_client_refresh_token_twstar = 'f1a227c506a451a28a2e71f885c64bdc83bb4917'       
+        self.client_twstar = ImgurClient(self.imgur_client_id_twstar, self.imgur_client_secret_twstar, self.imgur_client_access_token_twstar, self.imgur_client_refresh_token_twstar)
         
     def random(self):
         b=self.imgur_boys
@@ -102,6 +101,12 @@ class photo_zone(object):
         #client = ImgurClient(self.imgur_client_id, self.imgur_client_secret, self.imgur_client_access_token, self.imgur_client_refresh_token)
         conf = {"album":album_id}
         res = self.client.upload_from_path(path,config=conf,anon=False)
+        return res
+
+    def upload_imgur_twstar(self,album_id,path):
+        #client = ImgurClient(self.imgur_client_id, self.imgur_client_secret, self.imgur_client_access_token, self.imgur_client_refresh_token)
+        conf = {"album":album_id}
+        res = self.client_twstar.upload_from_path(path,config=conf,anon=False)
         return res
 
     def imgur_album_images_delete(self,album_id):      
@@ -255,8 +260,7 @@ class photo_zone(object):
             #user_x = i_width-68
             #print(len(user_name))
             
-            
-            
+                      
             template_img = self.add_words(id,WIZ,ttf_name,38,28,wiz_font,template_img)
             template_img = self.add_words(id,user_name,48,120,55,fontname,template_img,120)
             template_img = self.add_photo(id,user_photo,template_img)
@@ -275,9 +279,15 @@ class photo_zone(object):
             template_img.save(card_template)
             del template_img
             
-            res = self.upload_imgur('SZMo93Z',card_template)
+            imgur_dict = ['otaku','twstar']
+            imgur_upload = random.choice(imgur_dict)
             
-            return ('1',res)      
+            if imgur_upload == 'otaku':                
+                res = self.upload_imgur('SZMo93Z',card_template)
+                return ('1',res)
+            if imgur_upload == 'twstar':
+                res = self.upload_imgur_twstar('soO4i9j',card_template)
+                return ('1',res)               
         except:
             return ('0','卡片產生失敗，重新印制卡片功能開發中，請先用查詢人物屬性查看今天的屬性，並進行對戰')
     
