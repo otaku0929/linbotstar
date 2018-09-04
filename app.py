@@ -504,6 +504,15 @@ def handle_message(event):
             TextSendMessage(text=content))
         #gs_write('B13')
         return 0
+    #每週星座
+    if re.match('^(查)?[本每]週星座=(\D+)',event.message.text):
+        qury = re.match('^(查)?[本每]週星座=(\D+)',event.message.text).group(2)
+        if qury in [ "牡羊座","金牛座","雙子座","巨蟹座","獅子座","處女座","天秤座","天蠍座","射手座","魔羯座","水瓶座","雙魚座"]:
+            content = _life.starweek(qury)
+        else:
+            content = '請正確輸入星座名_life.gamer(res) [牡羊座","金牛座","雙子座","巨蟹座","獅子座","處女座","天秤座","天蠍座","射手座","魔羯座","水瓶座","雙魚座]'
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        return 0
     #媽祖靈籤
     if event.message.text == "抽籤":
         content = _fate_ask.ask()
