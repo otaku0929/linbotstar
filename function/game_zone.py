@@ -762,14 +762,15 @@ class card_fight(object):
                 atk_value = 0
             elif atk_key >=3 and atk_key < 51:
                 atk_way = random.choice(atk1)
-                rounad_ATK = int(random.randint(1,int(atk*0.4)))
-                atk_value = int(random.randint(rounad_ATK,atk)*1.5)
+                #rounad_ATK = int(random.randint(1,int(atk*0.4)))
+                #atk_value = int(random.randint(1,int(atk*0.4))*1.5)
+                atk_value = int(random.randint(1,int(atk*0.4)))
             elif atk_key >=51 and atk_key <81:
                 atk_way = random.choice(atk2)
-                atk_value = int(random.randint(int(atk*0.3),int(atk*0.7))*(1.5+wiz_value))
+                atk_value = int(random.randint(int(atk*0.3),int(atk*0.7))*wiz_value)
             elif atk_key >=81 and atk_key <96:
                 atk_way = random.choice(atk3)
-                atk_value = int(random.randint(int(atk*0.6),int(atk*0.9))*(2.5+wiz_value))
+                atk_value = int(random.randint(int(atk*0.6),int(atk*0.9))*wiz_value)
             elif atk_key >=96:
                 atk_way = random.choice(atk4)
                 atk_value = int(random.randint(int(atk*0.8),atk)*lucky/10)
@@ -849,17 +850,17 @@ class card_fight(object):
         
         if def_key >= 50 and def_key<81:
             def_way = random.choice(def1)
-            def_value = int(random.randint(int(DEF*0.3),int(DEF*0.7))*2)       
+            def_value = int(random.randint(int(DEF*0.3),int(DEF*0.7)))       
         elif def_key >= 81 and def_key<95:
             def_way = random.choice(def2)
-            def_value = int(random.randint(int(DEF*0.6),int(DEF*0.9))*3)
+            def_value = int(random.randint(int(DEF*0.6),int(DEF*0.9)))
         elif def_key >= 95:
             def_way = random.choice(def9)
             def_value = int(random.randint(int(DEF*0.9),DEF)*5*def_key)
         else:
             def_way = random.choice(def0)
             #rounad_DEF = random.randint(1,DEF)
-            def_value = int(random.randint(1,int(DEF*0.4)))*1.5
+            def_value = int(random.randint(1,int(DEF*0.4)))
         
         return (DEF,def_value,def_way)
     
