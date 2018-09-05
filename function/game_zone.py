@@ -709,7 +709,8 @@ class card_fight(object):
                 '工業用電風扇','肥皂泡泡槍','聲波糖果','狼牙風風拳','操氣彈','風刃','火球術','青春修煉手冊','丟水球',
                 '瓦斯桶地雷','血戰十式','做古長拳','放個屁臭死你','金太郎迴旋斧','海帶拳','人肉手裏劍','金坷拉','捶背券',
                 '拋繡球','七月半的末班車','雙層大麥克','卑鄙的藤木','永澤的洋蔥頭','一起來歡歡','二哈攻擊','松鼠空手道',
-                '鑽石星塵拳','帥氣的飛機頭','KTV的麥克風','阿里固~阿里固','暑假的最後一天','媚娘歌舞秀','叫我女王'
+                '鑽石星塵拳','帥氣的飛機頭','KTV的麥克風','阿里固~阿里固','暑假的最後一天','媚娘歌舞秀','叫我女王',
+                '惡夢製造機','娘家滴G精'
                 ]
         atk2 = ['強力攻擊','破壞拳','迴旋踢','關門放狗','伸長吧~~拳頭','奧客精神','RAP碎碎唸','恐龍攻擊',
                 '百裂拳','天帝之眼','紅蓮爆炎刃','丟大便','天翔龍閃','唸經','竹筍炒肉絲','宅男的右手','氣圓斬',
@@ -740,7 +741,7 @@ class card_fight(object):
                 '一拳爆螢幕','石化口水','超高離子噴射蛋糕','SS能源彈','女王的高根鞋','究極光裂術','召喚術。肥肥',
                 '路西法之矛','假裝喝醉擋酒','射後不理','惡婆婆的面色','井中月','超級西南氣流','翻多羅拳法','天降流陣','流水制空圈',
                 '雙刀火雞','抱大腿','月初就吃土','499吃到飽','光陰似劍','課金大法','吃貨吞食大法','殺豬的高音','章魚哥的豎笛演奏會',
-                '親密無間大亂揍']
+                '親密無間大亂揍','卡到陰']
         atk4 = ['致命一擊','必殺一擊','元氣彈','跪鍵盤密術','三檔 骨氣球','九九重陽功','唱歌攻擊','召喚殺很大',
                 '鬼氣九刀流','加班加到死','等五年還沒洗好澡','丫宅的怨念','媽媽的咆哮','色誘術-逆後宮之術',
                 '順手拿的折凳','只剩一頁的死亡筆記本','海底自摸十三么','卸妝攻擊','路邊撿到的雷神槌','鐵杵磨成鏽花針',
@@ -761,17 +762,17 @@ class card_fight(object):
                 atk_value = 0
             elif atk_key >=3 and atk_key < 51:
                 atk_way = random.choice(atk1)
-                rounad_ATK = random.randint(1,atk)
+                rounad_ATK = random.randint(1,int(atk*0.4))
                 atk_value = int(random.randint(rounad_ATK,atk)*1.5)
             elif atk_key >=51 and atk_key <81:
                 atk_way = random.choice(atk2)
-                atk_value = int(random.randint(int(atk*0.4),atk)*(1.5+wiz_value))
+                atk_value = int(random.randint(int(atk*0.3),int(atk*0.7))*(1.5+wiz_value))
             elif atk_key >=81 and atk_key <96:
                 atk_way = random.choice(atk3)
-                atk_value = int(random.randint(int(atk*0.6),atk)*(2.5+wiz_value))
+                atk_value = int(random.randint(int(atk*0.6),int(atk*0.9))*(2.5+wiz_value))
             elif atk_key >=96:
                 atk_way = random.choice(atk4)
-                atk_value = int(random.randint(int(atk*0.7),atk)*lucky/10)
+                atk_value = int(random.randint(int(atk*0.8),atk)*lucky/10)
 
 
     
@@ -802,7 +803,7 @@ class card_fight(object):
                 '桃太郎丸子','縮小燈','變身相撲力士','烏鴨嘴的詛咒','愛X無限大','佛祖給你加持','床榻下的四賤客',
                 '小小兵合唱團','鐵骨乳液','安全保護袋','說謊的鏡子','烏賊車噴射','連續啦叭聲','反擊屏障','秘術。相親術',
                 '下班時的雷陣雨','大叔的愛','唐詩三百首','蜜桃成熟時','K房大爆炸','大麥克買1送1','哈比書套',
-                '康安的姐姐','送你高崗屋','蟹丫金的金庫','一起學貓叫','睜一隻眼閉一隻眼','嗨~Baby'
+                '康安的姐姐','送你高崗屋','蟹丫金的金庫','一起學貓叫','睜一隻眼閉一隻眼','嗨~Baby','觀落陰'
                 ]
         def1 = ['硬氣功','分身防禦','閃避','丟香蕉讓對方滑倒','拿CRT螢幕擋住','用滑鼠綁住敵人','呼叫館長',
                 '丟枕頭給敵人','你有freestyle嗎','閃現','拿美食餵養','召喚龍騎士','丟煙霧蛋','空間移動',
@@ -848,17 +849,17 @@ class card_fight(object):
         
         if def_key >= 50 and def_key<81:
             def_way = random.choice(def1)
-            def_value = int(random.randint(int(DEF*0.3),DEF)*2.5)       
+            def_value = int(random.randint(int(DEF*0.3),int(DEF*0.7))*2)       
         elif def_key >= 81 and def_key<95:
             def_way = random.choice(def2)
-            def_value = int(random.randint(int(DEF*0.6),DEF)*3.5)
+            def_value = int(random.randint(int(DEF*0.6),int(DEF*0.9))*3)
         elif def_key >= 95:
             def_way = random.choice(def9)
             def_value = int(random.randint(int(DEF*0.9),DEF)*5*def_key)
         else:
             def_way = random.choice(def0)
-            rounad_DEF = random.randint(1,DEF)
-            def_value = int(random.randint(rounad_DEF,DEF)*1.5)
+            #rounad_DEF = random.randint(1,DEF)
+            def_value = int(random.randint(1,int(DEF*0.4)))*1.5
         
         return (DEF,def_value,def_way)
     
@@ -1026,8 +1027,8 @@ class card_fight(object):
                         new_index_values = 9999
                 if index in ['lucky']:
                     new_index_values = profile[index]+item_detail['value']
-                    if new_index_values > 9999:
-                        new_index_values = 9999 
+                    if new_index_values > 999:
+                        new_index_values = 999 
                 if index in ['ATK','DEF']:
                     new_index_values = profile[index]+item_detail['value']
                     if new_index_values >100000:
