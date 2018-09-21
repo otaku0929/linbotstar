@@ -123,7 +123,8 @@ def handle_message(event):
     if event.source.type == 'group':
         gid = event.source.group_id
         if gid in ['C9788a00f972283234fd4640eda608194','C7d4d06dbf5b5cf873b05600c97252466','Ca923b98f38663de5446213f8e78d500f',
-                   'Cec2d261f8481f2c0dc386f1106dba515','C7d432ce28bf1ca87594cdb4126b8ee40']:
+                   'Cec2d261f8481f2c0dc386f1106dba515','C7d432ce28bf1ca87594cdb4126b8ee40','C4a2e3113843940fd5a41739370807ed5',
+                   'C5e083544dbd87889feba60ae0f5ad5e8']:
             print ('twstar say goodbye %s'%gid)
             return 0
         print(event.source.type, gid, uid, "event.message.text:", event.message.text)
