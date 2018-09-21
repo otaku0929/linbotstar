@@ -122,10 +122,11 @@ def handle_message(event):
     uid = event.source.user_id
     if event.source.type == 'group':
         gid = event.source.group_id
-        print(event.source.type, gid, uid, "event.message.text:", event.message.text)
-        if gid in ['C9788a00f972283234fd4640eda608194','C7d4d06dbf5b5cf873b05600c97252466']:
+        if gid in ['C9788a00f972283234fd4640eda608194','C7d4d06dbf5b5cf873b05600c97252466','Ca923b98f38663de5446213f8e78d500f',
+                   'Cec2d261f8481f2c0dc386f1106dba515','C7d432ce28bf1ca87594cdb4126b8ee40']:
             print ('twstar say goodbye %s'%gid)
             return 0
+        print(event.source.type, gid, uid, "event.message.text:", event.message.text)
     if event.source.type == 'room':
         rid = event.source.room_id
         print(event.source.type, rid, uid, "event.message.text:", event.message.text)
@@ -534,6 +535,16 @@ def handle_message(event):
             carousel_template_message = content
             line_bot_api.reply_message(event.reply_token,carousel_template_message)
         #gs_write('B27')
+        return 0
+    #追劇參考
+    if re.match('^查追劇=(.+)',event.message.text):
+        res = re.match('^查追劇=(.+)',event.message.text).group(1)
+        if res in ['日劇','韓劇','陸劇']:           
+            content = _life.hot_tvshow(res)
+        else:
+            content = '請輸入正確的類別:日劇、韓劇、陸劇'
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        #gs_write('B26')
         return 0
     #巴哈姆特
     if re.match('^巴哈=(.+)',event.message.text):
