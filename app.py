@@ -419,6 +419,12 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, image_message)
         return 0
     ####hsing####
+    #changba link to mp3
+    if re.search('changba',event.message.text):
+        res = event.message.text
+        content = _hsing.changbamp3(res)
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        return 0
     #hsing and oksing link to mp3
     if re.search('(17sing|oksing)',event.message.text):
         #res = event.message.text
@@ -444,12 +450,6 @@ def handle_message(event):
         #content = s17uidrandom(event.message.text)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         #gs_write('B10')
-        return 0
-    #changba link to mp3
-    if re.search('changba',event.message.text):
-        res = event.message.text
-        content = _hsing.changbamp3(res)
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
     #mojim search
     if re.search('^查歌詞=(.+)',event.message.text):
