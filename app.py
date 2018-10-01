@@ -423,8 +423,8 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, image_message)
         return 0 
     if re.match('^roll(\d+)-(\d+)',event.message.text):
-        n1 = re.match('^roll(\d+)-(\d+)',event.message.tex).group(1)
-        n2 = re.match('^roll(\d+)-(\d+)',event.message.tex).group(2)     
+        n1 = re.match('^roll(\d+)-(\d+)',event.message.text).group(1)
+        n2 = re.match('^roll(\d+)-(\d+)',event.message.text).group(2)     
         res = random.randint(int(n1),int(n2))
         content = '查次roll出 %s'%res
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
