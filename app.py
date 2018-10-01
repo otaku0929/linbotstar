@@ -426,7 +426,7 @@ def handle_message(event):
         n1 = re.match('^roll(\d+)-(\d+)',event.message.text).group(1)
         n2 = re.match('^roll(\d+)-(\d+)',event.message.text).group(2)     
         res = random.randint(int(n1),int(n2))
-        content = '查次roll出 %s'%res
+        content = '本次roll出 %s'%res
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0 
     ####hsing####
