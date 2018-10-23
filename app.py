@@ -124,7 +124,10 @@ def handle_message(event):
         gid = event.source.group_id
         if gid in ['C9788a00f972283234fd4640eda608194','C7d4d06dbf5b5cf873b05600c97252466','Ca923b98f38663de5446213f8e78d500f',
                    'Cec2d261f8481f2c0dc386f1106dba515','C7d432ce28bf1ca87594cdb4126b8ee40','C4a2e3113843940fd5a41739370807ed5',
-                   'C5e083544dbd87889feba60ae0f5ad5e8']:
+                   'C5e083544dbd87889feba60ae0f5ad5e8','Cbb02bb3900a6d20a8dc9f8764235ec40','Cb54f8b490cb1c98094c1af8500390140',
+                   'C1da3f2a5e12078f265465218c8b54a33','Ce9ad2c7ab0809ae7ccea1bec7ce7cb32','C5a2f3ba6070d803a54d118a3e174b943',
+                   'C29275f8d9115af83422fc971e776b7b4','Ce24541fc368dbae688c8d7dd9c4f8b08','Cf8c53fe9d63f84798f1dc574df8d528d',
+                   'C5f5584e58ef8570fde6474964896d95a','Cf43512c98f96ff9b25eac98d36e3dd42','Cd97286d59caa63e4b494ac1541bf15f2']:
             print ('twstar say goodbye %s'%gid)
             return 0
         print(event.source.type, gid, uid, "event.message.text:", event.message.text)
