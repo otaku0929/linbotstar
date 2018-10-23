@@ -121,7 +121,7 @@ def handle_message(event):
     #取得event
     uid = event.source.user_id
     if uid in ['Ud4ae5f866ee4f2013444bcdeadb8f781','U4c0d7be200c17e004ce657a9792e79f8','Uc598cc177279f0529468cdaddbf6854f',
-               'Uc9b19ec4eb7fd05eee3c08d4d61b0c9e','U591fbc7dc53fd6d7aca233eca5b18d68']:
+               'Uc9b19ec4eb7fd05eee3c08d4d61b0c9e','U591fbc7dc53fd6d7aca233eca5b18d68','U5879131d2fc64720dee25a06bbf7ffba']:
         print ('twstar say goodbye user %s'%uid)
         return 0
     if event.source.type == 'group':
@@ -132,7 +132,9 @@ def handle_message(event):
                    'C1da3f2a5e12078f265465218c8b54a33','Ce9ad2c7ab0809ae7ccea1bec7ce7cb32','C5a2f3ba6070d803a54d118a3e174b943',
                    'C29275f8d9115af83422fc971e776b7b4','Ce24541fc368dbae688c8d7dd9c4f8b08','Cf8c53fe9d63f84798f1dc574df8d528d',
                    'C5f5584e58ef8570fde6474964896d95a','Cf43512c98f96ff9b25eac98d36e3dd42','Cd97286d59caa63e4b494ac1541bf15f2',
-                   'C0d799bbafe272d2aba1cc3c5c5d705c4','C9ba68ee73805747c33536beae5e5711b','C98eb2517c67dc90311594970c3d259a4']:
+                   'C0d799bbafe272d2aba1cc3c5c5d705c4','C9ba68ee73805747c33536beae5e5711b','C98eb2517c67dc90311594970c3d259a4',
+                   'Ce648d1e2ca4b83091c8b9a40da2fbd7c','Cb07cf92f99adb19d06bc92d25de8c299','Ce648d1e2ca4b83091c8b9a40da2fbd7c'
+                   ]:
             print ('twstar say goodbye %s'%gid)
             return 0
         print(event.source.type, gid, uid, "event.message.text:", event.message.text)
