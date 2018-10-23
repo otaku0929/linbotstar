@@ -120,6 +120,9 @@ def handle_message(event):
     ####功能區####
     #取得event
     uid = event.source.user_id
+    if uid in ['Ud4ae5f866ee4f2013444bcdeadb8f781','U4c0d7be200c17e004ce657a9792e79f8','Uc598cc177279f0529468cdaddbf6854f']:
+        print ('twstar say goodbye user %s'%uid)
+        return 0
     if event.source.type == 'group':
         gid = event.source.group_id
         if gid in ['C9788a00f972283234fd4640eda608194','C7d4d06dbf5b5cf873b05600c97252466','Ca923b98f38663de5446213f8e78d500f',
