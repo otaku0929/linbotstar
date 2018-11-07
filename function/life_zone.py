@@ -10,6 +10,30 @@ import re
 import json
 from bs4 import BeautifulSoup
 import datetime, pytz
+import random
+
+from linebot.models import (
+        MessageEvent, 
+        TextMessage, 
+        TextSendMessage, 
+        ImageSendMessage, 
+        TemplateSendMessage,
+        CarouselTemplate,
+        CarouselColumn
+        )
+
+from linebot.models.actions import (  # noqa
+    Action,
+    PostbackAction,
+    MessageAction,
+    URIAction,
+    DatetimePickerAction,
+    Action as TemplateAction,  # backward compatibility
+    PostbackAction as PostbackTemplateAction,  # backward compatibility
+    MessageAction as MessageTemplateAction,  # backward compatibility
+    URIAction as URITemplateAction,  # backward compatibility
+    DatetimePickerAction as DatetimePickerTemplateAction,  # backward compatibility
+)
 
 import function.g_function
 _g_function = function.g_function.function()
@@ -18,12 +42,125 @@ _g_function = function.g_function.function()
 def main():
 
     _life=life_zone()
-    message='天秤座'
-    content = _life.starweek(message)
+    message='日劇'
+    content = _life.hot_tvshow(message)
     print(content)
     #return(_life.gamer(messages))
     
 class life_zone(object):
+    
+    def hot_tvshow(self,res):
+        if res == '日劇':
+            url = 'http://jp03.jplovetv.com/'
+        if res == '韓劇':
+            url = 'http://kr14.vslovetv.com/'
+        if res == '陸劇':
+            url = 'http://cn.lovetvshow.info/'            
+            
+        request = requests.get(url)
+        soup = BeautifulSoup(request.content, "html.parser") 
+        soup_div = soup.select('tr td')
+        soup_td = soup_div[1].select('td')
+        
+        pull_list = [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]
+        random.shuffle(pull_list)
+        get_list = pull_list[0:5]
+        
+        #print(soup_td[get_list[0]].select('a')[0].text)
+        #print(soup_td[get_list[0]].select('a')[0]['href'])
+        
+#        show_list = ''
+#        for obj in get_list:
+#            show = soup_td[obj].text
+#            show_detail = self.google_search_detail(show)
+#            show_content = '>> %s\n簡介:%s'%(show,show_detail)
+#            show_list = '%s\n\n%s\n--------'%(show_list,show_content)
+#            #print(soup_td[obj].text)
+#        content = '%s\n\n*因版權問題 小星星僅提供追劇參考不提供追劇連結\n*部份簡介因維基百科查不到就沒有\n*本列表隨機5部追劇參考'%show_list
+#        return content
+
+        carousel_template_message = TemplateSendMessage(
+            alt_text='追劇參考',
+            template=CarouselTemplate(
+                columns=[
+                    CarouselColumn(
+                        thumbnail_image_url='https://imgur.com/j5pDXdG',
+                        title=soup_td[get_list[0]].select('a')[0].text,
+                        text=self.google_search_detail(soup_td[get_list[0]].select('a')[0].text)[0:51]+'...',
+                        actions=[
+                            URITemplateAction(
+                                label='追劇連結',
+                                uri= soup_td[get_list[0]].select('a')[0]['href']
+                            )
+                        ]
+                    ),
+                    CarouselColumn(
+                        thumbnail_image_url='https://imgur.com/j5pDXdG',
+                        title=soup_td[get_list[1]].select('a')[0].text,
+                        text=self.google_search_detail(soup_td[get_list[1]].select('a')[0].text)[0:51]+'...',
+                        actions=[
+                            URITemplateAction(
+                                label='追劇連結',
+                                uri= soup_td[get_list[1]].select('a')[0]['href']
+                            )
+                        ]
+                    ),
+                    CarouselColumn(
+                        thumbnail_image_url='https://imgur.com/j5pDXdG',
+                        title=soup_td[get_list[2]].select('a')[0].text,
+                        text=self.google_search_detail(soup_td[get_list[2]].select('a')[0].text)[0:51]+'...',
+                        actions=[
+                            URITemplateAction(
+                                label='追劇連結',
+                                uri= soup_td[get_list[2]].select('a')[0]['href']
+                            )
+                        ]
+                    ),
+                      CarouselColumn(
+                        thumbnail_image_url='https://imgur.com/j5pDXdG',
+                        title=soup_td[get_list[3]].select('a')[0].text,
+                        text=self.google_search_detail(soup_td[get_list[3]].select('a')[0].text)[0:51]+'...',
+                        actions=[
+                            URITemplateAction(
+                                label='追劇連結',
+                                uri= soup_td[get_list[3]].select('a')[0]['href']
+                            )
+                        ]
+                    ),
+                       CarouselColumn(
+                        thumbnail_image_url='https://imgur.com/j5pDXdG',
+                        title=soup_td[get_list[4]].select('a')[0].text,
+                        text=self.google_search_detail(soup_td[get_list[4]].select('a')[0].text)[0:51]+'...',
+                        actions=[
+                            URITemplateAction(
+                                label='追劇連結',
+                                uri= soup_td[get_list[4]].select('a')[0]['href']
+                            )
+                        ]
+                    )
+                ]
+            )
+        )
+        
+        return carousel_template_message
+    
+    def google_search_detail(self,res):
+        url = 'https://www.google.com.tw/search?q=%s&aqs=chrome..69i57j0.1154j0j7&sourceid=chrome&ie=UTF-8'%res
+        request = requests.get(url)
+        soup = BeautifulSoup(request.content, "html.parser") 
+        soup_div = soup.select("div[class='FSP1Dd']")
+        
+        if soup_div == []:
+            content = ''
+        else:
+            try:
+                soup_div2 = soup.select("div[class='mraOPb']")
+                _content = soup_div2[0].text
+                content = _content[0:(len(_content)-4)]
+            except:
+                content = ''
+        
+        return content
     
     def __init__(self):
         self.class_name = 'life_zone'
@@ -59,7 +196,6 @@ class life_zone(object):
         
         content = '本周< %s >星座運勢解析\n%s ~ %s%s'%(res,weekdate_s,weekdate_e,x_content)
         
-        #soup_span = soup_class[0].select("span[class='txt_green']")[0].text
         
 #        f=open('output.txt','w', encoding='UTF-8')
 #        f.write(format(soup))
