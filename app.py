@@ -120,11 +120,14 @@ def handle_message(event):
     ####功能區####
     #取得event
     uid = event.source.user_id
+    if len(event.message.text) > 100:
+        print ('twstar say message too loooooooooooooong')
+        return 0
     if uid in ['Ud4ae5f866ee4f2013444bcdeadb8f781','U4c0d7be200c17e004ce657a9792e79f8','Uc598cc177279f0529468cdaddbf6854f',
                'Uc9b19ec4eb7fd05eee3c08d4d61b0c9e','U591fbc7dc53fd6d7aca233eca5b18d68','U5879131d2fc64720dee25a06bbf7ffba',
                'Ue90f0b2a33055ccf664f7654483a4d44','Ub2f85405c68f6d6551b495d23e110bc6','U961e975af54c50f6aa559c3e2238e4c5',
                'U075480a9d8559374be4dc2e58596e13e','U8f14bd1360917de7907efbf3512204e0','U2d9216a941b8dbfcf40d4842752a18d7',
-               'U3d8df2ac300f554255ba7e92486c1868']:
+               'U3d8df2ac300f554255ba7e92486c1868','U9df48f4ee7921db27578c1be6db91e17']:
         print ('twstar say goodbye user %s'%uid)
         return 0
     if event.source.type == 'group':
@@ -139,7 +142,7 @@ def handle_message(event):
                    'Ce648d1e2ca4b83091c8b9a40da2fbd7c','Cb07cf92f99adb19d06bc92d25de8c299','Ce648d1e2ca4b83091c8b9a40da2fbd7c',
                    'C77233c5247162675bcf136a49dca3c65','Cad734f74aa8502863db80326dc7f583a','Ce5142b1ba051ab67ef29941a071b626a',
                    'Cb6b6814046c73bcb6023df6d00e04ae7','C4070ca20e170b474e2fbe9c699823a9d','C11a41441bf6557627a11ba9995b92232',
-                   'C4070ca20e170b474e2fbe9c699823a9d','C235b5eaff1741e6afffc58bdd2d4d58b'
+                   'C4070ca20e170b474e2fbe9c699823a9d','C235b5eaff1741e6afffc58bdd2d4d58b','Cc9fbfb283b935cd41a65046025ef885a'
                    ]:
             print ('twstar say goodbye %s'%gid)
             return 0
