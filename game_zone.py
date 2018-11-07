@@ -32,7 +32,7 @@ def main():
     
     #content = _game_card.goldbox('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
     #content = _game.user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','http://dl.profile.line-cdn.net/0hLkoyPlmqE0RSAD5u3DZsE25FHSklLhUMKmILJiUCRHQrZVRGPWZfJnJTTHJ5ZQESaWNUJn5VTics')
-    #content = _game.get_user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星')
+    #content = _game.get_user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
     #content = _game.get_starcoin('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
     #content = _game.card_pk('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','阿貴')
     #content = _game_card.fix_eq('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','eq1')
@@ -42,7 +42,7 @@ def main():
     #content = _game_card.sell_item('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','面紙')    
     #content = _game_card.use_eq('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','eq2')
     #content = _game_card.unuse_eq('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','eq1')
-    content = _game_card.use_items('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','角色重置卡')
+    content = _game_card.use_items('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','黃金寶箱')
     #content = _game_card.armor_store_detail()
     #content = _game_card.lucky_time('U59e79d6500b2f9cad5ed780c1a1f9f8a','謙²')
     #content = _game_card.get_item_detail('爛木頭')
@@ -687,7 +687,8 @@ class card_fight(object):
     def getATK(self,atk, lucky, wiz_value):
         
         atk0 = ['失手','滑倒了','忘了攻擊','zzzzz','被沉默了','吐口水','傻笑','哇哈哈哈哈','肚子痛先大便',
-                '0分考卷','佛系功擊','吃到半隻小強','共嗚~kero~kero~kero','假裝喝醉了裝死','一起來藍藍路~藍藍路']
+                '0分考卷','佛系功擊','吃到半隻小強','共嗚~kero~kero~kero','假裝喝醉了裝死','一起來藍藍路~藍藍路',
+                '大眼瞪小眼','張大鼻孔','偽裝的假五星卡']
         atk1 = ['拿棒棒糖攻擊','丟石頭','戳一下','丟樸克牌','丟RAM攻擊','咬一口','丟榴槤',
                 '飛吻','五層復合金炒菜鍋','爆炸佛跳牆','獅子挽歌','甩巴掌','彈鼻屎','掃把亂掃','滴蠟燭',
                 '自拍照片','打呼','惡魔棒式訓練','丟麥當勞漢堡','冰的啦','小孩不睡覺','魔貫光殺砲',
@@ -707,7 +708,10 @@ class card_fight(object):
                 '花痴大蘿蔔','累積十年的膽結石','來人，請公子吃餅','6呎日光燈管','羞恥play','空氣砲','靴貓劍法',
                 '工業用電風扇','肥皂泡泡槍','聲波糖果','狼牙風風拳','操氣彈','風刃','火球術','青春修煉手冊','丟水球',
                 '瓦斯桶地雷','血戰十式','做古長拳','放個屁臭死你','金太郎迴旋斧','海帶拳','人肉手裏劍','金坷拉','捶背券',
-                '拋繡球','七月半的末班車','雙層大麥克','卑鄙的藤木','永澤的洋蔥頭'
+                '拋繡球','七月半的末班車','雙層大麥克','卑鄙的藤木','永澤的洋蔥頭','一起來歡歡','二哈攻擊','松鼠空手道',
+                '鑽石星塵拳','帥氣的飛機頭','KTV的麥克風','阿里固~阿里固','暑假的最後一天','媚娘歌舞秀','叫我女王',
+                '惡夢製造機','娘家滴G精','小女孩的火柴','洞洞波','菊丸火箭砲','無線深水炸彈','熊抱','潑墨水','黑虎偷心',
+                '人體手裡劍','六刀圓舞曲','人妖手刀','假裝不甘心過肩摔','大雨大雨一直下','橡膠JET槍'
                 ]
         atk2 = ['強力攻擊','破壞拳','迴旋踢','關門放狗','伸長吧~~拳頭','奧客精神','RAP碎碎唸','恐龍攻擊',
                 '百裂拳','天帝之眼','紅蓮爆炎刃','丟大便','天翔龍閃','唸經','竹筍炒肉絲','宅男的右手','氣圓斬',
@@ -725,7 +729,10 @@ class card_fight(object):
                 '人妖打排球','小雨飛腿','SM皮鞭打擊','暴風神射''F4流星雨','火風暴','虎姑婆來囉','摩登源屎人',
                 'GM封帳號','浸水桶','鄉民的正義之嘴','夏美迴旋踢','對朋友熱情的一顆心','KEROKERO全壘打','奕劍術','炎陽奇功',
                 'GOGORO向前衝','憤怒地普通拳','戰車大翻轉','忘心波衝擊','油燈上的老鼠','克林奶粉罐','氣象亂報',
-                '三鹿毒奶','更年期翻臉術','連續喜帖炸彈','少年A讓位','魔鬼椒大餐','祖嬤跟你問聲好']
+                '三鹿毒奶','更年期翻臉術','連續喜帖炸彈','少年A讓位','魔鬼椒大餐','祖嬤跟你問聲好','學長的晚點名',
+                '大牛比較懶','天舞寶輪','銀河星爆','鳳凰幻魔拳','大蒜項鍊','黃金十字架','胖丁之歌','空虛寂寞覺得冷','燒炭攻擊',
+                '波洞球','用臉滾鍵盤','噴射吧~馬桶的逆襲','丟圖釘','高根鞋蠍式撩陰腿','飛射吧向日葵的種子','鼻屎幻想大砲',
+                '假裝可樂的紅酒']
         atk3 = ['龜派氣功波','超級飛踢','三刀流~鬼斬','三寶上路','卍解','霸王龍之吻','昇龍拳','奪命剪刀腳',
                 '人妖拳法','召喚苦力帕','飛天蟑螂','超級凍結冰箭','火龍的碎牙','天輪‧循環之劍','色誘術-女女術',
                 '猴子偷桃','超濃古龍水','整形前的照片','佛山無影腳','亂開E-MAIL','驗孕棒的二條線','起床氣',
@@ -736,12 +743,15 @@ class card_fight(object):
                 '毛利蘭的角','雷動九天','小星星給我錢','進化退化放射光線槍','沾鼻屎的一陽指','六脈神劍','愛的教鞭',
                 '一拳爆螢幕','石化口水','超高離子噴射蛋糕','SS能源彈','女王的高根鞋','究極光裂術','召喚術。肥肥',
                 '路西法之矛','假裝喝醉擋酒','射後不理','惡婆婆的面色','井中月','超級西南氣流','翻多羅拳法','天降流陣','流水制空圈',
-                '雙刀火雞','抱大腿']
+                '雙刀火雞','抱大腿','月初就吃土','499吃到飽','光陰似劍','課金大法','吃貨吞食大法','殺豬的高音','章魚哥的豎笛演奏會',
+                '親密無間大亂揍','卡到陰','昇龍餃子拳','閣樓裡的Girl','糖果雨','龍捲風殺球','山竹風暴','鼻屎炸彈','DDOS攻擊',
+                '宴會辦桌踢擊套餐','小屁孩拆卸術']
         atk4 = ['致命一擊','必殺一擊','元氣彈','跪鍵盤密術','三檔 骨氣球','九九重陽功','唱歌攻擊','召喚殺很大',
                 '鬼氣九刀流','加班加到死','等五年還沒洗好澡','丫宅的怨念','媽媽的咆哮','色誘術-逆後宮之術',
                 '順手拿的折凳','只剩一頁的死亡筆記本','海底自摸十三么','卸妝攻擊','路邊撿到的雷神槌','鐵杵磨成鏽花針',
                 '飛吧神鳥鳳凰','Looooong龍拳','爛尾專案','邪王炎殺黑龍波','庖丁解牛功','召喚青眼白龍','老師誘導電波機',
-                '自爆','把你變成巧克力','摩亞。啟示錄億分之一','認真毆打拳','老漢便當車','香蕉切片器','斷網拔電源']
+                '自爆','把你變成巧克力','摩亞。啟示錄億分之一','認真毆打拳','老漢便當車','香蕉切片器','斷網拔電源',
+                '擲出三星S6','阿姆斯特朗砲','GM偷偷Nerf術','氪金流-大撒幣','豔美魔夜不眠鬼斬']
         atk9 = ['讓對手拉肚子攻擊','放屁臭死了對手','召喚了神龍，進行攻擊']
         
         atk_key = random.randint(0,100)
@@ -756,17 +766,18 @@ class card_fight(object):
                 atk_value = 0
             elif atk_key >=3 and atk_key < 51:
                 atk_way = random.choice(atk1)
-                rounad_ATK = random.randint(1,atk)
-                atk_value = int(random.randint(rounad_ATK,atk)*1.5)
+                #rounad_ATK = int(random.randint(1,int(atk*0.4)))
+                #atk_value = int(random.randint(1,int(atk*0.4))*1.5)
+                atk_value = int(random.randint(1,int(atk*0.4)))
             elif atk_key >=51 and atk_key <81:
                 atk_way = random.choice(atk2)
-                atk_value = int(random.randint(int(atk*0.4),atk)*(1.5+wiz_value))
+                atk_value = int(random.randint(int(atk*0.3),int(atk*0.7))*wiz_value)
             elif atk_key >=81 and atk_key <96:
                 atk_way = random.choice(atk3)
-                atk_value = int(random.randint(int(atk*0.6),atk)*(2.5+wiz_value))
+                atk_value = int(random.randint(int(atk*0.6),int(atk*0.9))*wiz_value)
             elif atk_key >=96:
                 atk_way = random.choice(atk4)
-                atk_value = int(random.randint(int(atk*0.7),atk)*lucky/10)
+                atk_value = int(random.randint(int(atk*0.8),atk)*lucky/10)
 
 
     
@@ -796,7 +807,10 @@ class card_fight(object):
                 '帶上西瓜皮','此地無銀二佰伍','殺蟲劑','天蠶結繭','十八摸','陰森購物台','爛命一條','女孩的紅鞋',
                 '桃太郎丸子','縮小燈','變身相撲力士','烏鴨嘴的詛咒','愛X無限大','佛祖給你加持','床榻下的四賤客',
                 '小小兵合唱團','鐵骨乳液','安全保護袋','說謊的鏡子','烏賊車噴射','連續啦叭聲','反擊屏障','秘術。相親術',
-                '下班時的雷陣雨','大叔的愛','唐詩三百首','蜜桃成熟時'
+                '下班時的雷陣雨','大叔的愛','唐詩三百首','蜜桃成熟時','K房大爆炸','大麥克買1送1','哈比書套',
+                '康安的姐姐','送你高崗屋','蟹丫金的金庫','一起學貓叫','睜一隻眼閉一隻眼','嗨~Baby','觀落陰',
+                '來塊烤肉吧','POKE FACE','短爆截擊','鴨子聽雷','李組長眉頭一皺','小YG成人尿布','流著口水叫丫姐',
+                '印度大甩餅','墨西哥辣椒彈','四分五裂緊急逃出','詛咒。爛卡術','還我外星人','偽裝的ATP行控中心'
                 ]
         def1 = ['硬氣功','分身防禦','閃避','丟香蕉讓對方滑倒','拿CRT螢幕擋住','用滑鼠綁住敵人','呼叫館長',
                 '丟枕頭給敵人','你有freestyle嗎','閃現','拿美食餵養','召喚龍騎士','丟煙霧蛋','空間移動',
@@ -822,15 +836,19 @@ class card_fight(object):
                 '閃避披風','國際保育類動物噴霧','消災解厄貼紙','歐巴，卡雞馬~~','丫北的硬碟','能量吸收裝置','水遁術',
                 '堆糞反擊','爆風格檔','電音三太子','衝擊之暈','尖刺盔甲','聖結界','大齡剩女的反擊','烏龜烏龜蹺',
                 '哇卡摩多','酸民的極限舌頭','幫我買張點數卡吧','哥哥我還要','歐吉桑的驕傲','幻魔身法','護國神山','認真往返跳躍',
-                '假日就暴雨','焦糖瑪奇朵','融化的小美冰淇淋','慾女心經'
+                '假日就暴雨','焦糖瑪奇朵','融化的小美冰淇淋','慾女心經','阿尼又掛掉了','七天鑑賞期','媽呀你上電視了',
+                '星雲鎖鏈','幻朧魔皇拳','丟滿地的玩具','多多龍坐路中間','小姐一個人嗎?','禁。繩縛術','禁。現代版吞劍術',
+                '與大自然融合','冰之世界','五感剝奪','撞豆腐','轉圈圈的哈姆太郎','屁股神盾術','開幽靈馬車逃跑','毛皮強化',
+                '三輪花。封','騙人終點大作戰','橡膠脾酒肚','脫牙的螺絲','畫唬爛的政客'
                 ]
         def2 = ['超級防禦','盾牆','冰牆','催眠術','變張3讓對方傻住','混元一氣功','拿鏡子給敵人','灑鈔票','隔壁老王',
                 '瞬間移動','海市蜃樓','和睦相處','水遁．泡膜壁','穿上隱形斗篷','不滅金身','tea or coffe or me?','吸星大法',
                 '秘室裡的屁味','鑽石鑽石亮晶晶','你看我的項鍊','纏在一起的耳機線','滿滿的香菜','恰吉的OVER MY BADY',
                 '咬鳳梨的神豬','重播877次的周星馳','凌波微步','比邊緣人還沒存在感','化整為零大法','全身脫光光',
                 '兩津勘吉的幹細胞','老闆正在看著你','縮陽入腹','八陣圖','娘子快看是牛魔王','氣鋼鬥衣','煉破反衝壁','屍體復活術',
-                '絕對屏障','丫尼吉的霸王色霸氣','泰式按摩','化整為零大法','破精自絕大法']
-        def9 = ['我閃我閃我閃閃閃','你看不到我','嘿嘿~你打不到我','究極防禦','聖盾術','小星星壞掉了']
+                '絕對屏障','丫尼吉的霸王色霸氣','泰式按摩','化整為零大法','破精自絕大法','陪SERVER看日出','手塚區',
+                '去死去死團加油','氪金霸王氣','必殺騙人喬-彗星鐵鎚']
+        def9 = ['我閃我閃我閃閃閃','你看不到我','嘿嘿~你打不到我','究極防禦','聖盾術','小星星壞掉了','國防布']
         
         if int(lucky/10) == 0:
             def_key = 1
@@ -841,17 +859,17 @@ class card_fight(object):
         
         if def_key >= 50 and def_key<81:
             def_way = random.choice(def1)
-            def_value = int(random.randint(int(DEF*0.3),DEF)*2)       
+            def_value = int(random.randint(int(DEF*0.3),int(DEF*0.7)))       
         elif def_key >= 81 and def_key<95:
             def_way = random.choice(def2)
-            def_value = int(random.randint(int(DEF*0.6),DEF)*3)
+            def_value = int(random.randint(int(DEF*0.6),int(DEF*0.9)))
         elif def_key >= 95:
             def_way = random.choice(def9)
             def_value = int(random.randint(int(DEF*0.9),DEF)*5*def_key)
         else:
             def_way = random.choice(def0)
-            rounad_DEF = random.randint(1,DEF)
-            def_value = random.randint(rounad_DEF,DEF)
+            #rounad_DEF = random.randint(1,DEF)
+            def_value = int(random.randint(1,int(DEF*0.4)))
         
         return (DEF,def_value,def_way)
     
@@ -969,9 +987,9 @@ class card_fight(object):
         
         profile = config_json['profile']
         equ_list = profile['equipment']
-        #a = '無敵星星'
-        #equ_list.append(a)
-        #print(equ_list)
+#        a = '黃金寶箱'
+#        equ_list.append(a)
+#        print(equ_list)
         if del_item in equ_list:
             equ_list.remove(del_item)
             new_status = None
@@ -1019,8 +1037,8 @@ class card_fight(object):
                         new_index_values = 9999
                 if index in ['lucky']:
                     new_index_values = profile[index]+item_detail['value']
-                    if new_index_values > 9999:
-                        new_index_values = 9999 
+                    if new_index_values > 999:
+                        new_index_values = 999 
                 if index in ['ATK','DEF']:
                     new_index_values = profile[index]+item_detail['value']
                     if new_index_values >100000:
@@ -1030,9 +1048,9 @@ class card_fight(object):
                 config = json.dumps(config_json)
                 _sql.update_config(uid,user_name,config)
                 return '%s 已使用 %s %s\n%s'%(user_name,del_item,item_detail['detail'],new_status)
-            if del_item == '角色重置卡':
+            if del_item == '角色重置卡': 
                 config = json.dumps(config_json)
-                _sql.update_config(uid,user_name,config)               
+                _sql.update_config(uid,user_name,config)
                 return self.game.re_user_profile(uid,user_name)
             if del_item == '黃金寶箱':
                 config = json.dumps(config_json)
@@ -1154,7 +1172,8 @@ class card_fight(object):
                      '迷路找不到山洞只好回家了','出門遇到暴雨，回家休息','想打劫山賊反而被山賊打劫了',
                      '天氣太熱，偷跑去看電影','在村口遇見胖虎，哭著跑回家','被金光黨騙走了寶物',
                      '遇到苦力帕，道具全炸飛了','被困在冒險山洞裡，什麼也沒有找到','踩到香蕉皮滑倒，把得到的藥劑給壓爛了',
-                     '在森林裡被歐吉追殺，什麼沒也沒找到'
+                     '在森林裡被歐吉追殺，什麼沒也沒找到','坑爹啊，這什麼爛地圖什麼也沒找到','再氪個十萬應該會抽到吧',
+                     '醒醒吧，中獎對你來說太難了','被史萊姆吃了，跑魂重來吧'
                      ],
                 '1':['紅色藥水','藍色藥水','攻擊增加藥水','防禦增加藥水'],
                 '2':['紅色藥水','藍色藥水','橙色藥水','攻擊增加藥水','防禦增加藥水','地獄辣椒','白馬乎你夯','小魚乾',
@@ -1187,7 +1206,10 @@ class card_fight(object):
                 '在龍之谷外圍殺死巨蠍，獲得了< %s >',
                 '在遠古戰場打死了食死鬼，獲得了< %s >',
                 '在妖精地監裡殺死黑暗妖精，獲得了< %s >',
-                '在藏寶海灣在尋獲了< %s >'
+                '在藏寶海灣在尋獲了< %s >',
+                '在北鬥的荒古禁區中，尋獲了< %s >',
+                '誤入神秘的三角洲，發現了< %s >',
+                '在黃金古路裡，打死了神秘的猛獸，獲得了< %s >'
                 ]
 
         getitem = random.choice(dict[res])
