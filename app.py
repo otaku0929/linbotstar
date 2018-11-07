@@ -571,10 +571,11 @@ def handle_message(event):
     if re.match('^查追劇=(.+)',event.message.text):
         res = re.match('^查追劇=(.+)',event.message.text).group(1)
         if res in ['日劇','韓劇','陸劇']:           
-            content = _life.hot_tvshow(res)
+            carousel_template_message = _life.hot_tvshow(res)
+            line_bot_api.reply_message(event.reply_token,carousel_template_message)
         else:
             content = '請輸入正確的類別:日劇、韓劇、陸劇'
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+            line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         #gs_write('B26')
         return 0
     #巴哈姆特
