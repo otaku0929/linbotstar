@@ -25,12 +25,12 @@ from linebot.models import (
 
 
 def main():
-    #return 'ok'
-    _photos = photo_zone()
-    uid = 'Ud0414e339e9c242b19a2dd22dd1f6189'
+    return 'ok'
+    #_photos = photo_zone()
+    #uid = 'Ud0414e339e9c242b19a2dd22dd1f6189'
     #content = _photos.add_watermark(uid)
-    content = _photos.imgur_album_images_delete('SZMo93Z')
-    print (content)
+    #content = _photos.imgur_album_images_delete('SZMo93Z')
+    #print (content)
 
 class photo_zone(object):
     
@@ -47,6 +47,12 @@ class photo_zone(object):
         self.imgur_client_access_token_twstar = 'be57cec8bf14f5a76b4cf2548f54ac2075c69bf4'
         self.imgur_client_refresh_token_twstar = 'f1a227c506a451a28a2e71f885c64bdc83bb4917'       
         self.client_twstar = ImgurClient(self.imgur_client_id_twstar, self.imgur_client_secret_twstar, self.imgur_client_access_token_twstar, self.imgur_client_refresh_token_twstar)
+        self.imgur_client_id_otakuboy = '1dda2cd41124fae'
+        self.imgur_client_secret_otakuboy = 'eee6132fb319fd84509fa5a9b95cff53345b5c4c'
+        #pin 87df6f85bd
+        self.imgur_client_access_token_otakuboy = '68b0a143f3afa4bcdc467571dc794911f5c79366'
+        self.imgur_client_refresh_token_otakuboy = '77afec5369029ad10f2dfce95929c494a1a6f848'       
+        self.client_otakuboy = ImgurClient(self.imgur_client_id_otakuboy, self.imgur_client_secret_otakuboy, self.imgur_client_access_token_otakuboy, self.imgur_client_refresh_token_otakuboy)
         
     def random(self):
         b=self.imgur_boys
@@ -107,6 +113,12 @@ class photo_zone(object):
         #client = ImgurClient(self.imgur_client_id, self.imgur_client_secret, self.imgur_client_access_token, self.imgur_client_refresh_token)
         conf = {"album":album_id}
         res = self.client_twstar.upload_from_path(path,config=conf,anon=False)
+        return res
+
+    def upload_imgur_otakuboy(self,album_id,path):
+        #client = ImgurClient(self.imgur_client_id, self.imgur_client_secret, self.imgur_client_access_token, self.imgur_client_refresh_token)
+        conf = {"album":album_id}
+        res = self.client_otakuboy.upload_from_path(path,config=conf,anon=False)
         return res
 
     def imgur_album_images_delete(self,album_id):      
@@ -279,15 +291,22 @@ class photo_zone(object):
             template_img.save(card_template)
             del template_img
             
-            imgur_dict = ['otaku','twstar']
+            #imgur_dict = ['otaku','twstar','otakuboy']
+            imgur_dict = ['otakuboy']
             imgur_upload = random.choice(imgur_dict)
             
             if imgur_upload == 'otaku':                
                 res = self.upload_imgur('SZMo93Z',card_template)
+                #print('oktaku')
                 return ('1',res)
             if imgur_upload == 'twstar':
                 res = self.upload_imgur_twstar('soO4i9j',card_template)
-                return ('1',res)               
+                #print('twstar')
+                return ('1',res) 
+            if imgur_upload == 'otakuboy':
+                res = self.upload_imgur_otakuboy('Ub4VfUk',card_template)
+                #print('otakuboy')
+                return ('1',res)                
         except:
             return ('0','卡片產生失敗，重新印制卡片功能開發中，請先用查詢人物屬性查看今天的屬性，並進行對戰')
     
