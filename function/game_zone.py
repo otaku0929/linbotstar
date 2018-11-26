@@ -521,7 +521,7 @@ class game_zone(object):
         config_json = json.loads(config[0][2])
                
         if 'profile_time' in config_json['profile']:
-            if config_json['profile']['profile_time'] != time:
+            if config_json['profile']['profile_time'] == time:
                 content = '%s 今天已經產生過了，一天只產生一次哦'%user_name
                 return ('0',content)
             else:
