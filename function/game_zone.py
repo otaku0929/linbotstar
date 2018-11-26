@@ -31,7 +31,7 @@ def main():
     content = _game_card.fight_win_item(1)
     
     #content = _game_card.goldbox('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
-    #content = _game.user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','http://dl.profile.line-cdn.net/0hLkoyPlmqE0RSAD5u3DZsE25FHSklLhUMKmILJiUCRHQrZVRGPWZfJnJTTHJ5ZQESaWNUJn5VTics')
+    content = _game.user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','http://dl.profile.line-cdn.net/0hLkoyPlmqE0RSAD5u3DZsE25FHSklLhUMKmILJiUCRHQrZVRGPWZfJnJTTHJ5ZQESaWNUJn5VTics')
     #content = _game.get_user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
     #content = _game.get_starcoin('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
     #content = _game.card_pk('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','阿貴')
@@ -42,7 +42,7 @@ def main():
     #content = _game_card.sell_item('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','面紙')    
     #content = _game_card.use_eq('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','eq2')
     #content = _game_card.unuse_eq('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','eq1')
-    content = _game_card.use_items('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','黃金寶箱')
+    #content = _game_card.use_items('U9f2c61013256dfe556d70192388e4c7c','藍宇星冷男星','黃金寶箱')
     #content = _game_card.armor_store_detail()
     #content = _game_card.lucky_time('U59e79d6500b2f9cad5ed780c1a1f9f8a','謙²')
     #content = _game_card.get_item_detail('爛木頭')
@@ -521,7 +521,7 @@ class game_zone(object):
         config_json = json.loads(config[0][2])
                
         if 'profile_time' in config_json['profile']:
-            if config_json['profile']['profile_time'] == time:
+            if config_json['profile']['profile_time'] != time:
                 content = '%s 今天已經產生過了，一天只產生一次哦'%user_name
                 return ('0',content)
             else:
@@ -880,25 +880,25 @@ class card_fight(object):
     
     def WizATK(self,A_WIZ, B_WIZ):
         
-        dict = {'混':{'聖':0.2,'光':0.2,'萌':0.5},
-                '聖':{'邪':0.5,'毒':0.2,'萌':-2},
-                '邪':{'混':0.5,'萌':-2},
-                '闇':{'聖':0.2,'萌':-2},
-                '光':{'闇':0.5,'萌':-2},
-                '金':{'木':0.5,'萌':-2},
-                '木':{'土':0.5,'萌':-2},
-                '水':{'火':0.5,'萌':2},
-                '火':{'金':0.5,'冰':0.2,'萌':-2},
-                '土':{'水':0.5,'風':0.2,'萌':-2},
-                '雷':{'魅':0.8,'萌':-2},
-                '冰':{'魅':0.8,'萌':-2},
-                '風':{'魅':0.8,'萌':2},
-                '日':{'月':0.5,'萌':-2},
-                '月':{'星':0.5,'萌':-2},
-                '星':{'日':0.5,'萌':-2},
-                '毒':{'魅':0.8,'萌':-2},
-                '魂':{'魅':0.8,'萌':-2},
-                '魅':{'萌':0.2},
+        dict = {'混':{'聖':1.2,'光':1.2,'萌':1.5},
+                '聖':{'邪':1.5,'毒':1.2,'萌':0.5},
+                '邪':{'混':1.5,'萌':0.5},
+                '闇':{'聖':1.2,'萌':0.5},
+                '光':{'闇':1.5,'萌':0.5},
+                '金':{'木':1.5,'萌':0.5},
+                '木':{'土':1.5,'萌':0.5},
+                '水':{'火':1.5,'萌':0.5},
+                '火':{'金':1.5,'冰':0.8,'萌':0.5},
+                '土':{'水':1.5,'風':0.8,'萌':0.5},
+                '雷':{'魅':1.8,'萌':0.5},
+                '冰':{'魅':1.8,'萌':0.5},
+                '風':{'魅':1.8,'萌':0.5},
+                '日':{'月':1.5,'萌':0.5},
+                '月':{'星':1.5,'萌':0.5},
+                '星':{'日':1.5,'萌':0.5},
+                '毒':{'魅':1.8,'萌':0.5},
+                '魂':{'魅':1.8,'萌':0.5},
+                '魅':{'萌':1.2},
                 '萌':{}
         }
         
