@@ -291,8 +291,8 @@ class photo_zone(object):
             template_img.save(card_template)
             del template_img
             
-            imgur_dict = ['otaku','twstar','otakuboy']
-            #imgur_dict = ['otakuboy']
+            #imgur_dict = ['otaku','twstar','otakuboy']
+            imgur_dict = ['otakuboy']
             imgur_upload = random.choice(imgur_dict)
             
             if imgur_upload == 'otaku':                
