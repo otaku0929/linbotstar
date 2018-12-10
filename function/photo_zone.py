@@ -204,9 +204,9 @@ class photo_zone(object):
     
     def user_daily_photo(self,id,message,pictureUrl):
         
-        try:
+        #try:
             path = 'jpg/' 
-            p#ath = '../jpg/'
+            #path = '../jpg/'
             _card_template = '%scard_template.jpg'%path
             card_template = '%scard_%s.jpg'%(path,id)
             user_photo = '%sprofile_%s.jpg'%(path,id)
@@ -293,9 +293,9 @@ class photo_zone(object):
             
             #imgur_dict = ['otaku','twstar','otakuboy']
             #imgur_dict = ['otaku','otakuboy']
-            #imgur_dict = ['otakuboy']
+            imgur_dict = ['otakuboy']
             #imgur_dict = ['twstar']
-            imgur_dict = ['otaku']
+            #imgur_dict = ['otaku']
             imgur_upload = random.choice(imgur_dict)
             
             if imgur_upload == 'otaku':                
@@ -310,8 +310,8 @@ class photo_zone(object):
                 res = self.upload_imgur_otakuboy('Ub4VfUk',card_template)
                 #print('otakuboy')
                 return ('1',res)                
-        except:
-            return ('0','卡片產生失敗，重新印制卡片功能開發中，請先用[查人物屬性]指令查看今天的屬性，並進行對戰')
+        #except:
+        #    return ('0','卡片產生失敗，重新印制卡片功能開發中，請先用[查人物屬性]指令查看今天的屬性，並進行對戰')
     
     
     def add_words(self,id,text,fontsize, px, py, fontname,template_img, pxx=None, pyy=None):
