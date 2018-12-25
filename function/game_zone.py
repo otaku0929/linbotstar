@@ -31,7 +31,7 @@ def main():
     content = _game_card.fight_win_item(1)
     
     #content = _game_card.goldbox('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
-    content = _game.user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','http://dl.profile.line-cdn.net/0hLkoyPlmqE0RSAD5u3DZsE25FHSklLhUMKmILJiUCRHQrZVRGPWZfJnJTTHJ5ZQESaWNUJn5VTics')
+    content = _game.ruser_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','http://dl.profile.line-cdn.net/0hLkoyPlmqE0RSAD5u3DZsE25FHSklLhUMKmILJiUCRHQrZVRGPWZfJnJTTHJ5ZQESaWNUJn5VTics')
     #content = _game.get_user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
     #content = _game.get_starcoin('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
     #content = _game.card_pk('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','阿貴')
@@ -641,6 +641,141 @@ class game_zone(object):
             
             return (content)
 
+    def ruser_profile(self,uid,user_name,pictureUrl):
+        
+        _game_card =  card_fight()
+        
+        time = str(datetime.datetime.now(pytz.timezone('Asia/Taipei')))[0:10]
+        #time = '2018-07-21'
+        config = _sql.select_config(uid)
+        
+        if config == []:
+            _config.create_config(uid,user_name)
+            config = _sql.select_config(uid)
+        
+        config_json = json.loads(config[0][2])
+               
+        if 'profile_time' in config_json['profile']:
+            if config_json['profile']['profile_time'] != time:
+                content = '%s 今天已經產生過了，一天只產生一次哦'%user_name
+                return ('0',content)
+            else:
+                message = self.profile_game_content(uid,user_name)  
+                p = config_json['profile']
+                
+                if 'equipment' in  p:
+                    
+                    if p['arms'] == '':
+                        arms_values = 0
+                    else:
+                        for obj in p['arms']:
+                            arms_values = _game_card.item_detail(obj)['value']
+
+                    if p['armor'] == '':
+                        armor_values = 0
+                    else:
+                        for obj in p['armor']:
+                            armor_values = _game_card.item_detail(obj)['value']
+                    
+                    p['profile_time']=time
+                    p['user_name']=message[0]
+                    p['hp']=message[1]
+                    p['mp']=message[2]
+                    p['lucky']=message[3]
+                    p['today']=message[4]
+                    p['keywords']=message[5]
+                    p['WIZ']=message[6]
+                    p['ATK']=message[7]+arms_values
+                    p['DEF']=message[8]+armor_values
+                    p['today_value']=message[9]
+                    p['STR']=message[10]
+                    p['VIT']=message[11]
+                    p['INT']=message[12]
+                    p['AGI']=message[13]
+                    p['DEX']=message[14]
+                    
+                    config = json.dumps(config_json)
+                    _sql.update_config(uid,user_name,config) 
+                    
+                    content = _photos.user_daily_photo(uid,message,pictureUrl)
+                    
+                    return (content)
+                  
+                else:
+                    new_json = {'profile':
+                        {'profile_time':time,
+                         'user_name':message[0],
+                         'hp':message[1],
+                         'mp':message[2],
+                         'lucky':message[3],
+                         'today':message[4],
+                         'keywords':message[5],
+                         'WIZ':message[6],
+                         'ATK':message[7],
+                         'DEF':message[8],
+                         'today_value':message[9],
+                         'STR':message[10],
+                         'VIT':message[11],
+                         'INT':message[12],
+                         'AGI':message[13],
+                         'DEX':message[14],
+                         'arms':'',
+                         'armor':'',
+                         'item1':'',
+                         'item2':'',
+                         'equipment':{},
+                         'equ_list':{},
+                         'starcoin':0,
+                         'starcoin_time':None
+                         }
+                    }                
+                    config_json['profile'] = new_json['profile']
+                           
+                    config = json.dumps(config_json)
+                    _sql.update_config(uid,user_name,config) 
+                    
+                    content = _photos.user_daily_photo(uid,message,pictureUrl)
+                    
+                    return (content)
+#                return self.profile_game_content(uid,user_name)               
+        else:
+            message= self.profile_game_content(uid,user_name)
+            
+            new_json = {'profile':
+                {'profile_time':time,
+                 'user_name':message[0],
+                 'hp':message[1],
+                 'mp':message[2],
+                 'lucky':message[3],
+                 'today':message[4],
+                 'keywords':message[5],
+                 'WIZ':message[6],
+                 'ATK':message[7],
+                 'DEF':message[8],
+                 'today_value':message[9],
+                 'STR':message[10],
+                 'VIT':message[11],
+                 'INT':message[12],
+                 'AGI':message[13],
+                 'DEX':message[14],
+                 'arms':'',
+                 'armor':'',
+                 'item1':'',
+                 'item2':'',
+                 'equipment':{},
+                 'equ_list':{},
+                 'starcoin':0,
+                 'starcoin_time':None
+                 }
+            }
+            config_json['profile'] = new_json['profile']
+            config = json.dumps(config_json)
+            _sql.update_config(uid,user_name,config)         
+            
+            content = _photos.user_daily_photo(uid,message,pictureUrl)
+            
+            return (content)
+
     def profile_game_content(self,uid,user_name):
         
         
@@ -736,7 +871,7 @@ class card_fight(object):
                 '波洞球','用臉滾鍵盤','噴射吧~馬桶的逆襲','丟圖釘','高根鞋蠍式撩陰腿','飛射吧向日葵的種子','鼻屎幻想大砲',
                 '假裝可樂的紅酒','空明拳','召喚。李奧那多皮卡丘','妮妮兔兔暴力拳','五毒排咪掌','就是這一招','福洲伯的剔頭刀',
                 '銷魂百骨爪','挑三撿四嘴','翻滾吧屁孩','百式.鬼燒','神龍天舞腳','飛翔龍炎陣','鐵球大暴走','火焰沖拳',
-                '天心蓮環','凌空三條腿','隔山打牛']
+                '天心蓮環','凌空三條腿','隔山打牛','貞子的頭髮']
         atk3 = ['龜派氣功波','超級飛踢','三刀流~鬼斬','三寶上路','卍解','霸王龍之吻','昇龍拳','奪命剪刀腳',
                 '人妖拳法','召喚苦力帕','飛天蟑螂','超級凍結冰箭','火龍的碎牙','天輪‧循環之劍','色誘術-女女術',
                 '猴子偷桃','超濃古龍水','整形前的照片','佛山無影腳','亂開E-MAIL','驗孕棒的二條線','起床氣',
@@ -750,7 +885,7 @@ class card_fight(object):
                 '雙刀火雞','抱大腿','月初就吃土','499吃到飽','光陰似劍','課金大法','吃貨吞食大法','殺豬的高音','章魚哥的豎笛演奏會',
                 '親密無間大亂揍','卡到陰','昇龍餃子拳','閣樓裡的Girl','糖果雨','龍捲風殺球','山竹風暴','鼻屎炸彈','DDOS攻擊',
                 '宴會辦桌踢擊套餐','小屁孩拆卸術','伸長吧大傑的頭髮','雙手互搏','化骨綿掌','閃電之種','佛山無影腳','噴出假牙','裏百八式.大蛇薙',
-                '戰神質詢術','電角神拳']
+                '戰神質詢術','電角神拳','無敵穿牆術','光子力熱線','木蘭飛彈','去吧!稻中兵團','鳥巢驚魂發球']
         atk4 = ['致命一擊','必殺一擊','元氣彈','跪鍵盤密術','三檔 骨氣球','九九重陽功','唱歌攻擊','召喚殺很大','天心補刀腳'
                 '鬼氣九刀流','加班加到死','等五年還沒洗好澡','丫宅的怨念','媽媽的咆哮','色誘術-逆後宮之術',
                 '順手拿的折凳','只剩一頁的死亡筆記本','海底自摸十三么','卸妝攻擊','路邊撿到的雷神槌','鐵杵磨成鏽花針',
@@ -818,7 +953,8 @@ class card_fight(object):
                 '康安的姐姐','送你高崗屋','蟹丫金的金庫','一起學貓叫','睜一隻眼閉一隻眼','嗨~Baby','觀落陰',
                 '來塊烤肉吧','POKE FACE','短爆截擊','鴨子聽雷','李組長眉頭一皺','小YG成人尿布','流著口水叫丫姐',
                 '印度大甩餅','墨西哥辣椒彈','四分五裂緊急逃出','詛咒。爛卡術','還我外星人','偽裝的ATP行控中心',
-                '萬國驚天掌','沾衣十八跌','美伽子刑警的擁抱','雞排妹的__','布丁101','棉花糖盔甲','還豬格格'
+                '萬國驚天掌','沾衣十八跌','美伽子刑警的擁抱','雞排妹的__','布丁101','棉花糖盔甲','還豬格格',
+                '抖音兔子帽','上京告御狀','愛情摩天輪'
                 ]
         def1 = ['硬氣功','分身防禦','閃避','丟香蕉讓對方滑倒','拿CRT螢幕擋住','用滑鼠綁住敵人','呼叫館長',
                 '丟枕頭給敵人','你有freestyle嗎','閃現','拿美食餵養','召喚龍騎士','丟煙霧蛋','空間移動',
@@ -849,7 +985,8 @@ class card_fight(object):
                 '與大自然融合','冰之世界','五感剝奪','撞豆腐','轉圈圈的哈姆太郎','屁股神盾術','開幽靈馬車逃跑','毛皮強化',
                 '三輪花。封','騙人終點大作戰','橡膠脾酒肚','脫牙的螺絲','畫唬爛的政客','1111零點無收訊','黑白配男生女生配',
                 '天罡北斗陣','滿桌的美味蟹堡','候選人的宣傳車','葵花點穴手','鑽石屁股','帶著水桶招喚聖光','董月花的麻油雞',
-                '肥油千層浪','米其林彈力腳','魅惑鋼管舞','珍藏的飯島愛','超級阿根廷閃光','精神防禦壁','破蓮八著'
+                '肥油千層浪','米其林彈力腳','魅惑鋼管舞','珍藏的飯島愛','超級阿根廷閃光','精神防禦壁','破蓮八著','靈毛背心',
+                '天上掉下來的鑽石'
                 ]
         def2 = ['超級防禦','盾牆','冰牆','催眠術','變張3讓對方傻住','混元一氣功','拿鏡子給敵人','灑鈔票','隔壁老王',
                 '瞬間移動','海市蜃樓','和睦相處','水遁．泡膜壁','穿上隱形斗篷','不滅金身','tea or coffe or me?','吸星大法',
