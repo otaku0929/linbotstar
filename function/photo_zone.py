@@ -178,7 +178,7 @@ class photo_zone(object):
     def get_ttf_path(self,ttf):
         
         ttf_path='font/'
-        #ttf_path='../font/'
+#        ttf_path='../font/'
         
         ttf
         
@@ -206,7 +206,7 @@ class photo_zone(object):
         
         try:
             path = 'jpg/' 
-            #path = '../jpg/'
+#            path = '../jpg/'
             _card_template = '%scard_template.jpg'%path
             card_template = '%scard_%s.jpg'%(path,id)
             user_photo = '%sprofile_%s.jpg'%(path,id)
@@ -294,19 +294,19 @@ class photo_zone(object):
             
             imgur_id = _sql.select("select imgur_id from card_zone")
             card_zone = imgur_id[0][0]
-            #print (card_zone)
+            print (card_zone)
             #imgur_upload = ''
 #            return ('0','因流量超出限制，卡片產生功能調整中，請先用[查人物屬性]指令查看今天的屬性，並進行對戰')
             
-            if card_zone == 'otaku':
-                imgur_upload = 'twstar'
-                
-                updata_zone = "update card_zone set imgur_id ='%s'" %(imgur_upload)
-                _sql.run(updata_zone)
-                
-                res = self.upload_imgur_twstar('soO4i9j',card_template)
-                #print('oktaku')
-                return ('1',res)
+#            if card_zone == 'otaku':
+#                imgur_upload = 'twstar'
+#                
+#                updata_zone = "update card_zone set imgur_id ='%s'" %(imgur_upload)
+#                _sql.run(updata_zone)
+#                
+#                res = self.upload_imgur_twstar('soO4i9j',card_template)
+#                #print('oktaku')
+#                return ('1',res)
 
             if card_zone == 'twstar':
                 imgur_upload = 'otakuboy'  
@@ -320,32 +320,33 @@ class photo_zone(object):
                 return ('1',res)      
             
             if card_zone == 'otakuboy':
-                imgur_upload = 'otaku'  
+                imgur_upload = 'twstar'  
                 
                 updata_zone = "update card_zone set imgur_id ='%s'" %(imgur_upload)
                 #print(updata_zone)
                 _sql.run(updata_zone)
                 
-                res = self.upload_imgur('SZMo93Z',card_template)
+                res = self.upload_imgur_twstar('soO4i9j',card_template)
+                #res = self.upload_imgur('SZMo93Z',card_template)
                 #print('twstar')
                 return ('1',res)  
             
-            imgur_dict = ['otaku','twstar','otakuboy']
-            imgur_dict = ['otaku','otakuboy']
-            imgur_dict = ['otaku','twstar']
-            imgur_dict = ['otakuboy']
-            imgur_dict = ['twstar']
-            imgur_dict = ['otaku']
-            imgur_upload = random.choice(imgur_dict)
+            #imgur_dict = ['otaku','twstar','otakuboy']
+            #imgur_dict = ['otaku','otakuboy']
+            #imgur_dict = ['otakuboy','twstar']
+            #imgur_dict = ['otakuboy']
+            #imgur_dict = ['twstar']
+            #imgur_dict = ['otaku']
+            #imgur_upload = random.choice(imgur_dict)
                         
-            card_zone = _sql.select("select imgur_id from card_zone")
+            #card_zone = _sql.select("select imgur_id from card_zone")
             
             
             
-            if imgur_upload == 'otaku':                
-                res = self.upload_imgur('SZMo93Z',card_template)
-                #print('oktaku')
-                return ('1',res)
+#            if imgur_upload == 'otaku':                
+#                res = self.upload_imgur('SZMo93Z',card_template)
+#                #print('oktaku')
+#                return ('1',res)
             if imgur_upload == 'twstar':
                 res = self.upload_imgur_twstar('soO4i9j',card_template)
                 #print('twstar')
