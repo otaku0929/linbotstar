@@ -120,8 +120,10 @@ def handle_message(event):
     ####功能區####
     #取得event
     uid = event.source.user_id
-    if len(event.message.text) > 61:
-        print ('twstar say message too loooooooooooooong')
+    #check_message=event.message.text
+    if len(event.message.text) > 81:
+        if event.message.text.find('http') == -1:
+            print ('twstar say message too loooooooooooooong')
         return 0
     if uid in ['Ud4ae5f866ee4f2013444bcdeadb8f781','U4c0d7be200c17e004ce657a9792e79f8','Uc598cc177279f0529468cdaddbf6854f',
                'Uc9b19ec4eb7fd05eee3c08d4d61b0c9e','U591fbc7dc53fd6d7aca233eca5b18d68','U5879131d2fc64720dee25a06bbf7ffba',
