@@ -882,8 +882,8 @@ def handle_message(event):
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
             return 0            
 
-@handler.add(MessageEvent, message=ImageMessage)
-def handle_image_message(event):
+#@handler.add(MessageEvent, message=ImageMessage)
+#def handle_image_message(event):
     
     #print("event",event)
     
@@ -906,30 +906,30 @@ def handle_image_message(event):
 #        profile = line_bot_api.get_profile(event.source.user_id)
 #        user_name = profile.display_name
 
-    print("event.message.image:", event.source.type, event.source.user_id, event.message.id)             
+#    print("event.message.image:", event.source.type, event.source.user_id, event.message.id)             
      
-    if event.source.type == 'user':
-        uid = event.source.user_id
-        message_content = line_bot_api.get_message_content(event.message.id)
-        res = _photos.add_watermark(uid,message_content)
-        if res == 'none':
-            content = _sys_mg.m_addmark()
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=content))
-        else:
-            url = res['link']
-            img_id = res['id']
-            del_messages = '下載完圖檔後，請輸入下面指令刪除圖檔 \ndimg={}'.format(img_id)
-            image_message = ImageSendMessage(
-                original_content_url=url,
-                preview_image_url=url
-            )         
-            line_bot_api.reply_message(event.reply_token, [image_message, TextSendMessage(text=del_messages)]) 
-            #gs_write('B30')
-        return 0
-    else:
-        #content = _sys_mg.m_addmark()
-        #line_bot_api.reply_message(event.reply_token, TextSendMessage(text=content))  
-        return 0
+#    if event.source.type == 'user':
+#        uid = event.source.user_id
+#        message_content = line_bot_api.get_message_content(event.message.id)
+#        res = _photos.add_watermark(uid,message_content)
+#        if res == 'none':
+#            content = _sys_mg.m_addmark()
+#            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=content))
+#        else:
+#            url = res['link']
+#            img_id = res['id']
+#            del_messages = '下載完圖檔後，請輸入下面指令刪除圖檔 \ndimg={}'.format(img_id)
+#            image_message = ImageSendMessage(
+#                original_content_url=url,
+#                preview_image_url=url
+#            )         
+#            line_bot_api.reply_message(event.reply_token, [image_message, TextSendMessage(text=del_messages)]) 
+#            #gs_write('B30')
+#        return 0
+#    else:
+#        #content = _sys_mg.m_addmark()
+##        #line_bot_api.reply_message(event.reply_token, TextSendMessage(text=content))  
+#        return 0
     
                      
 if __name__ == '__main__':
