@@ -8,7 +8,7 @@ import function.sys_messages
 _sys_mg = function.sys_messages.sys_messages()
 
 def main():
-    res = '哈哈哈哈哈哈哈哈'
+    res = '小星星誰是星爸'
     _star_talk = start_talk()
     print(_star_talk.star_talk(res))
     
@@ -178,6 +178,10 @@ class start_talk(object):
                     return self.talk_dict('like_who',user_name)
                 if re.search("(喜歡|愛)([吃喝玩看聽誰我])",messages_talk).group(2) == "我":
                     return self.talk_dict('like_me',user_name)
+            if re.search("星爸是誰",messages_talk):
+                return self.talk_dict('星爸是誰',user_name)
+            if re.search("誰是星爸",messages_talk):
+                return self.talk_dict('星爸是誰',user_name)  
             if re.search("機器人|是(誰|什麼|男|女)",messages_talk):
                 return self.talk_dict('robot',user_name)
             if re.search("多大|幾歲",messages_talk):
