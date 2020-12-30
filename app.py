@@ -122,9 +122,11 @@ def handle_message(event):
     uid = event.source.user_id
     #check_message=event.message.text
     if len(event.message.text) > 81:
-        if event.message.text.find('http') == -1:
-            print ('twstar say message too loooooooooooooong')
-            return 0
+        print ('twstar say message too loooooooooooooong')
+        return 0
+    if event.message.text.find('http') == -1:
+        print ('get http request')
+        return 0
     if uid in ['Ud4ae5f866ee4f2013444bcdeadb8f781','U4c0d7be200c17e004ce657a9792e79f8','Uc598cc177279f0529468cdaddbf6854f',
                'Uc9b19ec4eb7fd05eee3c08d4d61b0c9e','U591fbc7dc53fd6d7aca233eca5b18d68','U5879131d2fc64720dee25a06bbf7ffba',
                'Ue90f0b2a33055ccf664f7654483a4d44','Ub2f85405c68f6d6551b495d23e110bc6','U961e975af54c50f6aa559c3e2238e4c5',
@@ -330,25 +332,25 @@ def handle_message(event):
             content = '此功能只有星爸可以用'
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))          
         return 0
-    #浮水印設定
-    if re.match('^#浮水印%(.+)%f(\d+)%([t|e]\d)%(red|green|blue|white|black|pink|yellow|gold|#......)%al(\d+)%(p\d)',event.message.text):
-        try:
-            profile = _lineapi.get_user_name(Channel_Access_Token,event)
-            user_name = profile['displayName'] 
-        except:
-            user_name = ''
-        if event.source.type == 'user':    
-            content = _config.add_watermark(uid,user_name,event.message.text)        
-            line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
-        else:
-            content = _sys_mg.m_addmark()
-            line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
-        return 0
-    #查浮水印怎麼使用
-    if event.message.text in ['浮水印','浮水印功能','查浮水印','查浮水印怎麼用','浮水印怎麼使用','怎麼用浮水印','查浮水印用法']:
-        content = _sys_mg.m_addmark()
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
-        return 0 
+    # #浮水印設定
+    # if re.match('^#浮水印%(.+)%f(\d+)%([t|e]\d)%(red|green|blue|white|black|pink|yellow|gold|#......)%al(\d+)%(p\d)',event.message.text):
+    #     try:
+    #         profile = _lineapi.get_user_name(Channel_Access_Token,event)
+    #         user_name = profile['displayName'] 
+    #     except:
+    #         user_name = ''
+    #     if event.source.type == 'user':    
+    #         content = _config.add_watermark(uid,user_name,event.message.text)        
+    #         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+    #     else:
+    #         content = _sys_mg.m_addmark()
+    #         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+    #     return 0
+    # #查浮水印怎麼使用
+    # if event.message.text in ['浮水印','浮水印功能','查浮水印','查浮水印怎麼用','浮水印怎麼使用','怎麼用浮水印','查浮水印用法']:
+    #     content = _sys_mg.m_addmark()
+    #     line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+    #     return 0 
     #設定功能啟用
     if re.match('^#設定%(.+)=(on|off|開|關)',event.message.text):
 #        profile = line_bot_api.get_profile(event.source.user_id)
@@ -656,17 +658,17 @@ def handle_message(event):
         content = '{}\n颱風動態連結:{}\n------\n資料來源:中央氣象局&windy'.format(ty_content,url)
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
-    #AQI
-    if event.message.text == event.message.text in ["查PM2.5","查空氣品質","查pm2.5","AQI","現在空氣品質"]:
-        res = _weather.AQI()
-        url = res['link']
-        image_message = ImageSendMessage(
-            original_content_url=url,
-            preview_image_url=url
-        )
-        line_bot_api.reply_message(event.reply_token,image_message)
-        #gs_write('B15')
-        return 0      
+    # #AQI
+    # if event.message.text == event.message.text in ["查PM2.5","查空氣品質","查pm2.5","AQI","現在空氣品質"]:
+    #     res = _weather.AQI()
+    #     url = res['link']
+    #     image_message = ImageSendMessage(
+    #         original_content_url=url,
+    #         preview_image_url=url
+    #     )
+    #     line_bot_api.reply_message(event.reply_token,image_message)
+    #     #gs_write('B15')
+    #     return 0      
     ####金融類####
     #匯率
     rate_list = "^美金|港幣|英鎊|澳幣|加拿大幣|加幣|新加坡幣|瑞士法郎|法郎|日圓|日幣|南非幣|瑞典幣|紐元|泰幣|泰銖|菲國比索|印尼幣|歐元|韓元|韓幣|越南盾|馬來幣|人民幣"
@@ -688,6 +690,12 @@ def handle_message(event):
         content = _games.r18()
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
         return 0
+    #十連抽
+    if re.match('^十連抽',event.message.text):
+        content = _games.lucky_ten()
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=content))
+        return 0
+    #卡版對戰
     if re.match('^[每今][日天](狀態|卡[片牌]|的我)',event.message.text):
         profile = _lineapi.get_user_name(Channel_Access_Token,event)
         user_name = profile['displayName']
