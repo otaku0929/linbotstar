@@ -124,9 +124,9 @@ def handle_message(event):
     if len(event.message.text) > 81:
         print ('twstar say message too loooooooooooooong')
         return 0
-    if event.message.text.find('http') == -1:
-        print ('get http request')
-        return 0
+    # if event.message.text.find('http') == -1:
+    #     print ('get http request')
+    #     return 0
     if uid in ['Ud4ae5f866ee4f2013444bcdeadb8f781','U4c0d7be200c17e004ce657a9792e79f8','Uc598cc177279f0529468cdaddbf6854f',
                'Uc9b19ec4eb7fd05eee3c08d4d61b0c9e','U591fbc7dc53fd6d7aca233eca5b18d68','U5879131d2fc64720dee25a06bbf7ffba',
                'Ue90f0b2a33055ccf664f7654483a4d44','Ub2f85405c68f6d6551b495d23e110bc6','U961e975af54c50f6aa559c3e2238e4c5',
