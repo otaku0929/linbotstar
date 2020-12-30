@@ -8,7 +8,7 @@ import function.sys_messages
 _sys_mg = function.sys_messages.sys_messages()
 
 def main():
-    res = '小星星好色'
+    res = '小星星唱歌'
     _star_talk = start_talk()
     print(_star_talk.star_talk(res))
     
@@ -245,21 +245,31 @@ class start_talk(object):
             if re.search("(難|不好)聽",messages_talk):
                 return self.talk_dict('badsing',user_name)
             if re.search("(唱|唱一｜換｜換一|來一)[歌首]",messages_talk):
-                content = self.talk_dict('sing',user_name)
-                if re.search("抽歡歌",content):
+                rkey = random.randint(1,100)
+                #print(rkey)
+                if rkey > 85:
                     res = _hsing.sing17()
                     if re.search("找不到歌",res):
                         return "我不知道要唱什麼耶"
                     else:
-                        return res
-                elif re.search("UID",content):
-                    if  _hsing.s17uidsong(re.search("UID(\d+)",content).group(1)) == "查不到歌曲":
-                        return "突然不知道要唱什麼"
-                    else:
-                        #print(content)
-                        return _hsing.s17uidrandom(re.search("UID(\d+)",content).group(1))
+                        return res                    
                 else:
-                    return content
+                    content = self.talk_dict('sing',user_name)
+                    return content                    
+                # if re.search("抽歡歌",content):
+                #     res = _hsing.sing17()
+                #     if re.search("找不到歌",res):
+                #         return "我不知道要唱什麼耶"
+                #     else:
+                #         return res
+                # elif re.search("UID",content):
+                #     if  _hsing.s17uidsong(re.search("UID(\d+)",content).group(1)) == "查不到歌曲":
+                #         return "突然不知道要唱什麼"
+                #     else:
+                #         #print(content)
+                #         return _hsing.s17uidrandom(re.search("UID(\d+)",content).group(1))
+                # else:
+                #     return content
             if re.search("卡米狗|Orz|linebot",messages_talk):
                 return self.talk_dict('linebot',user_name)
             if re.search("心情(不好|差|很差)",messages_talk):
@@ -495,11 +505,11 @@ class start_talk(object):
                       '歐嗨唷，今天也要元氣滿滿哦','早，早上喝杯溫開水對身體很好哦','起床了啊~快來一起，one more tow more tree more...',
                       '好早哦，要不要再滾一下','摸摸頭，再瞇一下吧','醒了嗎?再不醒要用冰毛巾擦臉了哦','主人，早餐做好了請來享用吧','Coffee or Tea or ?',
                       '%s早安，記得戴口罩哦'%u,'早，有你的早晨就是美的一天'],
-                '午安':['午安','吃飽了嗎?','午餐要吃什麼呢?','今天天氣如何呢?','加油~別忘記喝水哦','午~要喝咖啡嗎?','下午再加油一下'],
+                '午安':['牛安','午安','吃飽了嗎?','午餐要吃什麼呢?','今天天氣如何呢?','加油~別忘記喝水哦','午~要喝咖啡嗎?','下午再加油一下'],
                 '晚安':['晚安','晚安 %s'%u,'嗯~我也要睡了','乖乖睡哦','噓~快睡吧','zzzzzz','噓~~~~','記得睡前先尿尿哦','%s 別尿床了哦~'%u,'記得刷牙哦~','%s 刷牙了嗎?'%u,'關燈睡覺',
                       '拍拍拍~','祝你有個美夢','啊~~我也累了~晚安囉','睡覺不要踢被被哦','早睡早起身體好','真的要睡了嗎?閉上眼就看不見星星了耶',
                       '我也要一起窩被被','%s 一起睡吧'%u,'乖被被蓋好，閉閉囉','床暖好了，快來吧','night ninght~~ZZZZ','乖乖睡別再玩了哦','手機拿來，去睡吧',
-                      '快快睡，明天才有精神哦','要我陪睡嗎?','我也要一起擠一擠','有點晚囉，快去睡吧'],
+                      '快快睡，明天才有精神哦','要我陪睡嗎?','我也要一起擠一擠','有點晚囉，快去睡吧','要抱著我睡嗎?'],
                 '再見':['bye-bye-','下次見','要想我哦','快走快走~走了就別回來了','別太想我','我會想妳的','別走~~~~','嗚~~~~~怎辦我開始想妳了'],
                 'hi':['hi','hello','%s 你好啊'%u,'今天天氣如何?','%s 要抽一張嗎?'%u,'安安啊~','有什麼事嗎?','找我嗎?','嗨嗨~'],
                 'you':['找我有什麼事嗎?','想聊天嗎?','要做什麼呢?','沒事別叫我'],
@@ -554,8 +564,8 @@ class start_talk(object):
                          '%s手來。我如果騙妳，我心臟會砰砰跳。妳感覺一下，有嗎？'%u,'要當我的CP嗎?'],
                 'badsing':['哼~我不唱了','那你唱','換你唱','我又不是大歌星','就不會唱歌啊'],
                 'sing':['一閃一閃亮晶晶，滿天都是小星星......',
-                        'I have a pen I have an apple hmmm~ Apple pen I have a star I have a litte hmmm~  littestar',
-                        '你 就是我的小星星 掛在那天上放光明  我已經決定要愛你 就不會輕易放棄...',
+                        'I have a pen \nI have an apple \nhmmm~ Apple pen \nI have a star \nI have a litte \nhmmm~  littestar',
+                        '你 \n就是我的小星星 \n掛在那天上放光明  \n我已經決定要愛你 \n就不會輕易放棄...',
                         '跟著我 左手 右手 一個慢動作 右手 左手 慢動作重播...',
                         '我不太會唱歌啦','走啊~那個包廂','三天三夜的三更半夜 唱歌不要停歇',
                         '要唱什麼歌呢?','我們一起學貓叫 一起喵喵喵喵喵  在你面前撒個嬌 哎呦喵喵喵喵喵...',
@@ -581,7 +591,10 @@ class start_talk(object):
                         阿公在那坐　阿婆真不好意思\n阿公仔對阿婆　使一個眼尾\n阿婆仔才知　是阿公看天天開心　暗爽在心內\n天天開心天天開心　看到開心肝',
                         '我一起床 就感覺頭皮發麻\n快要死掉吐完之後又去廁所拉\n我到現在還記得 那位風騷娘\n一想到 他就吐出了橘黃色的pizza\n啤酒加可樂 弄的我好high...',
                         '情與義，值千金！\n刀山去，地獄去，有何憾！\n為知己，犧牲有何憾；\n為嬌娃，甘心剖寸心；\n血淚為情流，一死豈有恨，\n有誰人，敢過問！',
-                        '抽歡歌','UID526155','UID1048784','UID637621','UID954530','UID181460','UID814357','UID1585626'],
+                        '我要變好看 要變好看\n化身蘿莉少女為我點個贊\n我要變好看 再變好看\n讓你對我超級無敵最喜歡...',
+                        '我還是從前的小星星 沒有一絲絲改變\n時間只不過是考驗\n種在心中信念絲毫未減\n眼前這小星星\n還是最初那張臉\n面前再多艱險不退卻\nSay never never give up Like a fire',
+                        '抽歡歌'],
+                        #,'UID526155','UID1048784','UID637621','UID954530','UID181460','UID814357','UID1585626'],
                 'random':['一閃一閃亮晶晶 滿天都是小星星','是誰在叫我啊','你看不到我0.0','想抽一張，卻抽到天菜哥，像極了愛情',
                    '來了來了~','麥吵~底睏啦~','小星星你的好幫手','別羨慕我那無處安放的帥氣','甘啊捏',
                    '要抽一張嗎','噓~~','抽','%s你好~找我嗎'%u,'出口記得戴口罩哦','興奮到模糊',
