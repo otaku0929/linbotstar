@@ -27,11 +27,15 @@ _config = function.config_setting.config_setting()
 
 def main():
     _game = game_zone()
-    _game_card = card_fight()
-    content = _game_card.fight_win_item(1)
+    
+    res = '十連抽'
+    print(_game.lucky_ten())
+    
+    #_game_card = card_fight()
+    #content = _game_card.fight_win_item(1)
     
     #content = _game_card.goldbox('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
-    content = _game.ruser_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','http://dl.profile.line-cdn.net/0hLkoyPlmqE0RSAD5u3DZsE25FHSklLhUMKmILJiUCRHQrZVRGPWZfJnJTTHJ5ZQESaWNUJn5VTics')
+    #content = _game.ruser_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','http://dl.profile.line-cdn.net/0hLkoyPlmqE0RSAD5u3DZsE25FHSklLhUMKmILJiUCRHQrZVRGPWZfJnJTTHJ5ZQESaWNUJn5VTics')
     #content = _game.get_user_profile('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
     #content = _game.get_starcoin('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨')
     #content = _game.card_pk('U9f2c61013256dfe556d70192388e4c7c','藍宇星✨victor✨','阿貴')
@@ -62,7 +66,7 @@ def main():
     #else:
     #    print(content[0],content[1])
     #print(content.count())
-    print(content)
+    #print(content)
     
 class game_zone(object):
     
@@ -73,6 +77,87 @@ class game_zone(object):
 
     def time(self):
         return str(datetime.datetime.now(pytz.timezone('Asia/Taipei')))[0:10]
+
+    def lucky_ten(self):
+  
+        maxn = 1
+        num = 10000
+        gsr=0
+        ssr=0
+        sr=0
+        r=0
+        n=0
+        
+        content = ''
+        
+        while maxn<11:
+           
+            get = random.randint(1,10000)
+            #print(get)
+            get_content = self.get_luck_ten_content(get,num)
+            
+            if get_content == '傳說稀有(GSR)':
+                gsr=gsr+1
+            elif get_content == '超級稀有(SSR)':
+                ssr=ssr+1
+            elif get_content == '超稀有(SR)':
+                sr=sr+1
+            elif get_content == '稀有(R)':
+                r=r+1
+            elif get_content == '一般(N)':
+                n=n+1     
+            
+            if maxn == 1:
+                content = '第{}抽，{}'.format(maxn,get_content)
+            else:
+                content = content+'\n第{}抽，{}'.format(maxn,get_content)
+            #print(content)
+            
+            maxn=maxn+1
+        
+            
+        if gsr>0 :
+            content = '歐神請讓我膜拜吧!!!竟然抽到{}張傳統稀有(GSR)，快去買樂透吧!!!\n*********\n{}'.format(gsr,content)
+            return content 
+        if ssr>0 :
+            content = '歐洲人就是你!!! 十連抽抽中了{}張超級稀有(SSR)\n*********\n{}'.format(ssr,content)
+            return content      
+        if sr>0 :
+            content = '今天運氣還不錯哦!!! 十連抽有{}張超稀有(SR)\n*********\n{}'.format(sr,content)
+            return content 
+        if r>0 :
+            content = '手氣還可以啦，十連抽有{}張稀有(R)\n*********\n{}'.format(r,content)
+            return content 
+
+        content = '非洲臉，再抽一次看看，是不是烏金非洲人吧!!!\n*********\n{}'.format(content)
+        return content 
+    
+    def get_luck_ten_content(self,res,num):
+
+        content = '一般(N)'
+        
+        
+        gsr = 0.0005
+        ssr = 0.01
+        sr = 0.055
+        r = 0.35
+        #n = 0.4
+    
+
+        try:
+            if res>num-num*gsr:
+                content = '傳說稀有(GSR)'
+            elif num-num*gsr>res>num-num*ssr:
+                content = '超級稀有(SSR)'
+            elif num-num*ssr>res>num-num*sr:
+                content = '超稀有(SR)'
+            elif num-num*sr>res>num-num*r:
+                content = '稀有(R)'   
+                
+        except:
+            content = ("except error")
+
+        return content
         
     def r18(self):
 
@@ -123,6 +208,7 @@ class game_zone(object):
         if len(y)==2:         
            content = '18啦~~\n\n本次擲出結果為:{},{},{}.{}\n\n水哦  十八!!!!'.format(a,b,c,d,n)
            return content
+       
        
     def to_starcoin(self,user,num):
             
