@@ -8,7 +8,7 @@ import function.sys_messages
 _sys_mg = function.sys_messages.sys_messages()
 
 def main():
-    res = '小星星Happy New Year'
+    res = 'Happy new Year'
     _star_talk = start_talk()
     print(_star_talk.star_talk(res))
     
@@ -20,6 +20,8 @@ class start_talk(object):
     def star_talk(self, messages_talk, user_name=None):
         if re.search('(為什麼)?[沒有|不會|不給我](產生)?卡片',messages_talk):
             return self.talk_dict('為什麼沒有卡片',user_name)
+        if re.search('Happy New Year',messages_talk):
+            return self.talk_dict('happy new year',user_name)
         if re.match("^幹|fuck|操",messages_talk):
              return self.talk_dict('fuck',user_name)
         if re.search('(操|幹|fuck)[你|他](娘|媽|老師|you)',messages_talk):
