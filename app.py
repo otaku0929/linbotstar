@@ -856,7 +856,7 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token,carousel_template_message)
         #gs_write('B12')
         return 0
-    words_list = "小星星|幹|操|fuck|三小|靠北|爆料|三字經|壞掉了|早安|早啊|晚安|睡囉|哈哈哈哈哈|(才|你|小星星)尿床|尿好了|有尿了"
+    words_list = "小星星|幹|操|fuck|三小|靠北|爆料|三字經|壞掉了|早安|早啊|晚安|睡囉|哈哈哈哈哈|(才|你|小星星)尿床|尿好了|有尿了|Happy New Year"
     if re.search(words_list,event.message.text):
         key = '小星星'
         try:
