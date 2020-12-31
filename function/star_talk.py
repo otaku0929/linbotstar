@@ -8,7 +8,7 @@ import function.sys_messages
 _sys_mg = function.sys_messages.sys_messages()
 
 def main():
-    res = '小星星唱歌'
+    res = '小星星Happy New Year'
     _star_talk = start_talk()
     print(_star_talk.star_talk(res))
     
@@ -45,6 +45,8 @@ class start_talk(object):
         if re.search("(才|你|小星星)尿床",messages_talk):
              return self.talk_dict('尿床',user_name)
         if re.search("小星星",messages_talk):
+            if re.search('Happy New Year|新年快樂|happy new year|Happy new year',messages_talk):
+                return self.talk_dict('happy new year',user_name)
             if re.search('好色|色鬼|色魔',messages_talk):
                 return self.talk_dict('色鬼',user_name)
             if re.search('[好很超]累',messages_talk):
@@ -357,6 +359,10 @@ class start_talk(object):
         if u ==None:
             u = ''
         dict={
+                'happy new year':['happy new year!!!','2021快樂','咻碰~~~咻碰~~2021新年快樂','hapyy 2021','Happy ~~~ new ~~~ year', 
+                '%s happy new year'%u,'2021年大家都開開心心的','跨年不忘戴口罩哦~happy new year','2021小星星依舊陪伴著你唷','2021 愛你愛伊',
+                '%s Happy new year 有什麼新年新希望嗎?'%u,'2021 也請多多指教', '也記得跟家人說聲happ new year哦',
+                '5...4...3...2...1 Happy New Year','%s是不是覺得有我陪你跨年感覺棒呆了'%u,'2021 希望大家都平安順心唷'],
                 '為什麼沒有卡片':['請加小星星好友再產生一次看看，如果還是有問題請到小星星的首頁或粉絲團回報一下'],
                 '愛我嗎':['當然是~~不愛都不行囉','看著我的眼，有看到愛心嗎?','愛妳愛妳愛妳好愛妳','照照鏡子吧','我想睡了，晚安',
                        '這問題答案就在你心裡','愛不是用嘴巴講講的'],
@@ -595,7 +601,8 @@ class start_talk(object):
                         '我還是從前的小星星 沒有一絲絲改變\n時間只不過是考驗\n種在心中信念絲毫未減\n眼前這小星星\n還是最初那張臉\n面前再多艱險不退卻\nSay never never give up Like a fire',
                         '抽歡歌'],
                         #,'UID526155','UID1048784','UID637621','UID954530','UID181460','UID814357','UID1585626'],
-                'random':['一閃一閃亮晶晶 滿天都是小星星','是誰在叫我啊','你看不到我0.0','想抽一張，卻抽到天菜哥，像極了愛情',
+                'random':['小星星永遠在這裡','2021小星星還是伴著你唷','就算大家都忘了你，還有我在',
+                   '一閃一閃亮晶晶 滿天都是小星星','是誰在叫我啊','你看不到我0.0','想抽一張，卻抽到天菜哥，像極了愛情',
                    '來了來了~','麥吵~底睏啦~','小星星你的好幫手','別羨慕我那無處安放的帥氣','甘啊捏',
                    '要抽一張嗎','噓~~','抽','%s你好~找我嗎'%u,'出口記得戴口罩哦','興奮到模糊',
                    '我跳出來了','底家底家','笑咪咪','笨蛋的想法真是令人難以理解','%s聽說你是時間管理大師'%u,
