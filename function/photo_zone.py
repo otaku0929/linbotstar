@@ -56,7 +56,8 @@ class photo_zone(object):
         
     def random(self):
         b=self.imgur_boys
-        g=self.beauty_girls
+        #g=self.beauty_girls
+        g=self.imgur_girls
         gs=self.imgur_girls
         content = random.choice([b,g,b,g,b,g,g,gs,g,gs])
         return content()
