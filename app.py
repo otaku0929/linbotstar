@@ -417,7 +417,7 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, image_message)
         return 0
     if event.message.text in ['抽正妹','抽美女']:
-        image_message = _photos.beauty_girls()
+        image_message = _photos.imgur_girls()
         line_bot_api.reply_message(event.reply_token, image_message)
         return 0
     if event.message.text in ['抽帥哥','抽鮮肉','抽猛男']:
@@ -436,7 +436,7 @@ def handle_message(event):
         image_message = _photos.gods_talk()
         line_bot_api.reply_message(event.reply_token, image_message)
         return 0 
-    if event.message.text in ["現在吃什麼"]:
+    if event.message.text in ["抽美食", "抽食物"]:
         image_message = _photos.food()
         line_bot_api.reply_message(event.reply_token, image_message)
         return 0
