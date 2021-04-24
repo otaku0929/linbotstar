@@ -92,6 +92,9 @@ class photo_zone(object):
     
     def food(self):
         return self.get_imgur_photo('9rYK8')    
+
+    def ponda(self):
+        return self.get_imgur_photo('R7PdRUf')  
     
     def get_imgur_photo(self,album_id):
         client = ImgurClient(self.imgur_client_id, self.imgur_client_secret)
