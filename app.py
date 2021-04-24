@@ -428,6 +428,10 @@ def handle_message(event):
         image_message = _photos.joke()
         line_bot_api.reply_message(event.reply_token, image_message)
         return 0
+    if event.message.text in ["抽熊貓","抽貓熊","抽ponda"]:
+        image_message = _photos.ponda()
+        line_bot_api.reply_message(event.reply_token, image_message)
+        return 0 
     if event.message.text in ["比大小"]:
         image_message = _photos.poker()
         line_bot_api.reply_message(event.reply_token, image_message)
