@@ -120,6 +120,13 @@ def handle_message(event):
     ####功能區####
     #取得event
     uid = event.source.user_id
+    if uid in ['Ud4ae5f866ee4f2013444bcdeadb8f781','U4c0d7be200c17e004ce657a9792e79f8','Uc598cc177279f0529468cdaddbf6854f',
+               'Uc9b19ec4eb7fd05eee3c08d4d61b0c9e','U591fbc7dc53fd6d7aca233eca5b18d68','U5879131d2fc64720dee25a06bbf7ffba',
+               'Ue90f0b2a33055ccf664f7654483a4d44','Ub2f85405c68f6d6551b495d23e110bc6','U961e975af54c50f6aa559c3e2238e4c5',
+               'U075480a9d8559374be4dc2e58596e13e','U8f14bd1360917de7907efbf3512204e0','U2d9216a941b8dbfcf40d4842752a18d7',
+               'U3d8df2ac300f554255ba7e92486c1868','U9df48f4ee7921db27578c1be6db91e17','Ua98687084b5a5fa2c7307330036b1c8d']:
+        #print ('twstar say goodbye user %s'%uid)
+        return 0
     #check_message=event.message.text
     if event.source.type == 'group':
         gid = event.source.group_id
@@ -137,18 +144,9 @@ def handle_message(event):
                    'Cf0668ae82ff214e4ec7c56bc4faafdf8','C4fd4bfa3c666241eee3f13ae228b9bcd'
                    ]:
             #print ('twstar say goodbye %s'%gid)
+         if len(event.message.text) > 81:
+            print (gid, 'twstar say message too loooooooooooooong')
             return 0
-    if uid in ['Ud4ae5f866ee4f2013444bcdeadb8f781','U4c0d7be200c17e004ce657a9792e79f8','Uc598cc177279f0529468cdaddbf6854f',
-               'Uc9b19ec4eb7fd05eee3c08d4d61b0c9e','U591fbc7dc53fd6d7aca233eca5b18d68','U5879131d2fc64720dee25a06bbf7ffba',
-               'Ue90f0b2a33055ccf664f7654483a4d44','Ub2f85405c68f6d6551b495d23e110bc6','U961e975af54c50f6aa559c3e2238e4c5',
-               'U075480a9d8559374be4dc2e58596e13e','U8f14bd1360917de7907efbf3512204e0','U2d9216a941b8dbfcf40d4842752a18d7',
-               'U3d8df2ac300f554255ba7e92486c1868','U9df48f4ee7921db27578c1be6db91e17','Ua98687084b5a5fa2c7307330036b1c8d']:
-        #print ('twstar say goodbye user %s'%uid)
-        return 0
-        print(event.source.type, gid, uid, "event.message.text:", event.message.text)
-    if len(event.message.text) > 81:
-        print (event.source.group_id, 'twstar say message too loooooooooooooong')
-        return 0
     # if event.message.text.find('http') == -1:
     #     print ('get http request')
     #     return 0
