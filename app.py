@@ -144,9 +144,11 @@ def handle_message(event):
                    'Cf0668ae82ff214e4ec7c56bc4faafdf8','C4fd4bfa3c666241eee3f13ae228b9bcd'
                    ]:
             #print ('twstar say goodbye %s'%gid)
-         if len(event.message.text) > 81:
-            print (gid, 'twstar say message too loooooooooooooong')
             return 0
+        if len(event.message.text) > 81:
+           print (gid, 'twstar say message too loooooooooooooong')
+           return 0
+        print (gid, "event.message.text:", event.message.text)
     # if event.message.text.find('http') == -1:
     #     print ('get http request')
     #     return 0
