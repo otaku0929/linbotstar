@@ -122,7 +122,7 @@ def handle_message(event):
     uid = event.source.user_id
     #check_message=event.message.text
     if len(event.message.text) > 81:
-        print (gid, uid,'twstar say message too loooooooooooooong')
+        print (event.source.group_id, 'twstar say message too loooooooooooooong')
         return 0
     # if event.message.text.find('http') == -1:
     #     print ('get http request')
