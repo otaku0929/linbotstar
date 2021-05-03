@@ -131,7 +131,7 @@ def handle_message(event):
                'Uc9b19ec4eb7fd05eee3c08d4d61b0c9e','U591fbc7dc53fd6d7aca233eca5b18d68','U5879131d2fc64720dee25a06bbf7ffba',
                'Ue90f0b2a33055ccf664f7654483a4d44','Ub2f85405c68f6d6551b495d23e110bc6','U961e975af54c50f6aa559c3e2238e4c5',
                'U075480a9d8559374be4dc2e58596e13e','U8f14bd1360917de7907efbf3512204e0','U2d9216a941b8dbfcf40d4842752a18d7',
-               'U3d8df2ac300f554255ba7e92486c1868','U9df48f4ee7921db27578c1be6db91e17']:
+               'U3d8df2ac300f554255ba7e92486c1868','U9df48f4ee7921db27578c1be6db91e17','Ua98687084b5a5fa2c7307330036b1c8d']:
         #print ('twstar say goodbye user %s'%uid)
         return 0
     if event.source.type == 'group':
