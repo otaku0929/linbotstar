@@ -147,7 +147,7 @@ def handle_message(event):
                    'C77233c5247162675bcf136a49dca3c65','Cad734f74aa8502863db80326dc7f583a','Ce5142b1ba051ab67ef29941a071b626a',
                    'Cb6b6814046c73bcb6023df6d00e04ae7','C4070ca20e170b474e2fbe9c699823a9d','C11a41441bf6557627a11ba9995b92232',
                    'C4070ca20e170b474e2fbe9c699823a9d','C235b5eaff1741e6afffc58bdd2d4d58b','Cc9fbfb283b935cd41a65046025ef885a',
-                   'Cf0668ae82ff214e4ec7c56bc4faafdf8'
+                   'Cf0668ae82ff214e4ec7c56bc4faafdf8','C4fd4bfa3c666241eee3f13ae228b9bcd'
                    ]:
             #print ('twstar say goodbye %s'%gid)
             return 0
