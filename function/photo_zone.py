@@ -58,8 +58,9 @@ class photo_zone(object):
         b=self.imgur_boys
         #g=self.beauty_girls
         g=self.imgur_girls
-        gs=self.imgur_girls2
-        content = random.choice([b,g,b,g,b,g,g,g,g,gs,gs,g,gs,b,gs,g])
+        gs=self.imgur_girls1
+        gs2=self.imgur_girls2
+        content = random.choice([b,g,gs,gs2,b,g,gs,gs2,b,g,g,g,g,gs,gs,g,gs,b,gs,gs2,gs2])
         return content()
         
                  
@@ -75,8 +76,11 @@ class photo_zone(object):
     def imgur_girls(self):
         return self.get_imgur_photo('23p2B')
 
-    def imgur_girls2(self):
+    def imgur_girls(self):
         return self.get_imgur_photo('h6tFU75')
+    
+    def imgur_girls2(self):
+        return self.get_imgur_photo('2rMJrrr')
     
     def imgur_boys(self):
         return self.get_imgur_photo('9eQni')       
