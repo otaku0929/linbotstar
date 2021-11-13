@@ -76,7 +76,7 @@ class photo_zone(object):
     def imgur_girls(self):
         return self.get_imgur_photo('23p2B')
 
-    def imgur_girls(self):
+    def imgur_girls1(self):
         return self.get_imgur_photo('h6tFU75')
     
     def imgur_girls2(self):
