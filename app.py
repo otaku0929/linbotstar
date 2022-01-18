@@ -145,7 +145,7 @@ def handle_message(event):
                    ]:
             #print ('twstar say goodbye %s'%gid)
             return 0
-        if len(event.message.text) > 81:
+        if len(event.message.text) > 150:
            print (gid, 'twstar say message too loooooooooooooong')
            return 0
         print (gid, uid, "event.message.text:", event.message.text)
