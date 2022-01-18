@@ -53,7 +53,8 @@ class Sql(object):
         
         #url = urlparse.urlparse(os.environ['DATABASE_URL'])
         #url = urlparse.urlparse('postgres://emghycqpjwctwr:04a3e938a72371fd03f0ed0428836f805c95b08fc332e9976fa9f2f82cdc1549@ec2-54-83-33-213.compute-1.amazonaws.com:5432/dcfuue2glgrc2m')
-        url = urlparse.urlparse('postgres://pribivzsxykwmb:92f4145a791a0f99a955f95f5ae535c9cacdee460714a6c116ce7590f6085d9b@ec2-50-19-232-205.compute-1.amazonaws.com:5432/dd36ve9o6lu3sa')
+        #url = urlparse.urlparse('postgres://pribivzsxykwmb:92f4145a791a0f99a955f95f5ae535c9cacdee460714a6c116ce7590f6085d9b@ec2-50-19-232-205.compute-1.amazonaws.com:5432/dd36ve9o6lu3sa')
+        url = urlparse.urlparse('postgres://hmmmcsptmyjabk:2654ed59661451fe5cba0af0fd3db73adc6415430d74033b0b063ca2a8e75fb8@ec2-35-173-10-175.compute-1.amazonaws.com:5432/d7dvgrr79miv5q')
         
         self.class_name = 'Sql'
         self.database = url.path[1:]
